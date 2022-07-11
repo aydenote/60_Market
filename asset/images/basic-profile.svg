@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="레이어_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 1870.87 1870.87" style="enable-background:new 0 0 1870.87 1870.87;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#EDEDEC;}
+	.st1{clip-path:url(#SVGID_00000049199000567905977340000003456461043953849774_);}
+	.st2{fill:#9B9B9B;stroke:#565656;stroke-width:40;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st3{fill:#E2E2E2;stroke:#565656;stroke-width:40;stroke-miterlimit:10;}
+	.st4{fill:#565656;stroke:#565656;stroke-width:40;stroke-linejoin:round;stroke-miterlimit:10;}
+</style>
+<circle class="st0" cx="935.43" cy="935.43" r="901.24"/>
+<g>
+	<defs>
+		<circle id="SVGID_1_" cx="935.43" cy="935.43" r="901.24"/>
+	</defs>
+	<clipPath id="SVGID_00000034091846622035318100000015011486117348932483_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGID_00000034091846622035318100000015011486117348932483_);">
+		<ellipse class="st2" cx="1004.9" cy="494.27" rx="204.18" ry="204.22"/>
+		<path class="st2" d="M1139.3,739.6L672.94,588.12c-55.02-17.87-85.15-76.96-67.28-131.99l0.01-0.03
+			c17.87-55.03,76.97-85.15,132-67.28l466.36,151.47c55.02,17.87,85.15,76.96,67.28,131.99l-0.01,0.03
+			C1253.43,727.35,1194.33,757.47,1139.3,739.6z"/>
+		<ellipse class="st3" cx="953.5" cy="1130.42" rx="642.32" ry="642.42"/>
+		<path class="st4" d="M814.06,995.4L814.06,995.4c-17.97-1.57-31.27-17.41-29.7-35.38l4.79-54.85
+			c1.57-17.97,17.41-31.27,35.38-29.7l0,0c17.97,1.57,31.27,17.41,29.7,35.38l-4.79,54.85C847.88,983.67,832.03,996.96,814.06,995.4
+			z"/>
+		<path class="st4" d="M1027.84,995.4L1027.84,995.4c-17.97-1.57-31.27-17.41-29.7-35.38l4.79-54.85
+			c1.57-17.97,17.41-31.27,35.38-29.7l0,0c17.97,1.57,31.27,17.41,29.7,35.38l-4.79,54.85
+			C1061.66,983.67,1045.81,996.96,1027.84,995.4z"/>
+		<path class="st2" d="M311.48,1248.53c0,0,196.97,223.62,609.06,201.39c0,0,429.92-3.92,670.13-205.31l-34.65,607.59
+			c-0.65,11.29-9.91,20.12-21.12,20.12H374.17c-11.58,0-21.18-9.06-21.97-20.72L311.48,1248.53z"/>
+	</g>
+</g>
+</svg>

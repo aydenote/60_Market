@@ -1,0 +1,9 @@
+:root {
+  --mainColor: #6167ac;
+  --subColor: #d2d5f4;
+  --hoverColor: #4d528b;
+  --backgroundColor: #ededed;
+  --textColor: #767676;
+  --borderColor: #dbdbdb;
+  --shadow: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.5));
+}
