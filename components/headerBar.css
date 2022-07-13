@@ -1,0 +1,57 @@
+header .headerBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  background-color: white;
+  border-bottom: 1px solid var(--borderColor);
+  display: flex;
+  align-items: center;
+  z-index: 100;
+}
+
+/* 뒤로 가기 */
+
+.headerBar .headerBarBack,
+.headerBar .headerBarInput {
+  flex: none;
+}
+
+/* headerBar 텍스트 / 검색창 */
+
+.headerBar .headerBarInput {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.headerBar .headerBarSearch {
+  width: calc(100% - 50px);
+  height: 25px;
+  padding: 4px 10px;
+  border-radius: 32px;
+  background-color: var(--borderColor);
+}
+
+.headerBar .headerBarInput::placeholder {
+  color: var(--textColor);
+  opacity: 0.4;
+}
+
+/* headerBar 모달 버튼 / 저장, 업로드 버튼 */
+
+.headerBar .headerBarBtn {
+  margin-left: auto;
+}
+
+.headerBar .headerBarSettingBtn {
+  width: 90px;
+  height: 32px;
+  border-radius: 32px;
+  font-size: 14px;
+  color: white;
+  background-color: var(--mainColor);
+  opacity: 0.3;
+}
