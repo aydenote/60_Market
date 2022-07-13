@@ -1,0 +1,69 @@
+.navBar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid var(--borderColor);
+  padding: 8px 35px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.navBar .navList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navList .nav {
+  text-align: center;
+}
+
+.nav .navIcon {
+  width: 24px;
+  height: 24px;
+  margin: 5px auto;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* default class */
+
+.nav .navHome {
+  background-image: url(../../asset/images/navIcons/navIcon__home.svg);
+}
+
+.nav .navChat {
+  background-image: url(../../asset/images/navIcons/navIcon__chat.svg);
+}
+
+.nav .navPosting {
+  background-image: url(../../asset/images/navIcons/navIcon__posting.svg);
+}
+
+.nav .navProfile {
+  background-image: url(../../asset/images/navIcons/navIcon__userProfile.svg);
+}
+
+.nav .navText {
+  font-size: 10px;
+  color: var(--textColor);
+}
+
+/* selected class */
+
+.nav .navHomeSelected {
+  background-image: url(../../asset/images/navIcons/navIcon__home__selected.svg);
+}
+
+.nav .navChatSelected {
+  background-image: url(../../asset/images/navIcons/navIcon__chat__selected.svg);
+}
+
+.nav .navProfileSelected {
+  background-image: url(../../asset/images/navIcons/navIcon__userProfile__selected.svg);
+}
+
+.nav .navTextSelected {
+  color: var(--mainColor);
+}

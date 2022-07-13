@@ -1,0 +1,63 @@
+.userlist .userItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userItem .userBox {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.userBox .userProfileImage {
+  width: 50px;
+  border-radius: 50%;
+  border: 0.5px solid var(--borderColor);
+}
+
+.userBox .followBtn {
+  width: 56px;
+  height: 28px;
+  padding: 5px;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  background-color: var(--mainColor);
+}
+
+.userBox .userInfo {
+  width: calc(100% - 61px);
+  display: flex;
+  flex-direction: column;
+}
+
+.userInfo .userNickname {
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 6px;
+}
+
+.userInfo .userText {
+  display: flex;
+  justify-content: space-between;
+}
+
+.userInfo .userMsgContent {
+  font-size: 12px;
+  color: var(--textColor);
+}
+
+.userInfo .userStatusMsg {
+  width: 230px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userInfo .userText .userMsgDate {
+  color: var(--borderColor);
+}
