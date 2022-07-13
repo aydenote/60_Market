@@ -1,0 +1,83 @@
+.posting {
+  padding: 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+main .postingForm {
+  width: 100%;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.postingForm > input {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borderColor);
+}
+
+.postingForm .postingFormLabel {
+  color: var(--textColor);
+  font-size: 13px;
+  margin: 10px 0;
+}
+
+.postingForm #postingImg {
+  display: none;
+}
+
+.postingForm .postingFormUplodeImg {
+  position: relative;
+  width: 100%;
+  height: 204px;
+  border-radius: 10px;
+  background-color: var(--borderColor);
+}
+
+.postingFormUplodeImg .postingUplodeImg {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  bottom: 3%;
+  right: 2%;
+}
+
+.postingForm .postingTimeSelect .postingSelectBtn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 7px;
+  color: var(--borderColor);
+  font-size: 12px;
+  text-align: start;
+  border: 1px solid var(--borderColor);
+  border-radius: 10px;
+  background: url(../../asset/images/icons/icon__settingBtn.svg) no-repeat;
+  background-position: right 14px center;
+}
+
+.postingTimeSelect .postingTimeList {
+  display: none;
+  margin-top: 5px;
+  border: 1px solid var(--borderColor);
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.postingTimeSelect .postingTimeList .textEllipsis {
+  margin: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: none;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.postingForm .postingContent {
+  padding: 10px;
+  height: 184px;
+  box-sizing: border-box;
+  border: 1px solid var(--borderColor);
+  border-radius: 10px;
+  resize: none;
+}
