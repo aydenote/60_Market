@@ -11,7 +11,7 @@
 
 /* Screens */
 @import 'screens/main.css';
-@import 'screens/lodding.css';
+@import 'screens/loadding.css';
 @import 'screens/register.css';
 /* Chat */
 @import 'screens/chat.css';
