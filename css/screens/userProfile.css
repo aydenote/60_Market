@@ -1,0 +1,173 @@
+.profileBackground {
+  background-color: #f2f2f2;
+}
+
+.myFollow.myProfileImg .myImage {
+  width: 110px;
+  height: 110px;
+}
+
+.ProfileContent .introduce {
+  text-align: center;
+  margin-bottom: 10px;
+  background-color: white;
+  padding-bottom: 33px;
+}
+
+.introduce .followers::after {
+  display: block;
+  content: "followers";
+  margin-top: 5px;
+  color: var(--textColor);
+  font-size: 8px;
+}
+
+.introduce .followings::after {
+  display: block;
+  content: "followings";
+  margin-top: 5px;
+  color: var(--textColor);
+  font-size: 8px;
+}
+
+.introduce .myFollow.myProfileImg {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+}
+
+.myFollow.myProfileImg .followings,
+.myFollow.myProfileImg .followers {
+  margin-top: 65px;
+  font-weight: 700;
+  font-size: 18px;
+  color: black;
+}
+
+.myFollow.myProfileImg .followers {
+  color: black;
+}
+
+.myFollow.myProfileImg .followings {
+  color: var(--textColor);
+}
+
+.myFollow.myProfileImg .myImage {
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.ProfileContent .profileInfo {
+  margin-top: 15px;
+}
+
+.profileInfo .userName {
+  font-weight: 700;
+}
+
+.profileInfo .userEmail {
+  margin-top: 5px;
+  color: var(--textColor);
+  font-size: 12px;
+}
+
+.profileInfo .introduction {
+  margin: 15px 0 24px 0px;
+  color: var(--textColor);
+  font-size: 14px;
+}
+
+.profileUpdate.addProduct {
+  margin-top: 32px;
+}
+
+.profileUpdate.addProduct .fixProfile,
+.profileUpdate.addProduct .addPosting {
+  padding: 8px 26px;
+  color: var(--textColor);
+  background: white;
+  border: 1px solid var(--borderColor);
+  border-radius: 30px;
+  font-size: 14px;
+}
+
+.profileUpdate.addProduct .addPosting {
+  margin-left: 12px;
+}
+
+.ProfileContent .saleItems {
+  overflow: hidden;
+  background-color: white;
+}
+
+.saleItems .title {
+  margin: 20px 0 15px 20px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.saleItems .productList {
+  display: flex;
+  gap: 10px;
+  margin: 0 0 20px 20px;
+}
+
+.saleItems .productList li {
+  cursor: pointer;
+}
+
+.saleItems .productList img {
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.productList .ProductTitle {
+  margin-bottom: 4px;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.productList .price {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--mainColor);
+}
+
+.ProfileContent .postingSummary {
+  background-color: white;
+}
+
+.postingSummary .albumBar {
+  width: 100%;
+  height: 48px;
+  padding: 0 10px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  background-color: white;
+  border-bottom: 1px solid var(--borderColor);
+  display: flex;
+  align-items: center;
+  position: static;
+  justify-content: flex-end;
+  gap: 18px;
+}
+
+.albumBar .albumType.unselected {
+  opacity: 0.3;
+}
+
+.postingSummary .postContent {
+  padding: 16px 21px 31px 21px;
+}
+
+.postContent .postingList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 390px;
+  margin: auto;
+}
+
+.postContent .postingList li {
+  text-align: center;
+  cursor: pointer;
+}
