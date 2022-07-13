@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../asset/images/favicon.ico" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <title>60'' Market | 제주감귤마을</title>
+  </head>
+  <body>
+    <header>
+      <h1 class="ir">제주감귤마을님 채팅방</h1>
+      <article class="headerBar">
+        <img
+          class="headerBarBack buttonClick"
+          src="../asset/images/icons/icon__arrowLeft.svg"
+          alt="뒤로가기"
+          onclick="history.back()"
+        />
+        <p class="headerBarText headerBarInput" class="">제주감귤마을</p>
+        <img
+          class="headerBarModal headerBarBtn buttonClick"
+          src="../asset/images/icons/icon__menu.svg"
+          alt="메뉴"
+        />
+      </article>
+    </header>
+
+    <main class="chatScreen">
+      <!-- 수신 메시지 -->
+      <article class="chatMsg chatIncommingMsg">
+        <!-- 수신 메시지 유저 프로필 사진 -->
+        <img
+          src="../asset/images/basic-profile.svg"
+          alt="프로필 이미지"
+          class="userProfileImage"
+        />
+        <section class="chatMsgContent">
+          <!-- 메시지 내용 -->
+          <p class="chatMsgText">
+            깊은 어둠의 존재감, 롤스로이스 뉴 블랙 배지 고스트 😎<br /><br />
+            오늘 우리는 새로운 모델, 뉴 블랙 배지 고스트를 공개합니다!<br />
+            포스트 오퓰런스 디자인을 통해 전설을 만들어 온 고스트는 이제
+            ‘블랙’의 요소를 더해 기존 고스트를 증폭하는 동시에 뒤엎습니다.<br />
+            우리의 가장 진보된 자동차는 롤스로이스의 얼터 에고인 단호함, 역동성,
+            강렬함을 담아내기 위해 다시 설계되었습니다. 롤스로이스 역사상 가장
+            순수한 블랙 배지 자동차. 바로 뉴 블랙 배지 고스트입니다. 👍
+          </p>
+          <!-- 메시지 날짜 -->
+          <p class="chatMsgDate">12:39</p>
+        </section>
+      </article>
+    </main>
+
+    <!-- 채팅 입력 -->
+    <footer class="chatEnter">
+      <form class="chatEnterImage">
+        <label for="chatSelectImage">
+          <img src="../asset/images/icons/icon__imagesUplode.svg" alt="" />
+        </label>
+        <input id="chatSelectImage" type="file" accept="image/*" />
+      </form>
+      <form class="chatEnterContent">
+        <input type="text" placeholder="메시지 입력하기..." />
+        <button type="button">전송</button>
+      </form>
+    </footer>
+  </body>
+</html>

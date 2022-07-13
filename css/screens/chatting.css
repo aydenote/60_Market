@@ -1,0 +1,69 @@
+.chatScreen {
+  height: 100vh;
+  padding: 60px 6px 0 12px;
+  background-color: var(--backgroundColor);
+}
+
+main .chatMsg {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.chatMsg .chatMsgContent {
+  display: flex;
+  align-items: flex-end;
+}
+
+.chatMsgContent .chatMsgText {
+  max-width: 240px;
+  font-size: 14px;
+  line-height: 18px;
+  white-space: break-word;
+  margin: 0 6px 0 12px;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid var(--textColor);
+  border-radius: 0 10px 10px 10px;
+  background-color: white;
+}
+
+.chatMsgContent .chatMsgDate {
+  font-size: 10px;
+  color: var(--textColor);
+}
+
+.chatMsgContent .chatMsgImage {
+  width: 200px;
+}
+
+/* 발신 메시지 */
+
+main .chatIncommingMsg {
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.chatIncommingMsg .userProfileImage {
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--borderColor);
+}
+
+/* 수신 메시지 */
+
+main .chatOutgoingMsg {
+  justify-content: flex-end;
+}
+
+.chatOutgoingMsg .chatMsgContent {
+  flex-direction: row-reverse;
+}
+
+.chatOutgoingMsg .chatMsgContent .chatMsgText {
+  color: white;
+  border: 1px solid var(--mainColor);
+  border-radius: 10px 0px 10px 10px;
+  background-color: var(--mainColor);
+}
