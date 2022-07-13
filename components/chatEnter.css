@@ -1,0 +1,50 @@
+.chatEnter {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 8px 17px;
+  box-sizing: border-box;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  border-top: 1.5px solid var(--borderColor);
+}
+
+.chatEnter .chatEnterImage {
+  width: 36px;
+  margin-right: 20px;
+}
+
+.chatEnter .chatEnterImage > input {
+  display: none;
+}
+
+.chatEnter .chatEnterContent {
+  width: calc(100% - 36px);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.chatEnter .chatEnterContent > input {
+  width: calc(100% - 46px);
+  margin-right: 20px;
+}
+
+.chatEnter .chatEnterContent > input::placeholder {
+  color: var(--borderColor);
+}
+
+.chatEnter .chatEnterContent > button {
+  width: 26px;
+  height: 18px;
+  padding: 0;
+  background: none;
+  font-size: 14px;
+  color: var(--borderColor);
+}
+
+.chatEnter .chatEnterContent > button:focus,
+.chatEnter .chatEnterContent > button:hover {
+  color: var(--mainColor);
+}
