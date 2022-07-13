@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/asset/images/favicon.ico" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <title>60'' Market | 나의 프로필</title>
+    <script src="/script/profile.js" defer></script>
+  </head>
+  <body class="profileBackground">
+    <header>
+      <h1 class="ir">내 프로필</h1>
+      <article class="headerBar profile">
+        <img
+          class="headerBarBack buttonClick"
+          src="/asset/images/icons/icon__arrowLeft.svg"
+          alt="뒤로가기"
+          onclick="history.back()"
+        />
+        <img
+          class="headerBarBtn buttonClick"
+          src="/asset/images/icons/icon__menu.svg"
+          alt="메뉴"
+        />
+      </article>
+    </header>
+
+    <main class="ProfileContent">
+      <section class="introduce">
+        <h2 class="ir">내 프로필 소개</h2>
+        <section class="myFollow myProfileImg">
+          <a class="followers" href="yourProfileFollow.html">2950</a>
+          <img
+            class="myImage"
+            src="/asset/images/basic-profile.svg"
+            alt="내 프로필 이미지"
+          />
+          <a class="followings" href="yourProfileFollow.html">128</a>
+        </section>
+
+        <section class="profileInfo">
+          <strong class="userName">최강승수</strong>
+          <p class="userEmail">@strongest_multiplier</p>
+          <p class="introduction">
+            애월읍 감귤 전국 배송, 귤따기 체험, 감귤 농장
+          </p>
+        </section>
+
+        <section class="profileUpdate addProduct">
+          <a class="fixProfile" href="profileModification.html">프로필 수정</a>
+          <a class="addPosting" href="posting.html">상품 등록</a>
+        </section>
+      </section>
+
+      <section class="saleItems">
+        <p class="title">판매 중인 상품</p>
+        <ul class="productList">
+          <li>
+            <img
+              src="/asset/images/postImages/post__product1.png"
+              alt="게시물"
+            />
+            <p class="ProductTitle">애월읍 노지 감귤</p>
+            <p class="price">35,000원</p>
+          </li>
+          <li>
+            <img
+              src="/asset/images/postImages/post__product1.png"
+              alt="게시물"
+            />
+            <p class="ProductTitle">애월읍 한라봉 10kg</p>
+            <p class="price">45,000원</p>
+          </li>
+          <li>
+            <img
+              src="/asset/images/postImages/post__product1.png"
+              alt="게시물"
+            />
+            <p class="ProductTitle">감귤 파치</p>
+            <p class="price">25,000원</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="postingSummary">
+        <article class="albumBar">
+          <img
+            class="albumType detail unselected"
+            src="/asset/images/icons/icon__postList.svg"
+            alt="리스트형으로 보기"
+          />
+          <img
+            class="albumType list"
+            src="/asset/images/icons/icon__postAlbum.svg"
+            alt="앨범형으로 보기"
+          />
+        </article>
+        <article class="postContent">
+          <h2 class="ir">등록된 게시물</h2>
+          <ul class="postingList">
+            <li>
+              <img src="/asset/images/postImages/post__product10.png" alt="" />
+            </li>
+            <li>
+              <img src="/asset/images/postImages/post__product9.png" alt="" />
+            </li>
+            <li>
+              <img src="/asset/images/postImages/post__product8.png" alt="" />
+            </li>
+            <li>
+              <img src="/asset/images/postImages/post__product7.png" alt="" />
+            </li>
+            <li>
+              <img src="/asset/images/postImages/post__product6.png" alt="" />
+            </li>
+            <li>
+              <img src="/asset/images/postImages/post__product5.png" alt="" />
+            </li>
+            <li>
+              <img src="/asset/images/postImages/post__product4.png" alt="" />
+            </li>
+            <li>
+              <img src="/asset/images/postImages/post__product3.png" alt="" />
+            </li>
+            <li>
+              <img src="/asset/images/postImages/post__product2.png" alt="" />
+            </li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <nav class="navBar">
+        <ul class="navList">
+          <li>
+            <a href="home.html" class="nav">
+              <article class="navIcon navHome"></article>
+              <p class="navText selectedNav">홈</p>
+            </a>
+          </li>
+          <li>
+            <a href="chat.html" class="nav">
+              <article class="navIcon navChat"></article>
+              <p class="navText">채팅</p>
+            </a>
+          </li>
+          <li>
+            <a href="posting.html" class="nav">
+              <article class="navIcon navPosting"></article>
+              <p class="navText">게시물 작성</p>
+            </a>
+          </li>
+          <li>
+            <a href="userProfile.html" class="nav">
+              <article class="navIcon navProfileSelected"></article>
+              <p class="navText">프로필</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </footer>
+  </body>
+</html>
