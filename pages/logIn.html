@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../asset/images/favicon.ico" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <title>60'' Market | 로그인</title>
+  </head>
+  <body>
+    <div class="wrap registerWrap">
+      <header>
+        <h1 class="registerHeader">로그인</h1>
+      </header>
+
+      <main>
+        <form class="logInForm registerForm" action="" method="get">
+          <label class="registerFormLabel" for="email">이메일</label>
+          <input id="email" type="email" required />
+          <label class="registerFormLabel" for="password">비밀번호</label>
+          <input
+            id="password"
+            type="password"
+            minlength="8"
+            maxlength="20"
+            required
+          />
+
+          <button type="submit" class="btn logInBtn registerFormBtn">
+            로그인
+          </button>
+        </form>
+      </main>
+
+      <article>
+        <a class="registerByEmail" href="signUp.html">이메일로 회원가입</a>
+      </article>
+    </div>
+  </body>
+</html>
