@@ -1,0 +1,42 @@
+main .updateProfileImg {
+  text-align: center;
+}
+
+main .updateProfileImg > input {
+  display: none;
+}
+
+.updateProfileImg .updateUserImg {
+  margin: 50px auto;
+  cursor: pointer;
+}
+
+main .profileModificationForm {
+  max-width: 322px;
+  margin: auto;
+  padding: 0;
+}
+
+main .logInForm .registerFormLabel {
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--textColor);
+}
+
+.profileModificationForm #name,
+.profileModificationForm #id,
+.profileModificationForm #introduce {
+  width: 100%;
+  padding: 5px;
+  border-bottom: 1.5px solid var(--borderColor);
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profileModificationForm #name:focus,
+.profileModificationForm #id:focus,
+.profileModificationForm #introduce:focus {
+  border-color: var(--mainColor);
+  transition: border-color 0.2s ease-in-out;
+}
