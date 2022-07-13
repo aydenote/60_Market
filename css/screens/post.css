@@ -1,0 +1,25 @@
+main .postContainer {
+  margin-bottom: 30px;
+}
+
+main .postCommentBox {
+  border-top: 1.5px solid var(--borderColor);
+  margin-bottom: 10px;
+}
+
+.postCommentContent .postUserProfile {
+  width: 36px;
+  height: 36px;
+}
+
+.postCommentContent .postComment {
+  margin-top: -10px;
+  padding-left: 68px;
+}
+
+.postUserNickName::after {
+  content: '∙ 2분전';
+  margin-left: 10px;
+  color: var(--borderColor);
+  font-size: 10px;
+}
