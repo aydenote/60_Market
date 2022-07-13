@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/asset/images/favicon.ico" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <title>60'' Market | 프로필 수정</title>
+  </head>
+  <body>
+    <header>
+      <article class="headerBar">
+        <img
+          class="headerBarBack buttonClick"
+          src="/asset/images/icons/icon__arrowLeft.svg"
+          alt="뒤로가기"
+          onclick="history.back()"
+        />
+        <button type="button" class="headerBarSettingBtn headerBarBtn buttonClick">
+          저장
+        </button>
+      </article>
+    </header>
+
+      <main>
+        <form class="updateProfileImg">
+          <label for="updateUserProfileImg">
+            <img class="updateUserImg" src="/asset/images/icons/icon__updateUserImg.svg" alt="사용자 이미지 수정" />
+          </label>
+          <input id="updateUserProfileImg" type="file" accept="image/*" />
+        </form>
+        <form class="logInForm registerForm profileModificationForm" action="" method="get">
+          <label class="registerFormLabel profileModificationFormlabel" for="name">사용자 이름</label>
+          <input id="name" type="email" required placeholder="2~10자 이내여야 합니다." />
+          <label class="registerFormLabel profileModificationFormlabel" for="email">계정 이메일</label>
+          <input
+            id="id"
+            type="email"
+            minlength="8"
+            maxlength="20"
+            required
+            placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
+            value="paul-lab@weniv_Mandarin"
+            disabled
+          />
+          <label class="registerFormLabel profileModificationFormlabel" for="introduce">소개</label>
+          <input id="introduce" type="email" required placeholder="자신과 판매할 상품에 대한 소개해 주세요!"/>
+        </form>
+      </main>
+    </div>
+  </body>
+</html>
