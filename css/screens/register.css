@@ -1,0 +1,48 @@
+.registerWrap {
+  background-color: white;
+  justify-content: flex-start;
+}
+
+header .registerHeader {
+  margin-top: 40px;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+main .registerForm .registerFormLabel {
+  align-self: flex-start;
+  color: var(--textColor);
+  font-size: 13px;
+  margin: 10px 0;
+}
+
+main .registerForm #email,
+main .registerForm #password {
+  width: 100%;
+  padding: 5px;
+  border-bottom: 1.5px solid var(--borderColor);
+}
+
+main .registerForm #email:focus,
+main .registerForm #password:focus {
+  border-color: var(--mainColor);
+  transition: border-color 0.2s ease-in-out;
+}
+
+main .registerForm .registerFormBtn {
+  margin: 30px 0 0;
+  opacity: 0.3;
+}
+
+main .registerForm .registerFormBtn:hover {
+  opacity: 1;
+}
+
+article .registerByEmail {
+  margin-top: -50px;
+  color: var(--textColor);
+  font-size: 13px;
+  display: flex;
+  align-items: flex-end;
+  text-align: center;
+}
