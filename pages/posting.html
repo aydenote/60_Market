@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/asset/images/favicon.ico" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <title>60'' Market | 게시물 작성</title>
+  </head>
+  <body>
+    <header>
+      <article class="headerBar postingHeaderBar">
+        <img
+          class="headerBarBack buttonClick"
+          src="/asset/images/icons/icon__arrowLeft.svg"
+          alt="뒤로가기"
+          onclick="history.back()"
+        />
+        <button type="button" class="headerBarSettingBtn headerBarBtn buttonClick">
+          저장
+        </button>
+      </article>
+    </header>
+
+    <main class="posting">
+        <!-- 이미지 등록 -->
+        <form class="postingForm">
+          <h3 class="postingFormLabel">이미지 등록</h3>
+          <label for="postingImg" class="postingFormUplodeImg">
+            <img class="postingUplodeImg" src="../asset/images/icons/icon__imagesUplode.svg" alt="이미지 등록" />
+          </label>
+          <input id="postingImg" type="file" accept="image/*" />
+        </form>
+
+        <!-- 상품명 등록 -->
+        <form class="postingForm" action="" method="get">
+          <label class="postingFormLabel" for="product">상품명</label>
+          <input id="product" type="text" required placeholder="2~15자 이내여야 합니다." />
+        </form>
+
+        <!-- 가격 등록 -->
+        <form class="postingForm" action="" method="get">
+          <label class="postingFormLabel" for="price">가격</label>
+          <input
+            id="price"
+            type="number"
+            required
+            placeholder="숫자만 입력 가능합니다."
+          />
+        </form>
+
+        <!-- 시간 선택 -->
+        <div class="postingForm">
+          <h3 class="postingFormLabel">시간 선택</h3>
+          <article class="postingTimeSelect">
+            <h2 class="ir">시간을 선택해주세요</h2>
+            <button type="button" class="postingSelectBtn">
+              시간을 선택해주세요.
+            </button>
+            <ul class="postingTimeList">
+              <li>
+                <button type="button" class="textEllipsis">10분 이하</button>
+              </li>
+              <li><button type="button" class="textEllipsis">30분</button></li>
+              <li>
+                <button type="button" class="textEllipsis">1시간</button>
+              </li>
+              <li>
+                <button type="button" class="textEllipsis">2시간</button>
+              </li>
+              <li>
+                <button type="button" class="textEllipsis">3시간</button>
+              </li>
+              <li>
+                <button type="button" class="textEllipsis">나눔</button>
+              </li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- 내용 입력 -->
+        <form class="postingForm" action="">
+          <label for="postingContent" class="postingFormLabel">내용</label>
+          <textarea
+            cols="10"
+            rows="10"
+            class="postingContent"
+            required
+            placeholder="내용을 입력해 주세요."
+          ></textarea>
+        </form>
+      </main>
+    </div>
+  </body>
+</html>
