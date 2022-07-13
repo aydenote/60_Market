@@ -1,0 +1,87 @@
+.wrap {
+  height: 100vh;
+  background-color: var(--mainColor);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 27px;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header #timi {
+  width: 121px;
+  filter: var(--shadow);
+}
+
+header .title {
+  margin-top: 20px;
+  font-weight: 400;
+  font-size: 40px;
+  color: var(--backgroundColor);
+  filter: var(--shadow);
+}
+
+header .subtitle {
+  margin-top: 20px;
+  font-size: 20px;
+  color: var(--subColor);
+}
+
+header .marketName {
+  font-family: CookieRun-Regular;
+}
+
+header .specialSituationTitle {
+  font-family: DungGeunMo;
+}
+
+main .logInForm {
+  padding: 40px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+main .btn {
+  width: 335px;
+  height: 44px;
+  font-size: 14px;
+  border: 1.5px solid var(--backgroundColor);
+  border-radius: 44px;
+}
+
+main .btn:hover {
+  background-color: var(--hoverColor);
+  color: var(--backgroundColor);
+}
+
+main .logInBtn {
+  background-color: var(--mainColor);
+  color: var(--backgroundColor);
+}
+
+main .signUpuBtn {
+  background-color: var(--backgroundColor);
+  color: var(--mainColor);
+}
+
+main .backBtn {
+  font-family: DungGeunMo;
+  width: 200px;
+  margin-top: 50px;
+  font-size: 14px;
+  color: white;
+  border: none;
+  background: none;
+}
+
+main .backBtn:hover {
+  color: var(--hoverColor);
+}
