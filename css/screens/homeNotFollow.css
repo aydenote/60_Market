@@ -1,0 +1,52 @@
+header .mainLogo {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+header .searchBtn {
+  width: 24px;
+  height: 24px;
+  background: url('../../asset/images/icons/icon__search.svg') no-repeat center /
+    24px 24px;
+}
+
+main .noneFeed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+main .noneFeed p {
+  font-size: 14px;
+  color: var(--textColor);
+  margin-bottom: 20px;
+}
+
+main .noneFeed p::before {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 100px;
+  background: url('../../asset/images/timi.svg') no-repeat center;
+  margin: 0 auto 42px;
+}
+
+.noneFeed .userSearchBtn {
+  width: 120px;
+  height: 34px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--mainColor);
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.noneFeed .userSearchBtn :hover {
+  background-color: var(--hoverColor);
+}
