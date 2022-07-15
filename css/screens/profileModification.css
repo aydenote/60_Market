@@ -7,8 +7,15 @@ main .updateProfileImg > input {
 }
 
 .updateProfileImg .updateUserImg {
+  width: 110px;
+  height: 110px;
   margin: 50px auto;
   cursor: pointer;
+}
+
+.updateProfileImg .updateUserImg.addImg {
+  border: 1px solid var(--borderColor);
+  border-radius: 50%;
 }
 
 main .profileModificationForm {
