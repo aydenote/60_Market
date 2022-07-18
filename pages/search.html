@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="../asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
+    <script src="../script/search.js" defer></script>
     <title>60'' Market | 검색</title>
   </head>
   <body>
@@ -21,6 +22,7 @@
         <input
           type="text"
           placeholder="계정 검색"
+          maxlength="9"
           class="headerBarSearch headerBarInput buttonClick"
         />
       </article>
@@ -28,26 +30,7 @@
     <main>
       <h2 class="ir">유저 검색 페이지</h2>
       <section>
-        <ul class="userList">
-          <li class="userItem">
-            <a href="#" class="userBox">
-              <img
-                src="../asset/images/basic-profile.svg"
-                alt="프로필 이미지"
-                class="userProfileImage"
-              />
-              <div class="userInfo">
-                <strong class="userNickname">애월읍 위니브 감귤농장</strong>
-                <div class="userText">
-                  <p class="userMsgContent userStatusMsg">
-                    이번에 정정 언제하맨마씸?
-                  </p>
-                </div>
-              </div>
-              <button class="followBtn">팔로우</button>
-            </a>
-          </li>
-        </ul>
+        <ul class="userList"></ul>
       </section>
     </main>
     <footer>
