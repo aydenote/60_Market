@@ -30,10 +30,15 @@ main .registerForm #password:focus {
 }
 
 main .registerForm .registerFormAlert {
-  display: none;
   align-self: flex-start;
   color: orangered;
   font-size: 13px;
+}
+
+.registerFormAlert.registerFormAlertLogin,
+.registerFormAlertEmail,
+.registerFormAlertPW {
+  display: none;
 }
 
 main .registerForm .registerFormBtn {
