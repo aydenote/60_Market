@@ -65,7 +65,7 @@
   font-weight: 700;
 }
 
-.profileInfo .userEmail {
+.profileInfo .userId {
   margin-top: 5px;
   color: var(--textColor);
   font-size: 12px;
