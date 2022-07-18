@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
+    <script src="/script/editProfile.js" defer></script>
     <title>60'' Market | 프로필 수정</title>
   </head>
   <body>
@@ -28,14 +29,14 @@
           <label for="updateUserProfileImg">
             <img class="updateUserImg" src="/asset/images/icons/icon__updateUserImg.svg" alt="사용자 이미지 수정" />
           </label>
-          <input id="updateUserProfileImg" type="file" accept="image/*" />
+          <input onchange="onChange(event)" id="updateUserProfileImg" type="file" accept="image/*" />
         </form>
-        <form class="logInForm registerForm profileModificationForm" action="" method="get">
+        <form class="logInForm registerForm profileModificationForm" method="get" id="profileSaveForm">
           <label class="registerFormLabel profileModificationFormlabel" for="name">사용자 이름</label>
-          <input id="name" type="email" required placeholder="2~10자 이내여야 합니다." />
+          <input onkeyup="profileChangeInput()" id="name" type="text" required placeholder="2~10자 이내여야 합니다." maxlength="10" minlength="2"/>
           <label class="registerFormLabel profileModificationFormlabel" for="email">계정 이메일</label>
           <input
-            id="id"
+            id="email"
             type="email"
             minlength="8"
             maxlength="20"
@@ -45,7 +46,7 @@
             disabled
           />
           <label class="registerFormLabel profileModificationFormlabel" for="introduce">소개</label>
-          <input id="introduce" type="email" required placeholder="자신과 판매할 상품에 대한 소개해 주세요!"/>
+          <input onkeyup="profileChangeInput()" id="introduce" type="text" required placeholder="자신과 판매할 상품에 대한 소개해 주세요!" maxlength="50" minlength="2"/>
         </form>
       </main>
     </div>
