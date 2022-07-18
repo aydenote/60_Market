@@ -29,6 +29,13 @@ main .registerForm #password:focus {
   transition: border-color 0.2s ease-in-out;
 }
 
+main .registerForm .registerFormAlert {
+  display: none;
+  align-self: flex-start;
+  color: orangered;
+  font-size: 13px;
+}
+
 main .registerForm .registerFormBtn {
   margin: 30px 0 0;
   opacity: 0.3;
