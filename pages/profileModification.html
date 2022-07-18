@@ -27,23 +27,22 @@
       <main>
         <form class="updateProfileImg">
           <label for="updateUserProfileImg">
-            <img class="updateUserImg" src="/asset/images/icons/icon__updateUserImg.svg" alt="사용자 이미지 수정" />
+            <img class="updateUserImg" src="/asset/images/icons/icon__updateUserImg.png" alt="사용자 이미지 수정" />
           </label>
-          <input onchange="onChange(event)" id="updateUserProfileImg" type="file" accept="image/*" />
+          <input onchange="imageChange(event)" id="updateUserProfileImg" type="file" accept="image/*" />
         </form>
         <form class="logInForm registerForm profileModificationForm" method="get" id="profileSaveForm">
           <label class="registerFormLabel profileModificationFormlabel" for="name">사용자 이름</label>
           <input onkeyup="profileChangeInput()" id="name" type="text" required placeholder="2~10자 이내여야 합니다." maxlength="10" minlength="2"/>
-          <label class="registerFormLabel profileModificationFormlabel" for="email">계정 이메일</label>
+          <label class="registerFormLabel profileModificationFormlabel" for="email">계정 ID</label>
           <input
-            id="email"
-            type="email"
-            minlength="8"
-            maxlength="20"
+            onkeyup="profileChangeInput()"
+            id="id"
+            type="text"
+            minlength="5"
+            maxlength="10"
             required
             placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
-            value="paul-lab@weniv_Mandarin"
-            disabled
           />
           <label class="registerFormLabel profileModificationFormlabel" for="introduce">소개</label>
           <input onkeyup="profileChangeInput()" id="introduce" type="text" required placeholder="자신과 판매할 상품에 대한 소개해 주세요!" maxlength="50" minlength="2"/>
