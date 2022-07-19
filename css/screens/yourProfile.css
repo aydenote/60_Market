@@ -13,7 +13,7 @@
   padding: 6px;
 }
 
-.albumBar .albumType.unselected {
+.albumBar .postingType.unselected {
   opacity: 0.3;
 }
 
