@@ -31,7 +31,7 @@ function setProfileInfo(editUserProfile) {
   document.querySelector(".profileInfo .introduction").innerText = editUserProfile.intro;
 }
 
-// 판매 중인 상품
+// 내가 판매 중인 상품 정보 가져오기
 async function getProductList() {
   const url = "https://mandarin.api.weniv.co.kr";
   const accountName = localStorage.getItem("accountname");
