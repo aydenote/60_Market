@@ -1,11 +1,12 @@
 const profileLinkBtn = document.querySelector(".link");
-// const accountName = location.search;
+const url = "https://mandarin.api.weniv.co.kr";
+const myAccountName = localStorage.getItem("accountname");
+let accountName = location.search.split("?accountname=");
+accountName = accountName[1] === undefined ? localStorage.getItem("accountname") : accountName[1];
 
 // 프로필 정보 가져오기
 async function getProfileInfo() {
   const url = "https://mandarin.api.weniv.co.kr";
-  const myAccountName = localStorage.getItem("accountname");
-
   const token = localStorage.getItem("Token");
 
   const setting = {
@@ -17,11 +18,10 @@ async function getProfileInfo() {
   };
 
   try {
-    // const resProfile = await fetch(`${url}/profile/${myAccountName}`, setting);
-    const resProfile = await fetch(`${url}/profile/lion`, setting);
+    const resProfile = await fetch(`${url}/profile/${accountName}`, setting);
     const resProfileJson = await resProfile.json();
     const userProfile = resProfileJson.profile;
-    // 사용자 본인 또는 본인이 아닌 경우
+    // 사용자에 따라 페이지 구현
     if (userProfile.accountname === myAccountName) {
       setMyProfile(userProfile);
     } else {
@@ -33,6 +33,7 @@ async function getProfileInfo() {
 }
 getProfileInfo();
 
+// 내 프로필 페이지 구현
 function setMyProfile(userProfile) {
   const createEditLink = document.createElement("a");
   const createProductLink = document.createElement("a");
@@ -51,8 +52,11 @@ function setMyProfile(userProfile) {
   document.querySelector(".profileInfo .userName").innerText = userProfile.username;
   document.querySelector(".profileInfo .userId").innerText = `@ ${userProfile.accountname}`;
   document.querySelector(".profileInfo .introduction").innerText = userProfile.intro;
+
+  getProductList(userProfile);
 }
 
+// 다른 사람 프로필 페이지 구현
 function setYourProfile(userProfile) {
   const createMessageImg = document.createElement("img");
   const createFollowButton = document.createElement("button");
@@ -77,12 +81,13 @@ function setYourProfile(userProfile) {
   document.querySelector(".profileInfo .userName").innerText = userProfile.username;
   document.querySelector(".profileInfo .userId").innerText = `@ ${userProfile.accountname}`;
   document.querySelector(".profileInfo .introduction").innerText = userProfile.intro;
+
+  getProductList(userProfile);
 }
 
 // 사용자가 판매 중인 상품 정보 가져오기
-async function getProductList() {
+async function getProductList(userProfile) {
   const url = "https://mandarin.api.weniv.co.kr";
-  const accountName = localStorage.getItem("accountname");
   const token = localStorage.getItem("Token");
 
   const setting = {
@@ -93,14 +98,13 @@ async function getProductList() {
     },
   };
   try {
-    const resProfileProduct = await fetch(`${url}/product/${accountName}`, setting);
+    const resProfileProduct = await fetch(`${url}/product/${userProfile.accountname}`, setting);
     const resProfileProductJson = await resProfileProduct.json();
     setProductList(resProfileProductJson);
   } catch (err) {
     console.error(err);
   }
 }
-getProductList();
 
 // 등록된 상품 수에 따라 프로필에 해당 상품 반영
 function setProductList(resProfileProductJson) {
@@ -128,7 +132,7 @@ function setProductList(resProfileProductJson) {
   }
 }
 
-// 팔로우, 언팔로우 기능
+// 팔로우, 언팔로우 스타일 변경 구현
 function clickFollowBtn() {
   const followBtn = document.querySelector(".followBtn");
   followBtn.classList.toggle("follow");

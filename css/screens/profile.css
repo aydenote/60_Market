@@ -44,6 +44,7 @@
   font-weight: 700;
   font-size: 18px;
   color: black;
+  height: 40px;
 }
 
 .myFollow.myProfileImg .followers {
@@ -81,6 +82,21 @@
 
 .link {
   margin-top: 24px;
+}
+
+.link .followBtn {
+  padding: 8px 40px;
+  vertical-align: top;
+  margin: 0 10px;
+  color: white;
+  border-radius: 30px;
+  background-color: var(--mainColor);
+}
+
+.link .messageBtn {
+  border: 1px solid var(--borderColor);
+  border-radius: 50%;
+  padding: 6px;
 }
 
 .link .fixProfile,
