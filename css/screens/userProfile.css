@@ -79,12 +79,12 @@
   font-size: 14px;
 }
 
-.profileUpdate.addProduct {
-  margin-top: 32px;
+.link {
+  margin-top: 24px;
 }
 
-.profileUpdate.addProduct .fixProfile,
-.profileUpdate.addProduct .addPosting {
+.link .fixProfile,
+.link .addPosting {
   padding: 8px 26px;
   color: var(--textColor);
   background: white;
@@ -93,7 +93,7 @@
   font-size: 14px;
 }
 
-.profileUpdate.addProduct .addPosting {
+.link .addPosting {
   margin-left: 12px;
 }
 
