@@ -25,7 +25,6 @@ function profileChangeInput() {
 async function imageChange(e) {
   const imgReader = new FileReader();
   const formData = new FormData();
-  const url = "https://mandarin.api.weniv.co.kr";
 
   if (e.target.files && e.target.files[0]) {
     document.querySelector(".updateUserImg").classList.add("addImg");
