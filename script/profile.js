@@ -38,7 +38,7 @@ function setMyProfile(userProfile) {
   const createProductLink = document.createElement("a");
 
   createEditLink.setAttribute("class", "fixProfile");
-  createEditLink.setAttribute("href", "profileModification.html");
+  createEditLink.setAttribute("href", "editProfile.html");
   createEditLink.innerText = "프로필 수정";
   profileLinkBtn.append(createEditLink);
 
