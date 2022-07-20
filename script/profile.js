@@ -17,8 +17,8 @@ async function getProfileInfo() {
   };
 
   try {
-    const resProfile = await fetch(`${url}/profile/${myAccountName}`, setting);
-    // const resProfile = await fetch(`${url}/profile/lion`, setting);
+    // const resProfile = await fetch(`${url}/profile/${myAccountName}`, setting);
+    const resProfile = await fetch(`${url}/profile/lion`, setting);
     const resProfileJson = await resProfile.json();
     const userProfile = resProfileJson.profile;
     // 사용자 본인 또는 본인이 아닌 경우
@@ -64,6 +64,7 @@ function setYourProfile(userProfile) {
   profileLinkBtn.append(createMessageImg);
 
   createFollowButton.setAttribute("class", "followBtn");
+  createFollowButton.setAttribute("onclick", "clickFollowBtn()");
   createFollowButton.innerText = "팔로우";
   profileLinkBtn.append(createFollowButton);
 
@@ -124,5 +125,18 @@ function setProductList(resProfileProductJson) {
     }
   } else {
     return;
+  }
+}
+
+// 팔로우, 언팔로우 기능
+function clickFollowBtn() {
+  const followBtn = document.querySelector(".followBtn");
+  followBtn.classList.toggle("follow");
+  if (followBtn.className === "followBtn follow") {
+    followBtn.innerText = "언팔로우";
+    followBtn.style.opacity = "0.3";
+  } else {
+    followBtn.innerText = "팔로우";
+    followBtn.style.opacity = "1";
   }
 }
