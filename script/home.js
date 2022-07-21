@@ -134,5 +134,55 @@ function getFeed(posts, state) {
       }
     }
     // console.log(firstImage);
+    if (state === "list") {
+      const postItem = document.createElement("div");
+      postItem.classList.add("postItem");
+      postItem.id = element.id;
+      postItem.innerHTML = `
+        <section>
+          <div class="userList">
+            <div class="userItem">
+              <a href="/profile/${element.author.accountname}" class="userBox">
+                <img
+                  src="${element.author.image}"
+                  alt="${element.author.username}님의 프로필 이미지"
+                  class="userProfileImage"
+                />
+                <div class="userInfo">
+                  <strong class="userNickname">${
+                    element.author.username
+                  }</strong>
+                  <div class="userText">
+                    <p class="userMsgContent userStatusMsg">
+                      @${element.author.accountname}
+                    </p>
+                  </div>
+                </div>
+                <button class="moreBtn buttonClick"><span class="ir">게시글 더보기 버튼</span></button>
+              </a>
+            </div>
+          </div>
+        </section>
+        <section class="postContent">
+          <h4 class="ir">게시글 내용</h4>
+          <p>${element.content}</p>
+          <ul>${postImage}</ul>
+          <div class="postBtnContent">
+            <button class="likeBtn ${element.hearted ? "on" : ""}">
+              <span class="ir">좋아요 버튼</span>
+                <span class="likeCount">${element.heartCount}</span>
+            </button>
+            <a href="/post/${element.id}" class="commentBtn">
+              <span class="commentCount">${element.commentCount}</span>
+            </a>
+          </div>
+          <strong class="postDate">${date}</strong>
+        </section>
+      `;
+      // console.log(postItem);
+      listContent.appendChild(postItem);
+
+      // 좋아요 버튼 기능 구현
+    }
   });
 }
