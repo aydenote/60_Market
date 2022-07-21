@@ -45,3 +45,19 @@ async function myProfileFeed(state) {
   const posts = data.posts;
   getFeed(posts, state);
 }
+
+// 타 유저 프로필 페이지 일 경우
+async function yourProfileFeed(state) {
+  const userAccountName = curUrl.split("/profile/")[1];
+  const url = `https://mandarin.api.weniv.co.kr/post/${userAccountName}/userpost/?limit=9&skip=3`;
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  const posts = data.posts;
+  getFeed(posts, state);
+}
