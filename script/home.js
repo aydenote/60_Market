@@ -84,3 +84,13 @@ async function homeFeed() {
     getFeed(posts, state);
   }
 }
+
+// 팔로우한 유저가 없을 경우 보여줄 피드
+function noFeed() {
+  feedListContent.innerHTML = `
+    <h3 class="ir">피드 게시글</h3>
+    <section class="noneFeed">
+      <p>유저를 검색해 팔로우 해보세요!</p>
+      <a href="/pages/search.html" class="userSearchBtn">검색하기</a>
+    </section>`;
+}
