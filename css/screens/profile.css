@@ -128,8 +128,8 @@
   display: flex;
   gap: 10px;
   margin: 0 0 20px 20px;
-  position: relative;
-  transition: all 0.5s;
+  overflow: scroll;
+  overflow-y: hidden;
 }
 
 .saleItems .productList li {
@@ -140,13 +140,18 @@
   width: 140px;
   height: 90px;
   object-fit: cover;
+  border: 0.5px solid var(--borderColor);
   border-radius: 8px;
 }
 
 .productList .ProductTitle {
-  margin-bottom: 4px;
+  width: 136px;
+  margin: 6px 0px 4px 0px;
   font-weight: 400;
   font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .productList .price {

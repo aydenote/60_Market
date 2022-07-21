@@ -119,6 +119,13 @@ function setProductList(resProfileProductJson) {
     saleItems.append(createUl);
     const productList = document.querySelector(".saleItems .productList");
     document.querySelector(".saleItems .title").innerText = "판매 중인 상품";
+    productList.addEventListener("click", (e) => {
+      if (e.target.className === "productList") {
+        return;
+      } else {
+        location.href = "error.html";
+      }
+    });
 
     for (const product of resProfileProductJson.product) {
       productList.innerHTML += `<li>
