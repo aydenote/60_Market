@@ -30,3 +30,18 @@ function changeAlbumType() {
   albumBtn.classList.remove("unselected");
   listBtn.classList.add("unselected");
 }
+
+// 나의 프로필 페이지 일 때 데이터 뿌려주기
+async function myProfileFeed(state) {
+  const url = `https://mandarin.api.weniv.co.kr/post/${postAccountName}/userpost/?limit=9&skip=3`;
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  const posts = data.posts;
+  getFeed(posts, state);
+}
