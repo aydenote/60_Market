@@ -94,3 +94,45 @@ function noFeed() {
       <a href="/pages/search.html" class="userSearchBtn">검색하기</a>
     </section>`;
 }
+
+function getFeed(posts, state) {
+  // console.log(posts);
+  // 팔로우한 유저의 게시물이 없을 경우
+  if (posts.length <= 0) {
+    feedListContent.innerHTML = `
+      <h3 class="ir">피드 게시글</h3>
+      <section class="noneFeed">
+        <p>등록된 게시물이 없습니다 :(</p>
+      </section>
+      `;
+  }
+
+  posts.forEach((element) => {
+    const date = timeForToday(element.updatedAt);
+    // console.log(element.updatedAt);
+    // console.log(date);
+    let postImage = "";
+    let firstImage = "";
+    // 이미지가 있는 게시글이라면
+    if (element.image) {
+      let images = element.image.split(",");
+      // album형에서 사용될 첫번째 이미지 저장
+      firstImage = `
+      <li>
+        <a href="profile.html\?accountname=${element.id}"> 
+          <img src="${images[0]}" alt="게시물 이미지" />
+        </a>
+      </li>
+      `;
+      // list형에서 사용될 전체 이미지 저장
+      for (image of images) {
+        postImage += `
+        <li>
+          <img src="${image}" alt="게시물 이미지" />
+        </li>
+        `;
+      }
+    }
+    // console.log(firstImage);
+  });
+}
