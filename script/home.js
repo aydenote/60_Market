@@ -183,6 +183,11 @@ function getFeed(posts, state) {
       listContent.appendChild(postItem);
 
       // 좋아요 버튼 기능 구현
+    } else if (state === "album") {
+      const postItem = document.createElement("ul");
+      postItem.classList.add("postingList");
+      postItem.innerHTML = firstImage;
+      albumContent.appendChild(postItem);
     }
   });
 }
