@@ -1,6 +1,8 @@
 //로그인 구현시 삭제
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYjNmOGUxNTM2MWFhZWE1NjlhYWUzOCIsImV4cCI6MTY2MTE0NTgyNywiaWF0IjoxNjU1OTYxODI3fQ.F7JLkiPLzbW3GcLUK_b_-h4_7zkZdLQgTZB-OddOhLY";
+// const postAccountName = localStorage.getItem("accountname");
+const postAccountName = "ujin16";
 
 let state = "list";
 const curUrl = location.href;
@@ -10,8 +12,24 @@ const listBtn = document.querySelector(".postingType.list");
 const albumContent = document.querySelector(".postContent");
 const listContent = document.querySelector(".post");
 
-listBtn.addEventListener("click", changeListType);
-albumBtn.addEventListener("click", changeAlbumType);
+// 나의 프로필 페이지 일 경우
+if (curUrl.split("accountname=")[1] === postAccountName) {
+  myProfileFeed(state);
+  listBtn.addEventListener("click", changeListType);
+  albumBtn.addEventListener("click", changeAlbumType);
+  // 타 유저 프로필 페이지 일 경우
+} else if (curUrl.indexOf("/profile.html/") !== -1) {
+  yourProfileFeed(state);
+  listBtn.addEventListener("click", changeListType);
+  albumBtn.addEventListener("click", changeAlbumType);
+  // 홈피드 일 경우
+} else {
+  homeFeed();
+}
+//   // 피드 댓글 페이지 일 경우
+// } else if (curUrl.indexOf('/post/') !== -1) {
+//   feedDetail()
+// }
 
 // 프로필페이지 게시물 리스트형으로 변경, 버튼 활성화
 function changeListType() {
@@ -95,6 +113,7 @@ function noFeed() {
     </section>`;
 }
 
+// 팔로우한 유저가 있을 때 보여줄 피드
 function getFeed(posts, state) {
   // console.log(posts);
   // 팔로우한 유저의 게시물이 없을 경우
