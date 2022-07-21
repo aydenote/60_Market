@@ -1,6 +1,6 @@
 .headerBar.followers::after {
   content: "Followers";
-  font-weight: 400;
+  font-weight: 500;
   font-size: 14px;
   margin-left: 13px;
 }
@@ -23,4 +23,8 @@
   width: calc(100% - 61px);
   display: flex;
   flex-direction: column;
+}
+
+.profile .followBtn {
+  pointer-events: none;
 }
