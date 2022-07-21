@@ -37,6 +37,8 @@ getProfileInfo();
 function setMyProfile(userProfile) {
   const createEditLink = document.createElement("a");
   const createProductLink = document.createElement("a");
+  const followingCount = document.querySelector(".ProfileContent .followings");
+  const followerCount = document.querySelector(".ProfileContent .followers");
 
   createEditLink.setAttribute("class", "fixProfile");
   createEditLink.setAttribute("href", "editProfile.html");
@@ -53,6 +55,9 @@ function setMyProfile(userProfile) {
   document.querySelector(".profileInfo .userId").innerText = `@ ${userProfile.accountname}`;
   document.querySelector(".profileInfo .introduction").innerText = userProfile.intro;
 
+  followingCount.innerText = userProfile.following.length;
+  followerCount.innerText = userProfile.follower.length;
+
   getProductList(userProfile);
 }
 
@@ -61,6 +66,8 @@ function setYourProfile(userProfile) {
   const createMessageImg = document.createElement("img");
   const createFollowButton = document.createElement("button");
   const createShareImg = document.createElement("img");
+  const followingCount = document.querySelector(".ProfileContent .followings");
+  const followerCount = document.querySelector(".ProfileContent .followers");
 
   createMessageImg.setAttribute("class", "messageBtn");
   createMessageImg.setAttribute("src", "/asset/images/icons/icon__message.svg");
@@ -81,6 +88,9 @@ function setYourProfile(userProfile) {
   document.querySelector(".profileInfo .userName").innerText = userProfile.username;
   document.querySelector(".profileInfo .userId").innerText = `@ ${userProfile.accountname}`;
   document.querySelector(".profileInfo .introduction").innerText = userProfile.intro;
+
+  followingCount.innerText = userProfile.following.length;
+  followerCount.innerText = userProfile.follower.length;
 
   getProductList(userProfile);
 }

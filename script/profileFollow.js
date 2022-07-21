@@ -74,6 +74,7 @@ async function getFollowerList() {
 }
 getFollowerList();
 
+// 팔로워 정보 (나를 팔로우한 사용자 정보) 페이지에 반영
 function setFollower(followerDataJson) {
   for (const follower of followerDataJson) {
     userList.innerHTML += `<li class="userItem">
