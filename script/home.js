@@ -61,3 +61,26 @@ async function yourProfileFeed(state) {
   const posts = data.posts;
   getFeed(posts, state);
 }
+
+// 홈피드일 때 데이터 뿌려주기
+async function homeFeed() {
+  // 처음 게시물 10개까지만 보이고 5개씩 로딩
+  const url = `https://mandarin.api.weniv.co.kr/post/feed/?limit=20&skip=5`;
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+
+  const data = await res.json();
+  const posts = data.posts;
+  // console.log(posts);
+  // 게시물 유/무 판별
+  if (posts.length <= 0) {
+    noFeed();
+  } else {
+    getFeed(posts, state);
+  }
+}
