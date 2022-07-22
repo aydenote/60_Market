@@ -1,8 +1,18 @@
 const profileLinkBtn = document.querySelector(".link");
+const followingCount = document.querySelector(".ProfileContent .followings");
+const followerCount = document.querySelector(".ProfileContent .followers");
 const url = "https://mandarin.api.weniv.co.kr";
+
+const URLSearch = new URLSearchParams(location.search);
+let accountName = URLSearch.get("accountname");
 const myAccountName = localStorage.getItem("accountname");
-let accountName = location.search.split("?accountname=");
-accountName = accountName[1] === undefined ? localStorage.getItem("accountname") : accountName[1];
+accountName = accountName === null ? localStorage.getItem("accountname") : accountName;
+
+function clickedFollowLink(e) {
+  const profileUser = document.querySelector(".profileInfo .userId");
+  const userId = profileUser.innerText.replace(/@/g, "");
+  location.href = `profileFollow.html\?accountname=${userId}\&title=${e.target.className}`;
+}
 
 // 프로필 정보 가져오기
 async function getProfileInfo() {
@@ -50,8 +60,11 @@ function setMyProfile(userProfile) {
 
   document.querySelector(".ProfileContent .myImage").src = userProfile.image;
   document.querySelector(".profileInfo .userName").innerText = userProfile.username;
-  document.querySelector(".profileInfo .userId").innerText = `@ ${userProfile.accountname}`;
+  document.querySelector(".profileInfo .userId").innerText = `@${userProfile.accountname}`;
   document.querySelector(".profileInfo .introduction").innerText = userProfile.intro;
+
+  followingCount.innerText = userProfile.following.length;
+  followerCount.innerText = userProfile.follower.length;
 
   getProductList(userProfile);
 }
@@ -81,6 +94,9 @@ function setYourProfile(userProfile) {
   document.querySelector(".profileInfo .userName").innerText = userProfile.username;
   document.querySelector(".profileInfo .userId").innerText = `@ ${userProfile.accountname}`;
   document.querySelector(".profileInfo .introduction").innerText = userProfile.intro;
+
+  followingCount.innerText = userProfile.following.length;
+  followerCount.innerText = userProfile.follower.length;
 
   getProductList(userProfile);
 }
