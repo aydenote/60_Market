@@ -40,15 +40,29 @@ async function onChange(event) {
 
 function inputNumberFormat(addProductPrice) {
     addProductPrice.value = comma(uncomma(addProductPrice.value));
-  }
-  
-  function comma(addProductPriceString) {
+}
+
+function comma(addProductPriceString) {
     addProductPriceString = String(addProductPriceString);
     productInput();
     return addProductPriceString.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-  }
-  
-  function uncomma(addProductPriceString) {
+}
+
+function uncomma(addProductPriceString) {
     addProductPriceString = String(addProductPriceString);
     return addProductPriceString.replace(/[^\d]+/g, '');
-  }
+}
+
+// 시간 선택
+
+timeSelelectBtn.addEventListener('click', () => {
+    timeSelelectBtn.classList.toggle('on');
+});
+
+timeSelectlist.addEventListener('click', (event) => {
+    if (event.target.nodeName === "BUTTON") {
+        timeSelelectBtn.textContent = event.target.textContent;
+        timeSelelectBtn.style.color = "black";
+        timeSelelectBtn.classList.remove('on');
+    }
+});
