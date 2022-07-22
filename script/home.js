@@ -90,7 +90,7 @@ async function yourProfileFeed(state) {
     },
   });
   const data = await res.json();
-  const posts = data.posts;
+  const posts = data.post;
   getFeed(posts, state);
 }
 
@@ -119,7 +119,7 @@ async function homeFeed() {
 
 // 팔로우한 유저가 없을 경우 보여줄 피드
 function noFeed() {
-  feedListContent.innerHTML = `
+  listContent.innerHTML = `
     <h3 class="ir">피드 게시글</h3>
     <section class="noneFeed">
       <p>유저를 검색해 팔로우 해보세요!</p>
@@ -129,10 +129,10 @@ function noFeed() {
 
 // 팔로우한 유저가 있을 때 보여줄 피드
 function getFeed(posts, state) {
-  // console.log(posts);
+  console.log(posts);
   // 팔로우한 유저의 게시물이 없을 경우
-  if (posts.length <= 0) {
-    feedListContent.innerHTML = `
+  if (!posts && curUrl.split("/pages/")[1] === "home.html") {
+    listContent.innerHTML = `
       <h3 class="ir">피드 게시글</h3>
       <section class="noneFeed">
         <p>등록된 게시물이 없습니다 :(</p>
