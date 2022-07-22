@@ -1,5 +1,15 @@
 const userList = document.querySelector(".userList");
 const url = "https://mandarin.api.weniv.co.kr";
+const myAccountName = localStorage.getItem("accountname");
+const URLSearch = new URLSearchParams(location.search);
+const accountName = URLSearch.get("accountname");
+const title = URLSearch.get("title");
+
+if (title === "followers") {
+  getFollowerList();
+} else if (title === "followings") {
+  getFollowingList();
+}
 
 // 팔로윙 정보 가져오기(내가 팔로우한 사용자 목록 가져오기)
 async function getFollowingList() {
@@ -19,8 +29,6 @@ async function getFollowingList() {
     console.log(err);
   }
 }
-
-getFollowingList();
 
 // 팔로윙 정보(내가 팔로우한 사용자) 페이지에 반영
 
@@ -72,7 +80,6 @@ async function getFollowerList() {
     console.log(err);
   }
 }
-getFollowerList();
 
 // 팔로워 정보 (나를 팔로우한 사용자 정보) 페이지에 반영
 function setFollower(followerDataJson) {

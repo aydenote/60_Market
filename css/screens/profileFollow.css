@@ -1,5 +1,5 @@
 .headerBar.followers::after {
-  content: "Followers";
+  content: "Follow";
   font-weight: 500;
   font-size: 14px;
   margin-left: 13px;
