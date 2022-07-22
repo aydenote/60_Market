@@ -1,8 +1,9 @@
 //로그인 구현시 삭제
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYjNmOGUxNTM2MWFhZWE1NjlhYWUzOCIsImV4cCI6MTY2MTE0NTgyNywiaWF0IjoxNjU1OTYxODI3fQ.F7JLkiPLzbW3GcLUK_b_-h4_7zkZdLQgTZB-OddOhLY";
-// const postAccountName = localStorage.getItem("accountname");
+// localStorage.getItem("token");
 const postAccountName = "ujin16";
+// localStorage.getItem("accountname");
 
 let state = "list";
 const curUrl = location.href;
@@ -13,17 +14,21 @@ const albumContent = document.querySelector(".postContent");
 const listContent = document.querySelector(".post");
 
 // 나의 프로필 페이지 일 경우
-if (curUrl.split("accountname=")[1] === postAccountName) {
+// if (curUrl.split("accountname=")[1] === postAccountName) {
+if (curUrl.split("/pages/")[1] === "profile.html") {
+  console.log("마이프로필 페이지입니다.");
   myProfileFeed(state);
   listBtn.addEventListener("click", changeListType);
   albumBtn.addEventListener("click", changeAlbumType);
   // 타 유저 프로필 페이지 일 경우
 } else if (curUrl.indexOf("/profile.html/") !== -1) {
+  console.log("타 유저 프로필 페이지입니다.");
   yourProfileFeed(state);
   listBtn.addEventListener("click", changeListType);
   albumBtn.addEventListener("click", changeAlbumType);
   // 홈피드 일 경우
 } else {
+  console.log("홈피드 페이지입니다");
   homeFeed();
 }
 //   // 피드 댓글 페이지 일 경우
@@ -38,6 +43,11 @@ function changeListType() {
   listContent.classList.remove("hidden");
   albumBtn.classList.add("unselected");
   listBtn.classList.remove("unselected");
+  if (curUrl.split("/pages/")[1] === "profile.html") {
+    myProfileFeed(state);
+  } else {
+    yourProfileFeed(state);
+  }
 }
 
 // 프로필페이지 게시물 앨범형으로 변경, 버튼 활성화
@@ -47,11 +57,16 @@ function changeAlbumType() {
   listContent.classList.add("hidden");
   albumBtn.classList.remove("unselected");
   listBtn.classList.add("unselected");
+  if (curUrl.split("/pages/")[1] === "profile.html") {
+    myProfileFeed(state);
+  } else {
+    yourProfileFeed(state);
+  }
 }
 
 // 나의 프로필 페이지 일 때 데이터 뿌려주기
 async function myProfileFeed(state) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${postAccountName}/userpost/?limit=9&skip=3`;
+  const url = `https://mandarin.api.weniv.co.kr/post/:${postAccountName}/userpost/?limit=9&skip=3`;
   const res = await fetch(url, {
     method: "GET",
     headers: {
@@ -67,7 +82,7 @@ async function myProfileFeed(state) {
 // 타 유저 프로필 페이지 일 경우
 async function yourProfileFeed(state) {
   const userAccountName = curUrl.split("/profile/")[1];
-  const url = `https://mandarin.api.weniv.co.kr/post/${userAccountName}/userpost/?limit=9&skip=3`;
+  const url = `https://mandarin.api.weniv.co.kr/post/:${userAccountName}/userpost/?limit=9&skip=3`;
   const res = await fetch(url, {
     method: "GET",
     headers: {
