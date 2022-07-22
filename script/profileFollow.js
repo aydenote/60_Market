@@ -36,7 +36,7 @@ async function getFollowingList() {
 function setFollowing(followingDataJson) {
   for (const following of followingDataJson) {
     userList.innerHTML += `<li class="userItem">
-<a href="profile.html\?accountname=lion" class="userBox">
+<a href="profile.html\?accountname=${following.accountname}" class="userBox">
   <img src="${following.image}" alt="프로필 이미지" class="userProfileImage" />
   <div class="userInfo">
     <strong class="userNickname">${following.username}</strong>
@@ -86,7 +86,7 @@ async function getFollowerList() {
 function setFollower(followerDataJson) {
   for (const follower of followerDataJson) {
     userList.innerHTML += `<li class="userItem">
-<a href="profile.html\?accountname=lion" class="userBox">
+<a href="profile.html\?accountname=${follower.accountname}" class="userBox">
   <img src="${follower.image}" alt="프로필 이미지" class="userProfileImage" />
   <div class="userInfo">
     <strong class="userNickname">${follower.username}</strong>
