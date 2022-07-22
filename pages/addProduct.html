@@ -6,59 +6,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
-    <title>60'' Market | 게시물 작성</title>
+    <script src="../script/addProduct.js" defer></script>
+    <title>60'' Market | 상품 등록 </title>
   </head>
   <body>
     <header>
-      <article class="headerBar postingHeaderBar">
+      <article class="headerBar addProductHeaderBar">
         <img
           class="headerBarBack buttonClick"
           src="/asset/images/icons/icon__arrowLeft.svg"
           alt="뒤로가기"
           onclick="history.back()"
         />
-        <button type="button" class="headerBarSettingBtn headerBarBtn buttonClick">
+        <button type="button"
+        id="addProductSaveBtn"
+        class="headerBarSettingBtn headerBarBtn buttonClick"
+        >
           저장
         </button>
       </article>
     </header>
 
-    <main class="posting">
+    <main class="addProduct">
         <!-- 이미지 등록 -->
-        <form class="postingForm">
-          <h3 class="postingFormLabel">이미지 등록</h3>
-          <label for="postingImg" class="postingFormUplodeImg">
-            <img class="postingUplodeImg" src="../asset/images/icons/icon__imagesUplode.svg" alt="이미지 등록" />
+        <form class="addProductForm">
+          <h3 class="addProductFormLabel">이미지 등록</h3>
+          <label for="addProductImg" class="addProductFormUplodeImg">
+            <img class="addProductUplodeImgScreen">
+            <img class="addProductUplodeImg" src="../asset/images/icons/icon__imagesUplode.svg" alt="이미지 등록" />
           </label>
-          <input id="postingImg" type="file" accept="image/*" />
-        </form>
+          <input 
+          id="addProductImg" 
+          type="file"
+          accept="image/*" 
+          onchange="onChangeProductImg(event)"
+          />
 
         <!-- 상품명 등록 -->
-        <form class="postingForm" action="" method="get">
-          <label class="postingFormLabel" for="product">상품명</label>
-          <input id="product" type="text" required placeholder="2~15자 이내여야 합니다." />
-        </form>
+          <label class="addProductFormLabel" for="addProductName">상품명</label>
+          <input 
+          id="addProductName" 
+          type="text" 
+          required 
+          placeholder="2~15자 이내여야 합니다." 
+          minlength="2"
+          maxlength="15"
+          onkeyup="productInput()"
+          />
+        
 
         <!-- 가격 등록 -->
-        <form class="postingForm" action="" method="get">
-          <label class="postingFormLabel" for="price">가격</label>
+          <label class="addProductFormLabel" for="addProductPrice">가격</label>
           <input
-            id="price"
-            type="number"
+            id="addProductPrice"
+            type="text"
             required
             placeholder="숫자만 입력 가능합니다."
-          />
-        </form>
-
+            onkeyup="inputNumberFormat(this)"
+            />
+            
         <!-- 시간 선택 -->
-        <div class="postingForm">
-          <h3 class="postingFormLabel">시간 선택</h3>
-          <article class="postingTimeSelect">
+        <div class="addProductForm">
+          <h3 class="addProductFormLabel">시간 선택</h3>
+          <article class="addProductTimeSelect">
             <h2 class="ir">시간을 선택해주세요</h2>
-            <button type="button" class="postingSelectBtn">
+            <button type="button" class="addProductSelectBtn">
               시간을 선택해주세요.
             </button>
-            <ul class="postingTimeList">
+            <ul class="addProductTimeList">
               <li>
                 <button type="button" class="textEllipsis">10분 이하</button>
               </li>
@@ -80,14 +95,15 @@
         </div>
 
         <!-- 내용 입력 -->
-        <form class="postingForm" action="">
-          <label for="postingContent" class="postingFormLabel">내용</label>
+        
+          <label for="addProductContent" class="addProductFormLabel">내용</label>
           <textarea
             cols="10"
             rows="10"
-            class="postingContent"
+            id="addProductContent"
             required
             placeholder="내용을 입력해 주세요."
+            onkeyup="productInput()"
           ></textarea>
         </form>
       </main>

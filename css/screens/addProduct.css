@@ -1,32 +1,32 @@
-.posting {
+.addProduct {
   padding: 70px;
   display: flex;
   flex-direction: column;
 }
 
-main .postingForm {
+main .addProductForm {
   width: 100%;
   margin: 10px 0;
   display: flex;
   flex-direction: column;
 }
 
-.postingForm > input {
+.addProductForm > input {
   padding: 10px 0;
   border-bottom: 1px solid var(--borderColor);
 }
 
-.postingForm .postingFormLabel {
+.addProductForm .addProductFormLabel {
   color: var(--textColor);
   font-size: 13px;
   margin: 10px 0;
 }
 
-.postingForm #postingImg {
+.addProductForm #addProductImg {
   display: none;
 }
 
-.postingForm .postingFormUplodeImg {
+.addProductForm .addProductFormUplodeImg {
   position: relative;
   width: 100%;
   height: 204px;
@@ -34,7 +34,7 @@ main .postingForm {
   background-color: var(--borderColor);
 }
 
-.postingFormUplodeImg .postingUplodeImg {
+.addProductFormUplodeImg .addProductUplodeImg {
   position: absolute;
   width: 36px;
   height: 36px;
@@ -42,7 +42,16 @@ main .postingForm {
   right: 2%;
 }
 
-.postingForm .postingTimeSelect .postingSelectBtn {
+.addProductForm .addProductUplodeImgScreen{
+  position: relative;
+  width: 100%;
+  height: 204px;
+  border-radius: 10px;
+  background-color: var(—borderColor);
+}
+
+
+.addProductForm .addProductTimeSelect .addProductSelectBtn {
   width: 100%;
   margin-top: 10px;
   padding: 7px;
@@ -55,7 +64,7 @@ main .postingForm {
   background-position: right 14px center;
 }
 
-.postingTimeSelect .postingTimeList {
+.addProductTimeSelect .addProductTimeList {
   display: none;
   margin-top: 5px;
   border: 1px solid var(--borderColor);
@@ -63,7 +72,7 @@ main .postingForm {
   border-radius: 10px;
 }
 
-.postingTimeSelect .postingTimeList .textEllipsis {
+.addProductTimeSelect .addProductTimeList .textEllipsis {
   margin: 13px;
   white-space: nowrap;
   overflow: hidden;
@@ -73,11 +82,15 @@ main .postingForm {
   background-color: white;
 }
 
-.postingForm .postingContent {
+.addProductForm #addProductContent {
   padding: 10px;
   height: 184px;
   box-sizing: border-box;
   border: 1px solid var(--borderColor);
   border-radius: 10px;
   resize: none;
+}
+
+.addProductSelectBtn.on+.addProductTimeList {
+  display: block;
 }
