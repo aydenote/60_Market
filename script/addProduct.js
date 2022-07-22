@@ -80,3 +80,33 @@ function productInput() {
     productSaveButton.disabled = true;
   }
 }
+
+// 상품 등록 모든 데이터 보내기
+
+async function onProductSvaeBtn(e) {
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDEzN2ViODJmZGNjNzEyZjRiNTZjOCIsImV4cCI6MTY2MzA2MjU1NiwiaWF0IjoxNjU3ODc4NTU2fQ.ckg0Xq80y7h8QpLjLhm2-ph4ACdJ-dwWlu1dctvRytQ";
+    const productInfo = {
+      product: {
+        itemName: productNameForm.value,
+        price: parseInt(productPriceForm.value.replace(/,/g,"")),
+        link: productContentForm.value,
+        itemImage: `${url}/${imageUrl}`
+      },
+    };
+    const setting = {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(productInfo),
+    };
+    try {
+      const reqPosting = await fetch(`${url}/product`, setting);
+      const resData = await reqPosting.json();
+      console.log(resData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  productSaveButton.addEventListener('click', onProductSvaeBtn);
