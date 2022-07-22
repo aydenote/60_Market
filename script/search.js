@@ -34,11 +34,12 @@ async function searchUserList(inputValue) {
   const data = await res.json();
 
   data.forEach((element) => {
-    // console.log(element);
+    console.log(element);
 
     userListContent.innerHTML += `
     <li class="userItem" id="${element._id}">
-        <a href="/profile/${element.accountname}" class="userBox">
+        <a href="profile.html\?accountname=${element.accountname}"
+        class="userBox">
         <img
             src="${element.image}"
             alt="${element.username}님의 프로필 이미지"
