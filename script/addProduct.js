@@ -66,3 +66,17 @@ timeSelectlist.addEventListener('click', (event) => {
         timeSelelectBtn.classList.remove('on');
     }
 });
+
+// productImg, productName, productPrice, productContents  모두 입력이 되면 헤더바에 저장 버튼 활성화
+
+productSaveButton.disabled = true;
+function productInput() {
+  
+  if (productImgForm.value !== "" && productNameForm.value !== "" && productPriceForm.value !=="" && productContentForm.value !=="") {
+    productSaveButton.style.opacity = "1";
+    productSaveButton.disabled = false;
+  } else {
+    productSaveButton.style.opacity = "0.3";
+    productSaveButton.disabled = true;
+  }
+}
