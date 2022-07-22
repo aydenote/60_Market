@@ -1,6 +1,5 @@
 //로그인 구현시 삭제
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYjNmOGUxNTM2MWFhZWE1NjlhYWUzOCIsImV4cCI6MTY2MTE0NTgyNywiaWF0IjoxNjU1OTYxODI3fQ.F7JLkiPLzbW3GcLUK_b_-h4_7zkZdLQgTZB-OddOhLY";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYjNmOGUxNTM2MWFhZWE1NjlhYWUzOCIsImV4cCI6MTY2MTE0NTgyNywiaWF0IjoxNjU1OTYxODI3fQ.F7JLkiPLzbW3GcLUK_b_-h4_7zkZdLQgTZB-OddOhLY";
 // localStorage.getItem("token");
 const postAccountName = "ujin16";
 // localStorage.getItem("accountname");
@@ -66,7 +65,7 @@ function changeAlbumType() {
 
 // 나의 프로필 페이지 일 때 데이터 뿌려주기
 async function myProfileFeed(state) {
-  const url = `https://mandarin.api.weniv.co.kr/post/:${postAccountName}/userpost/?limit=9&skip=3`;
+  const url = `https://mandarin.api.weniv.co.kr/post/${postAccountName}/userpost/?limit=9&skip=3`;
   const res = await fetch(url, {
     method: "GET",
     headers: {
@@ -75,14 +74,14 @@ async function myProfileFeed(state) {
     },
   });
   const data = await res.json();
-  const posts = data.posts;
+  const posts = data.post;
   getFeed(posts, state);
 }
 
 // 타 유저 프로필 페이지 일 경우
 async function yourProfileFeed(state) {
   const userAccountName = curUrl.split("/profile/")[1];
-  const url = `https://mandarin.api.weniv.co.kr/post/:${userAccountName}/userpost/?limit=9&skip=3`;
+  const url = `https://mandarin.api.weniv.co.kr/post/${userAccountName}/userpost/?limit=9&skip=3`;
   const res = await fetch(url, {
     method: "GET",
     headers: {
@@ -183,9 +182,7 @@ function getFeed(posts, state) {
                   class="userProfileImage"
                 />
                 <div class="userInfo">
-                  <strong class="userNickname">${
-                    element.author.username
-                  }</strong>
+                  <strong class="userNickname">${element.author.username}</strong>
                   <div class="userText">
                     <p class="userMsgContent userStatusMsg">
                       @${element.author.accountname}
@@ -233,9 +230,7 @@ function timeForToday(value) {
   const today = new Date();
   const timeValue = new Date(value);
 
-  const betweenTime = Math.floor(
-    (today.getTime() - timeValue.getTime()) / 1000 / 60
-  );
+  const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
   if (betweenTime < 1) return "방금전";
   if (betweenTime < 60) {
     return `${betweenTime}분전`;

@@ -183,10 +183,6 @@
   opacity: 0.3;
 }
 
-.postingSummary .postContent {
-  padding: 16px 21px 31px 21px;
-}
-
 .postContent .postingList {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
