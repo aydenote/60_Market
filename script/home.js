@@ -75,7 +75,7 @@ async function myProfileFeed(state) {
     },
   });
   const data = await res.json();
-  const posts = data.posts;
+  const posts = data.post;
   getFeed(posts, state);
 }
 
@@ -91,7 +91,7 @@ async function yourProfileFeed(state) {
     },
   });
   const data = await res.json();
-  const posts = data.posts;
+  const posts = data.post;
   getFeed(posts, state);
 }
 
