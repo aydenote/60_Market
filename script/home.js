@@ -1,7 +1,9 @@
 //로그인 구현시 삭제
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYjNmOGUxNTM2MWFhZWE1NjlhYWUzOCIsImV4cCI6MTY2MTE0NTgyNywiaWF0IjoxNjU1OTYxODI3fQ.F7JLkiPLzbW3GcLUK_b_-h4_7zkZdLQgTZB-OddOhLY";
+
 // localStorage.getItem("token");
-const postAccountName = "ujin16";
+const postAccountName = "ayden123";
+// const postAccountName = "ujin16";
 // localStorage.getItem("accountname");
 
 let state = "list";
@@ -175,7 +177,7 @@ function getFeed(posts, state) {
         <section>
           <div class="userList">
             <div class="userItem">
-              <a href="/profile/${element.author.accountname}" class="userBox">
+              <a href="profile.html\?accountname=${element.author.accountname}" class="userBox">
                 <img
                   src="${element.author.image}"
                   alt="${element.author.username}님의 프로필 이미지"
