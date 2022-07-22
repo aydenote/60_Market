@@ -36,3 +36,19 @@ async function onChange(event) {
     console.log(err);
   }
 }
+// 상품 가격 숫자만, 자동 원화단위
+
+function inputNumberFormat(addProductPrice) {
+    addProductPrice.value = comma(uncomma(addProductPrice.value));
+  }
+  
+  function comma(addProductPriceString) {
+    addProductPriceString = String(addProductPriceString);
+    productInput();
+    return addProductPriceString.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+  }
+  
+  function uncomma(addProductPriceString) {
+    addProductPriceString = String(addProductPriceString);
+    return addProductPriceString.replace(/[^\d]+/g, '');
+  }
