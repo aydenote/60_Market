@@ -9,6 +9,15 @@ header .registerHeader {
   font-size: 24px;
 }
 
+header .registerFormInfo {
+  margin: 15px 0 0 0;
+  color: var(--textColor);
+}
+
+main.registerFormMain {
+  padding-top: 0;
+}
+
 main .registerForm .registerFormLabel {
   align-self: flex-start;
   color: var(--textColor);
@@ -38,10 +47,6 @@ main .registerForm .registerFormAlert {
 main .registerForm .registerFormBtn {
   margin: 30px 0 0;
   opacity: 0.3;
-}
-
-main .registerForm .registerFormBtn:hover {
-  opacity: 1;
 }
 
 article .registerByEmail {
