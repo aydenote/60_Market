@@ -60,6 +60,58 @@ function changeAlbumType() {
   }
 }
 
+// 좋아요
+async function likeHeart(postId) {
+  const url = `https://mandarin.api.weniv.co.kr/post/${postId}/heart`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  return data;
+}
+
+// 좋아요 취소
+async function likeUnHeart(postId) {
+  const url = `https://mandarin.api.weniv.co.kr/post/${postId}/unheart`;
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  return data;
+}
+
+// 좋아요 버튼 클릭
+async function clickHeart(e) {
+  const likeBtn = e.target;
+  const likeCount = e.target.children[1];
+  const postId = e.target.closest("article").id;
+  // console.log(likeCount);
+  // console.log(likeBtn);
+  // console.log(postId);
+  let data = {};
+
+  if (likeBtn.classList.contains("on")) {
+    likeBtn.classList.remove("on");
+    data = await likeUnHeart(postId);
+    likeCount.innerHTML = data.post.heartCount;
+
+    console.log("on 클래스를 가지고 있습니다!");
+  } else {
+    likeBtn.classList.add("on");
+    data = await likeHeart(postId);
+    likeCount.innerHTML = data.post.heartCount;
+    console.log("on 클래스를 가지고 있지 않습니다!");
+  }
+}
+
 // 나의 프로필 페이지 일 때 데이터 뿌려주기
 async function myProfileFeed(state) {
   const url = `https://mandarin.api.weniv.co.kr/post/${postAccountName}/userpost/?limit=9&skip=3`;
@@ -72,7 +124,6 @@ async function myProfileFeed(state) {
   });
   const data = await res.json();
   const posts = data.post;
-  console.log(posts);
   getFeed(posts, state);
 }
 
@@ -89,7 +140,6 @@ async function yourProfileFeed(state) {
   });
   const data = await res.json();
   const posts = data.post;
-  console.log(posts);
   getFeed(posts, state);
 }
 
@@ -128,7 +178,7 @@ function noFeed() {
 
 // 팔로우한 유저가 있을 때 보여줄 피드
 function getFeed(posts, state) {
-  console.log(posts);
+  // console.log(posts);
   // 팔로우한 유저의 게시물이 없을 경우
   if (!posts && curUrl.split("/pages/")[1] === "home.html") {
     listContent.innerHTML = `
@@ -167,14 +217,17 @@ function getFeed(posts, state) {
     }
     // console.log(firstImage);
     if (state === "list") {
-      const postItem = document.createElement("div");
+      const postItem = document.createElement("article");
       postItem.classList.add("postItem");
       postItem.id = element.id;
       postItem.innerHTML = `
+        <h4 class="ir">게시물</h4>
         <section>
           <div class="userList">
             <div class="userItem">
-            <a href="profile.html\?accountname=${element.author.accountname}" class="userBox">
+              <a href="profile.html\?accountname=${
+                element.author.accountname
+              }" class="userBox">
                 <img
                   src="${element.author.image}"
                   alt="${element.author.username}님의 프로필 이미지"
@@ -215,6 +268,10 @@ function getFeed(posts, state) {
       listContent.appendChild(postItem);
 
       // 좋아요 버튼 기능 구현
+      const likeBtn = document.querySelectorAll(".likeBtn");
+      likeBtn.forEach((item) => {
+        item.addEventListener("click", clickHeart);
+      });
     } else if (state === "album") {
       const postItem = document.createElement("ul");
       postItem.classList.add("postingList");
