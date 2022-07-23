@@ -2,7 +2,8 @@ const userList = document.querySelector(".userList");
 const url = "https://mandarin.api.weniv.co.kr";
 const myAccountName = localStorage.getItem("accountname");
 const URLSearch = new URLSearchParams(location.search);
-const accountName = URLSearch.get("accountname");
+let accountName = URLSearch.get("accountname");
+accountName = accountName.replace(" ", "");
 const title = URLSearch.get("title");
 
 if (title === "followers") {
@@ -22,7 +23,7 @@ async function getFollowingList() {
     },
   };
   try {
-    const followingData = await fetch(`${url}/profile/ayden123/following`, setting);
+    const followingData = await fetch(`${url}/profile/${accountName}/following`, setting);
     const followingDataJson = await followingData.json();
     setFollowing(followingDataJson);
   } catch (err) {
@@ -35,7 +36,7 @@ async function getFollowingList() {
 function setFollowing(followingDataJson) {
   for (const following of followingDataJson) {
     userList.innerHTML += `<li class="userItem">
-<a href="profile.html\?accountname=lion" class="userBox">
+<a href="profile.html\?accountname=${following.accountname}" class="userBox">
   <img src="${following.image}" alt="프로필 이미지" class="userProfileImage" />
   <div class="userInfo">
     <strong class="userNickname">${following.username}</strong>
@@ -73,7 +74,7 @@ async function getFollowerList() {
     },
   };
   try {
-    const followerData = await fetch(`${url}/profile/ayden123/follower`, setting);
+    const followerData = await fetch(`${url}/profile/${accountName}/follower`, setting);
     const followerDataJson = await followerData.json();
     setFollower(followerDataJson);
   } catch (err) {
@@ -85,7 +86,7 @@ async function getFollowerList() {
 function setFollower(followerDataJson) {
   for (const follower of followerDataJson) {
     userList.innerHTML += `<li class="userItem">
-<a href="profile.html\?accountname=lion" class="userBox">
+<a href="profile.html\?accountname=${follower.accountname}" class="userBox">
   <img src="${follower.image}" alt="프로필 이미지" class="userProfileImage" />
   <div class="userInfo">
     <strong class="userNickname">${follower.username}</strong>

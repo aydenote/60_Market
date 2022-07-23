@@ -72,6 +72,7 @@ async function myProfileFeed(state) {
   });
   const data = await res.json();
   const posts = data.post;
+  console.log(posts);
   getFeed(posts, state);
 }
 
@@ -88,6 +89,7 @@ async function yourProfileFeed(state) {
   });
   const data = await res.json();
   const posts = data.post;
+  console.log(posts);
   getFeed(posts, state);
 }
 
@@ -172,7 +174,7 @@ function getFeed(posts, state) {
         <section>
           <div class="userList">
             <div class="userItem">
-              <a href="/profile/${element.author.accountname}" class="userBox">
+            <a href="profile.html\?accountname=${element.author.accountname}" class="userBox">
                 <img
                   src="${element.author.image}"
                   alt="${element.author.username}님의 프로필 이미지"
