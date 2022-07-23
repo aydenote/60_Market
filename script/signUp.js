@@ -55,3 +55,14 @@ async function isEmailValid() {
     emailCheck(err.response.data.message);
   }
 }
+
+// 프로필 설정 페이지로 이동
+registerFormBtn.addEventListener('click', goToProfileSettingsPage);
+
+async function goToProfileSettingsPage(event) {
+  event.preventDefault();
+  const isValidResult = await isEmailValid();
+  if (isValidResult === '사용 가능한 이메일 입니다.') {
+    location.href = './registerProfile.html';
+  }
+}
