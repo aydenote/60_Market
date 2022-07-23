@@ -10,14 +10,16 @@ const registerFormBtn = document.querySelector('.registerFormBtn');
 function isActiveBtn() {
   if (email.value !== '' && password.value !== '') {
     registerFormBtn.style.opacity = '1';
+    registerFormBtn.disabled = false;
   } else {
-    registerFormBtn.style.opacity = '0.3';
+    registerFormBtn.disabled = true;
   }
 }
 
 // 사용 가능한 이메일 체크
-function emailCheck(reqMessage) {
-  if (reqMessage !== '사용 가능한 이메일 입니다.') {
+function checkEmail(resMessage) {
+  if (resMessage !== '사용 가능한 이메일 입니다.') {
+    errorEmail.innerText = `*${resMessage}`;
     errorEmail.classList.remove('ir');
     email.oninput = () => {
       errorEmail.classList.add('ir');
@@ -41,27 +43,28 @@ password.addEventListener('input', () => {
 registerForm.addEventListener('input', isActiveBtn);
 
 // 유효한 이메일 검사
-async function isEmailValid() {
+async function isValidEmail() {
   try {
     const res = await axios.post(`${url}/user/emailvalid`, {
       user: {
         email: email.value,
       },
     });
-    const reqMessage = res.data.message;
-    emailCheck(reqMessage);
-    return reqMessage;
+    const resMessage = res.data.message;
+    checkEmail(resMessage);
+    return resMessage;
   } catch (err) {
-    emailCheck(err.response.data.message);
+    console.log(err);
+    checkEmail(err.response.data.message);
   }
 }
 
 // 프로필 설정 페이지로 이동
-registerFormBtn.addEventListener('click', goToProfileSettingsPage);
+registerFormBtn.addEventListener('click', locationRegisterProfile);
 
-async function goToProfileSettingsPage(event) {
+async function locationRegisterProfile(event) {
   event.preventDefault();
-  const isValidResult = await isEmailValid();
+  const isValidResult = await isValidEmail();
   if (isValidResult === '사용 가능한 이메일 입니다.') {
     location.href = './registerProfile.html';
   }
