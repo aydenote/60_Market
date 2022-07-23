@@ -19,9 +19,10 @@
 /* Home */
 @import "screens/home.css";
 @import "screens/homeNotFollow.css";
-/* Posting */
+/* addProduct */
+@import "screens/addProduct.css";
+/* Post */
 @import "screens/post.css";
-@import "screens/posting.css";
 /* User Profile */
 @import "screens/editProfile.css";
 @import "screens/profile.css";
