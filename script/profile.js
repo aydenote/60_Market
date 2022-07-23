@@ -167,3 +167,148 @@ function clickFollowBtn() {
     followBtn.style.opacity = "1";
   }
 }
+
+// 게시물 가지고 오기
+async function getPostingList() {
+  const url = "https://mandarin.api.weniv.co.kr";
+  const token = localStorage.getItem("Token");
+
+  const setting = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  };
+  try {
+    const resProfileProduct = await fetch(`${url}/post/${accountName}/userpost/?limit=9`, setting);
+    const resProfileProductJson = await resProfileProduct.json();
+    setPostingList(resProfileProductJson.post);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+getPostingList();
+
+// 게시물 반영하기
+function setPostingList(posts) {
+  // 리스트형 게시물
+  const postingSummary = document.querySelector(".postingSummary");
+  const postingListContent = document.querySelector(".post");
+  const postingAlbumContent = document.querySelector(".postingSummary .postingList");
+  const albumType = document.querySelector(".postingType.album.buttonClick");
+  const ListType = document.querySelector(".postingType.list.buttonClick");
+
+  postingSummary.addEventListener("click", (event) => {
+    if (event.target.classList[1] === "list") {
+      setPostingList(posts);
+      albumType.classList.add("unselected");
+      ListType.classList.remove("unselected");
+    } else if (event.target.classList[1] === "album") {
+      setAlbumType(posts);
+      ListType.classList.add("unselected");
+      albumType.classList.remove("unselected");
+    } else {
+      return;
+    }
+  });
+
+  if (posts.length === 0) {
+    postingSummary.classList.add("hidden");
+    postingListContent.classList.add("hidden");
+  } else {
+    postingSummary.classList.remove("hidden");
+    postingListContent.classList.remove("hidden");
+    postingListContent.innerHTML = "";
+    postingAlbumContent.innerHTML = "";
+    for (const post of posts) {
+      let postContent = `
+          <section>
+            <div class="userList">
+              <div class="userItem">
+                <a href="profile.html?accountname=${post.author.accountname}" class="userBox">
+                  <img src="${post.author.image}" alt="프로필 이미지" class="userProfileImage" />
+                  <div class="userInfo">
+                    <strong class="userNickname">${post.author.username}</strong>
+                    <div class="userText">
+                      <p class="userMsgContent userStatusMsg">@${post.author.accountname}</p>
+                    </div>
+                  </div>
+                  <button class="moreBtn buttonClick">
+                    <span class="ir">게시글 더보기 버튼</span>
+                  </button>
+                </a>
+              </div>
+            </div>
+          </section>
+          <section class="postContent">
+            <h4 class="ir">게시글 내용</h4>
+            <p>${post.content}</p>
+            <ul>
+              <li>
+                <img src="${post.image}" alt="게시물 이미지" onerror="this.style.display='none'" />
+              </li>
+            </ul>
+            <div class="postBtnContent">
+              <button class="likeBtn">
+                <span class="ir">좋아요 버튼</span>
+                <span class="likeCount">2</span>
+              </button>
+              <a href="post.html" class="commentBtn">
+                <span class="commentCount">2</span>
+              </a>
+            </div>
+            <strong class="postDate">${timeForToday(post.updatedAt)}</strong>
+          </section>`;
+      postingListContent.insertAdjacentHTML("beforeend", postContent);
+    }
+  }
+}
+
+// 앨범형 게시물
+function setAlbumType(posts) {
+  const postingListContent = document.querySelector(".post");
+  const postingSummary = document.querySelector(".postingSummary");
+  postingListContent.innerHTML = "";
+  if (posts.length === 0) {
+    postingSummary.classList.add("hidden");
+  } else {
+    postingSummary.classList.remove("hidden");
+    const postingContent = document.querySelector(".postingSummary .postingList");
+    postingContent.innerHTML = "";
+    for (const post of posts) {
+      let postingImg = post.image;
+      if (!postingImg) {
+        postingImg = `${url}/1658109040211.png`;
+      }
+      postingContent.innerHTML += `<li>
+        <img src="${postingImg}" alt="" />
+      </li>`;
+    }
+  }
+}
+
+// 포스팅 시간 계산 함수
+function timeForToday(postingDate) {
+  const today = new Date();
+  const timeValue = new Date(postingDate);
+
+  const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+  if (betweenTime < 1) return "방금전";
+  if (betweenTime < 60) {
+    return `${betweenTime}분전`;
+  }
+
+  const betweenTimeHour = Math.floor(betweenTime / 60);
+  if (betweenTimeHour < 24) {
+    return `${betweenTimeHour}시간전`;
+  }
+
+  const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+  if (betweenTimeDay < 365) {
+    return `${betweenTimeDay}일전`;
+  }
+
+  return `${Math.floor(betweenTimeDay / 365)}년전` + console.log(today);
+}
