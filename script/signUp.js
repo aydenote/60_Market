@@ -24,3 +24,18 @@ function emailCheck(reqMessage) {
     };
   }
 }
+
+// 비밀번호 길이 체크
+password.addEventListener('input', () => {
+  if (password.value.length < 6) {
+    errorPassword.classList.remove('ir');
+    registerFormBtn.disabled = true;
+  } else {
+    errorPassword.classList.add('ir');
+    registerFormBtn.disabled = false;
+    isActiveBtn();
+  }
+});
+
+// 폼 입력
+registerForm.addEventListener('input', isActiveBtn);
