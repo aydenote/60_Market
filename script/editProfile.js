@@ -77,7 +77,7 @@ async function clickSaveButton() {
     // 응답 성공시
     if (resEditProfile.status === 200) {
       localStorage.setItem("accountname", inputId.value);
-      location.href = "./userProfile.html";
+      location.href = "./profile.html";
     }
   } catch (err) {
     console.error(err);
