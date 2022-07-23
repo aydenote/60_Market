@@ -39,3 +39,19 @@ password.addEventListener('input', () => {
 
 // 폼 입력
 registerForm.addEventListener('input', isActiveBtn);
+
+// 유효한 이메일 검사
+async function isEmailValid() {
+  try {
+    const res = await axios.post(`${url}/user/emailvalid`, {
+      user: {
+        email: email.value,
+      },
+    });
+    const reqMessage = res.data.message;
+    emailCheck(reqMessage);
+    return reqMessage;
+  } catch (err) {
+    emailCheck(err.response.data.message);
+  }
+}
