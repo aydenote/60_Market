@@ -280,7 +280,7 @@ function setAlbumType(posts) {
     for (const post of posts) {
       let postingImg = post.image;
       if (!postingImg) {
-        postingImg = `${url}/1658109040211.png`;
+        postingImg = `${url}/1658636863237.png`;
       }
       postingContent.innerHTML += `<li>
         <img src="${postingImg}" alt="" />
