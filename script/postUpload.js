@@ -77,3 +77,37 @@ function postInput() {
     postUploadBtn.disabled = true;
   }
 }
+
+// 게시글 작성 후 데이터 서버에 post
+async function createPost() {
+    const token = localStorage.getItem('Token');
+    const contentText = postUploadTxt.value;
+    const files = postUploadInp.files;
+  if(imgFiles.length > 3) {
+    alert('이미지 파일은 최대 3장까지만 가능합니다.');
+  } else {
+    const imgUrls = [];
+    for (const file of imgFiles) {
+      imgUrls.push(`${url}/${await uploadImg(file)}`);
+    }
+    // console.log('imgUrls', imgUrls);
+    const res = await fetch(`${url}/post`, {
+      method: 'POST',
+      headers: {
+        "Authorization" : `Bearer ${token}`,
+        "Content-type" : "application/json"
+    },
+      body:JSON.stringify({
+        "post": {
+          "content": contentText,
+          "image": imgUrls.join(',') 
+        }
+      })
+    })
+    const json = await res.json();
+    // console.log(json);
+    location.href = '../pages/myprofile.html';
+  }
+}
+
+postUploadBtn.addEventListener('click', createPost)
