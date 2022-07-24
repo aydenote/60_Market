@@ -54,7 +54,7 @@ async function imageChange(e) {
 profileSaveButton.addEventListener("click", clickSaveButton);
 async function clickSaveButton() {
   if (imageUrl === undefined) {
-    imageUrl = "1658109040211.png";
+    imageUrl = "1658636863237.png";
   }
   const userProfileInfo = {
     user: {
@@ -74,10 +74,13 @@ async function clickSaveButton() {
   };
   try {
     const resEditProfile = await fetch(`${url}/user`, setting);
+    const resEditProfileJson = await resEditProfile.json();
     // 응답 성공시
     if (resEditProfile.status === 200) {
       localStorage.setItem("accountname", inputId.value);
       location.href = "./profile.html";
+    } else {
+      alert(resEditProfileJson.message);
     }
   } catch (err) {
     console.error(err);
