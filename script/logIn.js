@@ -14,19 +14,44 @@ const isActiveBtn = () => {
 };
 
 // 비밀번호 길이 체크
-const checkPassword = () => {
-  password.addEventListener('input', () => {
-    if (password.value.length > 6) {
-      isActiveBtn();
-    }
-  });
-};
+const checkPassword = password.addEventListener('input', () => {
+  if (password.value.length >= 6) {
+    isActiveBtn();
+  }
+});
 
 // 폼 입력
 logInForm.addEventListener('input', checkPassword);
 
+// 홈으로 이동
+const locationHome = async (status) => {
+  if (status !== 422) {
+    location.href = './home.html';
+  }
+};
+
+// 로컬 스토리지에 토큰 저장
+function saveToken(userData, status) {
+  localStorage.setItem('Token', userData.token);
+  localStorage.setItem('accountname', userData.accountname);
+  locationHome(status);
+}
+
+// 로그인 체크
+const checklogIn = (userData, status) => {
+  if (status !== 422) {
+    saveToken(userData, status);
+  }
+  if (status === 422) {
+    errorMessage.classList.remove('ir');
+  }
+  logInForm.oninput = () => {
+    errorMessage.classList.add('ir');
+  };
+};
+
 // 로그인 데이터 요청
-async function getLogInData() {
+const getLogInData = async () => {
   try {
     const res = await axios.post(`${url}/user/login`, {
       user: {
@@ -34,42 +59,14 @@ async function getLogInData() {
         password: password.value,
       },
     });
-    console.log(res);
     const userData = res.data;
     const status = userData.status;
     logIn(userData, status);
     return status;
   } catch (err) {
-    console.log(err);
-  }
-}
-
-// 로컬 스토리지에 토큰 저장
-function saveToken(userData) {
-  localStorage.setItem('Token', userData.token);
-  localStorage.setItem('accountname', userData.accountname);
-}
-
-// 로그인
-const logIn = (userData, status) => {
-  if (status !== 422) {
-    saveToken(userData);
-  }
-  // 로그인 실패 메시지
-  errorMessage.classList.remove('ir');
-  // 폼 입력시 에러 메시지 삭제
-  logInForm.oninput = () => {
-    errorMessage.classList.add('ir');
-  };
-};
-
-// 홈으로 이동
-const locationHome = async (event) => {
-  event.preventDefault();
-  const isValidResult = await getLogInData();
-  if (isValidResult !== 422) {
-    location.href = './home.html';
+    return err;
   }
 };
 
-logInFormBtn.addEventListener('click', locationHome);
+// 로그인 데이터 요청 버튼
+logInFormBtn.addEventListener('click', getLogInData);
