@@ -57,10 +57,10 @@
 
     <section class="modalBg reportModal hidden">
       <article class="modal">
-        <button class="modalClose">
+        <button class="modalClose" onclick="closeModal()">
           <span class="ir">더보기 닫기 버튼</span>
         </button>
-        <button class="modalBtn modalBtn1">신고하기</button>
+        <button class="modalBtn modalBtn1" onclick="openAlert()">신고하기</button>
       </article>
     </section>
 
@@ -68,8 +68,8 @@
       <h4 class="ir">게시글 신고 창</h4>
       <strong class="alertMsg">신고하시겠어요?</strong>
       <div class="alertBtnContent">
-        <button class="cancelBtn">취소</button>
-        <button class="reportBtn">신고</button>
+        <button class="cancelBtn" onclick="clickCancel()">취소</button>
+        <button class="reportBtn" onclick="clickReport()">신고</button>
       </div>
     </section>
   </body>
