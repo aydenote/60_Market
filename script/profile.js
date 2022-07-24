@@ -255,7 +255,7 @@ function setPostingList(posts) {
                 <span class="ir">좋아요 버튼</span>
                 <span class="likeCount">2</span>
               </button>
-              <a href="post.html" class="commentBtn">
+              <a href="post.html\?postid=${element.id}" class="commentBtn">
                 <span class="commentCount">2</span>
               </a>
             </div>

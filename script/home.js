@@ -257,7 +257,7 @@ function getFeed(posts, state) {
               <span class="ir">좋아요 버튼</span>
                 <span class="likeCount">${element.heartCount}</span>
             </button>
-            <a href="/post/${element.id}" class="commentBtn">
+            <a href="post.html\?postid=${element.id}" class="commentBtn">
               <span class="commentCount">${element.commentCount}</span>
             </a>
           </div>
