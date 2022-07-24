@@ -33,9 +33,8 @@ const checkPassword = password.addEventListener('input', () => {
 registerForm.addEventListener('input', checkPassword);
 
 // 프로필 설정으로 이동
-const locationRegisterProfile = async () => {
-  const isValidResult = await isValidEmail();
-  if (isValidResult === '사용 가능한 이메일 입니다.') {
+const locationRegisterProfile = async (resMessage) => {
+  if (resMessage === '사용 가능한 이메일 입니다.') {
     location.href = './registerProfile.html';
   }
 };
@@ -50,7 +49,7 @@ const checkEmail = (resMessage) => {
     };
   }
   if (resMessage === '사용 가능한 이메일 입니다.') {
-    locationRegisterProfile();
+    locationRegisterProfile(resMessage);
   }
 };
 
