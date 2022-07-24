@@ -32,6 +32,14 @@ const checkPassword = password.addEventListener('input', () => {
 // 폼 입력
 registerForm.addEventListener('input', checkPassword);
 
+// 프로필 설정으로 이동
+const locationRegisterProfile = async () => {
+  const isValidResult = await isValidEmail();
+  if (isValidResult === '사용 가능한 이메일 입니다.') {
+    location.href = './registerProfile.html';
+  }
+};
+
 // 사용 가능한 이메일 체크
 const checkEmail = (resMessage) => {
   if (resMessage !== '사용 가능한 이메일 입니다.') {
@@ -41,9 +49,12 @@ const checkEmail = (resMessage) => {
       errorEmail.classList.add('ir');
     };
   }
+  if (resMessage === '사용 가능한 이메일 입니다.') {
+    locationRegisterProfile();
+  }
 };
 
-// 유효한 이메일 검사
+// 이메일 유효성 검사
 const isValidEmail = async () => {
   try {
     const res = await axios.post(`${url}/user/emailvalid`, {
@@ -60,13 +71,5 @@ const isValidEmail = async () => {
   }
 };
 
-// // 프로필 설정 페이지로 이동
+// 이메일 유효성 검사 버튼
 registerFormBtn.addEventListener('click', isValidEmail);
-
-// async function locationRegisterProfile(event) {
-//   event.preventDefault();
-//   const isValidResult = await isValidEmail();
-//   if (isValidResult === '사용 가능한 이메일 입니다.') {
-//     location.href = './registerProfile.html';
-//   }
-// }
