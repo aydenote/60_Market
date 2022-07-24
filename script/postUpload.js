@@ -7,7 +7,7 @@ const url = (location.protocol === "https:") ? 'https://mandarin.api.weniv.co.kr
 
 const imgFiles = [];
 
-// 사진 미리보기
+// 사진 미리보기, 사진 삭제
 
 function readInputFile(e){
     const files = e.target.files;
@@ -78,7 +78,8 @@ function postInput() {
   }
 }
 
-// 게시글 작성 후 데이터 서버에 post
+// 게시글 작성 후 데이터 서버에 보내기
+
 async function createPost() {
     const token = localStorage.getItem('Token');
     const contentText = postUploadTxt.value;
