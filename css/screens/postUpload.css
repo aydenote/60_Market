@@ -1,0 +1,70 @@
+body .postContainer{
+    padding: 68px 16px 0 16px;
+}
+
+.postContainer .postUploadForm{
+    margin: 23px 0 0 16px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.postUploadForm .postUploadCommentImg {
+    width: 42px;
+    height: 42px;
+    flex: none;
+}
+
+.postUploadForm .postUploadCommentInput {
+    width: 100%;
+    height: 500vh;
+}
+
+.postUploadForm .postUploadComentTxt {
+    width: 100%;
+    margin: 10px 0 0 12px;
+    border: 1.5px solid #fff;
+    outline: none;
+    resize: none;
+}
+
+.postContainer .postUploadInputImg {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    cursor: pointer;
+}
+
+.postContainer .postUploadImageScreen {
+    width: 100%;
+    height: 228px;
+    margin: 16px auto 0;
+    display: flex;
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    gap: 8px;
+}
+
+.postUploadImageScreen .postImgItem {
+    width: 100%;
+    height: 100%;
+    flex: 0 0 auto;
+    align-items: center;
+    border: 0.5px solid #DBDBDB;
+    box-sizing: border-box;
+    border-radius: 10px;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+}
+
+.postImgItem .postImgCloseBtn {
+    width: 25px;
+    height: 25px;
+    border: none;
+    background-color: none;
+    position: absolute;
+    top: 11.5px;
+    right: 11.5px;
+    background: url(/asset/images/icons/icon__close.svg) no-repeat;
+    background-size: contain;
+}
