@@ -43,25 +43,25 @@ registerForm.addEventListener('input', checkPassword);
 //   }
 // }
 
-// // 유효한 이메일 검사
-// async function isValidEmail() {
-//   try {
-//     const res = await axios.post(`${url}/user/emailvalid`, {
-//       user: {
-//         email: email.value,
-//       },
-//     });
-//     const resMessage = res.data.message;
-//     checkEmail(resMessage);
-//     return resMessage;
-//   } catch (err) {
-//     console.log(err);
-//     checkEmail(err.response.data.message);
-//   }
-// }
+// 유효한 이메일 검사
+const isValidEmail = async () => {
+  try {
+    const res = await axios.post(`${url}/user/emailvalid`, {
+      user: {
+        email: email.value,
+      },
+    });
+    console.log(res);
+    const resMessage = res.data.message;
+    checkEmail(resMessage);
+    return resMessage;
+  } catch (err) {
+    checkEmail(err.response.data.message);
+  }
+};
 
 // // 프로필 설정 페이지로 이동
-// registerFormBtn.addEventListener('click', locationRegisterProfile);
+registerFormBtn.addEventListener('click', isValidEmail);
 
 // async function locationRegisterProfile(event) {
 //   event.preventDefault();
