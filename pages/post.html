@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="../asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
+    <script src="../script/post.js" defer></script>
     <title>60'' Market | 홈</title>
   </head>
   <body>
@@ -33,7 +34,7 @@
         <section>
           <div class="userList">
             <div class="userItem">
-              <a href="profile.html" class="userBox">
+              <a href="yourProfile.html" class="userBox">
                 <img
                   src="../asset/images/basic-profile.svg"
                   alt="프로필 이미지"
@@ -144,54 +145,21 @@
         </article>
       </section>
     </main>
-
     <footer class="chatEnter postChatEnter">
-      <form class="chatEnterImage">
-        <label for="chatSelectImage">
-          <img src="../asset/images/icons/icon__imagesUplode.svg" alt="" />
-        </label>
-        <input id="chatSelectImage" type="file" accept="image/*" />
-      </form>
       <form class="chatEnterContent">
-        <input type="text" placeholder="메시지 입력하기..." />
-        <button type="button">전송</button>
+      <div class="chatEnterImage">
+          <img src="../asset/images/basic-profile.svg" alt="" />
+      </div>
+      <label for="postChatContent"></label>
+        <input 
+        id="postChatContent"
+        type="text" placeholder="메시지 입력하기..." 
+        onkeyup="postInput()"/>
+        <button 
+        type="button"
+        class="postBtn"
+        >게시</button>
       </form>
     </footer>
-
-    <section class="modalBg reportModal hidden">
-      <article class="modal">
-        <button class="modalClose">
-          <span class="ir">더보기 닫기 버튼</span>
-        </button>
-        <button class="modalBtn modalBtn1">신고하기</button>
-      </article>
-    </section>
-
-    <section class="modalAlert reportAlert hidden">
-      <h4 class="ir">게시글 신고 창</h4>
-      <strong class="alertMsg">신고하시겠어요?</strong>
-      <div class="alertBtnContent">
-        <button class="cancelBtn">취소</button>
-        <button class="reportBtn">신고</button>
-      </div>
-    </section>
-
-    <section class="modalBg commentDelModal hidden">
-      <article class="modal">
-        <button class="modalClose">
-          <span class="ir">댓글 삭제 버튼</span>
-        </button>
-        <button class="modalBtn modalBtn1">삭제</button>
-      </article>
-    </section>
-
-    <section class="modalAlert commentDelAlert hidden">
-      <h4 class="ir">게시글 신고 창</h4>
-      <strong class="alertMsg">삭제하시겠어요?</strong>
-      <div class="alertBtnContent">
-        <button class="cancelBtn">취소</button>
-        <button class="commentDelBtn">삭제</button>
-      </div>
-    </section>
   </body>
 </html>
