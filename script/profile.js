@@ -183,47 +183,72 @@ async function getPostingList() {
   try {
     const resProfileProduct = await fetch(`${url}/post/${accountName}/userpost/?limit=9`, setting);
     const resProfileProductJson = await resProfileProduct.json();
-    setPostingList(resProfileProductJson.post);
+    userPostInfo = resProfileProductJson.post;
+    setPostingList(userPostInfo);
   } catch (err) {
     console.error(err);
   }
 }
+let userPostInfo;
 
 getPostingList();
 
-// 게시물 반영하기
-function setPostingList(posts) {
-  // 리스트형 게시물
+// 게시물 타입바 생성 및 최초 리스트형으로 포스팅
+function setPostingList(userPostInfo) {
   const postingSummary = document.querySelector(".postingSummary");
-  const postingListContent = document.querySelector(".post");
-  const postingAlbumContent = document.querySelector(".postingSummary .postingList");
+  if (userPostInfo.length === 0) {
+    postingSummary.classList.add("hidden");
+  } else {
+    postingSummary.classList.remove("hidden");
+    const createArticle = document.createElement("article");
+    const createH3 = document.createElement("h3");
+    createArticle.setAttribute("class", "post");
+    createH3.setAttribute("class", "ir");
+    createH3.innerText = "피드 게시글";
+    createArticle.appendChild(createH3);
+
+    postingSummary.append(createArticle);
+    listTypePost();
+  }
+}
+
+function listTypePost() {
+  const postingSummary = document.querySelector(".postingSummary");
+  const postContent = document.querySelector(".postContent");
   const albumType = document.querySelector(".postingType.album.buttonClick");
   const ListType = document.querySelector(".postingType.list.buttonClick");
 
-  postingSummary.addEventListener("click", (event) => {
-    if (event.target.classList[1] === "list") {
-      setPostingList(posts);
-      albumType.classList.add("unselected");
-      ListType.classList.remove("unselected");
-    } else if (event.target.classList[1] === "album") {
-      setAlbumType(posts);
-      ListType.classList.add("unselected");
-      albumType.classList.remove("unselected");
-    } else {
-      return;
-    }
-  });
+  albumType.classList.add("unselected");
+  ListType.classList.remove("unselected");
+  if (postContent) {
+    postContent.remove();
+  }
+  const createArticle = document.createElement("article");
+  const createH3 = document.createElement("h3");
+  createArticle.setAttribute("class", "post");
+  createH3.setAttribute("class", "ir");
+  createH3.innerText = "피드 게시글";
+  createArticle.appendChild(createH3);
 
-  if (posts.length === 0) {
-    postingSummary.classList.add("hidden");
-    postingListContent.classList.add("hidden");
-  } else {
-    postingSummary.classList.remove("hidden");
-    postingListContent.classList.remove("hidden");
-    postingListContent.innerHTML = "";
-    postingAlbumContent.innerHTML = "";
-    for (const post of posts) {
-      let postContent = `
+  postingSummary.append(createArticle);
+  const posting = document.querySelectorAll(".post");
+  posting[0].innerHTML = '<h3 class="ir">피드 게시글</h3>';
+
+  if (posting.length >= 2) {
+    posting[1].remove();
+  }
+
+  for (const post of userPostInfo) {
+    const postImg = post.image.split(",");
+    let heartStatus;
+    if (post.hearted) {
+      heartStatus = "likeBtn on";
+    } else {
+      heartStatus = "likeBtn";
+    }
+    let postListContent;
+    if (postImg.length >= 2) {
+      postListContent = `
           <section>
             <div class="userList">
               <div class="userItem">
@@ -242,18 +267,19 @@ function setPostingList(posts) {
               </div>
             </div>
           </section>
-          <section class="postContent">
+          <section id="${post.id}" class="postContent">
             <h4 class="ir">게시글 내용</h4>
             <p>${post.content}</p>
             <ul>
               <li>
-                <img src="${post.image}" alt="게시물 이미지" onerror="this.style.display='none'" />
+                <img src="${postImg[0]}" alt="게시물 이미지" onerror="this.style.display='none'" />
+                <img class="imageLayer" src="../asset/images/icons/icon__imageLayer.svg" alt="게시물 이미지" onerror="this.style.display='none'"/>
               </li>
             </ul>
             <div class="postBtnContent">
-              <button class="likeBtn">
+              <button class="${heartStatus}" onclick="clickHeart(event)">
                 <span class="ir">좋아요 버튼</span>
-                <span class="likeCount">2</span>
+                <span class="likeCount">${post.heartCount}</span>
               </button>
               <a href="post.html" class="commentBtn">
                 <span class="commentCount">2</span>
@@ -261,30 +287,96 @@ function setPostingList(posts) {
             </div>
             <strong class="postDate">${timeForToday(post.updatedAt)}</strong>
           </section>`;
-      postingListContent.insertAdjacentHTML("beforeend", postContent);
+    } else {
+      postListContent = `
+          <section>
+            <div class="userList">
+              <div class="userItem">
+                <a href="profile.html?accountname=${post.author.accountname}" class="userBox">
+                  <img src="${post.author.image}" alt="프로필 이미지" class="userProfileImage" />
+                  <div class="userInfo">
+                    <strong class="userNickname">${post.author.username}</strong>
+                    <div class="userText">
+                      <p class="userMsgContent userStatusMsg">@${post.author.accountname}</p>
+                    </div>
+                  </div>
+                  <button class="moreBtn buttonClick">
+                    <span class="ir">게시글 더보기 버튼</span>
+                  </button>
+                </a>
+              </div>
+            </div>
+          </section>
+          <section id="${post.id}" class="postContent">
+            <h4 class="ir">게시글 내용</h4>
+            <p>${post.content}</p>
+            <ul>
+              <li>
+                <img src="${postImg[0]}" alt="게시물 이미지" onerror="this.style.display='none'" />
+              </li>
+            </ul>
+            <div class="postBtnContent">
+              <button class="${heartStatus}" onclick="clickHeart(event)">
+                <span class="ir">좋아요 버튼</span>
+                <span class="likeCount">${post.heartCount}</span>
+              </button>
+              <a href="post.html" class="commentBtn">
+                <span class="commentCount"></span>
+              </a>
+            </div>
+            <strong class="postDate">${timeForToday(post.updatedAt)}</strong>
+          </section>`;
     }
+    posting[0].insertAdjacentHTML("beforeend", postListContent);
   }
 }
 
-// 앨범형 게시물
-function setAlbumType(posts) {
-  const postingListContent = document.querySelector(".post");
+//  앨범 타입 포스팅 구현
+function albumTypePost() {
   const postingSummary = document.querySelector(".postingSummary");
-  postingListContent.innerHTML = "";
-  if (posts.length === 0) {
-    postingSummary.classList.add("hidden");
-  } else {
-    postingSummary.classList.remove("hidden");
-    const postingContent = document.querySelector(".postingSummary .postingList");
-    postingContent.innerHTML = "";
-    for (const post of posts) {
-      let postingImg = post.image;
-      if (!postingImg) {
-        postingImg = `${url}/1658636863237.png`;
-      }
-      postingContent.innerHTML += `<li>
-        <img src="${postingImg}" alt="" />
-      </li>`;
+  const postContent = document.querySelectorAll(".postContent");
+  const post = document.querySelector(".post");
+  const albumType = document.querySelector(".postingType.album.buttonClick");
+  const ListType = document.querySelector(".postingType.list.buttonClick");
+
+  ListType.classList.add("unselected");
+  albumType.classList.remove("unselected");
+
+  if (post) {
+    post.remove();
+  }
+  if (postContent.length >= 1) {
+    postContent[0].remove();
+  }
+
+  const createArticle = document.createElement("article");
+  const createH2 = document.createElement("h2");
+  const createUl = document.createElement("ul");
+  createArticle.setAttribute("class", "postContent");
+  createH2.setAttribute("class", "ir");
+  createH2.innerText = "등록된 게시물";
+  createUl.setAttribute("class", "postingList");
+  createArticle.appendChild(createH2);
+  createArticle.appendChild(createUl);
+  postingSummary.appendChild(createArticle);
+
+  for (const post of userPostInfo) {
+    const postImg = post.image.split(",");
+    // 게시물에 이미지가 없는 경우, 기본 이미지 설정
+    if (!postImg[0]) {
+      postImg[0] = `${url}/1658636863237.png`;
+    }
+
+    // 게시물에 이미지가 2개 이상인 경우, 이미지 레이어 아이콘 추가.
+    if (postImg.length >= 2) {
+      createUl.innerHTML += `<li>
+          <img src="${postImg[0]}" alt="" />
+          <img class="imageLayer" src="../asset/images/icons/icon__imageLayer.svg" alt="이미지 레이어 아이콘"/>
+        </li>`;
+    } else {
+      createUl.innerHTML += `<li>
+          <img src="${postImg[0]}" alt="" />
+        </li>`;
     }
   }
 }
@@ -311,4 +403,59 @@ function timeForToday(postingDate) {
   }
 
   return `${Math.floor(betweenTimeDay / 365)}년전` + console.log(today);
+}
+
+// 좋아요
+async function likeHeart(postingID) {
+  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;
+  const token = localStorage.getItem("Token");
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  console.log(data);
+
+  return data;
+}
+
+// 좋아요 취소
+async function likeUnHeart(postingID) {
+  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/unheart`;
+  const token = localStorage.getItem("Token");
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  console.log(data);
+  return data;
+}
+
+// 좋아요 버튼 클릭
+async function clickHeart(e) {
+  const likeBtn = e.target;
+  const likeCount = e.target.children[1];
+  const postId = e.target.closest("section").id;
+  let data = {};
+
+  if (likeBtn.classList.contains("on")) {
+    likeBtn.classList.remove("on");
+    data = await likeUnHeart(postId);
+    likeCount.innerHTML = data.post.heartCount;
+
+    console.log("on 클래스를 가지고 있습니다!");
+  } else {
+    likeBtn.classList.add("on");
+    data = await likeHeart(postId);
+    likeCount.innerHTML = data.post.heartCount;
+    console.log("on 클래스를 가지고 있지 않습니다!");
+  }
 }

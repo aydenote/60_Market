@@ -192,6 +192,7 @@
 }
 
 .postContent .postingList li {
+  position: relative;
   text-align: center;
   cursor: pointer;
 }
@@ -199,4 +200,22 @@
 .postContent .postingList img {
   width: 114px;
   height: 114px;
+}
+
+.postContent .postingList img.imageLayer {
+  position: absolute;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.post .postContent ul li .imageLayer {
+  position: absolute;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.postingSummary .postingList {
+  padding: 16px 0px 30px 0px;
 }
