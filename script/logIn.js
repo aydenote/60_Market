@@ -24,3 +24,14 @@ const checkPassword = () => {
 
 // 폼 입력
 logInForm.addEventListener('input', checkPassword);
+
+// 홈으로 이동
+const locationHome = async (event) => {
+  event.preventDefault();
+  const isValidResult = await getLogInData();
+  if (isValidResult !== 422) {
+    location.href = './home.html';
+  }
+};
+
+logInFormBtn.addEventListener('click', locationHome);
