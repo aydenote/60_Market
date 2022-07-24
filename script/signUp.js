@@ -32,16 +32,16 @@ const checkPassword = password.addEventListener('input', () => {
 // 폼 입력
 registerForm.addEventListener('input', checkPassword);
 
-// // 사용 가능한 이메일 체크
-// const checkEmail = (resMessage) => {
-//   if (resMessage !== '사용 가능한 이메일 입니다.') {
-//     errorEmail.innerText = `*${resMessage}`;
-//     errorEmail.classList.remove('ir');
-//     email.oninput = () => {
-//       errorEmail.classList.add('ir');
-//     };
-//   }
-// }
+// 사용 가능한 이메일 체크
+const checkEmail = (resMessage) => {
+  if (resMessage !== '사용 가능한 이메일 입니다.') {
+    errorEmail.innerText = `*${resMessage}`;
+    errorEmail.classList.remove('ir');
+    email.oninput = () => {
+      errorEmail.classList.add('ir');
+    };
+  }
+};
 
 // 유효한 이메일 검사
 const isValidEmail = async () => {
