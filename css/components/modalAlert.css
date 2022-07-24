@@ -1,29 +1,30 @@
-/* body {
-  background-color: black;
-} */
-
-.deleteAlert {
+.modalAlert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 252px;
   border-radius: 10px;
   overflow: hidden;
   background-color: white;
+  box-shadow: 5px 10px 10px 1px rgba(0, 0, 0, 0.3);
   font-weight: 500;
   font-size: 16px;
   text-align: center;
 }
 
-.deleteAlert .alertMsg {
+.modalAlert .alertMsg {
   display: block;
   padding: 22px 0;
 }
 
-.deleteAlert .deleteBtnCnt {
+.modalAlert .alertBtnContent {
   width: 100%;
   border-top: solid 0.5px var(--borderColor);
   display: flex;
 }
 
-.deleteAlert .deleteBtnCnt button {
+.modalAlert .alertBtnContent button {
   border: none;
   cursor: pointer;
   background-color: white;
@@ -31,11 +32,11 @@
   padding: 14px 0;
 }
 
-.deleteAlert .deleteBtnCnt button:hover {
+.modalAlert .alertBtnContent button:hover {
   background-color: var(--subColor);
 }
 
-.deleteBtnCnt .delBtn {
+.alertBtnContent button:nth-child(2) {
   border-left: solid 0.5px var(--borderColor) !important;
   color: var(--mainColor);
 }

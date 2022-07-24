@@ -13,8 +13,17 @@
     <header>
       <h1 class="ir">프로필</h1>
       <article class="headerBar profile">
-        <img class="headerBarBack buttonClick" src="/asset/images/icons/icon__arrowLeft.svg" alt="뒤로가기" onclick="history.back()" />
-        <img class="headerBarBtn buttonClick" src="/asset/images/icons/icon__menu.svg" alt="메뉴" />
+        <img
+          class="headerBarBack buttonClick"
+          src="/asset/images/icons/icon__arrowLeft.svg"
+          alt="뒤로가기"
+          onclick="history.back()"
+        />
+        <img
+          class="headerBarBtn buttonClick"
+          src="/asset/images/icons/icon__menu.svg"
+          alt="메뉴"
+        />
       </article>
     </header>
 
@@ -23,7 +32,11 @@
         <h2 class="ir">프로필 소개</h2>
         <section class="myFollow myProfileImg">
           <a onclick="clickedFollowLink(event)" class="followers"></a>
-          <img class="myImage" src="/asset/images/basic-profile.svg" alt="내 프로필 이미지" />
+          <img
+            class="myImage"
+            src="/asset/images/basic-profile.svg"
+            alt="내 프로필 이미지"
+          />
           <a onclick="clickedFollowLink(event)" class="followings"></a>
         </section>
 
@@ -40,8 +53,16 @@
 
       <section class="postingSummary">
         <article class="albumBar">
-          <img class="postingType list buttonClick" src="/asset/images/icons/icon__postList.svg" alt="리스트형으로 보기" />
-          <img class="postingType album buttonClick unselected" src="/asset/images/icons/icon__postAlbum.svg" alt="앨범형으로 보기" />
+          <img
+            class="postingType list buttonClick"
+            src="/asset/images/icons/icon__postList.svg"
+            alt="리스트형으로 보기"
+          />
+          <img
+            class="postingType album buttonClick unselected"
+            src="/asset/images/icons/icon__postAlbum.svg"
+            alt="앨범형으로 보기"
+          />
         </article>
         <article class="postContent">
           <h2 class="ir">등록된 게시물</h2>
@@ -85,22 +106,22 @@
       </nav>
     </footer>
 
-    <section class="modalBg postModal hidden">
+    <section class="modalBg setUsertModal hidden">
       <article class="modal">
         <button class="modalClose">
           <span class="ir">더보기 닫기 버튼</span>
         </button>
-        <button class="modalBtn modalBtn1">삭제</button>
-        <button class="modalBtn modalBtn1">수정</button>
+        <button class="modalBtn modalBtn1">설정 및 개인정보</button>
+        <button class="modalBtn modalBtn2">로그아웃</button>
       </article>
     </section>
 
-    <section class="modalAlert delAlert hidden">
-      <h4 class="ir">게시글 삭제 창</h4>
-      <strong class="alertMsg">게시글을 삭제할까요?</strong>
-      <div class="modalBtnContent">
+    <section class="modalAlert logoutAlert hidden">
+      <h4 class="ir">로그아웃 창</h4>
+      <strong class="alertMsg">로그아웃하시겠어요?</strong>
+      <div class="alertBtnContent">
         <button class="cancelBtn">취소</button>
-        <button class="delBtn">삭제</button>
+        <button class="logoutBtn">로그아웃</button>
       </div>
     </section>
 
@@ -116,7 +137,26 @@
     </section>
 
     <section class="modalAlert productDelAlert hidden">
-      <h4 class="ir">게시글 삭제 창</h4>
+      <h4 class="ir">상품 삭제 창</h4>
+      <strong class="alertMsg">삭제하시겠어?</strong>
+      <div class="modalBtnContent">
+        <button class="cancelBtn">취소</button>
+        <button class="delBtn">삭제</button>
+      </div>
+    </section>
+
+    <section class="modalBg posttModal hidden">
+      <article class="modal">
+        <button class="modalClose">
+          <span class="ir">더보기 닫기 버튼</span>
+        </button>
+        <button class="modalBtn modalBtn1">삭제</button>
+        <button class="modalBtn modalBtn2">수정</button>
+      </article>
+    </section>
+
+    <section class="modalAlert postDelAlert hidden">
+      <h4 class="ir">게시물 삭제 창</h4>
       <strong class="alertMsg">게시글을 삭제할까요?</strong>
       <div class="modalBtnContent">
         <button class="cancelBtn">취소</button>
