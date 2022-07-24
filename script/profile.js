@@ -260,7 +260,7 @@ function listTypePost() {
                       <p class="userMsgContent userStatusMsg">@${post.author.accountname}</p>
                     </div>
                   </div>
-                  <button class="moreBtn buttonClick">
+                  <button onclick="onModal(event)" class="moreBtn buttonClick">
                     <span class="ir">게시글 더보기 버튼</span>
                   </button>
                 </a>
@@ -281,7 +281,7 @@ function listTypePost() {
                 <span class="ir">좋아요 버튼</span>
                 <span class="likeCount">${post.heartCount}</span>
               </button>
-              <a href="post.html\?postid=${element.id}" class="commentBtn">
+              <a href="post.html\?postid=${post.id}" class="commentBtn">
                 <span class="commentCount">2</span>
               </a>
             </div>
@@ -300,7 +300,7 @@ function listTypePost() {
                       <p class="userMsgContent userStatusMsg">@${post.author.accountname}</p>
                     </div>
                   </div>
-                  <button class="moreBtn buttonClick">
+                  <button onclick="onModal(event)" class="moreBtn buttonClick">
                     <span class="ir">게시글 더보기 버튼</span>
                   </button>
                 </a>
@@ -320,7 +320,7 @@ function listTypePost() {
                 <span class="ir">좋아요 버튼</span>
                 <span class="likeCount">${post.heartCount}</span>
               </button>
-              <a href="post.html" class="commentBtn">
+              <a href="post.html\?postid=${post.id}" class="commentBtn">
                 <span class="commentCount"></span>
               </a>
             </div>
@@ -458,4 +458,55 @@ async function clickHeart(e) {
     likeCount.innerHTML = data.post.heartCount;
     console.log("on 클래스를 가지고 있지 않습니다!");
   }
+}
+
+// 모달 활성화 구현
+function onModal(e) {
+  e.preventDefault();
+  if (e.target.classList[0] === "headerBarBtn") {
+    const headerBarModal = document.querySelector(".modalBg.setUsertModal");
+    headerBarModal.classList.toggle("hidden");
+  } else if (e.target.classList[0] === "moreBtn") {
+    const userMoreModal = document.querySelector(".modalBg.productModal");
+    userMoreModal.classList.remove("hidden");
+  }
+}
+
+// 유저 모달 비활성화 구현
+function offModal(e) {
+  e.target.closest("section").classList.add("hidden");
+}
+
+// headerBar 모달에서 로그아웃 모달 구현
+function userLogout() {
+  const logoutCheckModal = document.querySelector(".modalAlert.logoutAlert");
+  logoutCheckModal.classList.remove("hidden");
+}
+
+// 로그아웃 확인 모달에서 로그아웃 클릭
+function checkLogout(e) {
+  const logoutCheckModal = document.querySelector(".modalAlert.logoutAlert");
+  if (e.target.className === "logoutBtn") {
+    location.href = "/pages/logIn.html";
+    // localStorage.clear();
+  } else if (e.target.className === "cancelBtn") {
+    logoutCheckModal.classList.add("hidden");
+  }
+}
+
+// 프로필 페이지 글 삭제 모달창 활성화
+const deleteBtn = document.querySelector(".modalBg.productModal .modalBtn.modalBtn1");
+deleteBtn.addEventListener("click", deletePosting);
+
+function deletePosting() {
+  const checkDelete = document.querySelector(".modalAlert.postDelAlert");
+  const deleteCancel = document.querySelector(".modalAlert.postDelAlert .cancelBtn");
+  deleteCancel.addEventListener("click", onClickCancel);
+
+  checkDelete.classList.remove("hidden");
+}
+
+function onClickCancel() {
+  const checkDelete = document.querySelector(".modalAlert.postDelAlert");
+  checkDelete.classList.add("hidden");
 }
