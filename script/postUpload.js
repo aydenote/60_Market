@@ -63,3 +63,17 @@ async function uploadImg(event) {
     console.log(err);
     }
 }
+
+// postUploadComentTxt나 postUploadImageScreen에 이미지가 업로드되면 업로드버튼 활성화
+
+postUploadBtn.disabled = true;
+console.log(postUploadBtn);
+function postInput() {
+  if (postUploadTxt.value !== "" || postImgContainer.value !== "") {
+    postUploadBtn.style.opacity = "1";
+    postUploadBtn.disabled = false;
+  } else {
+    postUploadBtn.style.opacity = "0.3";
+    postUploadBtn.disabled = true;
+  }
+}
