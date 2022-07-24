@@ -37,11 +37,31 @@ async function getLogInData() {
     console.log(res);
     const userData = res.data;
     const status = userData.status;
+    logIn(userData, status);
     return status;
   } catch (err) {
     console.log(err);
   }
 }
+
+// 로컬 스토리지에 토큰 저장
+function saveToken(userData) {
+  localStorage.setItem('Token', userData.token);
+  localStorage.setItem('accountname', userData.accountname);
+}
+
+// 로그인
+const logIn = (userData, status) => {
+  if (status !== 422) {
+    saveToken(userData);
+  }
+  // 로그인 실패 메시지
+  errorMessage.classList.remove('ir');
+  // 폼 입력시 에러 메시지 삭제
+  logInForm.oninput = () => {
+    errorMessage.classList.add('ir');
+  };
+};
 
 // 홈으로 이동
 const locationHome = async (event) => {
