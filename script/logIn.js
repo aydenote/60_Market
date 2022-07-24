@@ -25,6 +25,24 @@ const checkPassword = () => {
 // 폼 입력
 logInForm.addEventListener('input', checkPassword);
 
+// 로그인 데이터 요청
+async function getLogInData() {
+  try {
+    const res = await axios.post(`${url}/user/login`, {
+      user: {
+        email: email.value,
+        password: password.value,
+      },
+    });
+    console.log(res);
+    const userData = res.data;
+    const status = userData.status;
+    return status;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // 홈으로 이동
 const locationHome = async (event) => {
   event.preventDefault();
