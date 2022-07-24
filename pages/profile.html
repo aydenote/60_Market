@@ -14,7 +14,7 @@
       <h1 class="ir">프로필</h1>
       <article class="headerBar profile">
         <img class="headerBarBack buttonClick" src="/asset/images/icons/icon__arrowLeft.svg" alt="뒤로가기" onclick="history.back()" />
-        <img class="headerBarBtn buttonClick" src="/asset/images/icons/icon__menu.svg" alt="메뉴" />
+        <img onclick="onModal(event)" class="headerBarBtn buttonClick" src="/asset/images/icons/icon__menu.svg" alt="메뉴" />
       </article>
     </header>
 
@@ -79,18 +79,18 @@
 
     <section class="modalBg setUsertModal hidden">
       <article class="modal">
-        <button class="modalClose">
+        <button onclick="offModal(event)" class="modalClose">
           <span class="ir">더보기 닫기 버튼</span>
         </button>
         <button class="modalBtn modalBtn1">설정 및 개인정보</button>
-        <button class="modalBtn modalBtn2">로그아웃</button>
+        <button onclick="userLogout()" class="modalBtn modalBtn2">로그아웃</button>
       </article>
     </section>
 
     <section class="modalAlert logoutAlert hidden">
       <h4 class="ir">로그아웃 창</h4>
       <strong class="alertMsg">로그아웃하시겠어요?</strong>
-      <div class="alertBtnContent">
+      <div onclick="checkLogout(event)" class="alertBtnContent">
         <button class="cancelBtn">취소</button>
         <button class="logoutBtn">로그아웃</button>
       </div>
@@ -98,7 +98,7 @@
 
     <section class="modalBg productModal hidden">
       <article class="modal">
-        <button class="modalClose">
+        <button onclick="offModal(event)" class="modalClose">
           <span class="ir">더보기 닫기 버튼</span>
         </button>
         <button class="modalBtn modalBtn1">삭제</button>
@@ -129,7 +129,7 @@
     <section class="modalAlert postDelAlert hidden">
       <h4 class="ir">게시물 삭제 창</h4>
       <strong class="alertMsg">게시글을 삭제할까요?</strong>
-      <div class="modalBtnContent">
+      <div class="alertBtnContent">
         <button class="cancelBtn">취소</button>
         <button class="delBtn">삭제</button>
       </div>
