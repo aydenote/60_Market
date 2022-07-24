@@ -196,4 +196,37 @@ async function homeFeed() {
   }
 }
 
+// 더보기 버튼 클릭시 모달 열기
+const reportModal = document.querySelector(".reportModal");
+const reportAlert = document.querySelector(".reportAlert");
+const modal = document.querySelector(".modal");
+const modalBg = document.querySelector(".modalBg");
+
+function openModal(e) {
+  e.preventDefault();
+  reportModal.classList.remove("hidden");
+  modal.classList.remove("hidden");
+}
+
+function closeModal() {
+  reportModal.classList.add("hidden");
+}
+
+function openAlert() {
+  reportAlert.classList.remove("hidden");
+  modal.classList.add("hidden");
+}
+
+// 취소 버튼 클릭
+function clickCancel() {
+  reportModal.classList.add("hidden");
+  reportAlert.classList.add("hidden");
+}
+
+// 신고하기 버튼 클릭
+function clickReport() {
+  reportModal.classList.add("hidden");
+  reportAlert.classList.add("hidden");
+}
+
 homeFeed();
