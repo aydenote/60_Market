@@ -24,7 +24,7 @@ const checkPassword = password.addEventListener('input', () => {
 logInForm.addEventListener('input', checkPassword);
 
 // 홈으로 이동
-const locationHome = async (status) => {
+const locationHome = (status) => {
   if (status !== 422) {
     location.href = './home.html';
   }
