@@ -19,7 +19,7 @@
   color: var(--textColor);
 }
 
-.userBox .userInfo {
+.userBox .userInfo.follow {
   width: calc(100% - 128px);
   display: flex;
   flex-direction: column;
