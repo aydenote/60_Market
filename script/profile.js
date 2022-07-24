@@ -78,6 +78,9 @@ function setYourProfile(userProfile) {
   createMessageImg.setAttribute("class", "messageBtn");
   createMessageImg.setAttribute("src", "/asset/images/icons/icon__message.svg");
   createMessageImg.setAttribute("alt", "메세지 버튼");
+  createMessageImg.addEventListener("click", () => {
+    location.href = "/pages/chatting1.html";
+  });
   profileLinkBtn.append(createMessageImg);
 
   createFollowButton.setAttribute("class", "followBtn");
