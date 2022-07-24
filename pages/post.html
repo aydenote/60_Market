@@ -12,8 +12,17 @@
     <header>
       <h1 class="ir">게시글 내용</h1>
       <article class="headerBar">
-        <img class="headerBarBack buttonClick" src="../asset/images/icons/icon__arrowLeft.svg" alt="뒤로가기" onclick="history.back()" />
-        <img class="headerBarModal headerBarBtn buttonClick" src="../asset/images/icons/icon__menu.svg" alt="메뉴" />
+        <img
+          class="headerBarBack buttonClick"
+          src="../asset/images/icons/icon__arrowLeft.svg"
+          alt="뒤로가기"
+          onclick="history.back()"
+        />
+        <img
+          class="headerBarModal headerBarBtn buttonClick"
+          src="../asset/images/icons/icon__menu.svg"
+          alt="메뉴"
+        />
       </article>
     </header>
 
@@ -25,11 +34,17 @@
           <div class="userList">
             <div class="userItem">
               <a href="profile.html" class="userBox">
-                <img src="../asset/images/basic-profile.svg" alt="프로필 이미지" class="userProfileImage" />
+                <img
+                  src="../asset/images/basic-profile.svg"
+                  alt="프로필 이미지"
+                  class="userProfileImage"
+                />
                 <div class="userInfo">
                   <strong class="userNickname">제주감귤마을</strong>
                   <div class="userText">
-                    <p class="userMsgContent userStatusMsg">@weniv_villageMandarin</p>
+                    <p class="userMsgContent userStatusMsg">
+                      @weniv_villageMandarin
+                    </p>
                   </div>
                 </div>
                 <button class="moreBtn buttonClick">
@@ -41,10 +56,18 @@
         </section>
         <section class="postContent">
           <h4 class="ir">게시글 내용</h4>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora eaque doloribus maiores doloremque ullam molestias, iste sequi, corrupti necessitatibus consequatur hic minus. Sequi numquam nesciunt tempora, est ut consequuntur architecto.</p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
+            eaque doloribus maiores doloremque ullam molestias, iste sequi,
+            corrupti necessitatibus consequatur hic minus. Sequi numquam
+            nesciunt tempora, est ut consequuntur architecto.
+          </p>
           <ul>
             <li>
-              <img src="../asset/images/postImages/post__crosswalk.jpeg" alt="게시물 이미지" />
+              <img
+                src="../asset/images/postImages/post__crosswalk.jpeg"
+                alt="게시물 이미지"
+              />
             </li>
           </ul>
           <div class="postBtnContent">
@@ -66,9 +89,15 @@
             <div class="userList">
               <div class="userItem">
                 <a href="#" class="userBox">
-                  <img src="../asset/images/basic-profile.svg" alt="프로필 이미지" class="userProfileImage postUserProfile" />
+                  <img
+                    src="../asset/images/basic-profile.svg"
+                    alt="프로필 이미지"
+                    class="userProfileImage postUserProfile"
+                  />
                   <div class="userInfo">
-                    <strong class="userNickname postUserNickName">서귀포시 무슨 농장</strong>
+                    <strong class="userNickname postUserNickName"
+                      >서귀포시 무슨 농장</strong
+                    >
                   </div>
                   <button class="moreBtn buttonClick">
                     <span class="ir">댓글 모달 버튼</span>
@@ -88,9 +117,15 @@
             <div class="userList">
               <div class="userItem">
                 <a href="#" class="userBox">
-                  <img src="../asset/images/basic-profile.svg" alt="프로필 이미지" class="userProfileImage postUserProfile" />
+                  <img
+                    src="../asset/images/basic-profile.svg"
+                    alt="프로필 이미지"
+                    class="userProfileImage postUserProfile"
+                  />
                   <div class="userInfo">
-                    <strong class="userNickname postUserNickName">감귤러버</strong>
+                    <strong class="userNickname postUserNickName"
+                      >감귤러버</strong
+                    >
                   </div>
                   <button class="moreBtn buttonClick">
                     <span class="ir">댓글 모달 버튼</span>
@@ -101,7 +136,10 @@
           </section>
           <section class="postContent postComment">
             <h4 class="ir">댓글 내용</h4>
-            <p>안녕하세요. 사진이 너무 멋있어요. 한라봉 언제 먹을 수 있나요? 기다리기 지쳤어요 땡뻘땡뻘...</p>
+            <p>
+              안녕하세요. 사진이 너무 멋있어요. 한라봉 언제 먹을 수 있나요?
+              기다리기 지쳤어요 땡뻘땡뻘...
+            </p>
           </section>
         </article>
       </section>
@@ -120,22 +158,21 @@
       </form>
     </footer>
 
-    <section class="modalBg postModal hidden">
+    <section class="modalBg reportModal hidden">
       <article class="modal">
         <button class="modalClose">
           <span class="ir">더보기 닫기 버튼</span>
         </button>
-        <button class="modalBtn modalBtn1">삭제</button>
-        <button class="modalBtn modalBtn2">수정</button>
+        <button class="modalBtn modalBtn1">신고하기</button>
       </article>
     </section>
 
-    <section class="modalAlert delAlert hidden">
-      <h4 class="ir">게시글 삭제 창</h4>
-      <strong class="alertMsg">게시글을 삭제할까요?</strong>
-      <div class="modalBtnContent">
+    <section class="modalAlert reportAlert hidden">
+      <h4 class="ir">게시글 신고 창</h4>
+      <strong class="alertMsg">신고하시겠어요?</strong>
+      <div class="alertBtnContent">
         <button class="cancelBtn">취소</button>
-        <button class="delBtn">삭제</button>
+        <button class="reportBtn">신고</button>
       </div>
     </section>
 
@@ -148,13 +185,13 @@
       </article>
     </section>
 
-    <section class="modalBg commentReportModal hidden">
-      <article class="modal">
-        <button class="modalClose">
-          <span class="ir">댓글 신고 버튼</span>
-        </button>
-        <button class="modalBtn modalBtn1">신고</button>
-      </article>
+    <section class="modalAlert commentDelAlert hidden">
+      <h4 class="ir">게시글 신고 창</h4>
+      <strong class="alertMsg">삭제하시겠어요?</strong>
+      <div class="alertBtnContent">
+        <button class="cancelBtn">취소</button>
+        <button class="commentDelBtn">삭제</button>
+      </div>
     </section>
   </body>
 </html>
