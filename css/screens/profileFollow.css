@@ -20,7 +20,7 @@
 }
 
 .userBox .userInfo {
-  width: calc(100% - 61px);
+  width: calc(100% - 128px);
   display: flex;
   flex-direction: column;
 }
