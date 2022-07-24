@@ -16,6 +16,13 @@ main .postCommentBox {
   margin-top: -10px;
   padding-left: 68px;
 }
+.chatEnter .chatEnterContent .postBtn {
+  width: 26px;
+  height: 18px;
+  padding: 0;
+  background: none;
+  font-size: 14px;
+}
 
 .postUserNickName::after {
   content: '∙ 2분전';
