@@ -40,3 +40,26 @@ function readInputFile(e){
     })
   }
 postUploadInp.addEventListener('change',readInputFile);
+
+// 이미지 업로드
+
+async function uploadImg(event) {
+    const formData = new FormData();
+    imgFiles.forEach(file => {
+    formData.append("image", file);
+    })
+    try {
+    const response = await fetch(url + "/image/uploadfiles", {
+        method: "POST",
+        body: formData,
+    });
+    const data = await response.json();
+    data.forEach(data => {
+        console.log(data.filename)
+    })
+    console.log(data);
+    }
+    catch (err) {
+    console.log(err);
+    }
+}
