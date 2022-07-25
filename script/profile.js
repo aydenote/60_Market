@@ -6,8 +6,7 @@ const url = "https://mandarin.api.weniv.co.kr";
 const URLSearch = new URLSearchParams(location.search);
 let accountName = URLSearch.get("accountname");
 const myAccountName = localStorage.getItem("accountname");
-accountName =
-  accountName === null ? localStorage.getItem("accountname") : accountName;
+accountName = accountName === null ? myAccountName : accountName;
 
 function clickedFollowLink(e) {
   const profileUser = document.querySelector(".profileInfo .userId");
@@ -304,7 +303,7 @@ function listTypePost() {
                       }</p>
                     </div>
                   </div>
-                  <button onclick="onModal(event)" class="moreBtn buttonClick">
+                  <button onclick="clickUserModal(event)" class="moreBtn buttonClick">
                     <span class="ir">게시글 더보기 버튼</span>
                   </button>
                 </a>
@@ -441,57 +440,114 @@ async function clickHeart(e) {
   }
 }
 
-// 모달 활성화 구현
-function onModal(e) {
-  e.preventDefault();
-  if (e.target.classList[0] === "headerBarBtn") {
-    const headerBarModal = document.querySelector(".modalBg.setUsertModal");
-    headerBarModal.classList.toggle("hidden");
-  } else if (e.target.classList[0] === "moreBtn") {
-    const userMoreModal = document.querySelector(".modalBg.productModal");
-    userMoreModal.classList.remove("hidden");
-  }
+// 사용자에 따라 헤더 모달 구현
+const headerModal = document.querySelector(".headerBarBtn.buttonClick");
+const userLogout = document.querySelector(".setUsertModal .modalBtn2");
+userLogout.addEventListener("click", clickLogoutModal);
+headerModal.addEventListener("click", clickHeaderModal);
+
+function clickHeaderModal() {
+  const headerBarModal = document.querySelector(".modalBg.setUsertModal");
+  const modalClose = document.querySelector(".setUsertModal .modalClose");
+  modalClose.addEventListener("click", () => {
+    headerBarModal.classList.add("hidden");
+  });
+  headerBarModal.classList.toggle("hidden");
 }
 
-// 유저 모달 비활성화 구현
-function offModal(e) {
-  e.target.closest("section").classList.add("hidden");
-}
-
-// headerBar 모달에서 로그아웃 모달 구현
-function userLogout() {
+// 사용자 로그아웃 기능
+function clickLogoutModal() {
   const logoutCheckModal = document.querySelector(".modalAlert.logoutAlert");
+  const cancelBtn = document.querySelector(".logoutAlert .cancelBtn");
+  const logoutBtn = document.querySelector(".logoutAlert .logoutBtn");
+
   logoutCheckModal.classList.remove("hidden");
-}
 
-// 로그아웃 확인 모달에서 로그아웃 클릭
-function checkLogout(e) {
-  const logoutCheckModal = document.querySelector(".modalAlert.logoutAlert");
-  if (e.target.className === "logoutBtn") {
+  cancelBtn.addEventListener("click", () => {
+    logoutCheckModal.classList.add("hidden");
+  });
+
+  logoutBtn.addEventListener("click", () => {
     localStorage.clear();
     location.href = "/pages/logIn.html";
-  } else if (e.target.className === "cancelBtn") {
-    logoutCheckModal.classList.add("hidden");
+  });
+}
+
+// 사용자에 따라 포스트 모달 구현
+function clickUserModal(event) {
+  event.preventDefault();
+  const postingId = event.path[4].nextElementSibling.id;
+  if (accountName === myAccountName || accountName === null) {
+    const posttModal = document.querySelector(".posttModal");
+    const modalClose = document.querySelector(".posttModal .modalClose");
+    const postDelete = document.querySelector(".posttModal .modalBtn1");
+    posttModal.classList.remove("hidden");
+
+    modalClose.addEventListener("click", () => {
+      posttModal.classList.add("hidden");
+    });
+
+    // 포스팅 삭제
+    postDelete.addEventListener("click", async function () {
+      const url = "https://mandarin.api.weniv.co.kr";
+      const token = localStorage.getItem("Token");
+
+      const setting = {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+      };
+
+      try {
+        const resDeleteProduct = await fetch(
+          `${url}/post/${postingId}`,
+          setting
+        );
+        console.log(resDeleteProduct);
+        // if (resDeleteProduct) {
+        //   location.href = "/pages/profile.html";
+        // }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  } else {
+    // 게시물 신고
+    const reportAlert = document.querySelector(".reportAlert");
+    const cancelBtn = document.querySelector(".reportAlert .cancelBtn");
+    const reportBtn = document.querySelector(".reportAlert .reportBtn");
+    reportAlert.classList.remove("hidden");
+
+    cancelBtn.addEventListener("click", () => {
+      reportAlert.classList.add("hidden");
+    });
+
+    reportBtn.addEventListener("click", async function () {
+      const url = "https://mandarin.api.weniv.co.kr";
+      const token = localStorage.getItem("Token");
+
+      const setting = {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+      };
+
+      try {
+        const resReport = await fetch(
+          `${url}/post/${postingId}/report`,
+          setting
+        );
+        const resReportJson = await resReport.json();
+        if (resReportJson.status !== 404) {
+          reportAlert.classList.add("hidden");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
   }
-}
-
-// 프로필 페이지 글 삭제 모달창 활성화
-const deleteBtn = document.querySelector(
-  ".modalBg.productModal .modalBtn.modalBtn1"
-);
-deleteBtn.addEventListener("click", deletePosting);
-
-function deletePosting() {
-  const checkDelete = document.querySelector(".modalAlert.postDelAlert");
-  const deleteCancel = document.querySelector(
-    ".modalAlert.postDelAlert .cancelBtn"
-  );
-  deleteCancel.addEventListener("click", onClickCancel);
-
-  checkDelete.classList.remove("hidden");
-}
-
-function onClickCancel() {
-  const checkDelete = document.querySelector(".modalAlert.postDelAlert");
-  checkDelete.classList.add("hidden");
 }

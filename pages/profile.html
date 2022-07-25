@@ -20,7 +20,6 @@
           onclick="history.back()"
         />
         <img
-          onclick="onModal(event)"
           class="headerBarBtn buttonClick"
           src="../asset/images/icons/icon__menu.svg"
           alt="메뉴"
@@ -103,20 +102,18 @@
 
     <section class="modalBg setUsertModal hidden">
       <article class="modal">
-        <button onclick="offModal(event)" class="modalClose">
+        <button class="modalClose">
           <span class="ir">더보기 닫기 버튼</span>
         </button>
         <button class="modalBtn modalBtn1">설정 및 개인정보</button>
-        <button onclick="userLogout()" class="modalBtn modalBtn2">
-          로그아웃
-        </button>
+        <button class="modalBtn modalBtn2">로그아웃</button>
       </article>
     </section>
 
     <section class="modalAlert logoutAlert hidden">
       <h4 class="ir">로그아웃 창</h4>
       <strong class="alertMsg">로그아웃하시겠어요?</strong>
-      <div onclick="checkLogout(event)" class="alertBtnContent">
+      <div class="alertBtnContent">
         <button class="cancelBtn">취소</button>
         <button class="logoutBtn">로그아웃</button>
       </div>
@@ -124,7 +121,7 @@
 
     <section class="modalBg productModal hidden">
       <article class="modal">
-        <button onclick="offModal(event)" class="modalClose">
+        <button class="modalClose">
           <span class="ir">더보기 닫기 버튼</span>
         </button>
         <button class="modalBtn modalBtn1">삭제</button>
@@ -158,6 +155,15 @@
       <div class="alertBtnContent">
         <button class="cancelBtn">취소</button>
         <button class="delBtn">삭제</button>
+      </div>
+    </section>
+
+    <section class="modalAlert reportAlert hidden">
+      <h4 class="ir">게시글 신고 창</h4>
+      <strong class="alertMsg">신고하시겠어요?</strong>
+      <div class="alertBtnContent">
+        <button class="cancelBtn">취소</button>
+        <button class="reportBtn">신고</button>
       </div>
     </section>
   </body>
