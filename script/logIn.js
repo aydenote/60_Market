@@ -59,9 +59,9 @@ const getLogInData = async () => {
         password: password.value,
       },
     });
-    const userData = res.data;
+    const userData = res.data.user;
     const status = userData.status;
-    logIn(userData, status);
+    checklogIn(userData, status);
     return status;
   } catch (err) {
     return err;
