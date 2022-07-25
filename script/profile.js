@@ -288,7 +288,7 @@ function listTypePost() {
                 <span class="commentCount">2</span>
               </a>
             </div>
-            <strong class="postDate">${timeForToday(post.updatedAt)}</strong>
+            <strong class="postDate">${timeForToday(post.createdAt)}</strong>
           </section>`;
     } else {
       postListContent = `
@@ -327,7 +327,7 @@ function listTypePost() {
                 <span class="commentCount"></span>
               </a>
             </div>
-            <strong class="postDate">${timeForToday(post.updatedAt)}</strong>
+            <strong class="postDate">${timeForToday(post.createdAt)}</strong>
           </section>`;
     }
     posting[0].insertAdjacentHTML("beforeend", postListContent);
@@ -384,28 +384,17 @@ function albumTypePost() {
   }
 }
 
-// 포스팅 시간 계산 함수
-function timeForToday(postingDate) {
-  const today = new Date();
-  const timeValue = new Date(postingDate);
-
-  const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-  if (betweenTime < 1) return "방금전";
-  if (betweenTime < 60) {
-    return `${betweenTime}분전`;
-  }
-
-  const betweenTimeHour = Math.floor(betweenTime / 60);
-  if (betweenTimeHour < 24) {
-    return `${betweenTimeHour}시간전`;
-  }
-
-  const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-  if (betweenTimeDay < 365) {
-    return `${betweenTimeDay}일전`;
-  }
-
-  return `${Math.floor(betweenTimeDay / 365)}년전` + console.log(today);
+// 게시물 등록 시간 계산 함수
+function timeForToday(time) {
+  const postingDate = time.substring(0, time.length - 1);
+  const ms = Date.parse(postingDate);
+  const now = Date.now();
+  const gap = (now - ms) / 1000;
+  if (gap < 60) return "방금전";
+  else if (gap < 3600) return `${parseInt(gap / 60)}분 전`;
+  else if (gap < 86400) return `${parseInt(gap / 3600)}시간 전`;
+  else if (gap < 2592000) return `${parseInt(gap / 86400)}일 전`;
+  else return `${parseInt(gap / 2592000)}달 전`;
 }
 
 // 좋아요
@@ -490,8 +479,8 @@ function userLogout() {
 function checkLogout(e) {
   const logoutCheckModal = document.querySelector(".modalAlert.logoutAlert");
   if (e.target.className === "logoutBtn") {
+    localStorage.clear();
     location.href = "/pages/logIn.html";
-    // localStorage.clear();
   } else if (e.target.className === "cancelBtn") {
     logoutCheckModal.classList.add("hidden");
   }
