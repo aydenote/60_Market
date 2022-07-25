@@ -174,7 +174,9 @@ async function homeFeed() {
       <section id="${posts[i].id}" class="postContent">
         <h4 class="ir">게시글 내용</h4>
         <p>${posts[i].content}</p>
-        <ul>${postImage}</ul>
+        <div class="postImgContent">
+          <ul>${postImage}</ul>
+        </div>
         <div class="postBtnContent">
           <button class="likeBtn ${
             posts[i].hearted ? "on" : ""
