@@ -107,3 +107,17 @@ main .post {
   font-size: 10px;
   color: var(--textColor);
 }
+
+/* 스크롤 커스텀 */
+.postImgContent::-webkit-scrollbar {
+  height: 10px;
+}
+
+.postImgContent::-webkit-scrollbar-thumb {
+  background: var(--mainColor);
+  border-radius: 10px;
+}
+
+.postImgContent::-webkit-scrollbar-track {
+  background: white;
+}
