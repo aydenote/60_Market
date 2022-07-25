@@ -248,17 +248,17 @@ function listTypePost() {
     let images = post.image.split(",");
     let heartStatus;
     let postImgContent;
-    if (images.length) {
-      for (const image of images) {
-        if (!!image) {
-          postImage += `
+
+    // 이미지 존재 여부에 따른 동적 마크업
+    for (const image of images) {
+      if (!!image) {
+        postImage += `
           <li>
             <img src="${image}" alt="게시물 이미지" onerror="this.style.display='none'" />
           </li>`;
-          postImgContent = `<div class="postImgContent">`;
-        } else {
-          postImgContent = "";
-        }
+        postImgContent = `<div class="postImgContent">`;
+      } else {
+        postImgContent = "";
       }
     }
 
