@@ -60,7 +60,7 @@ const getLogInData = async () => {
       },
     });
     const userData = res.data.user;
-    const status = userData.status;
+    const status = res.data.status;
     checklogIn(userData, status);
     return status;
   } catch (err) {
