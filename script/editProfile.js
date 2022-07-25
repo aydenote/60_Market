@@ -2,20 +2,32 @@
 const profileSaveButton = document.querySelector(".headerBarBtn.buttonClick");
 const inputName = document.querySelector(".profileModificationForm #name");
 const inputId = document.querySelector(".profileModificationForm #id");
-const inputIntroduce = document.querySelector(".profileModificationForm #introduce");
+const inputIntroduce = document.querySelector(
+  ".profileModificationForm #introduce"
+);
 const url = "https://mandarin.api.weniv.co.kr";
 const token = localStorage.getItem("Token");
 let imageUrl;
 
 profileSaveButton.disabled = true;
 function profileChangeInput() {
-  const inputNameLength = document.querySelector(".profileModificationForm #name").value.length;
-  const inputIntroduceLength = document.querySelector(".profileModificationForm #introduce").value.length;
+  const inputNameLength = document.querySelector(
+    ".profileModificationForm #name"
+  ).value.length;
+  const inputIntroduceLength = document.querySelector(
+    ".profileModificationForm #introduce"
+  ).value.length;
   const inputId = document.querySelector(".profileModificationForm #id");
-  const inputIdLength = document.querySelector(".profileModificationForm #id").value.length;
+  const inputIdLength = document.querySelector(".profileModificationForm #id")
+    .value.length;
   let check = /^[a-zA-Z0-9_.]{2,10}$/;
 
-  if (inputNameLength >= 2 && inputIntroduceLength >= 2 && inputIdLength >= 2 && check.test(inputId.value)) {
+  if (
+    inputNameLength >= 2 &&
+    inputIntroduceLength >= 2 &&
+    inputIdLength >= 2 &&
+    check.test(inputId.value)
+  ) {
     profileSaveButton.style.opacity = "1";
     profileSaveButton.disabled = false;
   } else {
