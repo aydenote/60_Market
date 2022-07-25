@@ -13,6 +13,11 @@
   font-size: 12px;
 }
 
+.userBox .userProfileImage.follow {
+  height: 50px;
+  object-fit: cover;
+}
+
 .userList .profile.followBtn.cancel {
   background-color: white;
   border: 1px solid var(--borderColor);

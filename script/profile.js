@@ -196,7 +196,7 @@ let userPostInfo;
 
 getPostingList();
 
-// 게시물 타입바 생성 및 최초 리스트형으로 포스팅
+// 게시물 타입바 생성 및 최초 목록형으로 포스팅
 function setPostingList(userPostInfo) {
   const postingSummary = document.querySelector(".postingSummary");
   if (userPostInfo.length === 0) {
@@ -215,6 +215,7 @@ function setPostingList(userPostInfo) {
   }
 }
 
+// 목록형으로 포스팅 표시
 function listTypePost() {
   const postingSummary = document.querySelector(".postingSummary");
   const postContent = document.querySelector(".postContent");
@@ -253,11 +254,6 @@ function listTypePost() {
           postImage += `
           <li>
             <img src="${image}" alt="게시물 이미지" />
-          </li>`;
-        } else {
-          postImage = `
-          <li>
-            <img src="" alt="게시물 이미지" onerror="this.style.display='none'"/>
           </li>`;
         }
       }
@@ -307,7 +303,7 @@ function listTypePost() {
   }
 }
 
-//  앨범 타입 포스팅 구현
+//  앨범형 포스팅 구현
 function albumTypePost() {
   const postingSummary = document.querySelector(".postingSummary");
   const postContent = document.querySelectorAll(".postContent");
@@ -338,20 +334,18 @@ function albumTypePost() {
 
   for (const post of userPostInfo) {
     const postImg = post.image.split(",");
-    // 게시물에 이미지가 없는 경우, 기본 이미지 설정
-    if (!postImg[0]) {
-      postImg[0] = `${url}/1658636863237.png`;
-    }
 
+    // 게시물에 이미지가 없는 경우, img 태그 생성 불가.
     // 게시물에 이미지가 2개 이상인 경우, 이미지 레이어 아이콘 추가.
-    if (postImg.length >= 2) {
+    if (postImg[0] === "") {
+    } else if (postImg.length >= 2) {
       createUl.innerHTML += `<li>
-          <img src="${postImg[0]}" alt="" />
-          <img class="imageLayer" src="../asset/images/icons/icon__imageLayer.svg" alt="이미지 레이어 아이콘"/>
+          <img src="${postImg[0]}" alt="" onerror="this.style.display='none'"/>
+          <img class="imageLayer" src="../asset/images/icons/icon__imageLayer.svg" alt="이미지 레이어 아이콘" onerror="this.style.display='none'"/>
         </li>`;
     } else {
       createUl.innerHTML += `<li>
-          <img src="${postImg[0]}" alt="" />
+          <img src="${postImg[0]}" alt="" onerror="this.style.display='none'"/>
         </li>`;
     }
   }
