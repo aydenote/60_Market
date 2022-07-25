@@ -247,14 +247,17 @@ function listTypePost() {
     let postImage = "";
     let images = post.image.split(",");
     let heartStatus;
-
+    let postImgContent;
     if (images.length) {
       for (const image of images) {
         if (!!image) {
           postImage += `
           <li>
-            <img src="${image}" alt="게시물 이미지" />
+            <img src="${image}" alt="게시물 이미지" onerror="this.style.display='none'" />
           </li>`;
+          postImgContent = `<div class="postImgContent">`;
+        } else {
+          postImgContent = "";
         }
       }
     }
@@ -287,7 +290,9 @@ function listTypePost() {
           <section id="${post.id}" class="postContent">
             <h4 class="ir">게시글 내용</h4>
             <p>${post.content}</p>
+            ${postImgContent}
             <ul>${postImage}</ul>
+            </div>
             <div class="postBtnContent">
               <button class="${heartStatus}" onclick="clickHeart(event)">
                 <span class="ir">좋아요 버튼</span>
