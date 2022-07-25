@@ -249,11 +249,17 @@ function listTypePost() {
 
     if (images.length) {
       for (const image of images) {
-        postImage += `
-      <li>
-        <img src="${image}" alt="게시물 이미지" />
-      </li>
-      `;
+        if (!!image) {
+          postImage += `
+          <li>
+            <img src="${image}" alt="게시물 이미지" />
+          </li>`;
+        } else {
+          postImage = `
+          <li>
+            <img src="" alt="게시물 이미지" onerror="this.style.display='none'"/>
+          </li>`;
+        }
       }
     }
 
@@ -377,8 +383,6 @@ async function likeHeart(postingID) {
     },
   });
   const data = await res.json();
-  console.log(data);
-
   return data;
 }
 
@@ -394,7 +398,6 @@ async function likeUnHeart(postingID) {
     },
   });
   const data = await res.json();
-  console.log(data);
   return data;
 }
 
@@ -409,13 +412,10 @@ async function clickHeart(e) {
     likeBtn.classList.remove("on");
     data = await likeUnHeart(postId);
     likeCount.innerHTML = data.post.heartCount;
-
-    console.log("on 클래스를 가지고 있습니다!");
   } else {
     likeBtn.classList.add("on");
     data = await likeHeart(postId);
     likeCount.innerHTML = data.post.heartCount;
-    console.log("on 클래스를 가지고 있지 않습니다!");
   }
 }
 
