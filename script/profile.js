@@ -54,7 +54,7 @@ function setMyProfile(userProfile) {
   profileLinkBtn.append(createEditLink);
 
   createProductLink.setAttribute("class", "addPosting");
-  createProductLink.setAttribute("href", "posting.html");
+  createProductLink.setAttribute("href", "addProduct.html");
   createProductLink.innerText = "상품 등록";
   profileLinkBtn.append(createProductLink);
 
