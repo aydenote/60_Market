@@ -21,9 +21,29 @@ main .post {
   line-height: 18px;
 }
 
-.post .postContent ul li img {
+.post .postImgContent {
+  max-width: 304px;
+  height: 228px;
   border-radius: 10px;
+  overflow-y: hidden;
+  overflow-x: scroll;
   margin-bottom: 16px;
+  padding-bottom: 12px;
+}
+
+.post .postContent ul {
+  display: flex;
+}
+
+.post .postContent ul li {
+  min-width: 100%;
+  width: 100%;
+  height: 228px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.post .postContent ul li img {
   width: 100%;
   height: 100%;
   object-fit: cover;
