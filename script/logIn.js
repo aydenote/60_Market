@@ -14,11 +14,11 @@ const isActiveBtn = () => {
 };
 
 // 비밀번호 길이 체크
-const checkPassword = password.addEventListener('input', () => {
+const checkPassword = () => {
   if (password.value.length >= 6) {
     isActiveBtn();
   }
-});
+};
 
 // 폼 입력
 logInForm.addEventListener('input', checkPassword);
