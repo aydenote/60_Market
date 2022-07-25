@@ -8,11 +8,11 @@ const registerFormBtn = document.querySelector('.registerFormBtn');
 
 // 버튼 활성화
 const isActiveBtn = () => {
-  if (email.value !== '' && password.value.length > 6) {
+  if (email.value !== '' && password.value.length >= 6) {
     registerFormBtn.style.opacity = '1';
     registerFormBtn.disabled = false;
   }
-  if (email.value === '' || password.value.length <= 6) {
+  if (email.value === '' || password.value.length < 6) {
     registerFormBtn.style.opacity = '0.3';
     registerFormBtn.disabled = true;
   }
