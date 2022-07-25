@@ -31,11 +31,11 @@ const locationHome = (status) => {
 };
 
 // 로컬 스토리지에 토큰 저장
-function saveToken(userData, status) {
+const saveToken = (userData, status) => {
   localStorage.setItem('Token', userData.token);
   localStorage.setItem('accountname', userData.accountname);
   locationHome(status);
-}
+};
 
 // 로그인 체크
 const checklogIn = (userData, status) => {
