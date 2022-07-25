@@ -12,7 +12,7 @@ let imageUrl;
 
 // 상품 이미지 미리보기 / api서버에 전송하고 변경된 이미지 이름 가져오기 
 
-async function onChange(event) {
+async function onChangeProductImg(event) {
   const imgReader = new FileReader();
   const formData = new FormData();
 
