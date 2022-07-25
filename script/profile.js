@@ -242,16 +242,28 @@ function listTypePost() {
   }
 
   for (const post of userPostInfo) {
-    const postImg = post.image.split(",");
+    let postListContent;
+    let postImage = "";
+    let images = post.image.split(",");
     let heartStatus;
+
+    if (images.length) {
+      for (const image of images) {
+        postImage += `
+      <li>
+        <img src="${image}" alt="게시물 이미지" />
+      </li>
+      `;
+      }
+    }
+
     if (post.hearted) {
       heartStatus = "likeBtn on";
     } else {
       heartStatus = "likeBtn";
     }
-    let postListContent;
-    if (postImg.length >= 2) {
-      postListContent = `
+
+    postListContent = `
           <section>
             <div class="userList">
               <div class="userItem">
@@ -273,12 +285,7 @@ function listTypePost() {
           <section id="${post.id}" class="postContent">
             <h4 class="ir">게시글 내용</h4>
             <p>${post.content}</p>
-            <ul>
-              <li>
-                <img src="${postImg[0]}" alt="게시물 이미지" onerror="this.style.display='none'" />
-                <img class="imageLayer" src="../asset/images/icons/icon__imageLayer.svg" alt="게시물 이미지" onerror="this.style.display='none'"/>
-              </li>
-            </ul>
+            <ul>${postImage}</ul>
             <div class="postBtnContent">
               <button class="${heartStatus}" onclick="clickHeart(event)">
                 <span class="ir">좋아요 버튼</span>
@@ -290,46 +297,6 @@ function listTypePost() {
             </div>
             <strong class="postDate">${timeForToday(post.createdAt)}</strong>
           </section>`;
-    } else {
-      postListContent = `
-          <section>
-            <div class="userList">
-              <div class="userItem">
-                <a href="profile.html?accountname=${post.author.accountname}" class="userBox">
-                  <img src="${post.author.image}" alt="프로필 이미지" class="userProfileImage" />
-                  <div class="userInfo">
-                    <strong class="userNickname">${post.author.username}</strong>
-                    <div class="userText">
-                      <p class="userMsgContent userStatusMsg">@${post.author.accountname}</p>
-                    </div>
-                  </div>
-                  <button onclick="onModal(event)" class="moreBtn buttonClick">
-                    <span class="ir">게시글 더보기 버튼</span>
-                  </button>
-                </a>
-              </div>
-            </div>
-          </section>
-          <section id="${post.id}" class="postContent">
-            <h4 class="ir">게시글 내용</h4>
-            <p>${post.content}</p>
-            <ul>
-              <li>
-                <img src="${postImg[0]}" alt="게시물 이미지" onerror="this.style.display='none'" />
-              </li>
-            </ul>
-            <div class="postBtnContent">
-              <button class="${heartStatus}" onclick="clickHeart(event)">
-                <span class="ir">좋아요 버튼</span>
-                <span class="likeCount">${post.heartCount}</span>
-              </button>
-              <a href="post.html\?postid=${post.id}" class="commentBtn">
-                <span class="commentCount"></span>
-              </a>
-            </div>
-            <strong class="postDate">${timeForToday(post.createdAt)}</strong>
-          </section>`;
-    }
     posting[0].insertAdjacentHTML("beforeend", postListContent);
   }
 }
