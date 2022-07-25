@@ -6,7 +6,8 @@ const url = "https://mandarin.api.weniv.co.kr";
 const URLSearch = new URLSearchParams(location.search);
 let accountName = URLSearch.get("accountname");
 const myAccountName = localStorage.getItem("accountname");
-accountName = accountName === null ? localStorage.getItem("accountname") : accountName;
+accountName =
+  accountName === null ? localStorage.getItem("accountname") : accountName;
 
 function clickedFollowLink(e) {
   const profileUser = document.querySelector(".profileInfo .userId");
@@ -59,9 +60,13 @@ function setMyProfile(userProfile) {
   profileLinkBtn.append(createProductLink);
 
   document.querySelector(".ProfileContent .myImage").src = userProfile.image;
-  document.querySelector(".profileInfo .userName").innerText = userProfile.username;
-  document.querySelector(".profileInfo .userId").innerText = `@${userProfile.accountname}`;
-  document.querySelector(".profileInfo .introduction").innerText = userProfile.intro;
+  document.querySelector(".profileInfo .userName").innerText =
+    userProfile.username;
+  document.querySelector(
+    ".profileInfo .userId"
+  ).innerText = `@${userProfile.accountname}`;
+  document.querySelector(".profileInfo .introduction").innerText =
+    userProfile.intro;
 
   followingCount.innerText = userProfile.following.length;
   followerCount.innerText = userProfile.follower.length;
@@ -94,9 +99,13 @@ function setYourProfile(userProfile) {
   profileLinkBtn.append(createShareImg);
 
   document.querySelector(".ProfileContent .myImage").src = userProfile.image;
-  document.querySelector(".profileInfo .userName").innerText = userProfile.username;
-  document.querySelector(".profileInfo .userId").innerText = `@ ${userProfile.accountname}`;
-  document.querySelector(".profileInfo .introduction").innerText = userProfile.intro;
+  document.querySelector(".profileInfo .userName").innerText =
+    userProfile.username;
+  document.querySelector(
+    ".profileInfo .userId"
+  ).innerText = `@ ${userProfile.accountname}`;
+  document.querySelector(".profileInfo .introduction").innerText =
+    userProfile.intro;
 
   followingCount.innerText = userProfile.following.length;
   followerCount.innerText = userProfile.follower.length;
@@ -117,7 +126,10 @@ async function getProductList(userProfile) {
     },
   };
   try {
-    const resProfileProduct = await fetch(`${url}/product/${userProfile.accountname}`, setting);
+    const resProfileProduct = await fetch(
+      `${url}/product/${userProfile.accountname}`,
+      setting
+    );
     const resProfileProductJson = await resProfileProduct.json();
     setProductList(resProfileProductJson);
   } catch (err) {
@@ -184,7 +196,10 @@ async function getPostingList() {
     },
   };
   try {
-    const resProfileProduct = await fetch(`${url}/post/${accountName}/userpost/?limit=9`, setting);
+    const resProfileProduct = await fetch(
+      `${url}/post/${accountName}/userpost/?limit=9`,
+      setting
+    );
     const resProfileProductJson = await resProfileProduct.json();
     userPostInfo = resProfileProductJson.post;
     setPostingList(userPostInfo);
@@ -244,24 +259,25 @@ function listTypePost() {
 
   for (const post of userPostInfo) {
     let postListContent;
-    let postImage = "";
-    let images = post.image.split(",");
     let heartStatus;
-    let postImgContent;
 
-    // 이미지 존재 여부에 따른 동적 마크업
-    for (const image of images) {
-      if (!!image) {
+    let postImage = "";
+    if (post.image) {
+      let images = post.image.split(",");
+      for (const image of images) {
         postImage += `
-          <li>
-            <img src="${image}" alt="게시물 이미지" onerror="this.style.display='none'" />
-          </li>`;
-        postImgContent = `<div class="postImgContent">`;
-      } else {
-        postImgContent = "";
+        <li>
+          <img src="${image}" alt="게시물 이미지" />
+        </li>
+        `;
       }
     }
 
+    let checkImg = !postImage
+      ? ""
+      : `<div class="postImgContent"><ul>${postImage}</ul></div>`;
+
+    // 좋아요 이미지 on, off 스타일 구현
     if (post.hearted) {
       heartStatus = "likeBtn on";
     } else {
@@ -272,12 +288,20 @@ function listTypePost() {
           <section>
             <div class="userList">
               <div class="userItem">
-                <a href="profile.html?accountname=${post.author.accountname}" class="userBox">
-                  <img src="${post.author.image}" alt="프로필 이미지" class="userProfileImage" />
+                <a href="profile.html?accountname=${
+                  post.author.accountname
+                }" class="userBox">
+                  <img src="${
+                    post.author.image
+                  }" alt="프로필 이미지" class="userProfileImage" />
                   <div class="userInfo">
-                    <strong class="userNickname">${post.author.username}</strong>
+                    <strong class="userNickname">${
+                      post.author.username
+                    }</strong>
                     <div class="userText">
-                      <p class="userMsgContent userStatusMsg">@${post.author.accountname}</p>
+                      <p class="userMsgContent userStatusMsg">@${
+                        post.author.accountname
+                      }</p>
                     </div>
                   </div>
                   <button onclick="onModal(event)" class="moreBtn buttonClick">
@@ -290,8 +314,7 @@ function listTypePost() {
           <section id="${post.id}" class="postContent">
             <h4 class="ir">게시글 내용</h4>
             <p>${post.content}</p>
-            ${postImgContent}
-            <ul>${postImage}</ul>
+            ${checkImg}
             </div>
             <div class="postBtnContent">
               <button class="${heartStatus}" onclick="clickHeart(event)">
@@ -453,12 +476,16 @@ function checkLogout(e) {
 }
 
 // 프로필 페이지 글 삭제 모달창 활성화
-const deleteBtn = document.querySelector(".modalBg.productModal .modalBtn.modalBtn1");
+const deleteBtn = document.querySelector(
+  ".modalBg.productModal .modalBtn.modalBtn1"
+);
 deleteBtn.addEventListener("click", deletePosting);
 
 function deletePosting() {
   const checkDelete = document.querySelector(".modalAlert.postDelAlert");
-  const deleteCancel = document.querySelector(".modalAlert.postDelAlert .cancelBtn");
+  const deleteCancel = document.querySelector(
+    ".modalAlert.postDelAlert .cancelBtn"
+  );
   deleteCancel.addEventListener("click", onClickCancel);
 
   checkDelete.classList.remove("hidden");
