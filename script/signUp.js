@@ -8,18 +8,18 @@ const registerFormBtn = document.querySelector('.registerFormBtn');
 
 // 버튼 활성화
 const isActiveBtn = () => {
-  if (email.value !== '' && password.value.length > 6) {
+  if (email.value !== '' && password.value.length >= 6) {
     registerFormBtn.style.opacity = '1';
     registerFormBtn.disabled = false;
   }
-  if (email.value === '' || password.value.length <= 6) {
+  if (email.value === '' || password.value.length < 6) {
     registerFormBtn.style.opacity = '0.3';
     registerFormBtn.disabled = true;
   }
 };
 
 // 비밀번호 길이 체크
-const checkPassword = password.addEventListener('input', () => {
+const checkPassword = () => {
   if (password.value.length < 6) {
     errorPassword.classList.remove('ir');
   }
@@ -27,7 +27,7 @@ const checkPassword = password.addEventListener('input', () => {
     errorPassword.classList.add('ir');
     isActiveBtn();
   }
-});
+};
 
 // 폼 입력
 registerForm.addEventListener('input', checkPassword);
