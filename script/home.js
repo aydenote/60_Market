@@ -76,7 +76,7 @@ function noFeed() {
         <h3 class="ir">피드 게시글</h3>
         <section class="noneFeed">
           <p>유저를 검색해 팔로우 해보세요!</p>
-          <a href="/pages/search.html" class="userSearchBtn">검색하기</a>
+          <a href="./search.html" class="userSearchBtn">검색하기</a>
         </section>`;
 }
 
