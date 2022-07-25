@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="../asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
     <script src="../script/post.js" defer></script>
+    <script src="../script/common.js" defer></script>
     <title>60'' Market | 홈</title>
   </head>
   <body>
@@ -147,18 +148,17 @@
     </main>
     <footer class="chatEnter postChatEnter">
       <form class="chatEnterContent">
-      <div class="chatEnterImage">
+        <div class="chatEnterImage">
           <img src="../asset/images/basic-profile.svg" alt="" />
-      </div>
-      <label for="postChatContent"></label>
-        <input 
-        id="postChatContent"
-        type="text" placeholder="메시지 입력하기..." 
-        onkeyup="postInput()"/>
-        <button 
-        type="button"
-        class="postBtn"
-        >게시</button>
+        </div>
+        <label for="postChatContent"></label>
+        <input
+          id="postChatContent"
+          type="text"
+          placeholder="메시지 입력하기..."
+          onkeyup="postInput()"
+        />
+        <button type="button" class="postBtn">게시</button>
       </form>
     </footer>
   </body>
