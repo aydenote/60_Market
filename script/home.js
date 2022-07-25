@@ -76,7 +76,7 @@ function noFeed() {
         <h3 class="ir">피드 게시글</h3>
         <section class="noneFeed">
           <p>유저를 검색해 팔로우 해보세요!</p>
-          <a href="/pages/search.html" class="userSearchBtn">검색하기</a>
+          <a href="./search.html" class="userSearchBtn">검색하기</a>
         </section>`;
 }
 
@@ -143,6 +143,9 @@ async function homeFeed() {
         }
       }
 
+      let checkImg =
+        document.querySelector(".postImgContent") != null ? "" : "hidden";
+
       postItem.innerHTML = `
       <h4 class="ir">게시물</h4>
       <section>
@@ -174,7 +177,7 @@ async function homeFeed() {
       <section id="${posts[i].id}" class="postContent">
         <h4 class="ir">게시글 내용</h4>
         <p>${posts[i].content}</p>
-        <div class="postImgContent">
+        <div class="postImgContent ${checkImg}">
           <ul>${postImage}</ul>
         </div>
         <div class="postBtnContent">
