@@ -1,14 +1,47 @@
 const url = 'https://mandarin.api.weniv.co.kr';
-const token = localStorage.getItem('Token');
-
-const profileImgSource = document.querySelector('.uploadProfileImg').src;
-const profileImgBtn = document.querySelector('#profileImg');
+let profileImg;
+const basicImg = document.querySelector('.uploadProfileImg');
+const profileImgInput = document.querySelector('#profileImg');
 const username = document.querySelector('#username');
 const id = document.querySelector('#id');
 const intro = document.querySelector('#intro');
 const profileForm = document.querySelector('.profileForm');
 const profileFormBtn = document.querySelector('.profileFormBtn');
 const errorMessage = document.querySelector('.registerFormAlert');
+
+// 프로필 이미지 업로드
+class UploadProfileImg {
+  constructor(profileImg) {
+    this.profileImg = profileImg;
+  }
+
+  // 서버에 프로필 이미지 보내기
+  sendProfileImg = async (selectedImg) => {
+    const formData = new FormData();
+    formData.append('image', selectedImg);
+
+    try {
+      const res = await axios.post(`${url}/image/uploadfiles`, formData);
+      profileImg = res.data[0].filename;
+    } catch (err) {
+      return err;
+    }
+  };
+
+  // 프로필 이미지 미리보기
+  previewImg = () => {
+    let selectedImg = profileImgInput.files[0];
+
+    if (selectedImg.size > 10000000) {
+      alert('이미지 사이즈는 10MB 이내로 등록 가능합니다.');
+      return false;
+    }
+    profileImg.src = URL.createObjectURL(selectedImg);
+    profileImg.classList.add('setting');
+    this.sendProfileImg(selectedImg);
+    URL.revokeObjectURL(selectedImg);
+  };
+}
 
 // 폼 내용 체크
 class CheckForm {
@@ -65,6 +98,9 @@ class IsValidId {
 
   // 회원가입 정보 전송
   sendRegister = async () => {
+    if (profileImg === undefined) {
+      profileImg = '1658636863237.png';
+    }
     try {
       const res = await axios.post(`${url}/user`, {
         user: {
@@ -73,12 +109,12 @@ class IsValidId {
           password: localStorage.getItem('password'),
           accountname: id.value,
           intro: intro.value,
-          image: profileImgSource,
+          image: `${url}/${profileImg}`,
         },
       });
       location.href = './logIn.html';
     } catch (err) {
-      console.log(err);
+      return err;
     }
   };
 
@@ -112,11 +148,15 @@ class IsValidId {
   };
 }
 
+// 프로필 이미지 업로드
+const uploadProfileImg = new UploadProfileImg(profileImg);
 // 폼 내용 체크
 const checkForm = new CheckForm(username, id, intro, profileFormBtn);
 // ID 중복 체크 및 회원가입 정보 전송
 const isValidId = new IsValidId(id, errorMessage);
 
+// 프로필 이미지 업로드
+profileImgInput.addEventListener('change', uploadProfileImg.previewImg);
 // 폼 입력
 profileForm.addEventListener('input', checkForm.checkInput);
 // 60'' 마켓 시작하기 버튼 클릭
