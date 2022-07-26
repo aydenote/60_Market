@@ -141,3 +141,21 @@ commentSection.innerHTML = postComments.join("")
   console.error(err); 
 }
 }
+
+// 댓글 상세
+const getCommentDetail = async() => {
+  const token = localStorage.getItem('Token');
+  try {
+    const res = await fetch(`${API_ROOT}/post/${POST_ID}/comments`, {
+      method: 'GET',
+      headers: {
+        'Authorization' : `Bearer ${token}`,
+	      'Content-type' : 'application/json',
+      }
+    });
+
+    return res.json();
+  }catch(err){
+    console.log(err)
+  }
+}
