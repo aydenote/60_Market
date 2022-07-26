@@ -142,7 +142,7 @@ commentSection.innerHTML = postComments.join("")
 }
 }
 
-// 댓글 상세
+// 상세 댓글 불러오기
 const getCommentDetail = async() => {
   const token = localStorage.getItem('Token');
   try {
@@ -159,3 +159,32 @@ const getCommentDetail = async() => {
     console.log(err)
   }
 }
+
+// 댓글 입력
+const commentInput = document.getElementById("postChatContent");
+const submitButton = document.getElementById("commentSubmit");
+
+const submitComment = async(e) => {
+  e.preventDefault()
+  const token = localStorage.getItem('Token');
+  try {
+    const res = await fetch(`${API_ROOT}/post/${POST_ID}/comments`, {
+      method: 'POST',
+      headers: {
+        'Authorization' : `Bearer ${token}`,
+	      'Content-type' : 'application/json',
+      },
+      body: JSON.stringify({
+        'comment': {
+          'content': commentInput.value 
+        }
+      })
+    });
+    commentInput.value = ""
+    renderPost();
+  }catch(err){
+    console.log(err)
+  }
+}
+
+submitButton.addEventListener('click', submitComment);
