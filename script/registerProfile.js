@@ -74,16 +74,19 @@ class CheckForm {
     if (!regExp.test(this.id.value)) {
       errorMessage.classList.remove('ir');
       this.profileFormBtn.style.opacity = '0.3';
+      email.oninput = () => {
+        errorMessage.classList.add('ir');
+      };
+    }
+    if (this.id.value.length === 0) {
+      errorMessage.classList.remove('ir');
+      this.profileFormBtn.style.opacity = '0.3';
     }
   };
 
   // 입력 체크
   checkInput = () => {
-    if (
-      this.username.value.length > 1 &&
-      this.id.value.length > 1 &&
-      this.intro.value.length > 1
-    ) {
+    if (this.id.value.length > 0) {
       this.checkRegExp();
     }
   };
