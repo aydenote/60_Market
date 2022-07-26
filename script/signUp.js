@@ -40,7 +40,7 @@ const locationRegisterProfile = (resMessage) => {
 };
 
 // 이메일, 비밀번호 로컬 스토리지에 저장
-const saveData = () => {
+const saveData = (resMessage) => {
   localStorage.setItem('email', email.value);
   localStorage.setItem('password', password.value);
   locationRegisterProfile(resMessage);
