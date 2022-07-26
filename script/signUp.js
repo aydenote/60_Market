@@ -37,7 +37,7 @@ class CheckForm {
   };
 }
 
-// 유효성 
+// 이메일 유효성 검사
 class Validation {
   constructor(email) {
     this.email = email;
