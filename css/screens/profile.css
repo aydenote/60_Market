@@ -72,6 +72,9 @@
   margin-top: 5px;
   color: var(--textColor);
   font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .profileInfo .introduction {
