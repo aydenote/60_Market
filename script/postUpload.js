@@ -107,7 +107,7 @@ async function createPost() {
     })
     const json = await res.json();
     // console.log(json);
-    location.href = '../pages/myprofile.html';
+    location.href = '../pages/profile.html';
   }
 }
 
