@@ -43,6 +43,7 @@ const locationRegisterProfile = (resMessage) => {
 const saveData = () => {
   localStorage.setItem('email', email.value);
   localStorage.setItem('password', password.value);
+  locationRegisterProfile(resMessage);
 };
 
 // 사용 가능한 이메일 체크
@@ -55,7 +56,7 @@ const checkEmail = (resMessage) => {
     };
   }
   if (resMessage === '사용 가능한 이메일 입니다.') {
-    locationRegisterProfile(resMessage);
+    saveData(resMessage);
   }
 };
 
