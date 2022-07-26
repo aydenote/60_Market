@@ -5,6 +5,7 @@ const errorMessage = document.querySelector('.registerFormAlert');
 const logInForm = document.querySelector('.logInForm');
 const logInFormBtn = document.querySelector('.logInBtn');
 
+// 폼 입력
 class CheckForm {
   constructor(email, password) {
     this.email = email;
@@ -31,6 +32,7 @@ class CheckForm {
   };
 }
 
+// 로그인 유효성 검사
 class Validation {
   constructor(email, password) {
     this.email = email;
@@ -85,9 +87,9 @@ class Validation {
 // 폼 입력
 const checkForm = new CheckForm(email, password);
 // 로그인 유효성 검사
-const validation = new Validation(email);
+const validation = new Validation(email, password);
 
 // 폼 입력
 logInForm.addEventListener('input', checkForm.checkInput);
-// 로그인 데이터 요청 버튼
+// 로그인 유효성 검사
 logInFormBtn.addEventListener('click', validation.getLogInData);
