@@ -1,14 +1,14 @@
-.loadding {
+.wrap .loadding {
   width: 250px;
   height: 250px;
   margin: 5px auto;
-  background: url(/asset/images/Loadding.svg) no-repeat center 100%;
+  background: url(../../asset/images/Loadding.svg) no-repeat center 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.box {
+.loadding .box {
   width: 33.3%;
   height: 300px;
   display: inline-block;
@@ -16,7 +16,7 @@
   transition: all 0.2s ease;
 }
 
-.clock {
+.box .clock {
   height: 80px;
   width: 80px;
   position: relative;
@@ -26,7 +26,7 @@
   left: calc(50% - 43px);
 }
 
-.clock:after {
+.box .clock:after {
   content: '';
   position: absolute;
   background-color: var(--mainColor);
@@ -39,7 +39,7 @@
   animation: grdAiguille 2s linear infinite;
 }
 
-.clock:before {
+.box .clock:before {
   content: '';
   position: absolute;
   background-color: var(--mainColor);

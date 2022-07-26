@@ -72,6 +72,9 @@
   margin-top: 5px;
   color: var(--textColor);
   font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .profileInfo .introduction {
@@ -130,6 +133,7 @@
   margin: 0 0 20px 20px;
   overflow: scroll;
   overflow-y: hidden;
+  padding-bottom: 5px;
 }
 
 .saleItems .productList li {
@@ -192,6 +196,7 @@
 }
 
 .postContent .postingList li {
+  position: relative;
   text-align: center;
   cursor: pointer;
 }
@@ -199,4 +204,29 @@
 .postContent .postingList img {
   width: 114px;
   height: 114px;
+}
+
+.postContent .postingList img.imageLayer {
+  position: absolute;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.postingSummary .postingList {
+  padding: 16px 0px 30px 0px;
+}
+
+/* 스크롤 커스텀 */
+.productList::-webkit-scrollbar {
+  height: 10px;
+}
+
+.productList::-webkit-scrollbar-thumb {
+  background: var(--mainColor);
+  border-radius: 10px;
+}
+
+.productList::-webkit-scrollbar-track {
+  background: white;
 }

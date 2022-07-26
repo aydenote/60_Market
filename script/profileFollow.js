@@ -23,7 +23,10 @@ async function getFollowingList() {
     },
   };
   try {
-    const followingData = await fetch(`${url}/profile/${accountName}/following`, setting);
+    const followingData = await fetch(
+      `${url}/profile/${accountName}/following`,
+      setting
+    );
     const followingDataJson = await followingData.json();
     setFollowing(followingDataJson);
   } catch (err) {
@@ -37,8 +40,8 @@ function setFollowing(followingDataJson) {
   for (const following of followingDataJson) {
     userList.innerHTML += `<li class="userItem">
 <a href="profile.html\?accountname=${following.accountname}" class="userBox">
-  <img src="${following.image}" alt="프로필 이미지" class="userProfileImage" />
-  <div class="userInfo">
+  <img src="${following.image}" alt="프로필 이미지" class="userProfileImage follow" />
+  <div class="userInfo follow">
     <strong class="userNickname">${following.username}</strong>
     <div class="userText">
       <p class="userMsgContent userStatusMsg">${following.accountname}</p>
@@ -74,7 +77,10 @@ async function getFollowerList() {
     },
   };
   try {
-    const followerData = await fetch(`${url}/profile/${accountName}/follower`, setting);
+    const followerData = await fetch(
+      `${url}/profile/${accountName}/follower`,
+      setting
+    );
     const followerDataJson = await followerData.json();
     setFollower(followerDataJson);
   } catch (err) {
@@ -87,8 +93,8 @@ function setFollower(followerDataJson) {
   for (const follower of followerDataJson) {
     userList.innerHTML += `<li class="userItem">
 <a href="profile.html\?accountname=${follower.accountname}" class="userBox">
-  <img src="${follower.image}" alt="프로필 이미지" class="userProfileImage" />
-  <div class="userInfo">
+  <img src="${follower.image}" alt="프로필 이미지" class="userProfileImage follow" />
+  <div class="userInfo follow">
     <strong class="userNickname">${follower.username}</strong>
     <div class="userText">
       <p class="userMsgContent userStatusMsg">${follower.accountname}</p>

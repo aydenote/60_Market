@@ -7,13 +7,13 @@
     <link rel="shortcut icon" href="../asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
     <script src="../script/home.js" defer></script>
-
+    <script src="../script/common.js" defer></script>
     <title>60'' Market | 홈</title>
   </head>
   <body>
     <header>
       <article class="headerBar">
-        <h1 class="mainHeading mainLogo">60'' 마켓 피드</h1>
+        <h1 class="mainHeading mainLogo">60'' 마켓</h1>
         <a href="./search.html"  class="headerBarModal headerBarBtn searchBtn"><span class="ir">사용자 검색 버튼</span></a>
     </header>
     <main>
@@ -57,10 +57,10 @@
 
     <section class="modalBg reportModal hidden">
       <article class="modal">
-        <button class="modalClose">
+        <button class="modalClose" onclick="closeModal()">
           <span class="ir">더보기 닫기 버튼</span>
         </button>
-        <button class="modalBtn modalBtn1">신고하기</button>
+        <button class="modalBtn modalBtn1" onclick="openAlert()">신고하기</button>
       </article>
     </section>
 
@@ -68,8 +68,8 @@
       <h4 class="ir">게시글 신고 창</h4>
       <strong class="alertMsg">신고하시겠어요?</strong>
       <div class="alertBtnContent">
-        <button class="cancelBtn">취소</button>
-        <button class="reportBtn">신고</button>
+        <button class="cancelBtn" onclick="clickCancel()">취소</button>
+        <button class="reportBtn" onclick="clickReport()">신고</button>
       </div>
     </section>
   </body>

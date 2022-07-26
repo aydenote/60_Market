@@ -6,7 +6,7 @@ const url = "https://mandarin.api.weniv.co.kr";
 const URLSearch = new URLSearchParams(location.search);
 let accountName = URLSearch.get("accountname");
 const myAccountName = localStorage.getItem("accountname");
-accountName = accountName === null ? localStorage.getItem("accountname") : accountName;
+accountName = accountName === null ? myAccountName : accountName;
 
 function clickedFollowLink(e) {
   const profileUser = document.querySelector(".profileInfo .userId");
@@ -54,14 +54,18 @@ function setMyProfile(userProfile) {
   profileLinkBtn.append(createEditLink);
 
   createProductLink.setAttribute("class", "addPosting");
-  createProductLink.setAttribute("href", "posting.html");
+  createProductLink.setAttribute("href", "addProduct.html");
   createProductLink.innerText = "상품 등록";
   profileLinkBtn.append(createProductLink);
 
   document.querySelector(".ProfileContent .myImage").src = userProfile.image;
-  document.querySelector(".profileInfo .userName").innerText = userProfile.username;
-  document.querySelector(".profileInfo .userId").innerText = `@${userProfile.accountname}`;
-  document.querySelector(".profileInfo .introduction").innerText = userProfile.intro;
+  document.querySelector(".profileInfo .userName").innerText =
+    userProfile.username;
+  document.querySelector(
+    ".profileInfo .userId"
+  ).innerText = `@${userProfile.accountname}`;
+  document.querySelector(".profileInfo .introduction").innerText =
+    userProfile.intro;
 
   followingCount.innerText = userProfile.following.length;
   followerCount.innerText = userProfile.follower.length;
@@ -78,6 +82,9 @@ function setYourProfile(userProfile) {
   createMessageImg.setAttribute("class", "messageBtn");
   createMessageImg.setAttribute("src", "/asset/images/icons/icon__message.svg");
   createMessageImg.setAttribute("alt", "메세지 버튼");
+  createMessageImg.addEventListener("click", () => {
+    location.href = "/pages/chatting1.html";
+  });
   profileLinkBtn.append(createMessageImg);
 
   createFollowButton.setAttribute("class", "followBtn");
@@ -91,9 +98,13 @@ function setYourProfile(userProfile) {
   profileLinkBtn.append(createShareImg);
 
   document.querySelector(".ProfileContent .myImage").src = userProfile.image;
-  document.querySelector(".profileInfo .userName").innerText = userProfile.username;
-  document.querySelector(".profileInfo .userId").innerText = `@ ${userProfile.accountname}`;
-  document.querySelector(".profileInfo .introduction").innerText = userProfile.intro;
+  document.querySelector(".profileInfo .userName").innerText =
+    userProfile.username;
+  document.querySelector(
+    ".profileInfo .userId"
+  ).innerText = `@ ${userProfile.accountname}`;
+  document.querySelector(".profileInfo .introduction").innerText =
+    userProfile.intro;
 
   followingCount.innerText = userProfile.following.length;
   followerCount.innerText = userProfile.follower.length;
@@ -114,7 +125,10 @@ async function getProductList(userProfile) {
     },
   };
   try {
-    const resProfileProduct = await fetch(`${url}/product/${userProfile.accountname}`, setting);
+    const resProfileProduct = await fetch(
+      `${url}/product/${userProfile.accountname}`,
+      setting
+    );
     const resProfileProductJson = await resProfileProduct.json();
     setProductList(resProfileProductJson);
   } catch (err) {
@@ -181,134 +195,359 @@ async function getPostingList() {
     },
   };
   try {
-    const resProfileProduct = await fetch(`${url}/post/${accountName}/userpost/?limit=9`, setting);
+    const resProfileProduct = await fetch(
+      `${url}/post/${accountName}/userpost/?limit=9`,
+      setting
+    );
     const resProfileProductJson = await resProfileProduct.json();
-    setPostingList(resProfileProductJson.post);
+    userPostInfo = resProfileProductJson.post;
+    setPostingList(userPostInfo);
   } catch (err) {
     console.error(err);
   }
 }
+let userPostInfo;
 
 getPostingList();
 
-// 게시물 반영하기
-function setPostingList(posts) {
-  // 리스트형 게시물
+// 게시물 타입바 생성 및 최초 목록형으로 포스팅
+function setPostingList(userPostInfo) {
   const postingSummary = document.querySelector(".postingSummary");
-  const postingListContent = document.querySelector(".post");
-  const postingAlbumContent = document.querySelector(".postingSummary .postingList");
+  if (userPostInfo.length === 0) {
+    postingSummary.classList.add("hidden");
+  } else {
+    postingSummary.classList.remove("hidden");
+    const createArticle = document.createElement("article");
+    const createH3 = document.createElement("h3");
+    createArticle.setAttribute("class", "post");
+    createH3.setAttribute("class", "ir");
+    createH3.innerText = "피드 게시글";
+    createArticle.appendChild(createH3);
+
+    postingSummary.append(createArticle);
+    listTypePost();
+  }
+}
+
+// 목록형으로 포스팅 표시
+function listTypePost() {
+  const postingSummary = document.querySelector(".postingSummary");
+  const postContent = document.querySelector(".postContent");
   const albumType = document.querySelector(".postingType.album.buttonClick");
   const ListType = document.querySelector(".postingType.list.buttonClick");
 
-  postingSummary.addEventListener("click", (event) => {
-    if (event.target.classList[1] === "list") {
-      setPostingList(posts);
-      albumType.classList.add("unselected");
-      ListType.classList.remove("unselected");
-    } else if (event.target.classList[1] === "album") {
-      setAlbumType(posts);
-      ListType.classList.add("unselected");
-      albumType.classList.remove("unselected");
-    } else {
-      return;
-    }
-  });
+  albumType.classList.add("unselected");
+  ListType.classList.remove("unselected");
+  if (postContent) {
+    postContent.remove();
+  }
+  const createArticle = document.createElement("article");
+  const createH3 = document.createElement("h3");
+  createArticle.setAttribute("class", "post");
+  createH3.setAttribute("class", "ir");
+  createH3.innerText = "피드 게시글";
+  createArticle.appendChild(createH3);
 
-  if (posts.length === 0) {
-    postingSummary.classList.add("hidden");
-    postingListContent.classList.add("hidden");
-  } else {
-    postingSummary.classList.remove("hidden");
-    postingListContent.classList.remove("hidden");
-    postingListContent.innerHTML = "";
-    postingAlbumContent.innerHTML = "";
-    for (const post of posts) {
-      let postContent = `
+  postingSummary.append(createArticle);
+  const posting = document.querySelectorAll(".post");
+  posting[0].innerHTML = '<h3 class="ir">피드 게시글</h3>';
+
+  if (posting.length >= 2) {
+    posting[1].remove();
+  }
+
+  for (const post of userPostInfo) {
+    let postListContent;
+    let heartStatus;
+
+    let postImage = "";
+    if (post.image) {
+      let images = post.image.split(",");
+      for (const image of images) {
+        postImage += `
+        <li>
+          <img src="${image}" alt="게시물 이미지" />
+        </li>
+        `;
+      }
+    }
+
+    let checkImg = !postImage
+      ? ""
+      : `<div class="postImgContent"><ul>${postImage}</ul></div>`;
+
+    // 좋아요 이미지 on, off 스타일 구현
+    if (post.hearted) {
+      heartStatus = "likeBtn on";
+    } else {
+      heartStatus = "likeBtn";
+    }
+
+    postListContent = `
           <section>
             <div class="userList">
               <div class="userItem">
-                <a href="profile.html?accountname=${post.author.accountname}" class="userBox">
-                  <img src="${post.author.image}" alt="프로필 이미지" class="userProfileImage" />
+                <a href="profile.html?accountname=${
+                  post.author.accountname
+                }" class="userBox">
+                  <img src="${
+                    post.author.image
+                  }" alt="프로필 이미지" class="userProfileImage" />
                   <div class="userInfo">
-                    <strong class="userNickname">${post.author.username}</strong>
+                    <strong class="userNickname">${
+                      post.author.username
+                    }</strong>
                     <div class="userText">
-                      <p class="userMsgContent userStatusMsg">@${post.author.accountname}</p>
+                      <p class="userMsgContent userStatusMsg">@${
+                        post.author.accountname
+                      }</p>
                     </div>
                   </div>
-                  <button class="moreBtn buttonClick">
+                  <button onclick="clickUserModal(event)" class="moreBtn buttonClick">
                     <span class="ir">게시글 더보기 버튼</span>
                   </button>
                 </a>
               </div>
             </div>
           </section>
-          <section class="postContent">
+          <section id="${post.id}" class="postContent">
             <h4 class="ir">게시글 내용</h4>
             <p>${post.content}</p>
-            <ul>
-              <li>
-                <img src="${post.image}" alt="게시물 이미지" onerror="this.style.display='none'" />
-              </li>
-            </ul>
+            ${checkImg}
+            </div>
             <div class="postBtnContent">
-              <button class="likeBtn">
+              <button class="${heartStatus}" onclick="clickHeart(event)">
                 <span class="ir">좋아요 버튼</span>
-                <span class="likeCount">2</span>
+                <span class="likeCount">${post.heartCount}</span>
               </button>
-              <a href="post.html\?postid=${element.id}" class="commentBtn">
+              <a href="post.html\?postid=${post.id}" class="commentBtn">
                 <span class="commentCount">2</span>
               </a>
             </div>
-            <strong class="postDate">${timeForToday(post.updatedAt)}</strong>
+            <strong class="postDate">${timeForToday(post.createdAt)}</strong>
           </section>`;
-      postingListContent.insertAdjacentHTML("beforeend", postContent);
-    }
+    posting[0].insertAdjacentHTML("beforeend", postListContent);
   }
 }
 
-// 앨범형 게시물
-function setAlbumType(posts) {
-  const postingListContent = document.querySelector(".post");
+//  앨범형 포스팅 구현
+function albumTypePost() {
   const postingSummary = document.querySelector(".postingSummary");
-  postingListContent.innerHTML = "";
-  if (posts.length === 0) {
-    postingSummary.classList.add("hidden");
-  } else {
-    postingSummary.classList.remove("hidden");
-    const postingContent = document.querySelector(".postingSummary .postingList");
-    postingContent.innerHTML = "";
-    for (const post of posts) {
-      let postingImg = post.image;
-      if (!postingImg) {
-        postingImg = `${url}/1658636863237.png`;
-      }
-      postingContent.innerHTML += `<li>
-        <img src="${postingImg}" alt="" />
-      </li>`;
+  const postContent = document.querySelectorAll(".postContent");
+  const post = document.querySelector(".post");
+  const albumType = document.querySelector(".postingType.album.buttonClick");
+  const ListType = document.querySelector(".postingType.list.buttonClick");
+
+  ListType.classList.add("unselected");
+  albumType.classList.remove("unselected");
+
+  if (post) {
+    post.remove();
+  }
+  if (postContent.length >= 1) {
+    postContent[0].remove();
+  }
+
+  const createArticle = document.createElement("article");
+  const createH2 = document.createElement("h2");
+  const createUl = document.createElement("ul");
+  createArticle.setAttribute("class", "postContent");
+  createH2.setAttribute("class", "ir");
+  createH2.innerText = "등록된 게시물";
+  createUl.setAttribute("class", "postingList");
+  createArticle.appendChild(createH2);
+  createArticle.appendChild(createUl);
+  postingSummary.appendChild(createArticle);
+
+  for (const post of userPostInfo) {
+    const postImg = post.image.split(",");
+
+    // 게시물에 이미지가 없는 경우, img 태그 생성 불가.
+    // 게시물에 이미지가 2개 이상인 경우, 이미지 레이어 아이콘 추가.
+    if (postImg[0] === "") {
+    } else if (postImg.length >= 2) {
+      createUl.innerHTML += `<li>
+          <img src="${postImg[0]}" alt="" onerror="this.style.display='none'"/>
+          <img class="imageLayer" src="../asset/images/icons/icon__imageLayer.svg" alt="이미지 레이어 아이콘" onerror="this.style.display='none'"/>
+        </li>`;
+    } else {
+      createUl.innerHTML += `<li>
+          <img src="${postImg[0]}" alt="" onerror="this.style.display='none'"/>
+        </li>`;
     }
   }
 }
 
-// 포스팅 시간 계산 함수
-function timeForToday(postingDate) {
-  const today = new Date();
-  const timeValue = new Date(postingDate);
+// 게시물 등록 시간 계산 함수
+function timeForToday(time) {
+  const postingDate = time.substring(0, time.length - 1);
+  const ms = Date.parse(postingDate);
+  const now = Date.now();
+  const gap = (now - ms) / 1000;
+  if (gap < 60) return "방금전";
+  else if (gap < 3600) return `${parseInt(gap / 60)}분 전`;
+  else if (gap < 86400) return `${parseInt(gap / 3600)}시간 전`;
+  else if (gap < 2592000) return `${parseInt(gap / 86400)}일 전`;
+  else return `${parseInt(gap / 2592000)}달 전`;
+}
 
-  const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-  if (betweenTime < 1) return "방금전";
-  if (betweenTime < 60) {
-    return `${betweenTime}분전`;
+// 좋아요
+async function likeHeart(postingID) {
+  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;
+  const token = localStorage.getItem("Token");
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  return data;
+}
+
+// 좋아요 취소
+async function likeUnHeart(postingID) {
+  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/unheart`;
+  const token = localStorage.getItem("Token");
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  return data;
+}
+
+// 좋아요 버튼 클릭
+async function clickHeart(e) {
+  const likeBtn = e.target;
+  const likeCount = e.target.children[1];
+  const postId = e.target.closest("section").id;
+  let data = {};
+
+  if (likeBtn.classList.contains("on")) {
+    likeBtn.classList.remove("on");
+    data = await likeUnHeart(postId);
+    likeCount.innerHTML = data.post.heartCount;
+  } else {
+    likeBtn.classList.add("on");
+    data = await likeHeart(postId);
+    likeCount.innerHTML = data.post.heartCount;
   }
+}
 
-  const betweenTimeHour = Math.floor(betweenTime / 60);
-  if (betweenTimeHour < 24) {
-    return `${betweenTimeHour}시간전`;
+// 사용자에 따라 헤더 모달 구현
+const headerModal = document.querySelector(".headerBarBtn.buttonClick");
+const userLogout = document.querySelector(".setUsertModal .modalBtn2");
+userLogout.addEventListener("click", clickLogoutModal);
+headerModal.addEventListener("click", clickHeaderModal);
+
+function clickHeaderModal() {
+  const headerBarModal = document.querySelector(".modalBg.setUsertModal");
+  const modalClose = document.querySelector(".setUsertModal .modalClose");
+  modalClose.addEventListener("click", () => {
+    headerBarModal.classList.add("hidden");
+  });
+  headerBarModal.classList.toggle("hidden");
+}
+
+// 사용자 로그아웃 기능
+function clickLogoutModal() {
+  const logoutCheckModal = document.querySelector(".modalAlert.logoutAlert");
+  const cancelBtn = document.querySelector(".logoutAlert .cancelBtn");
+  const logoutBtn = document.querySelector(".logoutAlert .logoutBtn");
+
+  logoutCheckModal.classList.remove("hidden");
+
+  cancelBtn.addEventListener("click", () => {
+    logoutCheckModal.classList.add("hidden");
+  });
+
+  logoutBtn.addEventListener("click", () => {
+    localStorage.clear();
+    location.href = "/pages/logIn.html";
+  });
+}
+
+// 사용자에 따라 포스트 모달 구현
+function clickUserModal(event) {
+  event.preventDefault();
+  const postingId = event.path[4].nextElementSibling.id;
+  if (accountName === myAccountName || accountName === null) {
+    const posttModal = document.querySelector(".posttModal");
+    const modalClose = document.querySelector(".posttModal .modalClose");
+    const postDelete = document.querySelector(".posttModal .modalBtn1");
+    posttModal.classList.remove("hidden");
+
+    modalClose.addEventListener("click", () => {
+      posttModal.classList.add("hidden");
+    });
+
+    // 포스팅 삭제
+    postDelete.addEventListener("click", async function () {
+      const url = "https://mandarin.api.weniv.co.kr";
+      const token = localStorage.getItem("Token");
+
+      const setting = {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+      };
+
+      try {
+        const resDeleteProduct = await fetch(
+          `${url}/post/${postingId}`,
+          setting
+        );
+        console.log(resDeleteProduct);
+        // if (resDeleteProduct) {
+        //   location.href = "/pages/profile.html";
+        // }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  } else {
+    // 게시물 신고
+    const reportAlert = document.querySelector(".reportAlert");
+    const cancelBtn = document.querySelector(".reportAlert .cancelBtn");
+    const reportBtn = document.querySelector(".reportAlert .reportBtn");
+    reportAlert.classList.remove("hidden");
+
+    cancelBtn.addEventListener("click", () => {
+      reportAlert.classList.add("hidden");
+    });
+
+    reportBtn.addEventListener("click", async function () {
+      const url = "https://mandarin.api.weniv.co.kr";
+      const token = localStorage.getItem("Token");
+
+      const setting = {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+      };
+
+      try {
+        const resReport = await fetch(
+          `${url}/post/${postingId}/report`,
+          setting
+        );
+        const resReportJson = await resReport.json();
+        if (resReportJson.status !== 404) {
+          reportAlert.classList.add("hidden");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
   }
-
-  const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-  if (betweenTimeDay < 365) {
-    return `${betweenTimeDay}일전`;
-  }
-
-  return `${Math.floor(betweenTimeDay / 365)}년전` + console.log(today);
 }

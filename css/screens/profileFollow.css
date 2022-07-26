@@ -13,14 +13,19 @@
   font-size: 12px;
 }
 
+.userBox .userProfileImage.follow {
+  height: 50px;
+  object-fit: cover;
+}
+
 .userList .profile.followBtn.cancel {
   background-color: white;
   border: 1px solid var(--borderColor);
   color: var(--textColor);
 }
 
-.userBox .userInfo {
-  width: calc(100% - 61px);
+.userBox .userInfo.follow {
+  width: calc(100% - 128px);
   display: flex;
   flex-direction: column;
 }

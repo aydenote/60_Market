@@ -12,7 +12,7 @@ let imageUrl;
 
 // 상품 이미지 미리보기 / api서버에 전송하고 변경된 이미지 이름 가져오기 
 
-async function onChange(event) {
+async function onChangeProductImg(event) {
   const imgReader = new FileReader();
   const formData = new FormData();
 
@@ -84,7 +84,7 @@ function productInput() {
 // 상품 등록 모든 데이터 보내기
 
 async function onProductSvaeBtn(e) {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDEzN2ViODJmZGNjNzEyZjRiNTZjOCIsImV4cCI6MTY2MzA2MjU1NiwiaWF0IjoxNjU3ODc4NTU2fQ.ckg0Xq80y7h8QpLjLhm2-ph4ACdJ-dwWlu1dctvRytQ";
+  const token = localStorage.getItem("Token");
     const productInfo = {
       product: {
         itemName: productNameForm.value,

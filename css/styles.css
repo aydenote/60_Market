@@ -23,6 +23,7 @@
 @import "screens/addProduct.css";
 /* Post */
 @import "screens/post.css";
+@import "screens/postUpload.css";
 /* User Profile */
 @import "screens/editProfile.css";
 @import "screens/profile.css";

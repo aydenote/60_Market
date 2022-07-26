@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="../asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../script/logIn.js" defer></script>
+    <script src="../script/common.js" defer></script>
     <title>60'' Market | 로그인</title>
   </head>
   <body>
@@ -17,12 +20,22 @@
       <main>
         <form class="logInForm registerForm" action="" method="get">
           <label class="registerFormLabel" for="email">이메일</label>
-          <input id="email" type="email" required />
+          <input id="email" name="email" type="email" required />
           <label class="registerFormLabel" for="password">비밀번호</label>
-          <input id="password" type="password" minlength="8" maxlength="20" required />
-          <p class="registerFormAlert ir">*이메일 또는 비밀번호가 일치하지 않습니다.</p>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            minlength="6"
+            required
+          />
+          <p class="registerFormAlert ir">
+            *이메일 또는 비밀번호가 일치하지 않습니다.
+          </p>
 
-          <button type="submit" class="btn logInBtn registerFormBtn">로그인</button>
+          <button type="button" class="btn logInBtn registerFormBtn" disabled>
+            로그인
+          </button>
         </form>
       </main>
 
