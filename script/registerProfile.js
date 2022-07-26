@@ -73,7 +73,7 @@ class CheckForm {
     if (!regExp.test(this.id.value)) {
       errorMessage.classList.remove('ir');
       this.profileFormBtn.style.opacity = '0.3';
-      email.oninput = () => {
+      id.oninput = () => {
         errorMessage.classList.add('ir');
       };
     }
