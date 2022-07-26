@@ -53,11 +53,6 @@ main .registerForm .uploadProfileImg {
   margin: -60px 0 0;
   border: 1px solid var(--borderColor);
   border-radius: 50%;
-  background-image: url(../../asset/images/basic-profile.svg);
-}
-
-main .registerForm .setting {
-  background-image: none;
 }
 
 main .registerForm .uploadProfileImgIcon {
