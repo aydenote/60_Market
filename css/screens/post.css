@@ -30,3 +30,8 @@ main .postCommentBox {
   color: var(--borderColor);
   font-size: 10px;
 }
+
+.commentUserProfile {
+  width: 36px;
+  height: 36px;
+}

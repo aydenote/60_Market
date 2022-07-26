@@ -1,6 +1,9 @@
 // 게시 버튼 활성화
 const postChatForm = document.querySelector("#postChatContent");
 const postButton = document.querySelector(".postBtn");
+const commentUserProfile = document.querySelector('.commentUserProfile');
+
+
 
 postButton.disabled = true;
 function postInput() {
@@ -42,6 +45,9 @@ const heartCount = json.post.heartCount;
 const commentCount = json.post.commentCount;
 const createdAt = json.post.createdAt.slice(0,11).replace('-','년 ').replace('-', '월 ').replace('T', '일');
 // const comments = json.post.comments;
+
+// 댓글 유저 프로필 이미지
+commentUserProfile.setAttribute("src", profileImg);
 
 // 프로필
 const div = document.querySelector('.userItem');
