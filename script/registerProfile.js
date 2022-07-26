@@ -11,8 +11,8 @@ const errorMessage = document.querySelector('.registerFormAlert');
 
 // 프로필 이미지 업로드
 class UploadProfileImg {
-  constructor(profileImg) {
-    this.profileImg = profileImg;
+  constructor(basicImg) {
+    this.basicImg = basicImg;
   }
 
   // 서버에 프로필 이미지 보내기
@@ -36,8 +36,7 @@ class UploadProfileImg {
       alert('이미지 사이즈는 10MB 이내로 등록 가능합니다.');
       return false;
     }
-    profileImg.src = URL.createObjectURL(selectedImg);
-    profileImg.classList.add('setting');
+    basicImg.src = URL.createObjectURL(selectedImg);
     this.sendProfileImg(selectedImg);
     URL.revokeObjectURL(selectedImg);
   };
@@ -74,7 +73,7 @@ class CheckForm {
     if (!regExp.test(this.id.value)) {
       errorMessage.classList.remove('ir');
       this.profileFormBtn.style.opacity = '0.3';
-      email.oninput = () => {
+      id.oninput = () => {
         errorMessage.classList.add('ir');
       };
     }
@@ -126,9 +125,6 @@ class IsValidId {
     if (resMessage === '이미 가입된 계정ID 입니다.') {
       this.errorMessage.innerText = `*${resMessage}`;
       this.errorMessage.classList.remove('ir');
-      this.id.oninput = () => {
-        this.errorMessage.classList.add('ir');
-      };
     }
     if (resMessage === '사용 가능한 계정ID 입니다.') {
       this.sendRegister(resMessage);
@@ -152,7 +148,7 @@ class IsValidId {
 }
 
 // 프로필 이미지 업로드
-const uploadProfileImg = new UploadProfileImg(profileImg);
+const uploadProfileImg = new UploadProfileImg(basicImg);
 // 폼 내용 체크
 const checkForm = new CheckForm(username, id, intro, profileFormBtn);
 // ID 중복 체크 및 회원가입 정보 전송
