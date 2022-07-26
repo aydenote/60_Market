@@ -188,3 +188,121 @@ const submitComment = async(e) => {
 }
 
 submitButton.addEventListener('click', submitComment);
+
+//모달
+
+const modal = document.createElement('div')
+
+const modalMore = (commentId) => {
+  return `<section class="modalBg postModal">
+  <article class="modal">
+    <button onclick="modalClose() class="modalClose">
+      <span class="ir">더보기 닫기 버튼</span>
+    </button>
+    <button onclick="modalOpenCommentDelete('${commentId}')" class="modalBtn modalBtn1">삭제</button>
+    <button class="modalBtn modalBtn2">수정</button>
+  </article>
+</section>`
+} 
+
+// const modalCommentDelete = (commentId) => {
+//   return `<section class="modalBg commentDelModal">
+//   <article class="modal">
+//     <button onclick="modalClose()" id="btnDeleteClose" class="modalClose">
+//       <span class="ir">댓글 삭제 버튼</span>
+//     </button>
+//     <button onclick="deleteComment('${commentId}')" class="modalBtn modalBtn1">삭제</button>
+//   </article>
+// </section>`
+// }
+
+const modalReport = (commentId) => {
+  return `<section class="modalBg commentReportModal">
+  <article class="modal">
+    <button onclick="modalClose()" id="btnReportClose" class="modalClose">
+      <span class="ir">댓글 신고 버튼</span>
+    </button>
+    <button onclick="commentReport('${commentId}')" class="modalBtn modalBtn1">신고</button>
+  </article>
+</section>`
+}
+
+const alert = `<section class="modalAlert postDelAlert">
+<h4 class="ir">신고 완료</h4>
+<strong class="alertMsg">신고 완료</strong>
+<div class="alertBtnContent">
+  <button onclick="modalClose()" class="cancelBtn">확인</button>
+</div>
+</section>`
+
+
+const btnPostModal = document.querySelector('.postModal');
+const btnReport = document.querySelector('.commentReportModal');
+const body = document.body;
+const modalOpen = (e) => {
+  e.preventDefault();
+  const commentAccountName = e.target.parentElement.closest('article').getAttribute('key')
+  const commentId = e.target.parentElement.closest('article').getAttribute('id')
+  if (commentAccountName == localStorage.getItem("accountname")){
+    modal.innerHTML = modalMore(commentId);
+    body.appendChild(modal)
+  }else{
+    modal.innerHTML = modalReport(commentId);
+    body.appendChild(modal)
+  }
+  // btnReport.classList.remove("hidden")
+  // PostModal.classList.remove("hidden")
+}
+
+const modalClose = () => {
+  body.removeChild(modal)
+}
+
+// const modalOpenCommentDelete = (commentId) => {
+//   modal.innerHTML = modalCommentDelete(commentId)
+// }
+
+//댓글 삭제
+const deleteComment = async(commentId) => {
+  const token = localStorage.getItem('Token');
+  try {
+    const res = await fetch(`${API_ROOT}/post/${POST_ID}/comments/${commentId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization' : `Bearer ${token}`,
+	      'Content-type' : 'application/json',
+      }
+    });
+    const json = await res.json();
+    modalClose();
+    renderPost();
+  }catch(err){
+    console.log(err);
+  }
+}
+
+// 댓글 신고
+
+
+const commentReport = async(commentId) => {
+  const token = localStorage.getItem('Token');
+  try {
+    const res = await fetch(`${API_ROOT}/post/${POST_ID}/comments/${commentId}/report`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization' : `Bearer ${token}`,
+	      'Content-type' : 'application/json',
+      }
+    });
+    const json = await res.json();
+    modalClose();
+    modal.innerHTML = alert
+    body.appendChild(modal)
+  }catch(err){
+    console.log(err);
+  }
+  
+}
+
+
+renderPost();
