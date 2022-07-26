@@ -90,11 +90,13 @@ section.innerHTML = `
   <p>
     ${content}
   </p>
+  <div class="postDetaileImgContent">
   <ul>
-    <li>
+    <li class="postDetaileImgContentFlex">
     ${jsonImgTags.join("")}
     </li>
   </ul>
+  </div>
   <div class="postBtnContent">
     <button class="likeBtn">
       <span class="ir">좋아요 버튼</span>

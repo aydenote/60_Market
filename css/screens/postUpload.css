@@ -1,5 +1,5 @@
 body .postContainer{
-    padding: 16px 16px 0 16px;
+    padding: 46px 16px 0 16px;
 }
 
 .postContainer .postUploadForm{
@@ -39,10 +39,26 @@ body .postContainer{
     height: 228px;
     margin: 16px auto 0;
     display: flex;
+    overflow-y: hidden;
     overflow-x: scroll;
     flex-wrap: nowrap;
     gap: 8px;
 }
+
+/* 스크롤 커스텀 */
+.postContainer .postUploadImageScreen::-webkit-scrollbar {
+    height: 10px;
+  }
+  
+.postContainer .postUploadImageScreen::-webkit-scrollbar-thumb {
+    background: var(--mainColor);
+    border-radius: 10px;
+}
+
+.postContainer .postUploadImageScreen::-webkit-scrollbar-track {
+    background: white;
+}
+
 
 .postUploadImageScreen .postImgItem {
     width: 100%;
