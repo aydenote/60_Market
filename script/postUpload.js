@@ -3,65 +3,66 @@ const postUploadInp = document.querySelector(".postUploadInput");
 const postImgContainer = document.querySelector(".postUploadImageScreen");
 const postUploadBtn = document.querySelector(".headerBarBtn.buttonClick");
 const postImgItem = document.querySelector(".postImgItem");
-const url = (location.protocol === "https:") ? 'https://mandarin.api.weniv.co.kr' : 'http://146.56.183.55:5050';
+const url = "https://mandarin.api.weniv.co.kr";
 
 const imgFiles = [];
 
 // 사진 미리보기, 사진 삭제
 
-function readInputFile(e){
-    const files = e.target.files;
-    const fileArr = [...files];
-    fileArr.forEach(file => imgFiles.push(file));
-    // console.log(imgFiles);
-    fileArr.forEach(function(i) {
-        if(files.length <= 3){
-        const reader = new FileReader();
-        reader.onload = function(e) {
-        const imgItem = document.createElement('div');
+function readInputFile(e) {
+  const files = e.target.files;
+  const fileArr = [...files];
+  fileArr.forEach((file) => imgFiles.push(file));
+  fileArr.forEach(function (i) {
+    if (files.length <= 3) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imgItem = document.createElement("div");
         imgItem.style.backgroundImage = `url(${reader.result})`;
-        imgItem.className = 'postImgItem';
+        imgItem.className = "postImgItem";
 
         postImgContainer.appendChild(imgItem);
-        e.target.value = '';
+        e.target.value = "";
 
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'postImgCloseBtn';
+        const closeBtn = document.createElement("button");
+        closeBtn.className = "postImgCloseBtn";
         imgItem.appendChild(closeBtn);
-        closeBtn.addEventListener('click',function(){
-            // MEMO:: imgFiles에서 삭제, 미리보기에 삭제
-            imgFiles.splice([...postImgContainer.children].indexOf(imgItem), 1);
-            postImgContainer.removeChild(imgItem);
-            // console.log(imgFiles);
+        closeBtn.addEventListener("click", function () {
+          // MEMO:: imgFiles에서 삭제, 미리보기에 삭제
+          imgFiles.splice([...postImgContainer.children].indexOf(imgItem), 1);
+          postImgContainer.removeChild(imgItem);
+          // console.log(imgFiles);
         });
-        };
-        reader.readAsDataURL(i);
+      };
+      reader.readAsDataURL(i);
     }
-    })
-  }
-postUploadInp.addEventListener('change',readInputFile);
+  });
+}
+// postUploadInp.addEventListener("change", uploadImg);
 
 // 이미지 업로드
-
+let arrImg = [];
 async function uploadImg(event) {
-    const formData = new FormData();
-    imgFiles.forEach(file => {
+  const formData = new FormData();
+  imgFiles.forEach((file) => {
     formData.append("image", file);
-    })
-    try {
+  });
+  try {
     const response = await fetch(url + "/image/uploadfiles", {
-        method: "POST",
-        body: formData,
+      method: "POST",
+      body: formData,
     });
     const data = await response.json();
-    data.forEach(data => {
-        console.log(data.filename)
-    })
-    console.log(data);
-    }
-    catch (err) {
-    console.log(err);
-    }
+
+    data.forEach((data) => {
+      arrImg.push(`${url}/${data.filename}`);
+    });
+
+    return arrImg;
+  } catch (err) {
+    alert("이미지 파일은 최대 3장까지만 가능합니다.");
+  }
+  imgFiles = [];
 }
 
 // postUploadComentTxt나 postUploadImageScreen에 이미지가 업로드되면 업로드버튼 활성화
@@ -81,34 +82,26 @@ function postInput() {
 // 게시글 작성 후 데이터 서버에 보내기
 
 async function createPost() {
-    const token = localStorage.getItem('Token');
-    const contentText = postUploadTxt.value;
-    const files = postUploadInp.files;
-  if(imgFiles.length > 3) {
-    alert('이미지 파일은 최대 3장까지만 가능합니다.');
-  } else {
-    const imgUrls = [];
-    for (const file of imgFiles) {
-      imgUrls.push(`${url}/${await uploadImg(file)}`);
-    }
-    // console.log('imgUrls', imgUrls);
-    const res = await fetch(`${url}/post`, {
-      method: 'POST',
-      headers: {
-        "Authorization" : `Bearer ${token}`,
-        "Content-type" : "application/json"
+  const token = localStorage.getItem("Token");
+  const contentText = postUploadTxt.value;
+  const images = await uploadImg(imgFiles);
+
+  const res = await fetch(`${url}/post`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
     },
-      body:JSON.stringify({
-        "post": {
-          "content": contentText,
-          "image": imgUrls.join(',') 
-        }
-      })
-    })
-    const json = await res.json();
-    // console.log(json);
-    location.href = '../pages/profile.html';
-  }
+    body: JSON.stringify({
+      post: {
+        content: contentText,
+        image: images.join(","),
+      },
+    }),
+  });
+  const json = await res.json();
+  // console.log(json);
+  location.href = "../pages/profile.html";
 }
 
-postUploadBtn.addEventListener('click', createPost)
+postUploadBtn.addEventListener("click", createPost);
