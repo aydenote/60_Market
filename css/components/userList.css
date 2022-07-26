@@ -12,7 +12,9 @@
 }
 
 .userBox .userProfileImage {
+  height: 50px;
   width: 50px;
+  object-fit: cover;
   border-radius: 50%;
   border: 0.5px solid var(--borderColor);
 }
