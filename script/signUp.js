@@ -39,6 +39,12 @@ const locationRegisterProfile = (resMessage) => {
   }
 };
 
+// 이메일, 비밀번호 로컬 스토리지에 저장
+const saveData = () => {
+  localStorage.setItem('email', email.value);
+  localStorage.setItem('password', password.value);
+};
+
 // 사용 가능한 이메일 체크
 const checkEmail = (resMessage) => {
   if (resMessage !== '사용 가능한 이메일 입니다.') {
@@ -61,7 +67,6 @@ const isValidEmail = async () => {
         email: email.value,
       },
     });
-    console.log(res);
     const resMessage = res.data.message;
     checkEmail(resMessage);
     return resMessage;
