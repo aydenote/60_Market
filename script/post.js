@@ -100,7 +100,7 @@ section.innerHTML = `
       <span class="ir">좋아요 버튼</span>
       <span class="likeCount">${heartCount}</span>
     </button>
-    <a href="post.html" class="commentBtn">
+    <a href="" class="commentBtn">
       <span class="commentCount">${commentCount}</span>
     </a>
   </div>
