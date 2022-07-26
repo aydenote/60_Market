@@ -6,6 +6,7 @@ const errorPassword = document.querySelector('.errorPassword');
 const registerForm = document.querySelector('.registerForm');
 const registerFormBtn = document.querySelector('.registerFormBtn');
 
+// 폼 입력
 class CheckForm {
   constructor(email, password) {
     this.email = email;
@@ -36,6 +37,7 @@ class CheckForm {
   };
 }
 
+// 유효성 
 class Validation {
   constructor(email) {
     this.email = email;
