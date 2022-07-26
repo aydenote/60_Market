@@ -1,8 +1,8 @@
 const url = 'https://mandarin.api.weniv.co.kr';
 const token = localStorage.getItem('Token');
 
-let imgUrl;
-const profileImg = document.querySelector('.uploadProfileImg');
+const profileImgSource = document.querySelector('.uploadProfileImg').src;
+const profileImgBtn = document.querySelector('#profileImg');
 const username = document.querySelector('#username');
 const id = document.querySelector('#id');
 const intro = document.querySelector('#intro');
@@ -63,7 +63,6 @@ class IsValidId {
     this.errorMessage = errorMessage;
   }
 
-  // ✨ 이 부분이 에러가 있음
   // 회원가입 정보 전송
   sendRegister = async () => {
     try {
@@ -74,20 +73,12 @@ class IsValidId {
           password: localStorage.getItem('password'),
           accountname: id.value,
           intro: intro.value,
-          image: 'https://mandarin.api.weniv.co.kr/Ellipse.png',
+          image: profileImgSource,
         },
       });
-      console.log(res);
-      // location.href = './logIn.html';
-      // console.log(username.value);
-      // console.log(localStorage.getItem('email'));
-      // console.log(localStorage.getItem('password'));
-      // console.log(id.value);
-      // console.log(this.id.value);
-      // console.log(intro.value);
+      location.href = './logIn.html';
     } catch (err) {
       console.log(err);
-      // return err;
     }
   };
 
@@ -123,7 +114,7 @@ class IsValidId {
 
 // 폼 내용 체크
 const checkForm = new CheckForm(username, id, intro, profileFormBtn);
-// ID 중복 체크
+// ID 중복 체크 및 회원가입 정보 전송
 const isValidId = new IsValidId(id, errorMessage);
 
 // 폼 입력
