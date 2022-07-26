@@ -23,7 +23,10 @@ async function getFollowingList() {
     },
   };
   try {
-    const followingData = await fetch(`${url}/profile/${accountName}/following`, setting);
+    const followingData = await fetch(
+      `${url}/profile/${accountName}/following`,
+      setting
+    );
     const followingDataJson = await followingData.json();
     setFollowing(followingDataJson);
   } catch (err) {
@@ -74,7 +77,10 @@ async function getFollowerList() {
     },
   };
   try {
-    const followerData = await fetch(`${url}/profile/${accountName}/follower`, setting);
+    const followerData = await fetch(
+      `${url}/profile/${accountName}/follower`,
+      setting
+    );
     const followerDataJson = await followerData.json();
     setFollower(followerDataJson);
   } catch (err) {

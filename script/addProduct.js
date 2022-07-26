@@ -84,7 +84,7 @@ function productInput() {
 // 상품 등록 모든 데이터 보내기
 
 async function onProductSvaeBtn(e) {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDEzN2ViODJmZGNjNzEyZjRiNTZjOCIsImV4cCI6MTY2MzA2MjU1NiwiaWF0IjoxNjU3ODc4NTU2fQ.ckg0Xq80y7h8QpLjLhm2-ph4ACdJ-dwWlu1dctvRytQ";
+  const token = localStorage.getItem("Token");
     const productInfo = {
       product: {
         itemName: productNameForm.value,

@@ -7,25 +7,54 @@
     <link rel="shortcut icon" href="../asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
     <script src="../script/postUpload.js" defer></script>
+    <script src="../script/common.js" defer></script>
     <title>60'' Market | 홈</title>
   </head>
   <body>
     <header>
       <article class="headerBar postingHeaderBar">
-        <img class="headerBarBack buttonClick" src="/asset/images/icons/icon__arrowLeft.svg" alt="뒤로가기" onclick="history.back()" />
-        <button type="button" id="postingUploadBtn" class="headerBarSettingBtn headerBarBtn buttonClick">업로드</button>
+        <img
+          class="headerBarBack buttonClick"
+          src="/asset/images/icons/icon__arrowLeft.svg"
+          alt="뒤로가기"
+        />
+        <button
+          type="button"
+          id="postingUploadBtn"
+          class="headerBarSettingBtn headerBarBtn buttonClick"
+        >
+          업로드
+        </button>
       </article>
     </header>
 
     <main class="postContainer">
       <form class="postUploadForm">
-        <img src="../asset/images/basic-profile.svg" alt="프로필 이미지" class="userProfileImage postUploadCommentImg" />
+        <img
+          src="../asset/images/basic-profile.svg"
+          alt="프로필 이미지"
+          class="userProfileImage postUploadCommentImg"
+        />
         <label for="postUploadComent" class="ir">게시글 입력창입니다.</label>
-        <textarea type="text" id="postUploadComent" maxlength="140" placeholder="게시글 입력하기..." class="postUploadComentTxt" onkeyup="postInput()"></textarea>
+        <textarea
+          type="text"
+          id="postUploadComent"
+          maxlength="140"
+          placeholder="게시글 입력하기..."
+          class="postUploadComentTxt"
+          onkeyup="postInput()"
+        ></textarea>
         <label for="chatSelectImage" class="postUploadInputImg">
           <img src="../asset/images/icons/icon__imagesUplode.svg" alt="" />
         </label>
-        <input type="file" id="chatSelectImage" accept="image/*" class="postUploadInput ir" onchange="uploadImg(event)" multiple />
+        <input
+          type="file"
+          id="chatSelectImage"
+          accept="image/*"
+          class="postUploadInput ir"
+          onchange="readInputFile(event)"
+          multiple
+        />
       </form>
       <div class="postUploadImageScreen"></div>
     </main>

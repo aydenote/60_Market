@@ -7,14 +7,23 @@
     <link rel="shortcut icon" href="../asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
     <script src="../script/profile.js" defer></script>
+    <script src="../script/common.js" defer></script>
     <title>60'' Market | 프로필</title>
   </head>
   <body class="profileBackground">
     <header>
       <h1 class="ir">프로필</h1>
       <article class="headerBar profile">
-        <img class="headerBarBack buttonClick" src="../asset/images/icons/icon__arrowLeft.svg" alt="뒤로가기" onclick="history.back()" />
-        <img onclick="onModal(event)" class="headerBarBtn buttonClick" src="../asset/images/icons/icon__menu.svg" alt="메뉴" />
+        <img
+          class="headerBarBack buttonClick"
+          src="../asset/images/icons/icon__arrowLeft.svg"
+          alt="뒤로가기"
+        />
+        <img
+          class="headerBarBtn buttonClick"
+          src="../asset/images/icons/icon__menu.svg"
+          alt="메뉴"
+        />
       </article>
     </header>
 
@@ -23,7 +32,11 @@
         <h2 class="ir">프로필 소개</h2>
         <section class="myFollow myProfileImg">
           <a onclick="clickedFollowLink(event)" class="followers"></a>
-          <img class="myImage" src="../asset/images/basic-profile.svg" alt="내 프로필 이미지" />
+          <img
+            class="myImage"
+            src="../asset/images/basic-profile.svg"
+            alt="내 프로필 이미지"
+          />
           <a onclick="clickedFollowLink(event)" class="followings"></a>
         </section>
 
@@ -40,8 +53,18 @@
 
       <section class="postingSummary">
         <article class="albumBar">
-          <img onclick="listTypePost()" class="postingType list buttonClick" src="../asset/images/icons/icon__postList.svg" alt="리스트형으로 보기" />
-          <img onclick="albumTypePost()" class="postingType album buttonClick unselected" src="../asset/images/icons/icon__postAlbum.svg" alt="앨범형으로 보기" />
+          <img
+            onclick="listTypePost()"
+            class="postingType list buttonClick"
+            src="../asset/images/icons/icon__postList.svg"
+            alt="리스트형으로 보기"
+          />
+          <img
+            onclick="albumTypePost()"
+            class="postingType album buttonClick unselected"
+            src="../asset/images/icons/icon__postAlbum.svg"
+            alt="앨범형으로 보기"
+          />
         </article>
       </section>
     </main>
@@ -79,18 +102,18 @@
 
     <section class="modalBg setUsertModal hidden">
       <article class="modal">
-        <button onclick="offModal(event)" class="modalClose">
+        <button class="modalClose">
           <span class="ir">더보기 닫기 버튼</span>
         </button>
         <button class="modalBtn modalBtn1">설정 및 개인정보</button>
-        <button onclick="userLogout()" class="modalBtn modalBtn2">로그아웃</button>
+        <button class="modalBtn modalBtn2">로그아웃</button>
       </article>
     </section>
 
     <section class="modalAlert logoutAlert hidden">
       <h4 class="ir">로그아웃 창</h4>
       <strong class="alertMsg">로그아웃하시겠어요?</strong>
-      <div onclick="checkLogout(event)" class="alertBtnContent">
+      <div class="alertBtnContent">
         <button class="cancelBtn">취소</button>
         <button class="logoutBtn">로그아웃</button>
       </div>
@@ -98,7 +121,7 @@
 
     <section class="modalBg productModal hidden">
       <article class="modal">
-        <button onclick="offModal(event)" class="modalClose">
+        <button class="modalClose">
           <span class="ir">더보기 닫기 버튼</span>
         </button>
         <button class="modalBtn modalBtn1">삭제</button>
@@ -132,6 +155,24 @@
       <div class="alertBtnContent">
         <button class="cancelBtn">취소</button>
         <button class="delBtn">삭제</button>
+      </div>
+    </section>
+
+    <section class="modalBg reportModal hidden">
+      <article class="modal">
+        <button class="modalClose">
+          <span class="ir">더보기 닫기 버튼</span>
+        </button>
+        <button class="modalBtn modalBtn1">신고하기</button>
+      </article>
+    </section>
+
+    <section class="modalAlert reportAlert hidden">
+      <h4 class="ir">게시글 신고 창</h4>
+      <strong class="alertMsg">신고하시겠어요?</strong>
+      <div class="alertBtnContent">
+        <button class="cancelBtn">취소</button>
+        <button class="reportBtn">신고</button>
       </div>
     </section>
   </body>

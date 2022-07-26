@@ -143,8 +143,11 @@ async function homeFeed() {
         }
       }
 
-      let checkImg =
-        document.querySelector(".postImgContent") != null ? "" : "hidden";
+      let checkImg = !postImage
+        ? ""
+        : `<div class="postImgContent">
+            <ul>${postImage}</ul>
+          </div>`;
 
       postItem.innerHTML = `
       <h4 class="ir">게시물</h4>
@@ -177,9 +180,7 @@ async function homeFeed() {
       <section id="${posts[i].id}" class="postContent">
         <h4 class="ir">게시글 내용</h4>
         <p>${posts[i].content}</p>
-        <div class="postImgContent ${checkImg}">
-          <ul>${postImage}</ul>
-        </div>
+        ${checkImg}
         <div class="postBtnContent">
           <button class="likeBtn ${
             posts[i].hearted ? "on" : ""
