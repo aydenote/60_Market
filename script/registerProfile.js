@@ -125,9 +125,6 @@ class IsValidId {
     if (resMessage === '이미 가입된 계정ID 입니다.') {
       this.errorMessage.innerText = `*${resMessage}`;
       this.errorMessage.classList.remove('ir');
-      this.id.oninput = () => {
-        this.errorMessage.classList.add('ir');
-      };
     }
     if (resMessage === '사용 가능한 계정ID 입니다.') {
       this.sendRegister(resMessage);
