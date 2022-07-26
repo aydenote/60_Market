@@ -205,16 +205,16 @@ const modalMore = (commentId) => {
 </section>`
 } 
 
-// const modalCommentDelete = (commentId) => {
-//   return `<section class="modalBg commentDelModal">
-//   <article class="modal">
-//     <button onclick="modalClose()" id="btnDeleteClose" class="modalClose">
-//       <span class="ir">댓글 삭제 버튼</span>
-//     </button>
-//     <button onclick="deleteComment('${commentId}')" class="modalBtn modalBtn1">삭제</button>
-//   </article>
-// </section>`
-// }
+const modalCommentDelete = (commentId) => {
+  return `<section class="modalBg commentDelModal">
+  <article class="modal">
+    <button onclick="modalClose()" id="btnDeleteClose" class="modalClose">
+      <span class="ir">댓글 삭제 버튼</span>
+    </button>
+    <button onclick="deleteComment('${commentId}')" class="modalBtn modalBtn1">삭제</button>
+  </article>
+</section>`
+}
 
 const modalReport = (commentId) => {
   return `<section class="modalBg commentReportModal">
@@ -258,9 +258,9 @@ const modalClose = () => {
   body.removeChild(modal)
 }
 
-// const modalOpenCommentDelete = (commentId) => {
-//   modal.innerHTML = modalCommentDelete(commentId)
-// }
+const modalOpenCommentDelete = (commentId) => {
+  modal.innerHTML = modalCommentDelete(commentId)
+}
 
 //댓글 삭제
 const deleteComment = async(commentId) => {
