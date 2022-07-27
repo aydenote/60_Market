@@ -121,7 +121,7 @@ async function clickSaveButton() {
     // 응답 성공시
     if (resEditProfile.status === 200) {
       localStorage.setItem("accountname", inputId.value);
-      location.href = "./profile.html";
+      location.href = "../pages/profile.html";
     } else {
       alertMessage.classList.remove("ir");
       alertMessage.innerText = `*${resEditProfileJson.message}`;
