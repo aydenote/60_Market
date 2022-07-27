@@ -262,7 +262,7 @@ const modalMore = (commentId) => {
 const modalCommentDelete = (commentId) => {
   return `<section class="modalAlert productDelAlert">
   <h4 class="ir">댓글 삭제 창</h4>
-  <strong class="alertMsg">삭제하시겠어?</strong>
+  <strong class="alertMsg">삭제하시겠습니까?</strong>
   <div class="alertBtnContent">
     <button onclick="modalClose()" class="cancelBtn">취소</button>
     <button onclick="deleteComment('${commentId}')" class="delBtn">삭제</button>
