@@ -79,7 +79,10 @@ function setYourProfile(userProfile) {
   const createShareImg = document.createElement("img");
 
   createMessageImg.setAttribute("class", "messageBtn");
-  createMessageImg.setAttribute("src", "/asset/images/icons/icon__message.svg");
+  createMessageImg.setAttribute(
+    "src",
+    "../asset/images/icons/icon__message.svg"
+  );
   createMessageImg.setAttribute("alt", "메세지 버튼");
   createMessageImg.addEventListener("click", () => {
     location.href = "/pages/chatting1.html";
@@ -92,7 +95,7 @@ function setYourProfile(userProfile) {
   profileLinkBtn.append(createFollowButton);
 
   createShareImg.setAttribute("class", "shareBtn");
-  createShareImg.setAttribute("src", "/asset/images/icons/icon__share.svg");
+  createShareImg.setAttribute("src", "../asset/images/icons/icon__share.svg");
   createShareImg.setAttribute("alt", "공유 버튼");
   profileLinkBtn.append(createShareImg);
 
@@ -281,9 +284,6 @@ function listTypePost() {
     } else {
       heartStatus = "likeBtn";
     }
-
-    console.log(post);
-
     postListContent = `
           <section>
             <div class="userList">
