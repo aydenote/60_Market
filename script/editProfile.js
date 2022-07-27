@@ -2,6 +2,7 @@
 const profileSaveButton = document.querySelector(".headerBarBtn.buttonClick");
 const inputName = document.querySelector(".profileModificationForm #name");
 const inputId = document.querySelector(".profileModificationForm #id");
+const alertMessage = document.querySelector(".alertMessage");
 const inputIntroduce = document.querySelector(
   ".profileModificationForm #introduce"
 );
@@ -11,6 +12,7 @@ let imageUrl;
 
 profileSaveButton.disabled = true;
 function profileChangeInput() {
+  alertMessage.classList.add("ir");
   const inputNameLength = document.querySelector(
     ".profileModificationForm #name"
   ).value.length;
@@ -22,6 +24,7 @@ function profileChangeInput() {
     .value.length;
   let check = /^[a-zA-Z0-9_.]{2,10}$/;
 
+  // 유효성 검사
   if (
     inputNameLength >= 2 &&
     inputIntroduceLength >= 2 &&
@@ -40,6 +43,11 @@ function profileChangeInput() {
 async function imageChange(e) {
   const imgReader = new FileReader();
   const formData = new FormData();
+
+  if (e.target.files[0].size > 10000000) {
+    alert("이미지 사이즈는 10MB 이내로 등록 가능합니다.");
+    return;
+  }
 
   if (e.target.files && e.target.files[0]) {
     document.querySelector(".updateUserImg").classList.add("addImg");
@@ -92,7 +100,8 @@ async function clickSaveButton() {
       localStorage.setItem("accountname", inputId.value);
       location.href = "./profile.html";
     } else {
-      alert(resEditProfileJson.message);
+      alertMessage.classList.remove("ir");
+      alertMessage.innerText = `*${resEditProfileJson.message}`;
     }
   } catch (err) {
     console.error(err);

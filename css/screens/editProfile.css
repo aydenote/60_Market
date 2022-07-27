@@ -1,5 +1,20 @@
 main .updateProfileImg {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.updateProfileImg .profileImgBtn {
+  display: flex;
+  flex-direction: column;
+}
+
+.updateProfileImg .profileImgBtn .imgUploadBtn {
+  position: relative;
+  top: -81px;
+  left: 75px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
 }
 
 main .updateProfileImg > input {
@@ -10,7 +25,6 @@ main .updateProfileImg > input {
   width: 110px;
   height: 110px;
   margin: 50px auto;
-  cursor: pointer;
 }
 
 .updateProfileImg .updateUserImg.addImg {
@@ -28,6 +42,12 @@ main .logInForm .registerFormLabel {
   font-weight: 500;
   font-size: 12px;
   color: var(--textColor);
+}
+
+.alertMessage {
+  align-self: flex-start;
+  color: orangered;
+  font-size: 13px;
 }
 
 .profileModificationForm #name,
