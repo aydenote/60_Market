@@ -82,7 +82,7 @@ userText.appendChild(userMsgContent);
 
 // 게시글
 const jsonImgTags = jsonImg.map(src => {
-  return `<img src=${src} alt="게시물 이미지" />`
+  return src && `<img src=${src} alt="게시물 이미지" />`
 });
 if (json.post.hearted) {
   heartStatus = "likeBtn on";
@@ -94,13 +94,13 @@ section.innerHTML = `
   <p>
     ${content}
   </p>
-  <div class="postDetaileImgContent">
+  ${ jsonImgTags == '' ? '' : `<div class="postDetaileImgContent">
   <ul>
     <li class="postDetaileImgContentFlex">
     ${jsonImgTags.join("")}
     </li>
   </ul>
-  </div>
+  </div>`}
   <div class="postBtnContent">
     <button onclick="clickHeart(event)" class="${heartStatus}">
       <span class="ir">좋아요 버튼</span>
