@@ -1,5 +1,9 @@
 const token = localStorage.getItem("Token");
-const url = "https://mandarin.api.weniv.co.kr";
+const defaultUrl = "https://mandarin.api.weniv.co.kr";
+const headers = {
+  Authorization: `Bearer ${token}`,
+  "Content-type": "application/json",
+};
 const listContent = document.querySelector(".post");
 
 // 게시물 등록 시간 계산 함수
@@ -17,36 +21,32 @@ function timeForToday(time) {
 
 // 좋아요
 async function likeHeart(postingID) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;
-  const token = localStorage.getItem("Token");
-
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
-    },
-  });
-  const data = await res.json();
-  console.log(data);
-
-  return data;
+  const url = `${defaultUrl}/post/${postingID}/heart`;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: headers,
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 // 좋아요 취소
 async function likeUnHeart(postingID) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/unheart`;
-  const token = localStorage.getItem("Token");
-  const res = await fetch(url, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
-    },
-  });
-  const data = await res.json();
-  console.log(data);
-  return data;
+  const url = `${defaultUrl}/post/${postingID}/unheart`;
+  try {
+    const res = await fetch(url, {
+      method: "DELETE",
+      headers: headers,
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 // 좋아요 버튼 클릭
@@ -60,13 +60,10 @@ async function clickHeart(e) {
     likeBtn.classList.remove("on");
     data = await likeUnHeart(postId);
     likeCount.innerHTML = data.post.heartCount;
-
-    console.log("on 클래스를 가지고 있습니다!");
   } else {
     likeBtn.classList.add("on");
     data = await likeHeart(postId);
     likeCount.innerHTML = data.post.heartCount;
-    console.log("on 클래스를 가지고 있지 않습니다!");
   }
 }
 
@@ -82,54 +79,39 @@ function noFeed() {
 
 async function homeFeed() {
   try {
-    const res = await fetch(`${url}/post/feed`, {
+    const res = await fetch(`${defaultUrl}/post/feed`, {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
-      },
+      headers: headers,
     });
-
     const json = await res.json();
     const posts = json.posts;
-    // console.log(json);
 
+    // 팔로우가 없거나 게시물이 없을경우
     if (posts.length <= 0) {
       noFeed();
     }
 
     for (let i = 0; i < posts.length; i++) {
-      const postItem = document.createElement("article");
+      const postItem = document.createElement("div");
       postItem.classList.add("postItem");
-      // let img = "";
-      // const val = posts[i].createdAt;
-      // const test = val.substring(0, val.length - 1);
-      // console.log(test);
-      // console.log(timeForToday(test));
 
       //좋아요 버튼 클릭
       async function clickHeart(e) {
         const likeBtn = e.target;
         const likeCount = e.target.children[1];
-        const postId = e.target.closest("article").id;
-        console.log(likeCount);
-        console.log(likeBtn);
-        console.log(postId);
         let data = {};
 
         if (likeBtn.classList.contains("on")) {
           likeBtn.classList.remove("on");
           data = await likeUnHeart(posts[i].id);
           likeCount.innerHTML = data.post.heartCount;
-
-          console.log("on 클래스를 가지고 있습니다!");
         } else {
           likeBtn.classList.add("on");
           data = await likeHeart(posts[i].id);
           likeCount.innerHTML = data.post.heartCount;
-          console.log("on 클래스를 가지고 있지 않습니다!");
         }
       }
+
       // 이미지 url 저장
       let postImage = "";
       if (posts[i].image) {
