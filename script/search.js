@@ -39,7 +39,6 @@ async function searchUser(e) {
                           </p>
                       </div>
                   </div>
-                  <button class="followBtn">팔로우</button>
               </a>
           </li>
           `;
