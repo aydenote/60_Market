@@ -355,3 +355,36 @@ const commentReport = async(commentId) => {
 
 
 renderPost();
+
+// 사용자에 따라 헤더 모달 구현
+const headerModal = document.querySelector(".headerBarBtn.buttonClick");
+const userLogout = document.querySelector(".setUsertModal .modalBtn2");
+userLogout.addEventListener("click", clickLogoutModal);
+headerModal.addEventListener("click", clickHeaderModal);
+
+function clickHeaderModal() {
+  const headerBarModal = document.querySelector(".modalBg.setUsertModal");
+  const modalClose = document.querySelector(".setUsertModal .modalClose");
+  modalClose.addEventListener("click", () => {
+    headerBarModal.classList.add("hidden");
+  });
+  headerBarModal.classList.toggle("hidden");
+}
+
+// 사용자 로그아웃 기능
+function clickLogoutModal() {
+  const logoutCheckModal = document.querySelector(".modalAlert.logoutAlert");
+  const cancelBtn = document.querySelector(".logoutAlert .cancelBtn");
+  const logoutBtn = document.querySelector(".logoutAlert .logoutBtn");
+
+  logoutCheckModal.classList.remove("hidden");
+
+  cancelBtn.addEventListener("click", () => {
+    logoutCheckModal.classList.add("hidden");
+  });
+
+  logoutBtn.addEventListener("click", () => {
+    localStorage.clear();
+    location.href = "/pages/logIn.html";
+  });
+}
