@@ -477,15 +477,17 @@ function clickLogoutModal() {
 function clickUserModal(event) {
   event.preventDefault();
   const postingId = event.path[4].nextElementSibling.id;
+  const postDelete = document.querySelector(".posttModal .modalBtn1");
+  const cancelBtn = document.querySelector(".postDelAlert .cancelBtn");
+
   // 포스팅 삭제
   if (accountName === myAccountName || accountName === null) {
     const posttModal = document.querySelector(".posttModal");
     const postDelAlert = document.querySelector(".postDelAlert");
-    const cancelBtn = document.querySelector(".postDelAlert .cancelBtn");
     const modalClose = document.querySelector(".posttModal .modalClose");
-    const postDelete = document.querySelector(".posttModal .modalBtn1");
-    const delBtn = document.querySelector(".postDelAlert .delBtn");
 
+    const delBtn = document.querySelector(".postDelAlert .delBtn");
+    console.log(postDelAlert);
     posttModal.classList.remove("hidden");
 
     modalClose.addEventListener("click", () => {
