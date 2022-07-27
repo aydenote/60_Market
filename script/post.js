@@ -121,19 +121,20 @@ const postComments = comments.map(comment => {
     <section>
       <div class="userList">
         <div class="userItem">
-          <a href="#" class="userBox">
+          <div href="#" class="userBox">
             <img
               src=${comment.author.image}
               alt="프로필 이미지"
               class="userProfileImage postUserProfile"
             />
-            <div class="userInfo">
+            <div class="userCommentInfo">
               <strong class="userNickname postUserNickName">${comment.author.username}</strong>
+              <strong class ="postTime" >∙ ${timeForToday(comment.createdAt)}</strong>
             </div>
             <button class="moreBtn buttonClick" onclick=modalOpen(event)>
               <span class="ir">댓글 모달 버튼</span>
             </button>
-          </a>
+          </div>
         </div>
       </div>
     </section>
@@ -161,12 +162,26 @@ const getCommentDetail = async() => {
 	      'Content-type' : 'application/json',
       }
     });
-
     return res.json();
   }catch(err){
     console.log(err)
   }
 }
+
+
+// 게시물 등록 시간 계산 함수
+function timeForToday(time) {
+  const postingDate = time.substring(0, time.length - 1);
+  const ms = Date.parse(postingDate);
+  const now = Date.now();
+  const gap = (now - ms) / 1000;
+  if (gap < 60) return "방금전";
+  else if (gap < 3600) return `${parseInt(gap / 60)}분 전`;
+  else if (gap < 86400) return `${parseInt(gap / 3600)}시간 전`;
+  else if (gap < 2592000) return `${parseInt(gap / 86400)}일 전`;
+  else return `${parseInt(gap / 2592000)}달 전`;
+}
+
 
 // 로그인 유저 정보
 async function getLoginUserInfo() {

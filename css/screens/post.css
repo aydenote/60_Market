@@ -24,11 +24,13 @@ main .postCommentBox {
   font-size: 14px;
 }
 
-.postUserNickName::after {
-  content: '∙ 2분전';
-  margin-left: 10px;
-  color: var(--borderColor);
+.postTime {
   font-size: 10px;
+  color: var(--borderColor);
+}
+
+.userBox button {
+  margin-left: auto;
 }
 
 .commentUserProfile {
