@@ -21,8 +21,11 @@ function postInput() {
 const API_ROOT = 'https://mandarin.api.weniv.co.kr';
 const POST_ID = new URLSearchParams(location.search).get('postid'); 
 
+const token = localStorage.getItem('Token');
+const accountname = localStorage.getItem('accountname');
+
 async function renderPost() {
-  const token = localStorage.getItem('Token');
+  // const token = localStorage.getItem('Token');
   try {
     const res = await fetch(`${API_ROOT}/post/${POST_ID}`, {
       method: 'GET',
@@ -30,8 +33,7 @@ async function renderPost() {
         'Authorization' : `Bearer ${token}`,
 	      'Content-type' : 'application/json',
   }
-})
-
+}) 
 
 // 프로필, 게시글, 댓글 데이터 불러오기
 
@@ -46,8 +48,6 @@ const commentCount = json.post.commentCount;
 const createdAt = json.post.createdAt.slice(0,11).replace('-','년 ').replace('-', '월 ').replace('T', '일');
 // const comments = json.post.comments;
 
-// 댓글 유저 프로필 이미지
-commentUserProfile.setAttribute("src", profileImg);
 
 // 프로필
 const div = document.querySelector('.userItem');
@@ -167,6 +167,32 @@ const getCommentDetail = async() => {
     console.log(err)
   }
 }
+
+// 로그인 유저 정보
+async function getLoginUserInfo() {
+
+  try {
+    const res = await fetch(`${API_ROOT}/profile/${accountname}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      }
+    })
+    const userJson = await res.json();
+    console.log(userJson);
+    const commentUserProfileImg = userJson.profile.image
+    // 댓글 유저 프로필 이미지
+  commentUserProfile.setAttribute("src", commentUserProfileImg);
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+getLoginUserInfo()
+
+
+
 
 // 댓글 입력
 const commentInput = document.getElementById("postChatContent");

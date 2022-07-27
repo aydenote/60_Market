@@ -12,6 +12,8 @@ body .postContainer{
     width: 42px;
     height: 42px;
     flex: none;
+    border: 1px solid var(--borderColor);
+    border-radius: 50%;
 }
 
 .postUploadForm .postUploadCommentInput {
