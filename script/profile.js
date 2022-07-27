@@ -85,7 +85,7 @@ function setYourProfile(userProfile) {
   );
   createMessageImg.setAttribute("alt", "메세지 버튼");
   createMessageImg.addEventListener("click", () => {
-    location.href = "/pages/chatting1.html";
+    location.href = "../pages/chatting1.html";
   });
   profileLinkBtn.append(createMessageImg);
 
