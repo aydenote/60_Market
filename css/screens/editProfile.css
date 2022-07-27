@@ -1,5 +1,6 @@
 main .updateProfileImg {
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .updateProfileImg .profileImgBtn {
@@ -9,8 +10,8 @@ main .updateProfileImg {
 
 .updateProfileImg .profileImgBtn .imgUploadBtn {
   position: relative;
-  top: -79px;
-  left: 224px;
+  top: -81px;
+  left: 75px;
   width: 36px;
   height: 36px;
   cursor: pointer;
