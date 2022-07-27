@@ -477,12 +477,12 @@ function clickLogoutModal() {
 function clickUserModal(event) {
   event.preventDefault();
   const postingId = event.path[4].nextElementSibling.id;
-  const postDelete = document.querySelector(".posttModal .modalBtn1");
-  const cancelBtn = document.querySelector(".postDelAlert .cancelBtn");
-  const postDelAlert = document.querySelector(".postDelAlert");
 
   // 포스팅 삭제
   if (accountName === myAccountName || accountName === null) {
+    const postDelete = document.querySelector(".posttModal .modalBtn1");
+    const cancelBtn = document.querySelector(".postDelAlert .cancelBtn");
+    const postDelAlert = document.querySelector(".postDelAlert");
     const posttModal = document.querySelector(".posttModal");
     const modalClose = document.querySelector(".posttModal .modalClose");
 
