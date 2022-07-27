@@ -118,7 +118,7 @@ console.log(json)
 const commentSection = document.querySelector('.postCommentBox');
 const { comments }  = await getCommentDetail();
 
-const postComments = comments.map(comment => {
+const postComments = comments.reverse().map(comment => {
   return `
   <article id=${comment.id} key=${comment.author.accountname} class="post postCommentContent">
     <h3 class="ir">게시글 댓글</h3>
