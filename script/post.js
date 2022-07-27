@@ -118,7 +118,7 @@ console.log(json)
 const commentSection = document.querySelector('.postCommentBox');
 const { comments }  = await getCommentDetail();
 
-const postComments = comments.map(comment => {
+const postComments = comments.reverse().map(comment => {
   return `
   <article id=${comment.id} key=${comment.author.accountname} class="post postCommentContent">
     <h3 class="ir">게시글 댓글</h3>
@@ -249,8 +249,8 @@ const modal = document.createElement('div')
 const modalMore = (commentId) => {
   return `<section class="modalBg postModal">
   <article class="modal">
-    <button onclick="modalClose() class="modalClose">
-      <span class="ir">더보기 닫기 버튼</span>
+    <button onclick="modalClose()" class="modalClose">
+      <span class="ir">댓글 신고 버튼</span>
     </button>
     <button onclick="modalOpenCommentDelete('${commentId}')" class="modalBtn modalBtn1">삭제</button>
     <button class="modalBtn modalBtn2">수정</button>
@@ -259,14 +259,14 @@ const modalMore = (commentId) => {
 } 
 
 const modalCommentDelete = (commentId) => {
-  return `<section class="modalBg commentDelModal">
-  <article class="modal">
-    <button onclick="modalClose()" id="btnDeleteClose" class="modalClose">
-      <span class="ir">댓글 삭제 버튼</span>
-    </button>
-    <button onclick="deleteComment('${commentId}')" class="modalBtn modalBtn1">삭제</button>
-  </article>
-</section>`
+  return `<section class="modalAlert productDelAlert">
+  <h4 class="ir">댓글 삭제 창</h4>
+  <strong class="alertMsg">삭제하시겠어?</strong>
+  <div class="alertBtnContent">
+    <button onclick="modalClose()" class="cancelBtn">취소</button>
+    <button onclick="deleteComment('${commentId}')" class="delBtn">삭제</button>
+  </div>
+  </section>`
 }
 
 const modalReport = (commentId) => {
@@ -280,9 +280,26 @@ const modalReport = (commentId) => {
 </section>`
 }
 
-const alert = `<section class="modalAlert postDelAlert">
+const reportAlert = `<section class="modalAlert postDelAlert">
 <h4 class="ir">신고 완료</h4>
 <strong class="alertMsg">신고 완료</strong>
+<div class="alertBtnContent">
+  <button onclick="modalClose()" class="cancelBtn">확인</button>
+</div>
+</section>`
+
+const deleteConfirmAlert = `<section class="modalAlert productDelAlert hidden">
+<h4 class="ir">댓글 삭제 창</h4>
+<strong class="alertMsg">삭제하시겠어?</strong>
+<div class="modalBtnContent">
+  <button class="cancelBtn">취소</button>
+  <button class="delBtn">삭제</button>
+</div>
+</section>`
+
+const deleteAlert = `<section class="modalAlert postDelAlert">
+<h4 class="ir">삭제 완료</h4>
+<strong class="alertMsg">삭제 완료</strong>
 <div class="alertBtnContent">
   <button onclick="modalClose()" class="cancelBtn">확인</button>
 </div>
@@ -329,6 +346,8 @@ const deleteComment = async(commentId) => {
     const json = await res.json();
     modalClose();
     renderPost();
+    modal.innerHTML = deleteAlert
+    body.appendChild(modal)
   }catch(err){
     console.log(err);
   }
@@ -349,7 +368,7 @@ const commentReport = async(commentId) => {
     });
     const json = await res.json();
     modalClose();
-    modal.innerHTML = alert
+    modal.innerHTML = reportAlert
     body.appendChild(modal)
   }catch(err){
     console.log(err);
