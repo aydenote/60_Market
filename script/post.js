@@ -4,7 +4,6 @@ const postButton = document.querySelector(".postBtn");
 const commentUserProfile = document.querySelector('.commentUserProfile');
 
 
-
 postButton.disabled = true;
 function postInput() {
   console.log(postChatForm.value);
@@ -84,7 +83,12 @@ userText.appendChild(userMsgContent);
 // 게시글
 const jsonImgTags = jsonImg.map(src => {
   return `<img src=${src} alt="게시물 이미지" />`
-})
+});
+if (json.post.hearted) {
+  heartStatus = "likeBtn on";
+} else {
+  heartStatus = "likeBtn";
+}
 section.innerHTML = `
 <h4 class="ir">게시글 내용</h4>
   <p>
@@ -98,7 +102,7 @@ section.innerHTML = `
   </ul>
   </div>
   <div class="postBtnContent">
-    <button class="likeBtn">
+    <button onclick="clickHeart(event)" class="${heartStatus}">
       <span class="ir">좋아요 버튼</span>
       <span class="likeCount">${heartCount}</span>
     </button>
@@ -387,4 +391,52 @@ function clickLogoutModal() {
     localStorage.clear();
     location.href = "/pages/logIn.html";
   });
+}
+
+// 좋아요
+async function likeHeart(postingID) {
+  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;
+  const token = localStorage.getItem("Token");
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  return data;
+}
+
+// 좋아요 취소
+async function likeUnHeart(postingID) {
+  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/unheart`;
+  const token = localStorage.getItem("Token");
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  return data;
+}
+
+// 좋아요 버튼 클릭
+async function clickHeart(e) {
+  const likeBtn = e.target;
+  const likeCount = e.target.children[1];
+  let data = {};
+
+  if (likeBtn.classList.contains("on")) {
+    likeBtn.classList.remove("on");
+    data = await likeUnHeart(POST_ID);
+    likeCount.innerHTML = data.post.heartCount;
+  } else {
+    likeBtn.classList.add("on");
+    data = await likeHeart(POST_ID);
+    likeCount.innerHTML = data.post.heartCount;
+  }
 }
