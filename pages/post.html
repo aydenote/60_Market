@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="../asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
     <script src="../script/post.js" defer></script>
-    <title>60'' Market | 홈</title>
+    <title>게시글 | 60'' Market</title>
   </head>
   <body>
     <header>
@@ -42,24 +42,21 @@
           <!-- content -->
         </section>
       </article>
-      <section class="postCommentBox">
-      </section>
+      <section class="postCommentBox"></section>
     </main>
     <footer class="chatEnter postChatEnter">
       <form class="chatEnterContent">
-      <div class="chatEnterImage">
+        <div class="chatEnterImage">
           <img class="commentUserProfile" src="" alt="" />
-      </div>
-      <label for="postChatContent"></label>
-        <input 
-        id="postChatContent"
-        type="text" placeholder="메시지 입력하기..." 
-        onkeyup="postInput()"/>
-        <button 
-        id="commentSubmit"
-        type="button"
-        class="postBtn"
-        >게시</button>
+        </div>
+        <label for="postChatContent"></label>
+        <input
+          id="postChatContent"
+          type="text"
+          placeholder="메시지 입력하기..."
+          onkeyup="postInput()"
+        />
+        <button id="commentSubmit" type="button" class="postBtn">게시</button>
       </form>
     </footer>
     <section class="modalBg setUsertModal hidden">
