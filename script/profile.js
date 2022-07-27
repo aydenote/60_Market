@@ -469,7 +469,7 @@ function clickLogoutModal() {
 
   logoutBtn.addEventListener("click", () => {
     localStorage.clear();
-    location.href = "/pages/logIn.html";
+    location.href = "../pages/logIn.html";
   });
 }
 
@@ -519,7 +519,7 @@ function clickUserModal(event) {
         );
         console.log(resDeleteProduct);
         if (resDeleteProduct) {
-          location.href = "/pages/profile.html";
+          location.href = "../pages/profile.html";
         }
       } catch (err) {
         console.error(err);
