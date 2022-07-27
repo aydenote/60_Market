@@ -1,7 +1,6 @@
 const profileLinkBtn = document.querySelector(".link");
 const followingCount = document.querySelector(".ProfileContent .followings");
 const followerCount = document.querySelector(".ProfileContent .followers");
-const url = "https://mandarin.api.weniv.co.kr";
 
 const URLSearch = new URLSearchParams(location.search);
 let accountName = URLSearch.get("accountname");
@@ -80,10 +79,13 @@ function setYourProfile(userProfile) {
   const createShareImg = document.createElement("img");
 
   createMessageImg.setAttribute("class", "messageBtn");
-  createMessageImg.setAttribute("src", "/asset/images/icons/icon__message.svg");
+  createMessageImg.setAttribute(
+    "src",
+    "../asset/images/icons/icon__message.svg"
+  );
   createMessageImg.setAttribute("alt", "메세지 버튼");
   createMessageImg.addEventListener("click", () => {
-    location.href = "/pages/chatting1.html";
+    location.href = "../pages/chatting1.html";
   });
   profileLinkBtn.append(createMessageImg);
 
@@ -93,7 +95,7 @@ function setYourProfile(userProfile) {
   profileLinkBtn.append(createFollowButton);
 
   createShareImg.setAttribute("class", "shareBtn");
-  createShareImg.setAttribute("src", "/asset/images/icons/icon__share.svg");
+  createShareImg.setAttribute("src", "../asset/images/icons/icon__share.svg");
   createShareImg.setAttribute("alt", "공유 버튼");
   profileLinkBtn.append(createShareImg);
 
@@ -261,12 +263,12 @@ function listTypePost() {
     let heartStatus;
 
     let postImage = "";
-    if (post.image) {
+    if (post.image && post.image.search("undefined") === -1) {
       let images = post.image.split(",");
       for (const image of images) {
         postImage += `
         <li>
-          <img src="${image}" alt="게시물 이미지" />
+          <img src="${image}" alt="게시물 이미지" onerror="this.style.display='none'"/>
         </li>
         `;
       }
@@ -282,7 +284,6 @@ function listTypePost() {
     } else {
       heartStatus = "likeBtn";
     }
-
     postListContent = `
           <section>
             <div class="userList">
@@ -321,7 +322,7 @@ function listTypePost() {
                 <span class="likeCount">${post.heartCount}</span>
               </button>
               <a href="post.html\?postid=${post.id}" class="commentBtn">
-                <span class="commentCount">2</span>
+                <span class="commentCount">${post.comments.length}</span>
               </a>
             </div>
             <strong class="postDate">${timeForToday(post.createdAt)}</strong>
@@ -330,7 +331,7 @@ function listTypePost() {
   }
 }
 
-//  앨범형 포스팅 구현
+// 앨범형 포스팅 구현
 function albumTypePost() {
   const postingSummary = document.querySelector(".postingSummary");
   const postContent = document.querySelectorAll(".postContent");
@@ -361,7 +362,6 @@ function albumTypePost() {
 
   for (const post of userPostInfo) {
     const postImg = post.image.split(",");
-
     // 게시물에 이미지가 없는 경우, img 태그 생성 불가.
     // 게시물에 이미지가 2개 이상인 경우, 이미지 레이어 아이콘 추가.
     if (postImg[0] === "") {
@@ -477,18 +477,30 @@ function clickLogoutModal() {
 function clickUserModal(event) {
   event.preventDefault();
   const postingId = event.path[4].nextElementSibling.id;
+  // 포스팅 삭제
   if (accountName === myAccountName || accountName === null) {
     const posttModal = document.querySelector(".posttModal");
+    const postDelAlert = document.querySelector(".postDelAlert");
+    const cancelBtn = document.querySelector(".postDelAlert .cancelBtn");
     const modalClose = document.querySelector(".posttModal .modalClose");
     const postDelete = document.querySelector(".posttModal .modalBtn1");
+    const delBtn = document.querySelector(".postDelAlert .delBtn");
+
     posttModal.classList.remove("hidden");
 
     modalClose.addEventListener("click", () => {
       posttModal.classList.add("hidden");
     });
 
-    // 포스팅 삭제
-    postDelete.addEventListener("click", async function () {
+    postDelete.addEventListener("click", () => {
+      postDelAlert.classList.remove("hidden");
+    });
+
+    cancelBtn.addEventListener("click", () => {
+      postDelAlert.classList.add("hidden");
+    });
+
+    delBtn.addEventListener("click", async function () {
       const url = "https://mandarin.api.weniv.co.kr";
       const token = localStorage.getItem("Token");
 
@@ -506,9 +518,9 @@ function clickUserModal(event) {
           setting
         );
         console.log(resDeleteProduct);
-        // if (resDeleteProduct) {
-        //   location.href = "/pages/profile.html";
-        // }
+        if (resDeleteProduct) {
+          location.href = "/pages/profile.html";
+        }
       } catch (err) {
         console.error(err);
       }
@@ -516,15 +528,27 @@ function clickUserModal(event) {
   } else {
     // 게시물 신고
     const reportAlert = document.querySelector(".reportAlert");
+    const reportModal = document.querySelector(".reportModal");
     const cancelBtn = document.querySelector(".reportAlert .cancelBtn");
+    const reportModalBtn = document.querySelector(".reportModal .modalBtn1");
     const reportBtn = document.querySelector(".reportAlert .reportBtn");
-    reportAlert.classList.remove("hidden");
+    const modalClose = document.querySelector(".reportModal .modalClose");
+    reportModal.classList.remove("hidden");
 
     cancelBtn.addEventListener("click", () => {
       reportAlert.classList.add("hidden");
     });
 
+    modalClose.addEventListener("click", () => {
+      reportModal.classList.add("hidden");
+    });
+
+    reportModalBtn.addEventListener("click", () => {
+      reportAlert.classList.remove("hidden");
+    });
+
     reportBtn.addEventListener("click", async function () {
+      reportModal.classList.add("hidden");
       const url = "https://mandarin.api.weniv.co.kr";
       const token = localStorage.getItem("Token");
 

@@ -1,6 +1,9 @@
 // 게시 버튼 활성화
 const postChatForm = document.querySelector("#postChatContent");
 const postButton = document.querySelector(".postBtn");
+const commentUserProfile = document.querySelector('.commentUserProfile');
+
+
 
 postButton.disabled = true;
 function postInput() {
@@ -43,6 +46,9 @@ const commentCount = json.post.commentCount;
 const createdAt = json.post.createdAt.slice(0,11).replace('-','년 ').replace('-', '월 ').replace('T', '일');
 // const comments = json.post.comments;
 
+// 댓글 유저 프로필 이미지
+commentUserProfile.setAttribute("src", profileImg);
+
 // 프로필
 const div = document.querySelector('.userItem');
 div.innerHTML =""
@@ -84,17 +90,19 @@ section.innerHTML = `
   <p>
     ${content}
   </p>
+  <div class="postDetaileImgContent">
   <ul>
-    <li>
+    <li class="postDetaileImgContentFlex">
     ${jsonImgTags.join("")}
     </li>
   </ul>
+  </div>
   <div class="postBtnContent">
     <button class="likeBtn">
       <span class="ir">좋아요 버튼</span>
       <span class="likeCount">${heartCount}</span>
     </button>
-    <a href="post.html" class="commentBtn">
+    <a href="" class="commentBtn">
       <span class="commentCount">${commentCount}</span>
     </a>
   </div>
@@ -205,16 +213,16 @@ const modalMore = (commentId) => {
 </section>`
 } 
 
-// const modalCommentDelete = (commentId) => {
-//   return `<section class="modalBg commentDelModal">
-//   <article class="modal">
-//     <button onclick="modalClose()" id="btnDeleteClose" class="modalClose">
-//       <span class="ir">댓글 삭제 버튼</span>
-//     </button>
-//     <button onclick="deleteComment('${commentId}')" class="modalBtn modalBtn1">삭제</button>
-//   </article>
-// </section>`
-// }
+const modalCommentDelete = (commentId) => {
+  return `<section class="modalBg commentDelModal">
+  <article class="modal">
+    <button onclick="modalClose()" id="btnDeleteClose" class="modalClose">
+      <span class="ir">댓글 삭제 버튼</span>
+    </button>
+    <button onclick="deleteComment('${commentId}')" class="modalBtn modalBtn1">삭제</button>
+  </article>
+</section>`
+}
 
 const modalReport = (commentId) => {
   return `<section class="modalBg commentReportModal">
@@ -258,9 +266,9 @@ const modalClose = () => {
   body.removeChild(modal)
 }
 
-// const modalOpenCommentDelete = (commentId) => {
-//   modal.innerHTML = modalCommentDelete(commentId)
-// }
+const modalOpenCommentDelete = (commentId) => {
+  modal.innerHTML = modalCommentDelete(commentId)
+}
 
 //댓글 삭제
 const deleteComment = async(commentId) => {

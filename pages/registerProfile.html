@@ -4,86 +4,91 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="/asset/images/favicon.ico" />
+    <link rel="shortcut icon" href="../asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
-    <script src="/script/editProfile.js" defer></script>
-    <script src="../script/common.js" defer></script>
-    <title>60'' Market | 프로필 설정</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../script/registerProfile.js" defer></script>
+    <title>프로필 설정 | 60'' Market</title>
   </head>
   <body>
-    <header class="registerHeader">
-      <h1 class="registerHeader">프로필 설정</h1>
-      <p class="registerFormInfo">나중에 언제든지 변경할 수 있습니다.</p>
-    </header>
+    <div class="wrap registerWrap">
+      <header>
+        <h1 class="registerHeader">프로필 설정</h1>
+        <p class="registerInfo">나중에 언제든지 변경할 수 있습니다.</p>
+      </header>
 
-    <main class="registerFormMain">
-      <form class="updateProfileImg">
-        <label for="updateUserProfileImg">
-          <img
-            class="updateUserImg"
-            src="/asset/images/icons/icon__updateUserImg.png"
-            alt="사용자 이미지 수정"
+      <main>
+        <form class="logInForm registerForm profileForm">
+          <!-- 프로필 이미지 -->
+          <label for="profileImg" class="profileImgBtn">
+            <img
+              class="uploadProfileImg"
+              src="../asset/images/basic-profile.svg"
+              alt="사용자 프로필 이미지 등록"
+            />
+            <img
+              class="uploadProfileImgIcon"
+              src="../asset/images/icons/icon__imagesUplodeFill.svg"
+              alt="사용자 프로필 이미지 등록"
+            />
+          </label>
+          <input
+            type="file"
+            id="profileImg"
+            class="ir"
+            name="profileImg"
+            accept="image/*"
           />
-        </label>
-        <input
-          onchange="imageChange(event)"
-          id="updateUserProfileImg"
-          type="file"
-          accept="image/*"
-        />
-      </form>
-      <form
-        class="logInForm registerForm profileModificationForm"
-        method="get"
-        id="profileSaveForm"
-      >
-        <label class="registerFormLabel profileModificationFormlabel" for="name"
-          >사용자 이름</label
-        >
-        <input
-          onkeyup="profileChangeInput()"
-          id="name"
-          type="text"
-          required
-          placeholder="2~10자 이내여야 합니다."
-          maxlength="10"
-          minlength="2"
-        />
-        <label
-          class="registerFormLabel profileModificationFormlabel"
-          for="email"
-          >계정 ID</label
-        >
-        <input
-          onkeyup="profileChangeInput()"
-          id="id"
-          type="text"
-          minlength="2"
-          maxlength="10"
-          required
-          placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
-        />
-        <label
-          class="registerFormLabel profileModificationFormlabel"
-          for="introduce"
-          >소개</label
-        >
-        <input
-          onkeyup="profileChangeInput()"
-          id="introduce"
-          type="text"
-          required
-          placeholder="자신과 판매할 상품에 대한 소개해 주세요!"
-          maxlength="50"
-          minlength="2"
-        />
-        <button
-          type="submit"
-          class="btn logInBtn registerFormBtn profileSaveButton .headerBarBtn.buttonClick"
-        >
-          60'' 마켓 시작하기
-        </button>
-      </form>
-    </main>
+
+          <!-- 사용자 이름 -->
+          <label class="registerFormLabel" for="username">사용자 이름</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            minlength="2"
+            maxlength="10"
+            required
+            placeholder="2~10자 이내여야 합니다."
+          />
+
+          <!-- 계정 ID -->
+          <label class="registerFormLabel" for="id">계정 ID</label>
+          <input
+            type="text"
+            id="id"
+            name="id"
+            minlength="2"
+            maxlength="10"
+            required
+            placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
+          />
+          <p class="registerFormAlert ir">
+            영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.
+          </p>
+
+          <!-- 소개 -->
+          <label class="registerFormLabel" for="intro">소개</label>
+          <input
+            type="text"
+            id="intro"
+            name="intro"
+            minlength="2"
+            maxlength="50"
+            required
+            placeholder="자신과 판매할 상품에 대한 소개해 주세요!"
+          />
+
+          <!-- 60''마켓 시작하기 -->
+          <button
+            type="button"
+            class="btn registerFormBtn profileFormBtn"
+            disabled
+          >
+            60'' 마켓 시작하기
+          </button>
+        </form>
+      </main>
+    </div>
   </body>
 </html>

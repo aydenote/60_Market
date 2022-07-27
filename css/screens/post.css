@@ -34,8 +34,6 @@ main .postCommentBox {
 .commentUserProfile {
   width: 36px;
   height: 36px;
-  border: 1px solid var(--borderColor);
-  border-radius: 50%;
 }
 
 .postDetaileImgContent {
