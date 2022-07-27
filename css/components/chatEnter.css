@@ -20,7 +20,7 @@
 }
 
 .chatEnter .chatEnterContent {
-  width: calc(100% - 36px);
+  width: calc(100% - 6px);
   font-size: 14px;
   display: flex;
   align-items: center;
