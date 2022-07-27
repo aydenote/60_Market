@@ -105,7 +105,7 @@ async function onProductSvaeBtn(e) {
       const reqPosting = await fetch(`${url}/product`, setting);
       const resData = await reqPosting.json();
       console.log(resData);
-      location.href="./profile.html";
+      location.href="../pages/profile.html";
     } catch (error) {
       console.log(error);
     }

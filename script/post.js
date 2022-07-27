@@ -82,7 +82,7 @@ userText.appendChild(userMsgContent);
 
 // 게시글
 const jsonImgTags = jsonImg.map(src => {
-  return `<img src=${src} alt="게시물 이미지" />`
+  return src && `<img src=${src} alt="게시물 이미지" />`
 });
 if (json.post.hearted) {
   heartStatus = "likeBtn on";
@@ -94,13 +94,13 @@ section.innerHTML = `
   <p>
     ${content}
   </p>
-  <div class="postDetaileImgContent">
+  ${ jsonImgTags == '' ? '' : `<div class="postDetaileImgContent">
   <ul>
     <li class="postDetaileImgContentFlex">
     ${jsonImgTags.join("")}
     </li>
   </ul>
-  </div>
+  </div>`}
   <div class="postBtnContent">
     <button onclick="clickHeart(event)" class="${heartStatus}">
       <span class="ir">좋아요 버튼</span>
@@ -118,7 +118,7 @@ console.log(json)
 const commentSection = document.querySelector('.postCommentBox');
 const { comments }  = await getCommentDetail();
 
-const postComments = comments.map(comment => {
+const postComments = comments.reverse().map(comment => {
   return `
   <article id=${comment.id} key=${comment.author.accountname} class="post postCommentContent">
     <h3 class="ir">게시글 댓글</h3>
@@ -175,8 +175,9 @@ const getCommentDetail = async() => {
 
 // 게시물 등록 시간 계산 함수
 function timeForToday(time) {
+  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
   const postingDate = time.substring(0, time.length - 1);
-  const ms = Date.parse(postingDate);
+  const ms = Date.parse(postingDate) + KR_TIME_DIFF;
   const now = Date.now();
   const gap = (now - ms) / 1000;
   if (gap < 60) return "방금전";
@@ -249,8 +250,8 @@ const modal = document.createElement('div')
 const modalMore = (commentId) => {
   return `<section class="modalBg postModal">
   <article class="modal">
-    <button onclick="modalClose() class="modalClose">
-      <span class="ir">더보기 닫기 버튼</span>
+    <button onclick="modalClose()" class="modalClose">
+      <span class="ir">댓글 신고 버튼</span>
     </button>
     <button onclick="modalOpenCommentDelete('${commentId}')" class="modalBtn modalBtn1">삭제</button>
     <button class="modalBtn modalBtn2">수정</button>
@@ -259,14 +260,14 @@ const modalMore = (commentId) => {
 } 
 
 const modalCommentDelete = (commentId) => {
-  return `<section class="modalBg commentDelModal">
-  <article class="modal">
-    <button onclick="modalClose()" id="btnDeleteClose" class="modalClose">
-      <span class="ir">댓글 삭제 버튼</span>
-    </button>
-    <button onclick="deleteComment('${commentId}')" class="modalBtn modalBtn1">삭제</button>
-  </article>
-</section>`
+  return `<section class="modalAlert productDelAlert">
+  <h4 class="ir">댓글 삭제 창</h4>
+  <strong class="alertMsg">삭제하시겠습니까?</strong>
+  <div class="alertBtnContent">
+    <button onclick="modalClose()" class="cancelBtn">취소</button>
+    <button onclick="deleteComment('${commentId}')" class="delBtn">삭제</button>
+  </div>
+  </section>`
 }
 
 const modalReport = (commentId) => {
@@ -280,9 +281,26 @@ const modalReport = (commentId) => {
 </section>`
 }
 
-const alert = `<section class="modalAlert postDelAlert">
+const reportAlert = `<section class="modalAlert postDelAlert">
 <h4 class="ir">신고 완료</h4>
 <strong class="alertMsg">신고 완료</strong>
+<div class="alertBtnContent">
+  <button onclick="modalClose()" class="cancelBtn">확인</button>
+</div>
+</section>`
+
+const deleteConfirmAlert = `<section class="modalAlert productDelAlert hidden">
+<h4 class="ir">댓글 삭제 창</h4>
+<strong class="alertMsg">삭제하시겠어?</strong>
+<div class="modalBtnContent">
+  <button class="cancelBtn">취소</button>
+  <button class="delBtn">삭제</button>
+</div>
+</section>`
+
+const deleteAlert = `<section class="modalAlert postDelAlert">
+<h4 class="ir">삭제 완료</h4>
+<strong class="alertMsg">삭제 완료</strong>
 <div class="alertBtnContent">
   <button onclick="modalClose()" class="cancelBtn">확인</button>
 </div>
@@ -329,6 +347,8 @@ const deleteComment = async(commentId) => {
     const json = await res.json();
     modalClose();
     renderPost();
+    modal.innerHTML = deleteAlert
+    body.appendChild(modal)
   }catch(err){
     console.log(err);
   }
@@ -349,7 +369,7 @@ const commentReport = async(commentId) => {
     });
     const json = await res.json();
     modalClose();
-    modal.innerHTML = alert
+    modal.innerHTML = reportAlert
     body.appendChild(modal)
   }catch(err){
     console.log(err);
