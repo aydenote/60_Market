@@ -175,8 +175,9 @@ const getCommentDetail = async() => {
 
 // 게시물 등록 시간 계산 함수
 function timeForToday(time) {
+  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
   const postingDate = time.substring(0, time.length - 1);
-  const ms = Date.parse(postingDate);
+  const ms = Date.parse(postingDate) + KR_TIME_DIFF;
   const now = Date.now();
   const gap = (now - ms) / 1000;
   if (gap < 60) return "방금전";
