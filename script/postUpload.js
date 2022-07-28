@@ -3,33 +3,34 @@ const postUploadInp = document.querySelector(".postUploadInput");
 const postImgContainer = document.querySelector(".postUploadImageScreen");
 const postUploadBtn = document.querySelector(".headerBarBtn.buttonClick");
 const postImgItem = document.querySelector(".postImgItem");
-const postUserProfile = document.querySelector('.userProfileImage');
+const postUserProfile = document.querySelector(".userProfileImage");
 const url = "https://mandarin.api.weniv.co.kr";
+const curUrl = location.href;
 
 const imgFiles = [];
 
 // 파비콘 이미지
 // 로그인 유저 정보
 async function getLoginUserInfo() {
-  const token = localStorage.getItem('Token');
-  const accountname = localStorage.getItem('accountname');
+  const token = localStorage.getItem("Token");
+  const accountname = localStorage.getItem("accountname");
 
   try {
     const res = await fetch(`${url}/profile/${accountname}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
-      }
-    })
+        "Content-type": "application/json",
+      },
+    });
     const userJson = await res.json();
-    postUserProfile.setAttribute('src', userJson.profile.image);
+    postUserProfile.setAttribute("src", userJson.profile.image);
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }
 
-getLoginUserInfo()
+getLoginUserInfo();
 
 // 사진 미리보기, 사진 삭제
 
@@ -128,4 +129,170 @@ async function createPost() {
   location.href = "../pages/profile.html";
 }
 
-postUploadBtn.addEventListener("click", createPost);
+if (curUrl.indexOf("postid=") == -1) {
+  postUploadBtn.addEventListener("click", createPost);
+}
+
+///////////////게시물 수정///////////////
+if (curUrl.indexOf("postid=") !== -1) {
+  const postingId = curUrl.split("postid=")[1];
+  const token = localStorage.getItem("Token");
+  const defaultUrl = "https://mandarin.api.weniv.co.kr";
+  let hiddenImg = "";
+  let imageArr = [];
+  postUploadBtn.disabled = false;
+  postUploadBtn.style.opacity = "1";
+
+  //이미지 파일 url 생성
+  async function uploadImg(file) {
+    const formData = new FormData();
+    formData.append("image", file);
+    imgFiles.forEach((file) => {
+      formData.append("image", file);
+    });
+    try {
+      const res = await fetch(`${defaultUrl}/image/uploadfiles`, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      imageName = data[0].filename;
+      return imageName;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // 이미지 미리보기, 삭제 버튼
+  function setImg() {
+    if (hiddenImg.value !== "") {
+      imageArr = hiddenImg.split(",");
+
+      if (imageArr.length >= 1 && imageArr[0] !== "") {
+        imageArr.map((src) => {
+          const imgItem = document.createElement("div");
+          imgItem.className = "postImgItem";
+          imgItem.setAttribute("style", `background-image: url(${src})`);
+          postImgContainer.appendChild(imgItem);
+
+          const closeBtn = document.createElement("button");
+          closeBtn.className = "postImgCloseBtn";
+          imgItem.appendChild(closeBtn);
+
+          closeBtn.addEventListener("click", function () {
+            imageArr.splice(
+              [...postImgContainer.children].indexOf(imgItem) - 1,
+              1
+            );
+            postImgContainer.removeChild(imgItem);
+            hiddenImg.value = imageArr;
+          });
+        });
+      }
+    }
+  }
+
+  // 게시물 데이터 받아오기
+  async function getPost() {
+    try {
+      const res = await fetch(`${defaultUrl}/post/${postingId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+      });
+      const json = await res.json();
+      const post = json.post;
+
+      const postContent = post.content;
+      const postImgArr = post.image;
+
+      postUploadTxt.textContent = postContent;
+      hiddenImg = postImgArr;
+
+      setImg();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // 이미지 수정
+  function readInputFile(e) {
+    const files = e.target.files;
+    const fileArr = [...files];
+    imageArr = hiddenImg.split(",");
+
+    fileArr.forEach((file) => imgFiles.push(file));
+    fileArr.forEach(function (i) {
+      if (files.length <= 3) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          const imgItem = document.createElement("div");
+          imgItem.style.backgroundImage = `url(${reader.result})`;
+          imgItem.className = "postImgItem";
+
+          postImgContainer.appendChild(imgItem);
+          e.target.value = "";
+
+          const closeBtn = document.createElement("button");
+          closeBtn.className = "postImgCloseBtn";
+          imgItem.appendChild(closeBtn);
+
+          closeBtn.addEventListener("click", function () {
+            imgFiles.splice(
+              [...postImgContainer.children].indexOf(imgItem) - 1,
+              1
+            );
+            postImgContainer.removeChild(imgItem);
+            hiddenImg.value = imageArr;
+          });
+        };
+        reader.readAsDataURL(i);
+      } else {
+        alert("이미지는 3장까지 가능합니다.");
+      }
+    });
+  }
+
+  getPost();
+  postUploadInp.addEventListener("change", uploadImg);
+
+  // 게시물 수정 PUT 요청
+  async function editPost() {
+    const oldImg = hiddenImg;
+    const updateImgArr = hiddenImg === "" ? [] : oldImg.split(",");
+
+    for (const file of imgFiles) {
+      const resultImg = await uploadImg(file);
+      updateImgArr.push(`${defaultUrl}/${resultImg}`);
+    }
+
+    try {
+      const res = await fetch(`${defaultUrl}/post/${postingId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          post: {
+            content: postUploadTxt.value,
+            image: updateImgArr.join(","),
+          },
+        }),
+      });
+      const json = await res.json();
+      location.href = "./profile.html";
+
+      if (json.type == "entity.too.large") {
+        console.error(json.message);
+        alert("이미지 용량이 너무 큽니다.");
+      }
+    } catch (err) {
+      // location.href = "./error.html";
+      console.error(err);
+    }
+  }
+  postUploadBtn.addEventListener("click", editPost);
+}
