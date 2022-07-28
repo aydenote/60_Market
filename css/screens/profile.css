@@ -89,6 +89,7 @@
 }
 
 .link .followBtn {
+  width: 140px;
   padding: 8px 40px;
   vertical-align: top;
   margin: 0 10px;
