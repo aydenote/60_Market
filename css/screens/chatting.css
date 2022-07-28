@@ -59,6 +59,7 @@ main .chatOutgoingMsg {
 
 .chatOutgoingMsg .chatMsgContent {
   flex-direction: row-reverse;
+  margin-bottom: 10px;
 }
 
 .chatOutgoingMsg .chatMsgContent .chatMsgText {
