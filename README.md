@@ -73,6 +73,7 @@
 
 | 🧑🏻‍💻 최승수 |
 | --------- |
+
 | [내 프로필 / 상대방 프로필](https://github.com/60-market/60-market/blob/develop/script/profile.js), [프로필 수정](https://github.com/60-market/60-market/blob/develop/script/editProfile.js)  
 [팔로잉 / 팔로우](https://github.com/60-market/60-market/blob/develop/script/profileFollow.js), [게시물 삭제](https://github.com/60-market/60-market/blob/develop/script/profile.js), [로그아웃](https://github.com/60-market/60-market/blob/develop/script/profile.js) |
 
@@ -96,8 +97,8 @@
 📢 Communication : Notion, Discord
 
 ❓ Vanilla JS 로 구현 이유
-    : 바닐라 자바스크립트를 잘해야 프론트엔드 개발자다 ! 생각했습니다.
-		: 빠른 시장 변화 속에서도 JS 기본 지식이 탄탄한 개발자는 언제나 주도적인 개발을 할 수 있다고 생각했습니다.
+	: 바닐라 자바스크립트를 잘해야 프론트엔드 개발자다 ! 생각했습니다.
+	: 빠른 시장 변화 속에서도 JS 기본 지식이 탄탄한 개발자는 언제나 주도적인 개발을 할 수 있다고 생각했습니다.
 ```
 
 <br>
