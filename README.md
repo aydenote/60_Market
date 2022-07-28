@@ -65,7 +65,7 @@
 
 | 🧑🏻‍💻 박도겸 |
 | ------- |
-| [splash](https://github.com/60-market/60-market/blob/aa0abd9cd1fa62b1d6b4fabce3fc76bf40452196/script/intro.js), 로그인, 회원가입, 프로필 수정, 에러, 로딩 |
+| [splash](https://github.com/60-market/60-market/blob/aa0abd9cd1fa62b1d6b4fabce3fc76bf40452196/script/intro.js), [로그인](https://github.com/60-market/60-market/blob/cd56c9a398001f9194571d2cd70ef976f19cea7c/script/logIn.js), [회원가입](https://github.com/60-market/60-market/blob/cd56c9a398001f9194571d2cd70ef976f19cea7c/script/signUp.js), [프로필 설정](https://github.com/60-market/60-market/blob/cd56c9a398001f9194571d2cd70ef976f19cea7c/script/registerProfile.js), [에러](https://github.com/60-market/60-market/blob/cd56c9a398001f9194571d2cd70ef976f19cea7c/pages/error.html), 로딩(https://github.com/60-market/60-market/blob/cd56c9a398001f9194571d2cd70ef976f19cea7c/css/screens/loadding.css) |
 	
 | 🧑🏻‍💻 전유진 |
 | ------- |
