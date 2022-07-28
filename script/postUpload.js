@@ -257,4 +257,42 @@ if (curUrl.indexOf("postid=") !== -1) {
 
   getPost();
   postUploadInp.addEventListener("change", uploadImg);
+
+  // 게시물 수정 PUT 요청
+  async function editPost() {
+    const oldImg = hiddenImg;
+    const updateImgArr = hiddenImg === "" ? [] : oldImg.split(",");
+
+    for (const file of imgFiles) {
+      const resultImg = await uploadImg(file);
+      updateImgArr.push(`${defaultUrl}/${resultImg}`);
+    }
+
+    try {
+      const res = await fetch(`${defaultUrl}/post/${postingId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          post: {
+            content: postUploadTxt.value,
+            image: updateImgArr.join(","),
+          },
+        }),
+      });
+      const json = await res.json();
+      location.href = "./profile.html";
+
+      if (json.type == "entity.too.large") {
+        console.error(json.message);
+        alert("이미지 용량이 너무 큽니다.");
+      }
+    } catch (err) {
+      // location.href = "./error.html";
+      console.error(err);
+    }
+  }
+  postUploadBtn.addEventListener("click", editPost);
 }
