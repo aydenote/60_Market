@@ -70,7 +70,7 @@
 
 | 🧑🏻‍💻 전유진 |
 | --------- |
-|           |
+|  [홈피드](https://github.com/60-market/60-market/blob/develop/script/home.js), [검색](https://github.com/60-market/60-market/blob/develop/script/search.js), [좋아요](https://github.com/60-market/60-market/blob/develop/script/home.js), [게시물 수정](https://github.com/60-market/60-market/blob/develop/script/postUpload.js), [게시물 신고](https://github.com/60-market/60-market/blob/develop/script/home.js) |
 
 | 🧑🏻‍💻 최승수 |
 | --------- |
