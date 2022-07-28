@@ -504,7 +504,6 @@ function clickUserModal(event) {
 
     postDelete.addEventListener("click", () => {
       postDelAlert.classList.remove("hidden");
-      posttModal.classList.add("hidden");
     });
 
     cancelBtn.addEventListener("click", () => {

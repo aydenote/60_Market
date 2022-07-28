@@ -16,6 +16,10 @@ backHistory.addEventListener("click", () => {
   window.location = document.referrer;
 });
 
+// 입력 안내
+alertMessage.classList.remove("ir");
+alertMessage.innerText = "영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.";
+
 // 최초 프로필 정보 넣기
 async function getProfileInfo() {
   const url = "https://mandarin.api.weniv.co.kr";

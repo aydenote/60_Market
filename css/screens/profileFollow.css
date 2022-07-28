@@ -1,8 +1,9 @@
-.headerBar.followers::after {
-  content: "Follow";
+.followers .followTitle {
   font-weight: 500;
   font-size: 14px;
+  margin: 0;
   margin-left: 13px;
+  color: black;
 }
 
 .profile .followBtn {

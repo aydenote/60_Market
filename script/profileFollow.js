@@ -44,6 +44,8 @@ async function getFollowingList() {
 // 팔로윙 정보(내가 팔로우한 사용자) 페이지에 반영
 
 function setFollowing(followingDataJson) {
+  const title = document.querySelector(".followers .followTitle ");
+  title.innerText = "Followings";
   for (const following of followingDataJson) {
     userList.innerHTML += `<li class="userItem">
 <a href="profile.html\?accountname=${following.accountname}" class="userBox">
@@ -97,6 +99,8 @@ async function getFollowerList() {
 
 // 팔로워 정보 (나를 팔로우한 사용자 정보) 페이지에 반영
 function setFollower(followerDataJson) {
+  const title = document.querySelector(".followers .followTitle ");
+  title.innerText = "Followers";
   for (const follower of followerDataJson) {
     userList.innerHTML += `<li class="userItem">
 <a href="profile.html\?accountname=${follower.accountname}" class="userBox">
