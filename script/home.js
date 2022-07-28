@@ -79,7 +79,7 @@ function noFeed() {
 
 async function homeFeed() {
   try {
-    const res = await fetch(`${defaultUrl}/post/feed`, {
+    const res = await fetch(`${defaultUrl}/post/feed?limit=30`, {
       method: "GET",
       headers: headers,
     });
