@@ -191,4 +191,29 @@ if (curUrl.indexOf("postid=") !== -1) {
       }
     }
   }
+
+  // 게시물 데이터 받아오기
+  async function getPost() {
+    try {
+      const res = await fetch(`${defaultUrl}/post/${postingId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-type": "application/json",
+        },
+      });
+      const json = await res.json();
+      const post = json.post;
+
+      const postContent = post.content;
+      const postImgArr = post.image;
+
+      postUploadTxt.textContent = postContent;
+      hiddenImg = postImgArr;
+
+      setImg();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
