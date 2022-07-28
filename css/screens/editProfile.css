@@ -42,6 +42,10 @@ main .logInForm .registerFormLabel {
   color: var(--textColor);
 }
 
+main .logInForm #id {
+  margin: 0;
+}
+
 .alertMessage {
   align-self: flex-start;
   color: orangered;
