@@ -216,4 +216,45 @@ if (curUrl.indexOf("postid=") !== -1) {
       console.log(err);
     }
   }
+
+  // 이미지 수정
+  function readInputFile(e) {
+    const files = e.target.files;
+    const fileArr = [...files];
+    imageArr = hiddenImg.split(",");
+
+    fileArr.forEach((file) => imgFiles.push(file));
+    fileArr.forEach(function (i) {
+      if (files.length <= 3) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          const imgItem = document.createElement("div");
+          imgItem.style.backgroundImage = `url(${reader.result})`;
+          imgItem.className = "postImgItem";
+
+          postImgContainer.appendChild(imgItem);
+          e.target.value = "";
+
+          const closeBtn = document.createElement("button");
+          closeBtn.className = "postImgCloseBtn";
+          imgItem.appendChild(closeBtn);
+
+          closeBtn.addEventListener("click", function () {
+            imgFiles.splice(
+              [...postImgContainer.children].indexOf(imgItem) - 1,
+              1
+            );
+            postImgContainer.removeChild(imgItem);
+            hiddenImg.value = imageArr;
+          });
+        };
+        reader.readAsDataURL(i);
+      } else {
+        alert("이미지는 3장까지 가능합니다.");
+      }
+    });
+  }
+
+  getPost();
+  postUploadInp.addEventListener("change", uploadImg);
 }
