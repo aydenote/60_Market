@@ -6,12 +6,6 @@ const headers = {
 };
 const listContent = document.querySelector(".post");
 
-const backHistory = document.querySelector(".headerBarBack");
-// 뒤로 가기
-backHistory.addEventListener("click", () => {
-  window.location = document.referrer;
-});
-
 // 게시물 등록 시간 계산 함수
 function timeForToday(time) {
   const postingDate = time.substring(0, time.length - 1);
