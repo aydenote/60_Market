@@ -3,10 +3,6 @@ main.home {
   justify-content: center;
 }
 
-main .post {
-  max-width: 390px;
-  padding: 4px 0 34px 0;
-}
 
 .post .moreBtn {
   width: 20px;
