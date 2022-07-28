@@ -1,3 +1,11 @@
+const backHistory = document.querySelector(".headerBarBack.buttonClick");
+
+// 뒤로 가기
+backHistory.addEventListener("click", () => {
+  window.location = document.referrer;
+});
+
+
 // 게시 버튼 활성화
 const postChatForm = document.querySelector("#postChatContent");
 const postButton = document.querySelector(".postBtn");

@@ -1,3 +1,4 @@
+const backHistory = document.querySelector(".headerBarBack.buttonClick");
 const productForm = document.querySelector('.addProductForm');
 const productImgForm = document.querySelector('#addProductImg');
 const productNameForm = document.querySelector('#addProductName');
@@ -9,6 +10,11 @@ const timeSelelectBtn = document.querySelector(".addProductSelectBtn");
 const timeSelectList = document.querySelector(".addProductTimeList");
 const url = "https://mandarin.api.weniv.co.kr";
 let imageUrl;
+
+// 뒤로 가기
+backHistory.addEventListener("click", () => {
+  window.location = document.referrer;
+});
 
 // 상품 이미지 미리보기 / api서버에 전송하고 변경된 이미지 이름 가져오기 
 

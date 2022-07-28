@@ -49,6 +49,7 @@ main .postCommentBox {
 }
 
 .postDetaileImgContent {
+  width: 228px;
   height: 228px;
   border-radius: 10px;
   overflow-y: hidden;
@@ -62,7 +63,7 @@ main .postCommentBox {
   display: flex;
 }
 
-.postDetaileImgContent ul li img {
+.post .postDetaileImgContent ul li img {
   width: 100%;
   height: 100%;
   object-fit: cover;

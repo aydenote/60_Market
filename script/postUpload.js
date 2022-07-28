@@ -1,3 +1,4 @@
+const backHistory = document.querySelector(".headerBarBack.buttonClick");
 const postUploadTxt = document.querySelector(".postUploadComentTxt");
 const postUploadInp = document.querySelector(".postUploadInput");
 const postImgContainer = document.querySelector(".postUploadImageScreen");
@@ -9,7 +10,12 @@ const curUrl = location.href;
 
 const imgFiles = [];
 
-// 파비콘 이미지
+
+// 뒤로 가기
+backHistory.addEventListener("click", () => {
+  window.location = document.referrer;
+});
+
 // 로그인 유저 정보
 async function getLoginUserInfo() {
   const token = localStorage.getItem("Token");
