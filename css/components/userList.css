@@ -12,6 +12,7 @@
 }
 
 .userBox .userProfileImage {
+  flex-shrink: 0;
   height: 50px;
   width: 50px;
   object-fit: cover;
