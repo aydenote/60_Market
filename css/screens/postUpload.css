@@ -51,8 +51,8 @@ body .postContainer{
 /* 스크롤 커스텀 */
 .postContainer .postUploadImageScreen::-webkit-scrollbar {
     height: 10px;
-  }
-  
+}
+
 .postContainer .postUploadImageScreen::-webkit-scrollbar-thumb {
     background: var(--mainColor);
     border-radius: 10px;
