@@ -3,33 +3,34 @@ const postUploadInp = document.querySelector(".postUploadInput");
 const postImgContainer = document.querySelector(".postUploadImageScreen");
 const postUploadBtn = document.querySelector(".headerBarBtn.buttonClick");
 const postImgItem = document.querySelector(".postImgItem");
-const postUserProfile = document.querySelector('.userProfileImage');
+const postUserProfile = document.querySelector(".userProfileImage");
 const url = "https://mandarin.api.weniv.co.kr";
+const curUrl = location.href;
 
 const imgFiles = [];
 
 // 파비콘 이미지
 // 로그인 유저 정보
 async function getLoginUserInfo() {
-  const token = localStorage.getItem('Token');
-  const accountname = localStorage.getItem('accountname');
+  const token = localStorage.getItem("Token");
+  const accountname = localStorage.getItem("accountname");
 
   try {
     const res = await fetch(`${url}/profile/${accountname}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
-      }
-    })
+        "Content-type": "application/json",
+      },
+    });
     const userJson = await res.json();
-    postUserProfile.setAttribute('src', userJson.profile.image);
+    postUserProfile.setAttribute("src", userJson.profile.image);
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }
 
-getLoginUserInfo()
+getLoginUserInfo();
 
 // 사진 미리보기, 사진 삭제
 
@@ -128,4 +129,6 @@ async function createPost() {
   location.href = "../pages/profile.html";
 }
 
-postUploadBtn.addEventListener("click", createPost);
+if (curUrl.indexOf("postid=") == -1) {
+  postUploadBtn.addEventListener("click", createPost);
+}
