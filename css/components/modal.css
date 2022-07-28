@@ -4,6 +4,7 @@
   right: 0px;
   top: 0px;
   bottom: 0px;
+  z-index: 200;
   display: flex;
   align-items: flex-end;
   background-color: rgba(0, 0, 0, 0.3);
