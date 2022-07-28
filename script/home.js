@@ -194,10 +194,12 @@ function openModal(e) {
   e.preventDefault();
   reportModal.classList.remove("hidden");
   modal.classList.remove("hidden");
+  modal.classList.add("appear");
 }
 
 function closeModal() {
   reportModal.classList.add("hidden");
+  modal.classList.remove("appear");
 }
 
 function openAlert() {
