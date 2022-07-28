@@ -58,6 +58,7 @@ main .post {
 }
 
 .postBtnContent .likeBtn {
+  padding: 0;
   border: none;
   display: flex;
   align-items: center;
