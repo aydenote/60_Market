@@ -1,3 +1,4 @@
+const backHistory = document.querySelector(".headerBarBack.buttonClick");
 const profileLinkBtn = document.querySelector(".link");
 const followingCount = document.querySelector(".ProfileContent .followings");
 const followerCount = document.querySelector(".ProfileContent .followers");
@@ -7,6 +8,12 @@ let accountName = URLSearch.get("accountname");
 const myAccountName = localStorage.getItem("accountname");
 accountName = accountName === null ? myAccountName : accountName;
 
+// 뒤로 가기
+backHistory.addEventListener("click", () => {
+  window.location = document.referrer;
+});
+
+// 팔로우 링크로 이동
 function clickedFollowLink(e) {
   const profileUser = document.querySelector(".profileInfo .userId");
   const userId = profileUser.innerText.replace(/@/g, "");
@@ -443,12 +450,14 @@ async function clickHeart(e) {
 // 사용자에 따라 헤더 모달 구현
 const headerModal = document.querySelector(".headerBarBtn.buttonClick");
 const userLogout = document.querySelector(".setUsertModal .modalBtn2");
+const headerBarModal = document.querySelector(".modalBg.setUsertModal");
+
 userLogout.addEventListener("click", clickLogoutModal);
 headerModal.addEventListener("click", clickHeaderModal);
 
 function clickHeaderModal() {
-  const headerBarModal = document.querySelector(".modalBg.setUsertModal");
   const modalClose = document.querySelector(".setUsertModal .modalClose");
+
   modalClose.addEventListener("click", () => {
     headerBarModal.classList.add("hidden");
   });
@@ -460,7 +469,7 @@ function clickLogoutModal() {
   const logoutCheckModal = document.querySelector(".modalAlert.logoutAlert");
   const cancelBtn = document.querySelector(".logoutAlert .cancelBtn");
   const logoutBtn = document.querySelector(".logoutAlert .logoutBtn");
-
+  headerBarModal.classList.add("hidden");
   logoutCheckModal.classList.remove("hidden");
 
   cancelBtn.addEventListener("click", () => {
@@ -495,6 +504,7 @@ function clickUserModal(event) {
 
     postDelete.addEventListener("click", () => {
       postDelAlert.classList.remove("hidden");
+      posttModal.classList.add("hidden");
     });
 
     cancelBtn.addEventListener("click", () => {

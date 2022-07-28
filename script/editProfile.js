@@ -1,5 +1,6 @@
 // input Name, input introduce 2글자 이상, input id 5글자 이상 입력 시 헤더바에 저장 버튼 활성화
 const profileSaveButton = document.querySelector(".headerBarBtn.buttonClick");
+const backHistory = document.querySelector(".headerBarBack.buttonClick");
 const profileImg = document.querySelector(".updateUserImg");
 const inputName = document.querySelector("#name");
 const inputId = document.querySelector("#id");
@@ -9,6 +10,11 @@ const myAccountName = localStorage.getItem("accountname");
 const url = "https://mandarin.api.weniv.co.kr";
 const token = localStorage.getItem("Token");
 let imageUrl;
+
+// 뒤로 가기
+backHistory.addEventListener("click", () => {
+  window.location = document.referrer;
+});
 
 // 최초 프로필 정보 넣기
 async function getProfileInfo() {
