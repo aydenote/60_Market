@@ -526,13 +526,6 @@ function clickUserModal(event) {
         console.error(err);
       }
     });
-
-    // 포스팅 수정페이지로 이동
-    const postEditBtn = document.querySelector(".posttModal .modalBtn2");
-
-    postEditBtn.addEventListener("click", () => {
-      window.location = `postUpload.html\?postid=${postingId}`;
-    });
   } else {
     // 게시물 신고
     const reportAlert = document.querySelector(".reportAlert");
