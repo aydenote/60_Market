@@ -132,3 +132,63 @@ async function createPost() {
 if (curUrl.indexOf("postid=") == -1) {
   postUploadBtn.addEventListener("click", createPost);
 }
+
+///////////////게시물 수정///////////////
+if (curUrl.indexOf("postid=") !== -1) {
+  const postingId = curUrl.split("postid=")[1];
+  const token = localStorage.getItem("Token");
+  const defaultUrl = "https://mandarin.api.weniv.co.kr";
+  let hiddenImg = "";
+  let imageArr = [];
+  postUploadBtn.disabled = false;
+  postUploadBtn.style.opacity = "1";
+
+  //이미지 파일 url 생성
+  async function uploadImg(file) {
+    const formData = new FormData();
+    formData.append("image", file);
+    imgFiles.forEach((file) => {
+      formData.append("image", file);
+    });
+    try {
+      const res = await fetch(`${defaultUrl}/image/uploadfiles`, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      imageName = data[0].filename;
+      return imageName;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // 이미지 미리보기, 삭제 버튼
+  function setImg() {
+    if (hiddenImg.value !== "") {
+      imageArr = hiddenImg.split(",");
+
+      if (imageArr.length >= 1 && imageArr[0] !== "") {
+        imageArr.map((src) => {
+          const imgItem = document.createElement("div");
+          imgItem.className = "postImgItem";
+          imgItem.setAttribute("style", `background-image: url(${src})`);
+          postImgContainer.appendChild(imgItem);
+
+          const closeBtn = document.createElement("button");
+          closeBtn.className = "postImgCloseBtn";
+          imgItem.appendChild(closeBtn);
+
+          closeBtn.addEventListener("click", function () {
+            imageArr.splice(
+              [...postImgContainer.children].indexOf(imgItem) - 1,
+              1
+            );
+            postImgContainer.removeChild(imgItem);
+            hiddenImg.value = imageArr;
+          });
+        });
+      }
+    }
+  }
+}
