@@ -3,12 +3,18 @@
 }
 
 main .postContainer {
-  margin-bottom: 30px;
+  width: 390px;
+  margin: 0 auto 30px auto;
 }
 
 main .postCommentBox {
   border-top: 1.5px solid var(--borderColor);
   margin-bottom: 10px;
+}
+
+.postCommentContent {
+  width: 390px;
+  margin: 0 auto;
 }
 
 .postCommentContent .postUserProfile {
