@@ -469,7 +469,7 @@ function clickLogoutModal() {
   const logoutCheckModal = document.querySelector(".modalAlert.logoutAlert");
   const cancelBtn = document.querySelector(".logoutAlert .cancelBtn");
   const logoutBtn = document.querySelector(".logoutAlert .logoutBtn");
-  headerBarModal.classList.add("hidden");
+
   logoutCheckModal.classList.remove("hidden");
 
   cancelBtn.addEventListener("click", () => {
