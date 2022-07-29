@@ -16,10 +16,6 @@ backHistory.addEventListener("click", () => {
   window.location = document.referrer;
 });
 
-// 입력 안내
-alertMessage.classList.remove("ir");
-alertMessage.innerText = "*영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.";
-
 // 최초 프로필 정보 넣기
 async function getProfileInfo() {
   const url = "https://mandarin.api.weniv.co.kr";
@@ -51,25 +47,39 @@ getProfileInfo();
 
 profileSaveButton.disabled = true;
 function profileChangeInput() {
-  alertMessage.classList.add("ir");
   const inputNameLength = inputName.value.length;
   const inputIdLength = inputId.value.length;
   const inputIntroduceLength = inputIntroduce.value.length;
+  alertMessage.innerText = "*영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.";
 
-  let check = /^[a-zA-Z0-9_.]{2,10}$/;
+  const check = /^[a-zA-Z0-9_.]{1,10}$/;
 
-  // 유효성 검사
-  if (
-    inputNameLength >= 2 &&
-    inputIntroduceLength >= 2 &&
-    inputIdLength >= 2 &&
-    check.test(inputId.value)
-  ) {
-    profileSaveButton.style.opacity = "1";
-    profileSaveButton.disabled = false;
-  } else {
+  // 만약 예외 문자가 없으면 ir 클래스 있어서 알림 X (id.value = id값)
+  if (check.test(inputId.value)) {
+    console.log("1");
+    alertMessage.classList.add("ir");
+    if (
+      inputNameLength >= 2 &&
+      inputIntroduceLength >= 2 &&
+      inputIdLength >= 2
+    ) {
+      profileSaveButton.style.opacity = "1";
+      profileSaveButton.disabled = false;
+    } else {
+      profileSaveButton.style.opacity = "0.3";
+      profileSaveButton.disabled = true;
+    }
+  }
+
+  // 만약 예외 문자가 있으면 ir 클래스 지워져서 알림 생김
+  if (!check.test(inputId.value)) {
+    alertMessage.classList.remove("ir");
     profileSaveButton.style.opacity = "0.3";
     profileSaveButton.disabled = true;
+  }
+
+  if (inputId.value === "") {
+    alertMessage.classList.add("ir");
   }
 }
 
