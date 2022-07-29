@@ -148,7 +148,7 @@ async function getProductList(userProfile) {
 // 등록된 상품 수에 따라 프로필에 해당 상품 반영
 function setProductList(resProfileProductJson) {
   if (resProfileProductJson.product.length !== 0) {
-    const saleItems = document.querySelector(".ProfileContent .saleItems");
+    const saleItems = document.querySelector(".saleItemContainer");
     const createP = document.createElement("p");
     const createUl = document.createElement("ul");
 
@@ -158,16 +158,10 @@ function setProductList(resProfileProductJson) {
     saleItems.append(createUl);
     const productList = document.querySelector(".saleItems .productList");
     document.querySelector(".saleItems .title").innerText = "판매 중인 상품";
-    productList.addEventListener("click", (e) => {
-      if (e.target.className === "productList") {
-        return;
-      } else {
-        location.href = "error.html";
-      }
-    });
+    productList.addEventListener("click", productModal);
 
     for (const product of resProfileProductJson.product) {
-      productList.innerHTML += `<li>
+      productList.innerHTML += `<li id="${product.id}">
       <img src="${product.itemImage}" alt="상품 이미지" />
       <p class="ProductTitle">${product.itemName}</p>
       <p class="price">${product.price.toLocaleString()}원</p>
@@ -590,4 +584,64 @@ function clickUserModal(event) {
       }
     });
   }
+}
+
+// 상품 삭제
+function productModal(e) {
+  const productModal = document.querySelector(".productModal");
+  const productModalClose = document.querySelector(".productModal .modalClose");
+  const productDeleteModal = document.querySelector(".productModal .modalBtn1");
+  const productDelAlert = document.querySelector(".productDelAlert");
+  const productLink = document.querySelector(".productModal .modalBtn3");
+  const alertCancel = document.querySelector(".productDelAlert .cancelBtn");
+  const productDelete = document.querySelector(".alertBtnContent .delBtn");
+
+  productModal.classList.remove("hidden");
+
+  // 모달 창 닫기
+  productModalClose.addEventListener("click", () => {
+    productModal.classList.add("hidden");
+  });
+
+  // 상품 삭제 확인 모달
+  productDeleteModal.addEventListener("click", () => {
+    productDelAlert.classList.remove("hidden");
+  });
+
+  // 삭제 확인 모달에서 취소
+  alertCancel.addEventListener("click", () => {
+    productDelAlert.classList.add("hidden");
+  });
+
+  // 판매 상품 연결
+  productLink.addEventListener("click", () => {
+    location.href = "../pages/error.html";
+  });
+
+  // 판매 상품 삭제
+  productDelete.addEventListener("click", async function () {
+    const productId = e.target.closest("li").id;
+    const url = "https://mandarin.api.weniv.co.kr";
+    const token = localStorage.getItem("Token");
+
+    const setting = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-type": "application/json",
+      },
+    };
+
+    try {
+      const resProfileProduct = await fetch(
+        `${url}/product/${productId}`,
+        setting
+      );
+      if (resProfileProduct.status === 200) {
+        location.href = "../pages/profile.html";
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
 }
