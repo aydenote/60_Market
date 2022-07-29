@@ -123,6 +123,11 @@
   background-color: white;
 }
 
+.saleItems .saleItemContainer {
+  max-width: 390px;
+  margin: 0 auto;
+}
+
 .saleItems .title {
   margin: 20px 0 15px 20px;
   font-weight: 700;
@@ -183,6 +188,12 @@
   position: static;
   justify-content: flex-end;
   gap: 18px;
+}
+
+.postingSummary .post {
+  max-width: 390px;
+  margin: 0 auto;
+  padding-bottom: 30px;
 }
 
 .albumBar .postingType.unselected {
