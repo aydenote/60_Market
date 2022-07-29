@@ -521,7 +521,6 @@ function clickUserModal(event) {
           `${url}/post/${postingId}`,
           setting
         );
-        console.log(resDeleteProduct);
         if (resDeleteProduct) {
           location.href = "../pages/profile.html";
         }
