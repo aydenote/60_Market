@@ -200,7 +200,7 @@
 
 |                            12. 채팅                             |                            13. 로그아웃                            |
 | :-------------------------------------------------------------: | :----------------------------------------------------------------: |
-| <img src="asset/images/gif/chat.gif" width="230" height="400"/> | <<img src="asset/images/gif/logout.gif" width="230" height="400"/> |
+| <img src="asset/images/gif/chat.gif" width="230" height="400"/> | <img src="asset/images/gif/logout.gif" width="230" height="400"/> |
 
 |                              14. 로딩                               |
 | :-----------------------------------------------------------------: |
