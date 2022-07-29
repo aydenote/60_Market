@@ -49,11 +49,11 @@
 
 <div align='center'>
 
-| 박도겸                                                                     | 임홍렬                                                                     | 전유진                                                                     | 최승수                                                                                                                        |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| 사진                                                                       | 사진                                                                       | 사진                                                                       | <img src="https://user-images.githubusercontent.com/77476077/181723896-7ffffbb3-feb7-4f9d-8c50-b4e9627dc544.png" width="150"> |
-| <center>moeyg</center>                                                     | <center>Hongryeoll</center>                                                | <center>ujin16</center>                                                    | <center>aydenote</center>                                                                                                     |
-| <center>![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</center> | <center>![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</center> | <center>![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</center> | <center>![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)</center>                                                    |
+| 박도겸                                                    | 임홍렬                                                    | 전유진                                                    | 최승수                                                                                                                        |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| 사진                                                      | 사진                                                      | 사진                                                      | <img src="https://user-images.githubusercontent.com/77476077/181723896-7ffffbb3-feb7-4f9d-8c50-b4e9627dc544.png" width="150"> |
+| moeyg                                                     | Hongryeoll                                                | ujin16                                                    | aydenote                                                                                                                      |
+| ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)                                                                     |
 
 </div>
 
