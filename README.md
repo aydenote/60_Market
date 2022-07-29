@@ -162,11 +162,11 @@
 
 <div align='center'>
 
-|                             0.splash                              |                            1.회원가입                             |
+|                             0. splash                             |                            1. 회원가입                            |
 | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
 | <img src="asset/images/gif/splash.gif" width="230" height="400"/> | <img src="asset/images/gif/signUp.gif" width="230" height="400"/> |
 
-|                             2.로그인                             |                               3.프로필 설정                                |
+|                            2. 로그인                             |                               3. 프로필 설정                               |
 | :--------------------------------------------------------------: | :------------------------------------------------------------------------: |
 | <img src="asset/images/gif/logIn.gif" width="230" height="400"/> | <img src="asset/images/gif/registerProfile.gif" width="230" height="400"/> |
 
