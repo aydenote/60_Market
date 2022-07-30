@@ -40,7 +40,7 @@
       <section class="postCommentBox"></section>
     </main>
     <footer class="chatEnter postChatEnter">
-      <form class="chatEnterContent">
+      <form onsubmit="return false" class="chatEnterContent">
         <div class="chatEnterImage">
           <img class="commentUserProfile" src="" alt="" />
         </div>
@@ -49,7 +49,7 @@
           id="postChatContent"
           type="text"
           placeholder="메시지 입력하기..."
-          onkeyup="postInput()"
+          onkeyup="postInput(event)"
         />
         <button id="commentSubmit" type="button" class="postBtn">게시</button>
       </form>

@@ -12,14 +12,17 @@ const postButton = document.querySelector(".postBtn");
 const commentUserProfile = document.querySelector(".commentUserProfile");
 
 postButton.disabled = true;
-function postInput() {
-  console.log(postChatForm.value);
-  if (postChatForm.value !== "") {
-    postButton.style.color = "var(--mainColor)";
-    postButton.disabled = false;
-  } else {
-    postButton.style.color = "var(--borderColor)";
-    postButton.disabled = true;
+function postInput(event) {
+  if(event.keyCode == 13){
+    submitComment(event);
+  }else{
+    if (postChatForm.value !== "") {
+      postButton.style.color = "var(—mainColor)";
+      postButton.disabled = false;
+    } else {
+      postButton.style.color = "var(—borderColor)";
+      postButton.disabled = true;
+    }
   }
 }
 
