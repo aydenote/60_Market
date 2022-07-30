@@ -78,7 +78,7 @@
 
 | 🧑🏻‍💻 임홍렬 |
 | --------- |
-|           |
+|          [상품등록](https://github.com/60-market/60-market/blob/develop/script/addProduct.js), [게시글 등록](https://github.com/60-market/60-market/blob/develop/script/postUpload.js), [게시글상세페이지](https://github.com/60-market/60-market/blob/develop/script/post.js), [댓글/삭제/신고](https://github.com/60-market/60-market/blob/develop/script/post.js)            |
 
 </div>
 
