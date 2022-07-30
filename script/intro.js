@@ -27,7 +27,7 @@ class Validation {
       const resMessage = res.data.isValid;
       this.logIn(resMessage);
     } catch (err) {
-      console.log(err);
+      location.href = './intro.html';
     }
   };
 }
