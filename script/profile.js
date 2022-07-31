@@ -158,10 +158,11 @@ function setProductList(resProfileProductJson) {
     saleItems.append(createUl);
     const productList = document.querySelector(".saleItems .productList");
     document.querySelector(".saleItems .title").innerText = "판매 중인 상품";
-    productList.addEventListener("click", productModal);
 
     for (const product of resProfileProductJson.product) {
-      productList.innerHTML += `<li id="${product.id}">
+      productList.innerHTML += `<li onclick="productModal(event)" id="${
+        product.id
+      }">
       <img src="${product.itemImage}" alt="상품 이미지" />
       <p class="ProductTitle">${product.itemName}</p>
       <p class="price">${product.price.toLocaleString()}원</p>
@@ -625,7 +626,7 @@ if (myAccountName === accountName) {
 
     // 판매 상품 삭제
     productDelete.addEventListener("click", async function () {
-      const productId = e.target.closest("li").id;
+      let productId = e.target.closest("li").id;
       const url = "https://mandarin.api.weniv.co.kr";
       const token = localStorage.getItem("Token");
 
@@ -644,6 +645,7 @@ if (myAccountName === accountName) {
         );
         if (resProfileProduct.status === 200) {
           location.href = "../pages/profile.html";
+          productId = "";
         }
       } catch (err) {
         console.error(err);
