@@ -249,18 +249,7 @@
 
 ## 🧑🏻‍💻 전유진
 
-- 시멘틱한 태그로 맞추기 위한 `<header></header><main></main><footer></footer>` 제안
-- 고정 높이값
-- 웹접근성을 고려
-  - input과 label
-  - article, section태그의 헤딩태그를 전부 줘야하는가?
-  - 텍스트가 없는 버튼태그에 ir기법
-- a태그 내부의 버튼태그
-- normal flow에 속한 요소들은 normal flow에서 벗어난 float, position 속성이 적용된 요소들을 인식하지 못함(메인 헤더, 푸터 인식 못함 해결)
-- 쿼리스트링
-- 의미없는 디자인요소 img/ backround-image
-- 앵커태그와 DOM컨트롤 할 때의 차이점
-- 유저 검색기능 중복 결과
+⚙️업데이트 예정
 
 <br>
 
