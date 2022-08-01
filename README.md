@@ -328,7 +328,6 @@
 ┃
 ┗ 📂 script
 	 ┣ 🟡 addProduct.js
-	 ┣ 🟡 common.js
 	 ┣ 🟡 editProfile.js
 	 ┣ 🟡 home.js
 	 ┣ 🟡 index.js
