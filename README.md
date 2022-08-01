@@ -93,7 +93,7 @@
 ```
 🖥 Front : HTML, CSS, Vanilla JS
 🎛 Back : 제공된 API 사용
-📢 Communication : Notion, Discord
+📢 Communication : Notion, Discord, Git-flow
 
 ❓ Vanilla JS 로 구현 이유
 : 바닐라 자바스크립트를 잘해야 프론트엔드 개발자다 ! 생각했습니다.
