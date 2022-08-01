@@ -35,9 +35,7 @@
 
 🙌 또한, 자원 봉사를 위해 시간을 나눔할 수 있습니다.
 
-➕ 관심 있는 사용자를 팔로우 할 수 있습니다.
-
-💜 마음에 드는 게시물에 좋아요를 누르고, 댓글을 달 수 있습니다.
+💜 관심 있는 사용자를 팔로우 할 수도 있고 마음에 드는 게시물에 좋아요를 누르고, 댓글을 달 수도 있습니다.
 ```
 
 <br>
@@ -51,11 +49,11 @@
 
 <div align='center'>
 
-| [박도겸](https://github.com/moeyg) | [임홍렬](https://github.com/Hongryeoll) | [전유진](https://github.com/ujin16)| [최승수](https://github.com/aydenote) |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| [박도겸](https://github.com/moeyg)                                                         | [임홍렬](https://github.com/Hongryeoll)                                                                                                     | [전유진](https://github.com/ujin16)                                                       | [최승수](https://github.com/aydenote)                                                                                                      |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | <img src="https://avatars.githubusercontent.com/u/102715022?v=4" height="200" width="200"> | <img src="https://user-images.githubusercontent.com/102474207/181880292-75ed9ee5-1504-418e-9d03-3e2f725af8f4.JPG" height="200" width="200"> | <img src="https://avatars.githubusercontent.com/u/94890646?v=4" height="200" width="200"> | <img src="https://user-images.githubusercontent.com/77476077/181723896-7ffffbb3-feb7-4f9d-8c50-b4e9627dc544.png" height="200" width="200"> |
-| [moeyg](https://github.com/moeyg) | [Hongryeoll](https://github.com/Hongryeoll) | [ujin16](https://github.com/ujin16) | [aydenote](https://github.com/aydenote) |
-| ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) |
+| [moeyg](https://github.com/moeyg)                                                          | [Hongryeoll](https://github.com/Hongryeoll)                                                                                                 | [ujin16](https://github.com/ujin16)                                                       | [aydenote](https://github.com/aydenote)                                                                                                    |
+| ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)                                  | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)                                                                                   | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)                                 | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)                                                                                  |
 
 </div>
 
@@ -219,48 +217,31 @@
 
 </div>
 
-## 🧑🏻‍💻 박도겸
-
-- 422 에러 : 인터넷 사용 기록 삭제 후, 가입 재시도로 성공했다.
-- 프로필 이미지 업로드 미리보기 구현 <br>
-  : `URL.createObjectURL(url)` 을 사용해서 구현 중, 이미지를 넣어도 미리보기가 되지 않았다. url 부분에 src가 들어가야 한다는 것을 알고 이미지.src로 해결했다.
-  또한, let 변수로 프로필 이미지를 두어 이미지 url 값을 변화할 수 있게 했다.<br> `URL.createObjectURL(url)` 의 단점은 메모리가 계속해서 url을 가지고 있기 때문에 누수가 일어난다는 점이 있다. JavaScript의 경우, malloc을 할 수 없기 때문에 프로필 이미지를 서버에 보낸 후, `URL.revokeObjectURL(url)` 를 통해 메모리 해제를 하여 누수를 방지했다.
-- 베이직 프로필<br>
-  : 클래스로 구역을 나누어 놓았기 때문에, 베이직 프로필을 이미지 업로드 클래스에 넣을 수가 없었다. 이미지를 설정하지 않으면 서버에서 지정해 놓은 이미지로 전환이 되는데, 팀 내에서 설정한 베이직 프로필을 담아 보내고 싶었다. 따라서 설정한 이미지가 undefined일 경우 베이직 이미지의 filename을 넣어(`profileImg = '1658636863237.png'`) 해결했다.
-- 서버에 이미지 보내기 <br>
-  : 이미지를 주소 자체로 서버에 전송이 되지 않아서 `new FormData()` 를 이용해 이미지를 form 형식으로 전환한 후, post 할 때, body에 값을 넣어주었다.
-- 정규 표현식 - 폼 입력 시, 예외 문자 처리 (`const regExp = /^[a-zA-Z0-9_.]{2,10}$/`)<br>
-  : 처음에 `regExp = /^[a-zA-Z0-9_.]/` 으로 설정했는데, 예외 처리한 문자를 입력해도 아무런 반응이 없었다. 그래서 {2, 10} 으로 최대 최솟값을 지정해 예외 처리를 할 수 있었다.
-
-<br>
-
-## 🧑🏻‍💻 임홍렬
-
-- 이슈 : 댓글작성시간이 방금 입력해도 9시간전으로 나오는 문제.<br>
-  해결 : api 댓글 작성시간이 utcstring기준이여서 kst기준으로 만드려고 9시간 더해줘서 해결.
-- 이슈 : 게시글 등록시에 이미지 없이 업로드하면 엑스박스가 나타나는 문제.<br>
-  해결 : `jsonImgTags == "" ? "" :` 삼항연사자를 사용하여 `postDetaileImgContent`의 컴포넌트를 생성하지 않게 만들어 해결.
-- 이슈 : 게시글 등록시 이미지 3개를 업로드해야 하는데 1개만 업로드 되는 문제.<br>
-  해결 : 프로세스를 변경하여 해결.<br>
-  - 기존 프로세스 : 브라우저에 이미지 파일 업로드 -> 이미지 url 받아오기 -> 받아온 이미지 URL을 변수에 저장 -> API에 업로드 버튼 클릭 -> 다시 이미지 받아오기 -> 받아온 이미지 URL을 변수에 또 저장 -> API에 데이터 전송<br>
-  - 변경 프로세스 : 브라우저에 이미지 파일 업로드 -> API에 업로드 버튼 클릭 -> 이미지 URL 받아오기 -> 변수에 이미지 URL 저장 -> API에 데이터 전송
-- 이슈 : 상품등록시 가격부분에 숫자만 입력되게 포맷해주고, 천단위 마다 `','`를 넣어줘야하는데 `','`가 들어가지않는 문제.<br>
-  해결 : `comma(uncomma(addProductPrice.value));` comma(천단위마다 `','`를 넣어주는 함수)안에 uncomma(숫자만 입력되게하는 함수)를 넣어 주어 해결.
-
-<br>
-
-## 🧑🏻‍💻 전유진
-
-⚙️업데이트 예정
-
-<br>
-
 ## 🧑🏻‍💻 최승수
 
-- 이슈 : 내 프로필과 다른 사람 프로필 페이지 마크업 및 기능 유사.  
-  해결 : 내 프로필과 다른 사람 프로필 페이지 마크업 및 기능 유사하여 쿼리스트링과 로컬 스토리지에서 `accountname`을 가져와 비교 후 하나의 html 파일에서 마크업 및 기능 구현.
-- 이슈 : 프로필 수정 페이지에서 이미지 변경 없을 경우 기존 이미지 전송  
-  해결 : 이미지 변경이 없다면 `document.querySelector("").src`와 `if`문을 사용하여 기존 이미지를 가져와 전송.
+- 이슈 : 내 프로필과 다른 사람 프로필 페이지 마크업 및 기능이 유사하여 "중복되는 코드가 많다" 라고 생각했습니다.  
+   해결 : 내 프로필과 다른 사람 프로필 페이지 마크업 및 기능 유사하여 쿼리스트링과 로컬 스토리지에서 `accountname`을 가져와 비교 후 하나의 html 파일에서 마크업 및 기능 구현.
+  ```
+      if (userProfile.accountname === myAccountName) {
+      setMyProfile(userProfile);
+    } else {
+      setYourProfile(userProfile);
+    }
+  ```
+  myAccountName은 로컬스토리지에 저장되어 있는 로그인된 계정이고 userProfile.accountname은 쿼리스트링 user ID를 API에 전송하여 얻은 해당 유저의 ID입니다.
+  if 문으로 내 프로필인지, 다른 사람 프로필인지 확인하고 페이지 구성하는 함수를 호출합니다.
+  각 함수에서는 내 프로필 또는 다른 사람 프로필에서만 있는 마크업을 진행하고 동일한 마크업은 HTML로 작성하였습니다.
+- 이슈 : 프로필 수정 페이지에서 이미지 변경 없을 경우 기존 이미지 URL 주소가 변경되는 문제가 있었습니다.  
+   해결 : 이미지 변경이 없다면 `document.querySelector("").src`와 `if`문을 사용하여 기존 이미지를 가져와 전송하였습니다.
+  ```
+    if (imageUrl === undefined) {
+    imageUrl = profileImg.src;
+  }
+  ```
+  이미지를 브라우저에 업로드 했을 때, 이미지에 대한 URL 정보를 imageUrl 변수에 저장하게 됩니다.
+  만약, 브라우저에 이미지를 업로드 하지 않았다면 imageUrl 변수에 들어있는 정보는 선언 그대로인 `undefined`가 되기 때문에 해당 이미지의 src를 가져와 API 에 전송하게 되어
+  기존 이미지를 그대로 사용할 수 있게 됩니다.
+  <br>
 
 # 🌱 Folder Tree
 
