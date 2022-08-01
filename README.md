@@ -2,7 +2,7 @@
 
 # ⏱ 안녕하세요, 60’’ Market 입니다!
 
-<img src="https://github.com/60-market/60-market/blob/1e7bb3c06efd93f84294f38d577346affb4afae6/asset/images/timi.svg" width="500"
+<img src="https://github.com/60-market/60-market/blob/1e7bb3c06efd93f84294f38d577346affb4afae6/asset/images/timi.svg" width="500">
 
 </div>
 
