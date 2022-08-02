@@ -91,12 +91,11 @@
 </div>
 
 ```
-🖥 Front : HTML, CSS, Vanilla JS
-🎛 Back : 제공된 API 사용
+🔷 Front : HTML, CSS, Vanilla JS
+🔶 Back : 제공된 API 사용
 📢 Communication : Notion, Discord, Git-flow
 
 ❓ Vanilla JS 로 구현 이유
-: 바닐라 자바스크립트를 잘해야 프론트엔드 개발자다 ! 생각했습니다.
 : 빠른 시장 변화 속에서도 JS 기본 지식이 탄탄한 개발자는 언제나 주도적인 개발을 할 수 있다고 생각했습니다.
 ```
 
@@ -108,7 +107,7 @@
 
 </div>
 
-[Figma](https://www.figma.com/embed?embed_host=notion&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F0U4P5vP1VCGPehuCue4Hob%2FUntitled%3Fnode-id%3D0%253A1)
+[![피그마 이미지](https://user-images.githubusercontent.com/77476077/182322586-805d24ce-ba99-4465-98a1-7777d51de687.PNG)](https://www.figma.com/embed?embed_host=notion&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F0U4P5vP1VCGPehuCue4Hob%2FUntitled%3Fnode-id%3D0%253A1)
 
 <br>
 <br>
