@@ -1,5 +1,5 @@
-const url = 'https://mandarin.api.weniv.co.kr';
-const token = localStorage.getItem('Token');
+const url = "https://mandarin.api.weniv.co.kr";
+const token = localStorage.getItem("Token");
 
 class Validation {
   constructor(url) {
@@ -9,7 +9,7 @@ class Validation {
   // 토큰이 있으면 홈으로 이동
   logIn = (resMessage) => {
     if (resMessage === true) {
-      location.href = './home.html';
+      location.href = "./home.html";
     }
   };
 
@@ -18,7 +18,7 @@ class Validation {
     let config = {
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
     };
 
@@ -27,7 +27,7 @@ class Validation {
       const resMessage = res.data.isValid;
       this.logIn(resMessage);
     } catch (err) {
-      location.href = './intro.html';
+      location.href = "./signUp.html";
     }
   };
 }
