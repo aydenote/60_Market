@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="../asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
-    <script src="../script/profile.js" defer></script>
+    <script type="module" src="../script/profile.js" defer></script>
     <title>프로필 | 60'' Market</title>
   </head>
   <body class="profileBackground">
@@ -30,13 +30,13 @@
       <section class="introduce">
         <h2 class="ir">프로필 소개</h2>
         <section class="myFollow myProfileImg">
-          <a onclick="clickedFollowLink(event)" class="followers"></a>
+          <a class="followers"></a>
           <img
             class="myImage"
             src="../asset/images/basic-profile.svg"
             alt="내 프로필 이미지"
           />
-          <a onclick="clickedFollowLink(event)" class="followings"></a>
+          <a class="followings"></a>
         </section>
 
         <section class="profileInfo">
@@ -55,13 +55,11 @@
       <section class="postingSummary">
         <article class="albumBar">
           <img
-            onclick="listTypePost()"
             class="postingType list buttonClick"
             src="../asset/images/icons/icon__postList.svg"
             alt="리스트형으로 보기"
           />
           <img
-            onclick="albumTypePost()"
             class="postingType album buttonClick unselected"
             src="../asset/images/icons/icon__postAlbum.svg"
             alt="앨범형으로 보기"

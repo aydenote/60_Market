@@ -1,17 +1,21 @@
-const backHistory = document.querySelector(".headerBarBack.buttonClick");
+import { backHistory } from "./newScript/common.js";
+const backBtn = document.querySelector(".headerBarBack.buttonClick");
 const profileLinkBtn = document.querySelector(".link");
 const followingCount = document.querySelector(".ProfileContent .followings");
 const followerCount = document.querySelector(".ProfileContent .followers");
-
+const albumType = document.querySelector(".postingType.album.buttonClick");
+const ListType = document.querySelector(".postingType.list.buttonClick");
 const URLSearch = new URLSearchParams(location.search);
 let accountName = URLSearch.get("accountname");
 const myAccountName = localStorage.getItem("accountname");
 accountName = accountName === null ? myAccountName : accountName;
+followingCount.addEventListener("click", clickedFollowLink);
+followerCount.addEventListener("click", clickedFollowLink);
+albumType.addEventListener("click", albumTypePost);
+ListType.addEventListener("click", listTypePost);
 
 // 뒤로 가기
-backHistory.addEventListener("click", () => {
-  window.location = document.referrer;
-});
+backBtn.addEventListener("click", backHistory);
 
 // 팔로우 링크로 이동
 function clickedFollowLink(e) {
@@ -97,7 +101,6 @@ function setYourProfile(userProfile) {
   profileLinkBtn.append(createMessageImg);
 
   createFollowButton.setAttribute("class", "followBtn");
-  createFollowButton.setAttribute("onclick", "clickFollowBtn()");
   createFollowButton.innerText = "팔로우";
   profileLinkBtn.append(createFollowButton);
 
@@ -160,9 +163,7 @@ function setProductList(resProfileProductJson) {
     document.querySelector(".saleItems .title").innerText = "판매 중인 상품";
 
     for (const product of resProfileProductJson.product) {
-      productList.innerHTML += `<li onclick="productModal(event)" id="${
-        product.id
-      }">
+      productList.innerHTML += `<li id="${product.id}">
       <img src="${product.itemImage}" alt="상품 이미지" />
       <p class="ProductTitle">${product.itemName}</p>
       <p class="price">${product.price.toLocaleString()}원</p>
@@ -171,6 +172,8 @@ function setProductList(resProfileProductJson) {
   } else {
     return;
   }
+  const product = document.querySelector(".productList li");
+  product.addEventListener("click", productModal);
 }
 
 // 팔로우, 언팔로우 스타일 변경 구현
@@ -237,8 +240,6 @@ function setPostingList(userPostInfo) {
 function listTypePost() {
   const postingSummary = document.querySelector(".postingSummary");
   const postContent = document.querySelector(".postContent");
-  const albumType = document.querySelector(".postingType.album.buttonClick");
-  const ListType = document.querySelector(".postingType.list.buttonClick");
 
   albumType.classList.add("unselected");
   ListType.classList.remove("unselected");
@@ -306,7 +307,7 @@ function listTypePost() {
                       }</p>
                     </div>
                   </div>
-                  <button onclick="clickUserModal(event)" class="moreBtn buttonClick">
+                  <button class="moreBtn buttonClick">
                     <span class="ir">게시글 더보기 버튼</span>
                   </button>
                 </a>
@@ -319,7 +320,7 @@ function listTypePost() {
             ${checkImg}
             </div>
             <div class="postBtnContent">
-              <button class="${heartStatus}" onclick="clickHeart(event)">
+              <button class="${heartStatus}">
                 <span class="ir">좋아요 버튼</span>
                 <span class="likeCount">${post.heartCount}</span>
               </button>
@@ -330,6 +331,10 @@ function listTypePost() {
             <strong class="postDate">${timeForToday(post.createdAt)}</strong>
           </section>`;
     posting[0].insertAdjacentHTML("beforeend", postListContent);
+    const moreBtn = document.querySelector(".moreBtn.buttonClick");
+    const heartBtn = document.querySelector(".postBtnContent button");
+    moreBtn.addEventListener("click", clickUserModal);
+    heartBtn.addEventListener("click", clickHeart);
   }
 }
 
@@ -588,8 +593,8 @@ function clickUserModal(event) {
 
 // 상품 삭제
 
-if (myAccountName === accountName) {
-  function productModal(e) {
+function productModal(e) {
+  if (myAccountName === accountName) {
     const productModal = document.querySelector(".productModal");
     const productModalClose = document.querySelector(
       ".productModal .modalClose"
@@ -651,9 +656,7 @@ if (myAccountName === accountName) {
         console.error(err);
       }
     });
-  }
-} else {
-  function productModal() {
+  } else {
     location.href = "../pages/error.html";
   }
 }
