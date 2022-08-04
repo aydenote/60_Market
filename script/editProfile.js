@@ -56,7 +56,6 @@ function profileChangeInput() {
 
   // 만약 예외 문자가 없으면 ir 클래스 있어서 알림 X (id.value = id값)
   if (check.test(inputId.value)) {
-    console.log("1");
     alertMessage.classList.add("ir");
     if (
       inputNameLength >= 2 &&
