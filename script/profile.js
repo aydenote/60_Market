@@ -1,5 +1,9 @@
 import { backHistory } from "./newScript/common.js";
-// import {  } from "./newScript/apiModule.js";
+import {
+  likeHeart,
+  likeUnHeart,
+  reportPosting,
+} from "./newScript/apiModule.js";
 
 const backBtn = document.querySelector(".headerBarBack.buttonClick");
 const profileLinkBtn = document.querySelector(".link");
@@ -399,37 +403,6 @@ function timeForToday(time) {
   else if (gap < 86400) return `${parseInt(gap / 3600)}시간 전`;
   else if (gap < 2592000) return `${parseInt(gap / 86400)}일 전`;
   else return `${parseInt(gap / 2592000)}달 전`;
-}
-
-// 좋아요
-async function likeHeart(postingID) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;
-  const token = localStorage.getItem("Token");
-
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
-    },
-  });
-  const data = await res.json();
-  return data;
-}
-
-// 좋아요 취소
-async function likeUnHeart(postingID) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/unheart`;
-  const token = localStorage.getItem("Token");
-  const res = await fetch(url, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
-    },
-  });
-  const data = await res.json();
-  return data;
 }
 
 // 좋아요 버튼 클릭
