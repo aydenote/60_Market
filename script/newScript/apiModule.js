@@ -1,7 +1,7 @@
 // API 통신 모듈
 
 // 프로필 정보 모듈
-export async function getProfileInfo() {
+export async function getProfileInfo(myAccountName, accountName, setMyProfile, setYourProfile) {
   const url = "https://mandarin.api.weniv.co.kr";
   const token = localStorage.getItem("Token");
 
@@ -78,7 +78,7 @@ export async function getPostingList() {
 }
 
 // 좋아요 모듈
-async function likeHeart(postingID) {
+export async function likeHeart(postingID) {
   const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;
   const token = localStorage.getItem("Token");
 
@@ -94,7 +94,7 @@ async function likeHeart(postingID) {
 }
 
 // 좋아요 취소 모듈
-async function likeUnHeart(postingID) {
+export async function likeUnHeart(postingID) {
   const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/unheart`;
   const token = localStorage.getItem("Token");
   const res = await fetch(url, {
@@ -157,7 +157,7 @@ export async function reportPosting() {
 }
 
 // 판매 상품 삭제
-async function deleteProduct() {
+export async function deleteProduct() {
   let productId = e.target.closest("li").id;
   const url = "https://mandarin.api.weniv.co.kr";
   const token = localStorage.getItem("Token");

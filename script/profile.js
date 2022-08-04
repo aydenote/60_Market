@@ -1,4 +1,6 @@
 import { backHistory } from "./newScript/common.js";
+import { getProfileInfo } from "./newScript/apiModule.js";
+
 const backBtn = document.querySelector(".headerBarBack.buttonClick");
 const profileLinkBtn = document.querySelector(".link");
 const followingCount = document.querySelector(".ProfileContent .followings");
@@ -25,33 +27,7 @@ function clickedFollowLink(e) {
 }
 
 // 프로필 정보 가져오기
-async function getProfileInfo() {
-  const url = "https://mandarin.api.weniv.co.kr";
-  const token = localStorage.getItem("Token");
-
-  const setting = {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
-    },
-  };
-
-  try {
-    const resProfile = await fetch(`${url}/profile/${accountName}`, setting);
-    const resProfileJson = await resProfile.json();
-    const userProfile = resProfileJson.profile;
-    // 사용자에 따라 페이지 구현
-    if (userProfile.accountname === myAccountName) {
-      setMyProfile(userProfile);
-    } else {
-      setYourProfile(userProfile);
-    }
-  } catch (err) {
-    console.error(err);
-  }
-}
-getProfileInfo();
+getProfileInfo(myAccountName, accountName, setMyProfile, setYourProfile);
 
 // 내 프로필 페이지 구현
 function setMyProfile(userProfile) {
