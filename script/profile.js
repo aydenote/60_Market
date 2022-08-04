@@ -1,5 +1,5 @@
 import { backHistory } from "./newScript/common.js";
-import { getProfileInfo } from "./newScript/apiModule.js";
+// import {  } from "./newScript/apiModule.js";
 
 const backBtn = document.querySelector(".headerBarBack.buttonClick");
 const profileLinkBtn = document.querySelector(".link");
@@ -19,7 +19,7 @@ ListType.addEventListener("click", listTypePost);
 // 뒤로 가기
 backBtn.addEventListener("click", backHistory);
 
-// 팔로우 링크로 이동
+// 팔로워, 팔로잉 페이지 이동
 function clickedFollowLink(e) {
   const profileUser = document.querySelector(".profileInfo .userId");
   const userId = profileUser.innerText.replace(/@/g, "");
@@ -27,7 +27,34 @@ function clickedFollowLink(e) {
 }
 
 // 프로필 정보 가져오기
-getProfileInfo(myAccountName, accountName, setMyProfile, setYourProfile);
+async function getProfileInfo() {
+  const url = "https://mandarin.api.weniv.co.kr";
+  const token = localStorage.getItem("Token");
+
+  const setting = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  };
+
+  try {
+    const resProfile = await fetch(`${url}/profile/${accountName}`, setting);
+    const resProfileJson = await resProfile.json();
+    const userProfile = resProfileJson.profile;
+    // 사용자에 따라 페이지 구현
+    if (userProfile.accountname === myAccountName) {
+      setMyProfile(userProfile);
+    } else {
+      setYourProfile(userProfile);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+getProfileInfo();
 
 // 내 프로필 페이지 구현
 function setMyProfile(userProfile) {
