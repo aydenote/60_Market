@@ -1,3 +1,5 @@
+import { clickHeart } from "./newScript/common.js";
+
 const token = localStorage.getItem("Token");
 const defaultUrl = "https://mandarin.api.weniv.co.kr";
 const headers = {
@@ -17,54 +19,6 @@ function timeForToday(time) {
   else if (gap < 86400) return `${parseInt(gap / 3600)}시간 전`;
   else if (gap < 2592000) return `${parseInt(gap / 86400)}일 전`;
   else return `${parseInt(gap / 2592000)}달 전`;
-}
-
-// 좋아요
-async function likeHeart(postingID) {
-  const url = `${defaultUrl}/post/${postingID}/heart`;
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: headers,
-    });
-    const data = await res.json();
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-// 좋아요 취소
-async function likeUnHeart(postingID) {
-  const url = `${defaultUrl}/post/${postingID}/unheart`;
-  try {
-    const res = await fetch(url, {
-      method: "DELETE",
-      headers: headers,
-    });
-    const data = await res.json();
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-// 좋아요 버튼 클릭
-async function clickHeart(e) {
-  const likeBtn = e.target;
-  const likeCount = e.target.children[1];
-  const postId = e.target.closest("section").id;
-  let data = {};
-
-  if (likeBtn.classList.contains("on")) {
-    likeBtn.classList.remove("on");
-    data = await likeUnHeart(postId);
-    likeCount.innerHTML = data.post.heartCount;
-  } else {
-    likeBtn.classList.add("on");
-    data = await likeHeart(postId);
-    likeCount.innerHTML = data.post.heartCount;
-  }
 }
 
 // 팔로우한 유저가 없을 경우 보여줄 피드
@@ -94,23 +48,6 @@ async function homeFeed() {
     for (let i = 0; i < posts.length; i++) {
       const postItem = document.createElement("div");
       postItem.classList.add("postItem");
-
-      //좋아요 버튼 클릭
-      async function clickHeart(e) {
-        const likeBtn = e.target;
-        const likeCount = e.target.children[1];
-        let data = {};
-
-        if (likeBtn.classList.contains("on")) {
-          likeBtn.classList.remove("on");
-          data = await likeUnHeart(posts[i].id);
-          likeCount.innerHTML = data.post.heartCount;
-        } else {
-          likeBtn.classList.add("on");
-          data = await likeHeart(posts[i].id);
-          likeCount.innerHTML = data.post.heartCount;
-        }
-      }
 
       // 이미지 url 저장
       let postImage = "";
@@ -164,9 +101,7 @@ async function homeFeed() {
         <p>${posts[i].content}</p>
         ${checkImg}
         <div class="postBtnContent">
-          <button class="likeBtn ${
-            posts[i].hearted ? "on" : ""
-          }" onclick="clickHeart(event)">
+          <button class="likeBtn ${posts[i].hearted ? "on" : ""}">
             <span class="ir">좋아요 버튼</span>
               <span class="likeCount">${posts[i].heartCount}</span>
           </button>
@@ -178,6 +113,10 @@ async function homeFeed() {
       </section>
       `;
       listContent.appendChild(postItem);
+      const heartBtn = document.querySelectorAll(".postBtnContent button");
+      [].forEach.call(heartBtn, function (heartBtn) {
+        heartBtn.addEventListener("click", clickHeart);
+      });
     }
   } catch (err) {
     console.log(err);

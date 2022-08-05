@@ -1,9 +1,4 @@
-import { backHistory } from "./newScript/common.js";
-import {
-  likeHeart,
-  likeUnHeart,
-  reportPosting,
-} from "./newScript/apiModule.js";
+import { backHistory, clickHeart } from "./newScript/common.js";
 
 const backBtn = document.querySelector(".headerBarBack.buttonClick");
 const profileLinkBtn = document.querySelector(".link");
@@ -339,9 +334,11 @@ function listTypePost() {
           </section>`;
     posting[0].insertAdjacentHTML("beforeend", postListContent);
     const moreBtn = document.querySelector(".moreBtn.buttonClick");
-    const heartBtn = document.querySelector(".postBtnContent button");
+    const heartBtn = document.querySelectorAll(".postBtnContent button");
+    [].forEach.call(heartBtn, function (heartBtn) {
+      heartBtn.addEventListener("click", clickHeart);
+    });
     moreBtn.addEventListener("click", clickUserModal);
-    heartBtn.addEventListener("click", clickHeart);
   }
 }
 
@@ -403,24 +400,6 @@ function timeForToday(time) {
   else if (gap < 86400) return `${parseInt(gap / 3600)}시간 전`;
   else if (gap < 2592000) return `${parseInt(gap / 86400)}일 전`;
   else return `${parseInt(gap / 2592000)}달 전`;
-}
-
-// 좋아요 버튼 클릭
-async function clickHeart(e) {
-  const likeBtn = e.target;
-  const likeCount = e.target.children[1];
-  const postId = e.target.closest("section").id;
-  let data = {};
-
-  if (likeBtn.classList.contains("on")) {
-    likeBtn.classList.remove("on");
-    data = await likeUnHeart(postId);
-    likeCount.innerHTML = data.post.heartCount;
-  } else {
-    likeBtn.classList.add("on");
-    data = await likeHeart(postId);
-    likeCount.innerHTML = data.post.heartCount;
-  }
 }
 
 // 사용자에 따라 헤더 모달 구현
