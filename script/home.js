@@ -131,7 +131,6 @@ async function homeFeed() {
 const reportModal = document.querySelector(".reportModal");
 const reportAlert = document.querySelector(".reportAlert");
 const modal = document.querySelector(".modal");
-const modalBg = document.querySelector(".modalBg");
 const reportModalClose = document.querySelector(".reportModal .modalClose");
 const openAlert = document.querySelector(".reportModal .modalBtn1");
 const cancelBtn = document.querySelector(".reportAlert .cancelBtn");
