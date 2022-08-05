@@ -91,7 +91,7 @@ async function homeFeed() {
                   </p>
                 </div>
               </div>
-              <button class="moreBtn buttonClick" onclick="openModal(event)"><span class="ir">게시글 더보기 버튼</span></button>
+              <button class="moreBtn buttonClick"><span class="ir">게시글 더보기 버튼</span></button>
             </a>
           </div>
         </div>
@@ -114,8 +114,12 @@ async function homeFeed() {
       `;
       listContent.appendChild(postItem);
       const heartBtn = document.querySelectorAll(".postBtnContent button");
+      const moreBtn = document.querySelectorAll(".moreBtn.buttonClick");
       [].forEach.call(heartBtn, function (heartBtn) {
         heartBtn.addEventListener("click", clickHeart);
+      });
+      [].forEach.call(moreBtn, function (moreBtn) {
+        moreBtn.addEventListener("click", openModal);
       });
     }
   } catch (err) {
@@ -128,6 +132,10 @@ const reportModal = document.querySelector(".reportModal");
 const reportAlert = document.querySelector(".reportAlert");
 const modal = document.querySelector(".modal");
 const modalBg = document.querySelector(".modalBg");
+const reportModalClose = document.querySelector(".reportModal .modalClose");
+const openAlert = document.querySelector(".reportModal .modalBtn1");
+const cancelBtn = document.querySelector(".reportAlert .cancelBtn");
+const reportBtn = document.querySelector(".reportAlert .reportBtn");
 
 function openModal(e) {
   e.preventDefault();
@@ -136,26 +144,26 @@ function openModal(e) {
   modal.classList.add("appear");
 }
 
-function closeModal() {
+reportModalClose.addEventListener("click", () => {
   reportModal.classList.add("hidden");
   modal.classList.remove("appear");
-}
+});
 
-function openAlert() {
+openAlert.addEventListener("click", () => {
   reportAlert.classList.remove("hidden");
   modal.classList.add("hidden");
-}
+});
 
 // 취소 버튼 클릭
-function clickCancel() {
+cancelBtn.addEventListener("click", () => {
   reportModal.classList.add("hidden");
   reportAlert.classList.add("hidden");
-}
+});
 
 // 신고하기 버튼 클릭
-function clickReport() {
+reportBtn.addEventListener("click", () => {
   reportModal.classList.add("hidden");
   reportAlert.classList.add("hidden");
-}
+});
 
 homeFeed();
