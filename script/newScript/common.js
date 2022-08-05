@@ -9,7 +9,10 @@ export function backHistory() {
 export async function clickHeart(e) {
   const likeBtn = e.target;
   const likeCount = e.target.children[1];
-  const postId = e.target.closest("section").id;
+  let postId = e.target.closest("section").id;
+  postId === ""
+    ? (postId = new URLSearchParams(location.search).get("postid"))
+    : postId;
   let data = {};
 
   if (likeBtn.classList.contains("on")) {

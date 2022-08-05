@@ -1,4 +1,4 @@
-// API 통신 모듈
+// 공통 API 모듈
 
 // 좋아요 모듈
 export async function likeHeart(postingID) {

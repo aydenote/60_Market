@@ -1,21 +1,21 @@
-const backHistory = document.querySelector(".headerBarBack.buttonClick");
+import { backHistory, clickHeart } from "./newScript/common.js";
+const backBtn = document.querySelector(".headerBarBack.buttonClick");
 
 // 뒤로 가기
-backHistory.addEventListener("click", () => {
-  window.location = document.referrer;
-});
-
+backBtn.addEventListener("click", backHistory);
 
 // 게시 버튼 활성화
 const postChatForm = document.querySelector("#postChatContent");
 const postButton = document.querySelector(".postBtn");
 const commentUserProfile = document.querySelector(".commentUserProfile");
 
+postChatForm.addEventListener("keyup", postInput);
 postButton.disabled = true;
+
 function postInput(event) {
-  if(event.keyCode == 13){
+  if (event.keyCode == 13) {
     submitComment(event);
-  }else{
+  } else {
     if (postChatForm.value !== "") {
       postButton.style.color = "var(—mainColor)";
       postButton.disabled = false;
@@ -27,16 +27,15 @@ function postInput(event) {
 }
 
 // 모달창 구현
-const API_ROOT = "https://mandarin.api.weniv.co.kr";
-const POST_ID = new URLSearchParams(location.search).get("postid");
+const url = "https://mandarin.api.weniv.co.kr";
+const postId = new URLSearchParams(location.search).get("postid");
 
 const token = localStorage.getItem("Token");
 const accountname = localStorage.getItem("accountname");
 
 async function renderPost() {
-  // const token = localStorage.getItem('Token');
   try {
-    const res = await fetch(`${API_ROOT}/post/${POST_ID}`, {
+    const res = await fetch(`${url}/post/${postId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -59,7 +58,6 @@ async function renderPost() {
       .replace("-", "년 ")
       .replace("-", "월 ")
       .replace("T", "일");
-    // const comments = json.post.comments;
 
     // 프로필
     const div = document.querySelector(".userItem");
@@ -96,6 +94,7 @@ async function renderPost() {
     const jsonImgTags = jsonImg.map((src) => {
       return src && `<img src=${src} alt="게시물 이미지" />`;
     });
+    let heartStatus;
     if (json.post.hearted) {
       heartStatus = "likeBtn on";
     } else {
@@ -118,7 +117,7 @@ async function renderPost() {
   </div>`
   }
   <div class="postBtnContent">
-    <button onclick="clickHeart(event)" class="${heartStatus}">
+    <button class="${heartStatus}">
       <span class="ir">좋아요 버튼</span>
       <span class="likeCount">${heartCount}</span>
     </button>
@@ -128,7 +127,8 @@ async function renderPost() {
   </div>
   <strong class="postDate">${createdAt}</strong>
 `;
-    console.log(json);
+    const heartBtn = document.querySelector(".postBtnContent button");
+    heartBtn.addEventListener("click", clickHeart);
 
     // 댓글
     const commentSection = document.querySelector(".postCommentBox");
@@ -172,7 +172,6 @@ async function renderPost() {
     });
     commentSection.innerHTML = postComments.join("");
   } catch (err) {
-    // location.href="./error.html";
     console.error(err);
   }
 }
@@ -181,7 +180,7 @@ async function renderPost() {
 const getCommentDetail = async () => {
   const token = localStorage.getItem("Token");
   try {
-    const res = await fetch(`${API_ROOT}/post/${POST_ID}/comments`, {
+    const res = await fetch(`${url}/post/${postId}/comments`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -211,7 +210,7 @@ function timeForToday(time) {
 // 로그인 유저 정보
 async function getLoginUserInfo() {
   try {
-    const res = await fetch(`${API_ROOT}/profile/${accountname}`, {
+    const res = await fetch(`${url}/profile/${accountname}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -219,7 +218,6 @@ async function getLoginUserInfo() {
       },
     });
     const userJson = await res.json();
-    console.log(userJson);
     const commentUserProfileImg = userJson.profile.image;
     // 댓글 유저 프로필 이미지
     commentUserProfile.setAttribute("src", commentUserProfileImg);
@@ -238,7 +236,7 @@ const submitComment = async (e) => {
   e.preventDefault();
   const token = localStorage.getItem("Token");
   try {
-    const res = await fetch(`${API_ROOT}/post/${POST_ID}/comments`, {
+    const res = await fetch(`${url}/post/${postId}/comments`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -340,8 +338,6 @@ const modalOpen = (e) => {
     modal.innerHTML = modalReport(commentId);
     body.appendChild(modal);
   }
-  // btnReport.classList.remove("hidden")
-  // PostModal.classList.remove("hidden")
 };
 
 const modalClose = () => {
@@ -356,16 +352,13 @@ const modalOpenCommentDelete = (commentId) => {
 const deleteComment = async (commentId) => {
   const token = localStorage.getItem("Token");
   try {
-    const res = await fetch(
-      `${API_ROOT}/post/${POST_ID}/comments/${commentId}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${url}/post/${postId}/comments/${commentId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-type": "application/json",
+      },
+    });
     const json = await res.json();
     modalClose();
     renderPost();
@@ -382,7 +375,7 @@ const commentReport = async (commentId) => {
   const token = localStorage.getItem("Token");
   try {
     const res = await fetch(
-      `${API_ROOT}/post/${POST_ID}/comments/${commentId}/report`,
+      `${url}/post/${postId}/comments/${commentId}/report`,
       {
         method: "DELETE",
         headers: {
@@ -401,51 +394,3 @@ const commentReport = async (commentId) => {
 };
 
 renderPost();
-
-// 좋아요
-async function likeHeart(postingID) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;
-  const token = localStorage.getItem("Token");
-
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
-    },
-  });
-  const data = await res.json();
-  return data;
-}
-
-// 좋아요 취소
-async function likeUnHeart(postingID) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/unheart`;
-  const token = localStorage.getItem("Token");
-  const res = await fetch(url, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
-    },
-  });
-  const data = await res.json();
-  return data;
-}
-
-// 좋아요 버튼 클릭
-async function clickHeart(e) {
-  const likeBtn = e.target;
-  const likeCount = e.target.children[1];
-  let data = {};
-
-  if (likeBtn.classList.contains("on")) {
-    likeBtn.classList.remove("on");
-    data = await likeUnHeart(POST_ID);
-    likeCount.innerHTML = data.post.heartCount;
-  } else {
-    likeBtn.classList.add("on");
-    data = await likeHeart(POST_ID);
-    likeCount.innerHTML = data.post.heartCount;
-  }
-}
