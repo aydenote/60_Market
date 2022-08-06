@@ -1,4 +1,6 @@
-import { backHistory, clickHeart, timeForToday } from "./newScript/common.js";
+import { backHistory, timeForToday } from "./newScript/common.js";
+import { clickHeart } from "./newScript/heartBtn.js";
+
 const backBtn = document.querySelector(".headerBarBack.buttonClick");
 
 // 뒤로 가기

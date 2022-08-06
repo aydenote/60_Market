@@ -1,4 +1,5 @@
-import { clickHeart, timeForToday } from "./newScript/common.js";
+import { timeForToday } from "./newScript/common.js";
+import { clickHeart } from "./newScript/heartBtn.js";
 
 const token = localStorage.getItem("Token");
 const defaultUrl = "https://mandarin.api.weniv.co.kr";

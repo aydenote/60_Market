@@ -6,7 +6,7 @@
 
 </div>
 
-### 🔗 [60’’ Market](https://60-market.github.io/60-market/index.html)
+### 🔗 [60’’ Market](https://aydenote.github.io/60-market-refactoring/)
 
 ### 💳  **서비스 이용을 위한 계정**
 
