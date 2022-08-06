@@ -332,7 +332,6 @@ function listTypePost() {
             </div>
             <strong class="postDate">${timeForToday(post.createdAt)}</strong>
           </section>`;
-    console.log(timeForToday(post.updatedAt));
     posting[0].insertAdjacentHTML("beforeend", postListContent);
     const moreBtn = document.querySelector(".moreBtn.buttonClick");
     const heartBtn = document.querySelectorAll(".postBtnContent button");
