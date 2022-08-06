@@ -1,5 +1,6 @@
 import { timeForToday } from "./newScript/common.js";
 import { clickHeart } from "./newScript/heartBtn.js";
+import { clickUserModal } from "./newScript/modal.js";
 
 const token = localStorage.getItem("Token");
 const defaultUrl = "https://mandarin.api.weniv.co.kr";
@@ -107,7 +108,7 @@ async function homeFeed() {
         heartBtn.addEventListener("click", clickHeart);
       });
       [].forEach.call(moreBtn, function (moreBtn) {
-        moreBtn.addEventListener("click", openModal);
+        moreBtn.addEventListener("click", clickUserModal);
       });
     }
   } catch (err) {
@@ -116,41 +117,41 @@ async function homeFeed() {
 }
 
 // 더보기 버튼 클릭시 모달 열기
-const reportModal = document.querySelector(".reportModal");
-const reportAlert = document.querySelector(".reportAlert");
-const modal = document.querySelector(".modal");
-const reportModalClose = document.querySelector(".reportModal .modalClose");
-const openAlert = document.querySelector(".reportModal .modalBtn1");
-const cancelBtn = document.querySelector(".reportAlert .cancelBtn");
-const reportBtn = document.querySelector(".reportAlert .reportBtn");
+// const reportModal = document.querySelector(".reportModal");
+// const reportAlert = document.querySelector(".reportAlert");
+// const modal = document.querySelector(".modal");
+// const reportModalClose = document.querySelector(".reportModal .modalClose");
+// const openAlert = document.querySelector(".reportModal .modalBtn1");
+// const cancelBtn = document.querySelector(".reportAlert .cancelBtn");
+// const reportBtn = document.querySelector(".reportAlert .reportBtn");
 
-function openModal(e) {
-  e.preventDefault();
-  reportModal.classList.remove("hidden");
-  modal.classList.remove("hidden");
-  modal.classList.add("appear");
-}
+// function openModal(e) {
+//   e.preventDefault();
+//   reportModal.classList.remove("hidden");
+//   modal.classList.remove("hidden");
+//   modal.classList.add("appear");
+// }
 
-reportModalClose.addEventListener("click", () => {
-  reportModal.classList.add("hidden");
-  modal.classList.remove("appear");
-});
+// reportModalClose.addEventListener("click", () => {
+//   reportModal.classList.add("hidden");
+//   modal.classList.remove("appear");
+// });
 
-openAlert.addEventListener("click", () => {
-  reportAlert.classList.remove("hidden");
-  modal.classList.add("hidden");
-});
+// openAlert.addEventListener("click", () => {
+//   reportAlert.classList.remove("hidden");
+//   modal.classList.add("hidden");
+// });
 
-// 취소 버튼 클릭
-cancelBtn.addEventListener("click", () => {
-  reportModal.classList.add("hidden");
-  reportAlert.classList.add("hidden");
-});
+// // 취소 버튼 클릭
+// cancelBtn.addEventListener("click", () => {
+//   reportModal.classList.add("hidden");
+//   reportAlert.classList.add("hidden");
+// });
 
-// 신고하기 버튼 클릭
-reportBtn.addEventListener("click", () => {
-  reportModal.classList.add("hidden");
-  reportAlert.classList.add("hidden");
-});
+// // 신고하기 버튼 클릭
+// reportBtn.addEventListener("click", () => {
+//   reportModal.classList.add("hidden");
+//   reportAlert.classList.add("hidden");
+// });
 
 homeFeed();

@@ -33,10 +33,13 @@ export function logoutModal() {
 export function clickUserModal(event) {
   const URLSearch = new URLSearchParams(location.search);
   const myAccountName = localStorage.getItem("accountname");
+  const postUserName =
+    event.target.previousElementSibling.children[1].innerText.replace("@", "");
   let accountName = URLSearch.get("accountname");
-  accountName = accountName === null ? myAccountName : accountName;
-  event.preventDefault();
+  accountName = accountName === null ? postUserName : accountName;
   const postingId = event.path[4].nextElementSibling.id;
+
+  event.preventDefault();
 
   // 사용자 본인 프로필인 경우, 게시물 삭제 모달
   if (accountName === myAccountName || accountName === null) {
@@ -155,6 +158,7 @@ export function productModal(e) {
   const myAccountName = localStorage.getItem("accountname");
   let accountName = URLSearch.get("accountname");
   accountName = accountName === null ? myAccountName : accountName;
+
   if (myAccountName === accountName) {
     const productModal = document.querySelector(".productModal");
     const productModalClose = document.querySelector(
