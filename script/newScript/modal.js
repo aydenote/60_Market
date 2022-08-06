@@ -29,12 +29,16 @@ export function logoutModal() {
   });
 }
 
-// 사용자에 따라 포스트 모달 구현
+// 사용자에 따라 게시물 모달 구현
 export function clickUserModal(event) {
+  const URLSearch = new URLSearchParams(location.search);
+  const myAccountName = localStorage.getItem("accountname");
+  let accountName = URLSearch.get("accountname");
+  accountName = accountName === null ? myAccountName : accountName;
   event.preventDefault();
   const postingId = event.path[4].nextElementSibling.id;
 
-  // 사용자 본일 프로필일 경우, 포스팅 삭제 모달
+  // 사용자 본인 프로필인 경우, 게시물 삭제 모달
   if (accountName === myAccountName || accountName === null) {
     const postDelete = document.querySelector(".posttModal .modalBtn1");
     const cancelBtn = document.querySelector(".postDelAlert .cancelBtn");
@@ -50,7 +54,7 @@ export function clickUserModal(event) {
       posttModal.classList.add("hidden");
     });
 
-    // 삭제 버튼 클릭 시 포스팅 삭제 확인 모달 활성화
+    // 삭제 버튼 클릭 시 게시물 삭제 확인 모달 활성화
     postDelete.addEventListener("click", () => {
       postDelAlert.classList.remove("hidden");
     });
@@ -60,6 +64,7 @@ export function clickUserModal(event) {
       postDelAlert.classList.add("hidden");
     });
 
+    // 게시물 삭제 버튼 클릭 시
     delBtn.addEventListener("click", async function () {
       const url = "https://mandarin.api.weniv.co.kr";
       const token = localStorage.getItem("Token");
@@ -84,14 +89,14 @@ export function clickUserModal(event) {
         console.error(err);
       }
     });
-    // 포스팅 수정페이지로 이동
+    // 게시물 수정페이지로 이동
     const postEditBtn = document.querySelector(".posttModal .modalBtn2");
 
     postEditBtn.addEventListener("click", () => {
       window.location = `postUpload.html\?postid=${postingId}`;
     });
   } else {
-    // 게시물 신고
+    // 다른 사용자 프로필인 경우, 게시물 신고 모달
     const reportAlert = document.querySelector(".reportAlert");
     const reportModal = document.querySelector(".reportModal");
     const cancelBtn = document.querySelector(".reportAlert .cancelBtn");
@@ -100,14 +105,17 @@ export function clickUserModal(event) {
     const modalClose = document.querySelector(".reportModal .modalClose");
     reportModal.classList.remove("hidden");
 
-    cancelBtn.addEventListener("click", () => {
-      reportAlert.classList.add("hidden");
-    });
-
+    // 모달창 닫기 버튼 클릭 시 모달창 닫기
     modalClose.addEventListener("click", () => {
       reportModal.classList.add("hidden");
     });
 
+    // 모달창 취소 확인 모달에서 취소 버튼 클릭 시 모달창 닫기
+    cancelBtn.addEventListener("click", () => {
+      reportAlert.classList.add("hidden");
+    });
+
+    // 신고 모달창에서 신고 버튼 클릭 시 신고 확인 모달 활성화
     reportModalBtn.addEventListener("click", () => {
       reportAlert.classList.remove("hidden");
     });
@@ -142,8 +150,11 @@ export function clickUserModal(event) {
 }
 
 // 상품 삭제
-
-function productModal(e) {
+export function productModal(e) {
+  const URLSearch = new URLSearchParams(location.search);
+  const myAccountName = localStorage.getItem("accountname");
+  let accountName = URLSearch.get("accountname");
+  accountName = accountName === null ? myAccountName : accountName;
   if (myAccountName === accountName) {
     const productModal = document.querySelector(".productModal");
     const productModalClose = document.querySelector(

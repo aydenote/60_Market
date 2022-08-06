@@ -1,6 +1,10 @@
 import { backHistory, timeForToday } from "./newScript/common.js";
 import { clickHeart } from "./newScript/heartBtn.js";
-import { logoutModal } from "./newScript/modal.js";
+import {
+  logoutModal,
+  clickUserModal,
+  productModal,
+} from "./newScript/modal.js";
 
 const backBtn = document.querySelector(".headerBarBack.buttonClick");
 const profileLinkBtn = document.querySelector(".link");
@@ -9,8 +13,8 @@ const followerCount = document.querySelector(".ProfileContent .followers");
 const albumType = document.querySelector(".postingType.album.buttonClick");
 const ListType = document.querySelector(".postingType.list.buttonClick");
 const URLSearch = new URLSearchParams(location.search);
-let accountName = URLSearch.get("accountname");
 const myAccountName = localStorage.getItem("accountname");
+let accountName = URLSearch.get("accountname");
 accountName = accountName === null ? myAccountName : accountName;
 followingCount.addEventListener("click", clickedFollowLink);
 followerCount.addEventListener("click", clickedFollowLink);
