@@ -10,11 +10,11 @@ backBtn.addEventListener("click", backHistory);
 const postChatForm = document.querySelector("#postChatContent");
 const postButton = document.querySelector(".postBtn");
 const commentUserProfile = document.querySelector(".commentUserProfile");
-
 postChatForm.addEventListener("keyup", postInput);
 postButton.disabled = true;
 
 function postInput(event) {
+  // enter 시에 comment 입력
   if (event.keyCode == 13) {
     submitComment(event);
   } else {
@@ -156,7 +156,7 @@ async function renderPost() {
                 comment.createdAt
               )}</strong>
             </div>
-            <button class="moreBtn buttonClick" onclick=modalOpen(event)>
+            <button class="moreBtn buttonClick">
               <span class="ir">댓글 모달 버튼</span>
             </button>
           </div>
@@ -170,6 +170,10 @@ async function renderPost() {
   </article>`;
     });
     commentSection.innerHTML = postComments.join("");
+    const modal = document.querySelectorAll(".moreBtn.buttonClick");
+    [].forEach.call(modal, function (modal) {
+      modal.addEventListener("click", modalOpen);
+    });
   } catch (err) {
     console.error(err);
   }
@@ -246,36 +250,35 @@ submitButton.addEventListener("click", submitComment);
 
 const modal = document.createElement("div");
 
-const modalMore = (commentId) => {
+const modalMore = () => {
   return `<section class="modalBg postModal">
   <article class="modal appear">
-    <button onclick="modalClose()" class="modalClose">
+    <button class="modalClose">
       <span class="ir">댓글 신고 버튼</span>
     </button>
-    <button onclick="modalOpenCommentDelete('${commentId}')" class="modalBtn modalBtn1">삭제</button>
-    <button class="modalBtn modalBtn2">수정</button>
+    <button class="modalBtn modalBtn1">삭제</button>
   </article>
 </section>`;
 };
 
-const modalCommentDelete = (commentId) => {
+const modalCommentDelete = () => {
   return `<section class="modalAlert productDelAlert">
   <h4 class="ir">댓글 삭제 창</h4>
   <strong class="alertMsg">삭제하시겠습니까?</strong>
   <div class="alertBtnContent">
-    <button onclick="modalClose()" class="cancelBtn">취소</button>
-    <button onclick="deleteComment('${commentId}')" class="delBtn">삭제</button>
+    <button class="cancelBtn">취소</button>
+    <button class="delBtn">삭제</button>
   </div>
   </section>`;
 };
 
-const modalReport = (commentId) => {
+const modalReport = () => {
   return `<section class="modalBg commentReportModal">
   <article class="modal appear">
-    <button onclick="modalClose()" id="btnReportClose" class="modalClose">
+    <button id="btnReportClose" class="modalClose">
       <span class="ir">댓글 신고 버튼</span>
     </button>
-    <button onclick="commentReport('${commentId}')" class="modalBtn modalBtn1">신고</button>
+    <button class="modalBtn modalBtn1">신고</button>
   </article>
 </section>`;
 };
@@ -284,16 +287,7 @@ const reportAlert = `<section class="modalAlert postDelAlert">
 <h4 class="ir">신고 완료</h4>
 <strong class="alertMsg">신고 완료</strong>
 <div class="alertBtnContent">
-  <button onclick="modalClose()" class="cancelBtn">확인</button>
-</div>
-</section>`;
-
-const deleteConfirmAlert = `<section class="modalAlert productDelAlert hidden">
-<h4 class="ir">댓글 삭제 창</h4>
-<strong class="alertMsg">삭제하시겠어?</strong>
-<div class="modalBtnContent">
-  <button class="cancelBtn">취소</button>
-  <button class="delBtn">삭제</button>
+  <button class="cancelBtn">확인</button>
 </div>
 </section>`;
 
@@ -301,12 +295,10 @@ const deleteAlert = `<section class="modalAlert postDelAlert">
 <h4 class="ir">삭제 완료</h4>
 <strong class="alertMsg">삭제 완료</strong>
 <div class="alertBtnContent">
-  <button onclick="modalClose()" class="cancelBtn">확인</button>
+  <button class="cancelBtn">확인</button>
 </div>
 </section>`;
 
-const btnPostModal = document.querySelector(".postModal");
-const btnReport = document.querySelector(".commentReportModal");
 const body = document.body;
 const modalOpen = (e) => {
   e.preventDefault();
@@ -316,21 +308,47 @@ const modalOpen = (e) => {
   const commentId = e.target.parentElement
     .closest("article")
     .getAttribute("id");
-  if (commentAccountName == localStorage.getItem("accountname")) {
+
+  // 본인 댓글인 경우 삭제 모달 활성화
+  if (commentAccountName === localStorage.getItem("accountname")) {
     modal.innerHTML = modalMore(commentId);
     body.appendChild(modal);
+    const commentModalClose = document.querySelector(".postModal .modalClose");
+    const commentModalDelete = document.querySelector(".postModal .modalBtn1");
+    commentModalClose.addEventListener("click", modalClose);
+    commentModalDelete.addEventListener("click", () => {
+      modalOpenCommentDelete(commentId);
+    });
   } else {
+    // 다른 사람의 댓글인 경우 신고 모달 활성화
     modal.innerHTML = modalReport(commentId);
     body.appendChild(modal);
+    const reportModalClose = document.querySelector("#btnReportClose");
+    const reportBtn = document.querySelector(".commentReportModal .modalBtn1");
+    reportModalClose.addEventListener("click", modalClose);
+    reportBtn.addEventListener("click", () => {
+      commentReport(commentId);
+    });
   }
 };
 
+// 모달 닫기
 const modalClose = () => {
   body.removeChild(modal);
 };
 
+// 댓글 삭제 모달창 활성화
 const modalOpenCommentDelete = (commentId) => {
   modal.innerHTML = modalCommentDelete(commentId);
+  const deleteCommentModal = document.querySelector(".productDelAlert .delBtn");
+  const cancelCommentModal = document.querySelector(
+    ".productDelAlert .cancelBtn"
+  );
+
+  deleteCommentModal.addEventListener("click", () => {
+    deleteComment(commentId);
+  });
+  cancelCommentModal.addEventListener("click", modalClose);
 };
 
 //댓글 삭제
@@ -349,13 +367,15 @@ const deleteComment = async (commentId) => {
     renderPost();
     modal.innerHTML = deleteAlert;
     body.appendChild(modal);
+    // 모달창 닫기
+    const alertClose = document.querySelector(".postDelAlert .cancelBtn");
+    alertClose.addEventListener("click", modalClose);
   } catch (err) {
     console.log(err);
   }
 };
 
 // 댓글 신고
-
 const commentReport = async (commentId) => {
   const token = localStorage.getItem("Token");
   try {
@@ -373,6 +393,9 @@ const commentReport = async (commentId) => {
     modalClose();
     modal.innerHTML = reportAlert;
     body.appendChild(modal);
+    // 모달창 닫기
+    const alertClose = document.querySelector(".postDelAlert .cancelBtn");
+    alertClose.addEventListener("click", modalClose);
   } catch (err) {
     console.log(err);
   }
