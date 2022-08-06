@@ -1,4 +1,4 @@
-import { backHistory, clickHeart } from "./newScript/common.js";
+import { backHistory, clickHeart, timeForToday } from "./newScript/common.js";
 const backBtn = document.querySelector(".headerBarBack.buttonClick");
 
 // 뒤로 가기
@@ -46,18 +46,15 @@ async function renderPost() {
     // 프로필, 게시글, 댓글 데이터 불러오기
 
     const json = await res.json();
-    const profileImg = json.post.author.image;
-    const userName = json.post.author.username;
-    const accountName = json.post.author.accountname;
-    const content = json.post.content;
-    const jsonImg = Array.from(json.post.image.split(","));
-    const heartCount = json.post.heartCount;
-    const commentCount = json.post.commentCount;
-    const createdAt = json.post.createdAt
-      .slice(0, 11)
-      .replace("-", "년 ")
-      .replace("-", "월 ")
-      .replace("T", "일");
+    const postInfo = json.post;
+    const profileImg = postInfo.author.image;
+    const userName = postInfo.author.username;
+    const accountName = postInfo.author.accountname;
+    const content = postInfo.content;
+    const jsonImg = Array.from(postInfo.image.split(","));
+    const heartCount = postInfo.heartCount;
+    const commentCount = postInfo.commentCount;
+    const createdAt = timeForToday(postInfo.createdAt);
 
     // 프로필
     const div = document.querySelector(".userItem");
@@ -192,20 +189,6 @@ const getCommentDetail = async () => {
     console.log(err);
   }
 };
-
-// 게시물 등록 시간 계산 함수
-function timeForToday(time) {
-  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-  const postingDate = time.substring(0, time.length - 1);
-  const ms = Date.parse(postingDate) + KR_TIME_DIFF;
-  const now = Date.now();
-  const gap = (now - ms) / 1000;
-  if (gap < 60) return "방금전";
-  else if (gap < 3600) return `${parseInt(gap / 60)}분 전`;
-  else if (gap < 86400) return `${parseInt(gap / 3600)}시간 전`;
-  else if (gap < 2592000) return `${parseInt(gap / 86400)}일 전`;
-  else return `${parseInt(gap / 2592000)}달 전`;
-}
 
 // 로그인 유저 정보
 async function getLoginUserInfo() {
