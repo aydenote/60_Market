@@ -180,8 +180,13 @@ function setProductList(resProfileProductJson) {
   } else {
     return;
   }
-  const product = document.querySelector(".productList li");
-  product.addEventListener("click", productModal);
+  const product = document.querySelectorAll(".productList li");
+  [].forEach.call(product, function (product) {
+    product.addEventListener("click", (event) => {
+      const productId = event.target.closest("li").id;
+      productModal(productId);
+    });
+  });
 }
 
 // 팔로우, 언팔로우 스타일 변경 구현

@@ -32,8 +32,7 @@ export async function likeUnHeart(postingID) {
 }
 
 // 게시물 신고
-export async function reportPosting() {
-  reportModal.classList.add("hidden");
+export async function reportPost(postingId) {
   const url = "https://mandarin.api.weniv.co.kr";
   const token = localStorage.getItem("Token");
 
@@ -49,7 +48,30 @@ export async function reportPosting() {
     const resReport = await fetch(`${url}/post/${postingId}/report`, setting);
     const resReportJson = await resReport.json();
     if (resReportJson.status !== 404) {
-      reportAlert.classList.add("hidden");
+      location.reload();
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// 게시물 삭제
+export async function deletePost(postingId) {
+  const url = "https://mandarin.api.weniv.co.kr";
+  const token = localStorage.getItem("Token");
+
+  const setting = {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-type": "application/json",
+    },
+  };
+
+  try {
+    const resDeleteProduct = await fetch(`${url}/post/${postingId}`, setting);
+    if (resDeleteProduct) {
+      location.href = "../pages/profile.html";
     }
   } catch (err) {
     console.error(err);
