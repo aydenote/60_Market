@@ -1,4 +1,10 @@
-import { MainPage, IntroPage, LoginPage, HomePage } from "./pages/index.js";
+import {
+  MainPage,
+  IntroPage,
+  LoginPage,
+  SignUpPage,
+  HomePage,
+} from "./pages/index.js";
 import { Router } from "./utils/index.js";
 
 export default class App {
@@ -12,6 +18,7 @@ export default class App {
       "/": MainPage,
       "/intro": IntroPage,
       "/login": LoginPage,
+      "/signUp": SignUpPage,
       // "/home": HomePage,
       // "/detail": ProductDetail,
     });

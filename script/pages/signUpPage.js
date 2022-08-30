@@ -4,7 +4,7 @@ const config = {
   rootEl: "#root",
 };
 
-class LoginPage {
+class SignUpPage {
   render() {
     // header
     const wrapEl = document.createElement("div");
@@ -14,7 +14,7 @@ class LoginPage {
     wrapEl.classList.add("wrap");
     wrapEl.classList.add("registerWrap");
     heading1El.classList.add("registerHeader");
-    heading1El.innerText = "로그인";
+    heading1El.innerText = "이메일로 회원가입";
 
     headerEl.appendChild(heading1El);
     wrapEl.appendChild(headerEl);
@@ -26,7 +26,8 @@ class LoginPage {
     const emailInputEl = document.createElement("input");
     const passwordLabelEl = document.createElement("label");
     const passwordInputEl = document.createElement("input");
-    const alertPEl = document.createElement("p");
+    const emailAlertPEl = document.createElement("p");
+    const passwordAlertPEl = document.createElement("p");
     const loginButtonEl = document.createElement("button");
 
     formEl.classList.add("logInForm");
@@ -46,6 +47,12 @@ class LoginPage {
     formEl.appendChild(emailLabelEl);
     formEl.appendChild(emailInputEl);
 
+    emailAlertPEl.classList.add("registerFormAlert");
+    emailAlertPEl.classList.add("errorEmail");
+    emailAlertPEl.classList.add("ir");
+    emailAlertPEl.innerText = "*이미 가입된 이메일 주소입니다.";
+    formEl.appendChild(emailAlertPEl);
+
     passwordLabelEl.classList.add("registerFormLabel");
     passwordLabelEl.setAttribute("for", "password");
     passwordLabelEl.innerText = "비밀번호";
@@ -59,17 +66,18 @@ class LoginPage {
     formEl.appendChild(passwordLabelEl);
     formEl.appendChild(passwordInputEl);
 
-    alertPEl.classList.add("registerFormAlert");
-    alertPEl.classList.add("ir");
-    alertPEl.innerText = "*이메일 또는 비밀번호가 일치하지 않습니다.";
-    formEl.appendChild(alertPEl);
+    passwordAlertPEl.classList.add("registerFormAlert");
+    passwordAlertPEl.classList.add("errorPassword");
+    passwordAlertPEl.classList.add("ir");
+    passwordAlertPEl.innerText = "*비밀번호는 6자 이상이어야 합니다.";
+    formEl.appendChild(passwordAlertPEl);
 
     loginButtonEl.classList.add("btn");
     loginButtonEl.classList.add("logInBtn");
     loginButtonEl.classList.add("registerFormBtn");
     loginButtonEl.setAttribute("type", "button");
     loginButtonEl.disabled = true;
-    loginButtonEl.innerText = "로그인";
+    loginButtonEl.innerText = "다음";
     formEl.appendChild(loginButtonEl);
 
     // article
@@ -78,10 +86,10 @@ class LoginPage {
 
     anchorEl.classList.add("registerByEmail");
     anchorEl.addEventListener("click", () => {
-      window.history.pushState({}, "", "/signUp"); // 주소 업데이트
+      window.history.pushState({}, "", "/login"); // 주소 업데이트
       new App(config).setup();
     });
-    anchorEl.innerText = "이메일로 회원가입";
+    anchorEl.innerText = "로그인 하러 가기";
     articleEl.appendChild(anchorEl);
 
     mainEl.appendChild(formEl);
@@ -92,36 +100,4 @@ class LoginPage {
   }
 }
 
-export default LoginPage;
-
-/* <div class="wrap registerWrap">
-<header>
-  <h1 class="registerHeader">로그인</h1>
-</header>
-
-<main>
-  <form class="logInForm registerForm" action="" method="get">
-    <label class="registerFormLabel" for="email">이메일</label>
-    <input id="email" name="email" type="email" required />
-    <label class="registerFormLabel" for="password">비밀번호</label>
-    <input
-      id="password"
-      name="password"
-      type="password"
-      minlength="6"
-      required
-    />
-    <p class="registerFormAlert ir">
-      *이메일 또는 비밀번호가 일치하지 않습니다.
-    </p>
-
-    <button type="button" class="btn logInBtn registerFormBtn" disabled>
-      로그인
-    </button>
-  </form>
-</main>
-
-<article>
-  <a class="registerByEmail" href="signUp.html">이메일로 회원가입</a>
-</article>
-</div> */
+export default SignUpPage;
