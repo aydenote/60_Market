@@ -45,7 +45,6 @@ class Router {
     let page = "";
 
     if (this.routes[pathname]) {
-      // new ProductDetail or new ProductPage
       const component = new this.routes[pathname]();
       page = component.render();
     } else if (param) {

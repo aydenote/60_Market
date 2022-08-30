@@ -11,6 +11,7 @@ export default class App {
   constructor(props) {
     this.props = props;
   }
+
   setup() {
     const { rootEl } = this.props;
 
@@ -19,7 +20,7 @@ export default class App {
       "/intro": IntroPage,
       "/login": LoginPage,
       "/signUp": SignUpPage,
-      // "/home": HomePage,
+      "/home": HomePage,
       // "/detail": ProductDetail,
     });
     router.init(rootEl);

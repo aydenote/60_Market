@@ -1,3 +1,9 @@
+import App from "../app.js";
+
+const config = {
+  rootEl: "#root",
+};
+
 class MainPage {
   render() {
     const wrapEl = document.createElement("div");
@@ -14,9 +20,13 @@ class MainPage {
     articleEl.appendChild(containerEl);
     wrapEl.appendChild(articleEl);
 
+    window.setTimeout(() => {
+      window.history.pushState({}, "", "/intro"); // 주소 업데이트
+      new App(config).setup();
+    }, 1000);
+
     return { wrapEl };
   }
-
 }
 
 export default MainPage;

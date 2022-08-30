@@ -1,4 +1,5 @@
 import App from "../app.js";
+import { CheckForm, Validation } from "../logIn.js";
 
 const config = {
   rootEl: "#root",
@@ -53,7 +54,7 @@ class LoginPage {
     passwordInputEl.id = "password";
     passwordInputEl.setAttribute("name", "password");
     passwordInputEl.setAttribute("type", "password");
-    passwordInputEl.maxLength = "6";
+    passwordInputEl.minlength = "6";
     passwordInputEl.required = true;
 
     formEl.appendChild(passwordLabelEl);
@@ -88,40 +89,27 @@ class LoginPage {
     wrapEl.appendChild(mainEl);
     wrapEl.appendChild(articleEl);
 
+    // 폼 입력
+    const checkForm = new CheckForm(
+      emailInputEl,
+      passwordInputEl,
+      loginButtonEl
+    );
+    // 로그인 유효성 검사
+    const validation = new Validation(
+      emailInputEl,
+      passwordInputEl,
+      alertPEl,
+      formEl
+    );
+
+    // 폼 입력
+    formEl.addEventListener("input", checkForm.checkInput);
+    // 로그인 유효성 검사
+    loginButtonEl.addEventListener("click", validation.getLogInData);
+
     return { wrapEl };
   }
 }
 
 export default LoginPage;
-
-/* <div class="wrap registerWrap">
-<header>
-  <h1 class="registerHeader">로그인</h1>
-</header>
-
-<main>
-  <form class="logInForm registerForm" action="" method="get">
-    <label class="registerFormLabel" for="email">이메일</label>
-    <input id="email" name="email" type="email" required />
-    <label class="registerFormLabel" for="password">비밀번호</label>
-    <input
-      id="password"
-      name="password"
-      type="password"
-      minlength="6"
-      required
-    />
-    <p class="registerFormAlert ir">
-      *이메일 또는 비밀번호가 일치하지 않습니다.
-    </p>
-
-    <button type="button" class="btn logInBtn registerFormBtn" disabled>
-      로그인
-    </button>
-  </form>
-</main>
-
-<article>
-  <a class="registerByEmail" href="signUp.html">이메일로 회원가입</a>
-</article>
-</div> */

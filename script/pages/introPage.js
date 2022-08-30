@@ -42,7 +42,10 @@ class IntroPage {
     signUpButtonEl.classList.add("btn");
     signUpButtonEl.classList.add("logInBtn");
     signUpButtonEl.setAttribute("type", "button");
-    signUpButtonEl.addEventListener("click", console.log("signUp 페이지 이동"));
+    signUpButtonEl.addEventListener("click", () => {
+      window.history.pushState({}, "", "/signUp"); // 주소 업데이트
+      new App(config).setup();
+    });
     signUpButtonEl.innerText = "회원가입";
 
     formEl.appendChild(loginButtonEl);
