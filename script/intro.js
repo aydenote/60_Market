@@ -1,5 +1,8 @@
-const url = "https://mandarin.api.weniv.co.kr";
-const token = localStorage.getItem("Token");
+import App from "./app.js";
+
+const config = {
+  rootEl: "#root",
+};
 
 class Validation {
   constructor(url) {
@@ -8,14 +11,19 @@ class Validation {
 
   // 토큰이 있으면 홈으로 이동
   logIn = (resMessage) => {
-    if (resMessage === true) {
-      location.href = "./home.html";
+    if (resMessage === 200) {
+      window.history.pushState({}, "", "/home"); // 주소 업데이트
+      new App(config).setup();
     }
   };
 
   // 토큰 검증
-  isValidToken = async () => {
-    let config = {
+  isValidToken = async (token) => {
+    if (token === null) {
+      return;
+    }
+
+    let setting = {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-type": "application/json",
@@ -23,15 +31,13 @@ class Validation {
     };
 
     try {
-      const res = await axios.get(`${this.url}/user/checktoken`, config);
-      const resMessage = res.data.isValid;
-      this.logIn(resMessage);
+      const resValidToken = await fetch(`${this.url}/user/checktoken`, setting);
+      this.logIn(resValidToken.status);
     } catch (err) {
-      location.href = "./signUp.html";
+      window.history.pushState({}, "", "/signUp"); // 주소 업데이트
+      new App(config).setup();
     }
   };
 }
 
-// 토큰 검증
-const validation = new Validation(url);
-validation.isValidToken();
+export default Validation;
