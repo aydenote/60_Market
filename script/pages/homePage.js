@@ -150,8 +150,7 @@ class HomePage {
     footerEl.appendChild(navBarEl);
 
     // home 피드 구현
-    const homeFeed = new Home();
-    // homeFeed(token, defaultUrl, listContent);
+    const homeFeed = new Home(token, defaultUrl, listContent);
     homeFeed.feedAPI(token, defaultUrl);
 
     return { headerEl, mainEl, footerEl };
@@ -159,50 +158,3 @@ class HomePage {
 }
 
 export default HomePage;
-/*
-{
-   <header>
-      <article class="headerBar">
-        <h1 class="mainHeading mainLogo">60'' 마켓</h1>
-        <a href="./search.html"  class="headerBarModal headerBarBtn searchBtn"><span class="ir">사용자 검색 버튼</span></a>
-    </header>
-    <main class="home">
-      <h2 class="ir">60'' 마켓 피드</h2>
-      <article class="post">
-        <h3 class="ir">피드 게시글</h3>
-      </article>
-
-
-    </main>
-    <footer>
-      <nav class="navBar">
-        <ul class="navList">
-          <li>
-            <a href="home.html" class="nav">
-              <article class="navIcon navHomeSelected"></article>
-              <p class="navText">홈</p>
-            </a>
-          </li>
-          <li>
-            <a href="chat.html" class="nav">
-              <article class="navIcon navChat"></article>
-              <p class="navText selectedNav">채팅</p>
-            </a>
-          </li>
-          <li>
-            <a href="postUpload.html" class="nav">
-              <article class="navIcon navPosting"></article>
-              <p class="navText">게시물 작성</p>
-            </a>
-          </li>
-          <li>
-            <a href="profile.html" class="nav">
-              <article class="navIcon navProfile"></article>
-              <p class="navText">프로필</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </footer> 
-}
-*/
