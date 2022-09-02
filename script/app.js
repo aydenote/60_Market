@@ -4,6 +4,7 @@ import {
   LoginPage,
   SignUpPage,
   HomePage,
+  SearchPage,
 } from "./pages/index.js";
 import { Router } from "./utils/index.js";
 
@@ -21,7 +22,7 @@ export default class App {
       "/login": LoginPage,
       "/signUp": SignUpPage,
       "/home": HomePage,
-      // "/detail": ProductDetail,
+      "/search": SearchPage,
     });
     router.init(rootEl);
   }

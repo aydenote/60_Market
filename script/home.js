@@ -42,7 +42,6 @@ class homeFeed {
 
   createFeed = (posts) => {
     const listContent = document.querySelector(".post");
-    console.log(listContent);
     for (let i = 0; i < posts.length; i++) {
       const postItem = document.createElement("div");
       postItem.classList.add("postItem");
