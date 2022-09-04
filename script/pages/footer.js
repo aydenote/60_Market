@@ -1,3 +1,9 @@
+import App from "../app.js";
+
+const config = {
+  rootEl: "#root",
+};
+
 class Footer {
   render() {
     //footer

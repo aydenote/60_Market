@@ -1,10 +1,4 @@
-const url = "https://mandarin.api.weniv.co.kr";
-const token = localStorage.getItem("Token");
-const searchInput = document.querySelector(".headerBarSearch");
-const userListContent = document.querySelector(".userList");
-const backHistory = document.querySelector(".headerBarBack");
-
-async function searchUser(e) {
+export default async function searchUser(e, url, token, userListContent) {
   try {
     if (e.target.value == "") {
       userListContent.innerHTML = "";
@@ -49,8 +43,3 @@ async function searchUser(e) {
     console.log(err);
   }
 }
-
-backHistory.addEventListener("click", () => {
-  window.history.back();
-});
-searchInput.addEventListener("input", searchUser);
