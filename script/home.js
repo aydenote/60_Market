@@ -1,6 +1,14 @@
 import { timeForToday } from "./newScript/common.js";
 import { clickHeart } from "./newScript/heartBtn.js";
 import { clickUserModal } from "./newScript/modal.js";
+import Profile from "./profile.js";
+import App from "./app.js";
+
+const profile = new Profile();
+const myAccountName = localStorage.getItem("accountname");
+const config = {
+  rootEl: "#root",
+};
 
 class homeFeed {
   constructor(token, defaultUrl, listContent) {
@@ -40,8 +48,24 @@ class homeFeed {
     }
   };
 
+  clickUserInfo = (event) => {
+    const userAccount = event.target
+      .closest(".userList")
+      .children[0].children[0].childNodes[3].children[1].innerText.replace(
+        "@",
+        ""
+      );
+    if (event.target.className === "moreBtn buttonClick") {
+      return;
+    }
+    // 주소 업데이트
+    window.history.pushState({}, "", `profile\?accountname=${userAccount}`);
+    new App(config).setup();
+  };
+
   createFeed = (posts) => {
     const listContent = document.querySelector(".post");
+    const clickUserInfo = this.clickUserInfo;
     for (let i = 0; i < posts.length; i++) {
       const postItem = document.createElement("div");
       postItem.classList.add("postItem");
@@ -69,9 +93,7 @@ class homeFeed {
       <section>
         <div class="userList">
           <div class="userItem">
-            <a href="profile.html?accountname=${
-              posts[i].author.accountname
-            }" class="userBox">
+            <div class="userBox">
               <img
                 src="${posts[i].author.image}"
                 alt="${posts[i].author.username}님의 프로필 이미지"
@@ -88,7 +110,7 @@ class homeFeed {
                 </div>
               </div>
               <button class="moreBtn buttonClick"><span class="ir">게시글 더보기 버튼</span></button>
-            </a>
+            </div>
           </div>
         </div>
       </section>
@@ -111,6 +133,11 @@ class homeFeed {
       listContent.appendChild(postItem);
       const heartBtn = document.querySelectorAll(".postBtnContent button");
       const moreBtn = document.querySelectorAll(".moreBtn.buttonClick");
+      const userProfileLink = document.querySelectorAll(".userBox");
+
+      [].forEach.call(userProfileLink, function (userProfileLink) {
+        userProfileLink.addEventListener("click", clickUserInfo);
+      });
       [].forEach.call(heartBtn, function (heartBtn) {
         heartBtn.addEventListener("click", clickHeart);
       });
