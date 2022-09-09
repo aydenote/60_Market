@@ -31,6 +31,9 @@ import {
 //   location.href = `profileFollow.html\?accountname=${userId}\&title=${e.target.className}`;
 // }
 class Profile {
+  constructor() {
+    const userPostInfo = [];
+  }
   // 프로필 정보 가져오기
   getProfileInfo = async function (myAccountName) {
     const url = "https://mandarin.api.weniv.co.kr";
@@ -210,9 +213,12 @@ class Profile {
     }
   };
   // 게시물 가지고 오기
-  getPostingList = async function () {
+  getPostingList = async function (myAccountName) {
     const url = "https://mandarin.api.weniv.co.kr";
     const token = localStorage.getItem("Token");
+    const URLSearch = new URLSearchParams(location.search);
+    let accountName = URLSearch.get("accountname");
+    accountName = accountName === null ? myAccountName : accountName;
 
     const setting = {
       method: "GET",
@@ -227,8 +233,8 @@ class Profile {
         setting
       );
       const resProfileProductJson = await resProfileProduct.json();
-      userPostInfo = resProfileProductJson.post;
-      setPostingList(userPostInfo);
+      this.userPostInfo = resProfileProductJson.post;
+      this.setPostingList(this.userPostInfo);
     } catch (err) {
       console.error(err);
     }
@@ -249,14 +255,16 @@ class Profile {
       createArticle.appendChild(createH3);
 
       postingSummary.append(createArticle);
-      listTypePost();
+      this.listTypePost(userPostInfo);
     }
   };
 
   // 목록형으로 포스팅 표시
-  listTypePost = () => {
+  listTypePost = (userPostInfo) => {
     const postingSummary = document.querySelector(".postingSummary");
     const postContent = document.querySelector(".postContent");
+    const albumType = document.querySelector(".postingType.album.buttonClick");
+    const ListType = document.querySelector(".postingType.list.buttonClick");
 
     albumType.classList.add("unselected");
     ListType.classList.remove("unselected");

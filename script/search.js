@@ -44,7 +44,6 @@ export default async function searchUser(e, url, token, userListContent) {
             `profile\?accountname=${element.accountname}`
           ); // 주소 업데이트
           new App(config).setup();
-          profile.getProfileInfo(myAccountName);
         });
         userImgEl.classList.add("userProfileImage");
         userImgEl.setAttribute("src", `${element.image}`);

@@ -140,12 +140,7 @@ class ProfilePage {
 
     // 프로필 정보 가져오기
     profile.getProfileInfo(myAccountName);
-
-    // 내 프로필 페이지 구현
-
-    // 다른 사람 프로필 페이지 구현
-
-    // 사용자가 판매 중인 상품 정보 가져오기
+    profile.getPostingList(myAccountName);
 
     // 등록된 상품 수에 따라 프로필에 해당 상품 반영
 
