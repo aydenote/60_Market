@@ -7,6 +7,7 @@ import { backHistory, timeForToday } from "../newScript/common.js";
 //   clickUserModal,
 //   productModal,
 // } from "./newScript/modal.js";
+
 import Profile from "../profile.js";
 
 const footer = new Footer();
@@ -69,7 +70,6 @@ class ProfilePage {
     const albumTypeImgEl = document.createElement("img");
 
     mainEl.classList.add("ProfileContent");
-
     introSectionEl.classList.add("introduce");
     heading2El.classList.add("ir");
     heading2El.innerText = "프로필 소개";
@@ -142,16 +142,7 @@ class ProfilePage {
     profile.getProfileInfo(myAccountName);
     profile.getPostingList(myAccountName);
 
-    // 등록된 상품 수에 따라 프로필에 해당 상품 반영
-
-    // 팔로우, 언팔로우 스타일 변경 구현
-
-    // 게시물 가지고 오기
-
-    // 게시물 타입바 생성 및 최초 목록형으로 포스팅
-
-    // 목록형으로 포스팅 구현
-    // 앨범형 포스팅 구현
+    // 목록형, 앨범형으로 포스팅 구현
     albumBarArticleEl.addEventListener("click", (event) => {
       const selectType = event.target.className.split(" ")[1];
       if (selectType === "list") {
@@ -164,7 +155,11 @@ class ProfilePage {
     });
 
     // 사용자 로그아웃 모달
-
+    profile.modal();
+    // modal = () => {
+    //   const headerModal = document.querySelector(".headerBarBtn.buttonClick");
+    //   headerModal.addEventListener("click", logoutModal);
+    // };
     return { headerEl, mainEl, footerEl };
   }
 }

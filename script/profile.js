@@ -139,6 +139,18 @@ class Profile {
     followingCount.innerText = userProfile.following.length;
     followerCount.innerText = userProfile.follower.length;
 
+    // 팔로우 / 언팔로우 스타일
+    createFollowButton.addEventListener("click", (event) => {
+      event.target.classList.toggle("follow");
+      if (event.target.className === "followBtn follow") {
+        event.target.innerText = "언팔로우";
+        event.target.style.opacity = "0.5";
+      } else {
+        event.target.innerText = "팔로우";
+        event.target.style.opacity = "1";
+      }
+    });
+
     this.getProductList(userProfile);
   };
 
@@ -200,18 +212,6 @@ class Profile {
     });
   };
 
-  // 팔로우 / 언팔로우 스타일
-  clickFollowBtn = () => {
-    const followBtn = document.querySelector(".followBtn");
-    followBtn.classList.toggle("follow");
-    if (followBtn.className === "followBtn follow") {
-      followBtn.innerText = "언팔로우";
-      followBtn.style.opacity = "0.3";
-    } else {
-      followBtn.innerText = "팔로우";
-      followBtn.style.opacity = "1";
-    }
-  };
   // 게시물 가지고 오기
   getPostingList = async function (myAccountName) {
     const url = "https://mandarin.api.weniv.co.kr";
