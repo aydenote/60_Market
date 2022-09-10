@@ -150,9 +150,18 @@ class ProfilePage {
 
     // 게시물 타입바 생성 및 최초 목록형으로 포스팅
 
-    // 목록형으로 포스팅 표시
-
+    // 목록형으로 포스팅 구현
     // 앨범형 포스팅 구현
+    albumBarArticleEl.addEventListener("click", (event) => {
+      const selectType = event.target.className.split(" ")[1];
+      if (selectType === "list") {
+        profile.listTypePost();
+      } else if (selectType === "album") {
+        profile.albumTypePost();
+      } else {
+        return;
+      }
+    });
 
     // 사용자 로그아웃 모달
 

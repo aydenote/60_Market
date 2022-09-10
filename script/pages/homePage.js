@@ -14,6 +14,9 @@ const footerEl = footer.render();
 
 class HomePage {
   render() {
+    const body = document.querySelector("body");
+    body.classList.remove("profileBackground");
+
     // header
     const rootEl = document.createElement("div");
     const headerEl = document.createElement("header");

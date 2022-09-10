@@ -255,12 +255,12 @@ class Profile {
       createArticle.appendChild(createH3);
 
       postingSummary.append(createArticle);
-      this.listTypePost(userPostInfo);
+      this.listTypePost();
     }
   };
 
   // 목록형으로 포스팅 표시
-  listTypePost = (userPostInfo) => {
+  listTypePost = () => {
     const postingSummary = document.querySelector(".postingSummary");
     const postContent = document.querySelector(".postContent");
     const albumType = document.querySelector(".postingType.album.buttonClick");
@@ -286,7 +286,7 @@ class Profile {
       posting[1].remove();
     }
 
-    for (const post of userPostInfo) {
+    for (const post of this.userPostInfo) {
       let postListContent;
       let heartStatus;
 
@@ -394,7 +394,7 @@ class Profile {
     createArticle.appendChild(createUl);
     postingSummary.appendChild(createArticle);
 
-    for (const post of userPostInfo) {
+    for (const post of this.userPostInfo) {
       const postImg = post.image.split(",");
       // 게시물에 이미지가 없는 경우, img 태그 생성 불가.
       // 게시물에 이미지가 2개 이상인 경우, 이미지 레이어 아이콘 추가.
