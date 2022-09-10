@@ -155,11 +155,10 @@ class ProfilePage {
     });
 
     // 사용자 로그아웃 모달
-    profile.modal();
-    // modal = () => {
-    //   const headerModal = document.querySelector(".headerBarBtn.buttonClick");
-    //   headerModal.addEventListener("click", logoutModal);
-    // };
+    menuImgEl.addEventListener("click", () => {
+      profile.modal(menuImgEl);
+    });
+
     return { headerEl, mainEl, footerEl };
   }
 }
