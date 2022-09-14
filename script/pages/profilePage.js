@@ -1,14 +1,7 @@
 import App from "../app.js";
 import Footer from "./footer.js";
-import { backHistory, timeForToday } from "../newScript/common.js";
-// import { clickHeart } from "./newScript/heartBtn.js";
-// import {
-//   logoutModal,
-//   clickUserModal,
-//   productModal,
-// } from "./newScript/modal.js";
-
 import Profile from "../profile.js";
+import { backHistory } from "../newScript/common.js";
 
 const footer = new Footer();
 const footerEl = footer.render();
@@ -54,9 +47,9 @@ class ProfilePage {
     const introSectionEl = document.createElement("section");
     const heading2El = document.createElement("h2");
     const followSectionEl = document.createElement("section");
-    const followerAnchorEl = document.createElement("a");
+    const followerDivEl = document.createElement("div");
     const myProfileImgEl = document.createElement("img");
-    const followingAnchorEl = document.createElement("a");
+    const followingDivEl = document.createElement("div");
     const profileInfoSectionEl = document.createElement("section");
     const userNameStrongEl = document.createElement("strong");
     const userIdPEl = document.createElement("p");
@@ -75,11 +68,11 @@ class ProfilePage {
     heading2El.innerText = "프로필 소개";
     followSectionEl.classList.add("myFollow");
     followSectionEl.classList.add("myProfileImg");
-    followerAnchorEl.classList.add("followers");
+    followerDivEl.classList.add("followers");
     myProfileImgEl.classList.add("myImage");
     myProfileImgEl.setAttribute("src", "../asset/images/basic-profile.svg");
     myProfileImgEl.setAttribute("alt", "내 프로필 이미지");
-    followingAnchorEl.classList.add("followings");
+    followingDivEl.classList.add("followings");
     profileInfoSectionEl.classList.add("profileInfo");
     userNameStrongEl.classList.add("userName");
     userIdPEl.classList.add("userId");
@@ -111,9 +104,9 @@ class ProfilePage {
     profileInfoSectionEl.appendChild(userNameStrongEl);
     profileInfoSectionEl.appendChild(userIdPEl);
     profileInfoSectionEl.appendChild(introductionPEl);
-    followSectionEl.appendChild(followerAnchorEl);
+    followSectionEl.appendChild(followerDivEl);
     followSectionEl.appendChild(myProfileImgEl);
-    followSectionEl.appendChild(followingAnchorEl);
+    followSectionEl.appendChild(followingDivEl);
     introSectionEl.appendChild(heading2El);
     introSectionEl.appendChild(followSectionEl);
     introSectionEl.appendChild(profileInfoSectionEl);
@@ -127,15 +120,21 @@ class ProfilePage {
     mainEl.appendChild(postingSectionEl);
 
     // 뒤로 가기
-    backImgEl.addEventListener("click", backHistory);
+    // backImgEl.addEventListener("click", backHistory);
+    // window.addEventListener("popstate", );
 
     // 팔로워, 팔로잉 페이지 이동
-    followerAnchorEl.addEventListener("click", clickedFollowLink);
-    followingAnchorEl.addEventListener("click", clickedFollowLink);
+    followerDivEl.addEventListener("click", clickedFollowLink);
+    followingDivEl.addEventListener("click", clickedFollowLink);
     function clickedFollowLink(e) {
       const profileUser = document.querySelector(".profileInfo .userId");
-      const userId = profileUser.innerText.replace(/@/g, "");
-      location.href = `profileFollow.html\?accountname=${userId}\&title=${e.target.className}`;
+      const userId = profileUser.innerText.replace(/@ /g, "");
+      window.history.pushState(
+        {},
+        "",
+        `/profileFollow\?accountname=${userId}&title=${e.target.className}`
+      ); // 주소 업데이트
+      new App(config).setup();
     }
 
     // 프로필 정보 가져오기

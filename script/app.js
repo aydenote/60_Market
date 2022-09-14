@@ -6,6 +6,7 @@ import {
   HomePage,
   SearchPage,
   ProfilePage,
+  ProfileFollowPage,
 } from "./pages/index.js";
 import { Router } from "./utils/index.js";
 
@@ -25,6 +26,7 @@ export default class App {
       "/home": HomePage,
       "/search": SearchPage,
       "/profile": ProfilePage,
+      "/profileFollow": ProfileFollowPage,
     });
     router.init(rootEl);
   }

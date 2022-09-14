@@ -1,0 +1,91 @@
+import ProfileFollow from "../profileFollow.js";
+import Footer from "./footer.js";
+
+const footer = new Footer();
+const footerEl = footer.render();
+const profileFollow = new ProfileFollow();
+
+class ProfileFollowPage {
+  render() {
+    // header
+    const headerEl = document.createElement("header");
+    const headerBarArticleEl = document.createElement("article");
+    const backImgEl = document.createElement("img");
+    const titlePEl = document.createElement("p");
+
+    headerBarArticleEl.classList.add("headerBar");
+    headerBarArticleEl.classList.add("followers");
+    backImgEl.classList.add("headerBarBack");
+    backImgEl.classList.add("buttonClick");
+    backImgEl.setAttribute("src", "../asset/images/icons/icon__arrowLeft.svg");
+    backImgEl.setAttribute("alt", "뒤로 가기");
+    titlePEl.classList.add("followTitle");
+
+    headerBarArticleEl.appendChild(backImgEl);
+    headerBarArticleEl.appendChild(titlePEl);
+    headerEl.appendChild(headerBarArticleEl);
+
+    // main
+    const mainEl = document.createElement("main");
+    const userSectionEl = document.createElement("section");
+    const userListUlEl = document.createElement("ul");
+
+    userListUlEl.classList.add("userList");
+    userSectionEl.appendChild(userListUlEl);
+    mainEl.appendChild(userSectionEl);
+
+    // follow 리스트 구현
+    profileFollow.init(userListUlEl);
+
+    return { headerEl, mainEl, footerEl };
+  }
+}
+
+export default ProfileFollowPage;
+
+/* <header>
+      <article class="headerBar followers">
+        <img
+          class="headerBarBack buttonClick"
+          src="../asset/images/icons/icon__arrowLeft.svg"
+          alt="뒤로가기"
+        />
+        <p class="followTitle"></p>
+      </article>
+    </header>
+
+    <main>
+      <section>
+        <ul class="userList"></ul>
+      </section>
+    </main>
+    <footer class="navWrap">
+      <nav class="navBar">
+        <ul class="navList">
+          <li>
+            <a href="home.html" class="nav">
+              <article class="navIcon navHome"></article>
+              <p class="navText">홈</p>
+            </a>
+          </li>
+          <li>
+            <a href="chat.html" class="nav">
+              <article class="navIcon navChat"></article>
+              <p class="navText selectedNav">채팅</p>
+            </a>
+          </li>
+          <li>
+            <a href="postUpload.html" class="nav">
+              <article class="navIcon navPosting"></article>
+              <p class="navText">게시물 작성</p>
+            </a>
+          </li>
+          <li>
+            <a href="profile.html" class="nav">
+              <article class="navIcon navProfileSelected"></article>
+              <p class="navText">프로필</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </footer> */

@@ -48,7 +48,10 @@ export async function reportPost(postingId) {
     const resReport = await fetch(`${url}/post/${postingId}/report`, setting);
     const resReportJson = await resReport.json();
     if (resReportJson.status !== 404) {
-      location.reload();
+      // 게시물 신고 후 새로고침
+      // location.reload();
+      console.log(location.pathname);
+      console.log(location.search);
     }
   } catch (err) {
     console.error(err);
