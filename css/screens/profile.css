@@ -106,6 +106,7 @@
 
 .link .fixProfile,
 .link .addPosting {
+  display: inline-block;
   padding: 8px 26px;
   color: var(--textColor);
   background: white;

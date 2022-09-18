@@ -6,3 +6,5 @@ export { default as HomePage } from "./homePage.js";
 export { default as SearchPage } from "./searchPage.js";
 export { default as ProfilePage } from "./profilePage.js";
 export { default as ProfileFollowPage } from "./profileFollowPage.js";
+export { default as ProductPage } from "./productPage.js";
+export { default as EditProfilePage } from "./editProfilePage.js";

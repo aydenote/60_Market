@@ -16,12 +16,12 @@ class Footer {
 
     // 홈
     const homeliEl = document.createElement("li");
-    const homeAnchorEl = document.createElement("a");
+    const homeDivEl = document.createElement("div");
     const homeArticleEl = document.createElement("article");
     const homePEl = document.createElement("p");
 
-    homeAnchorEl.classList.add("nav");
-    homeAnchorEl.addEventListener("click", () => {
+    homeDivEl.classList.add("nav");
+    homeDivEl.addEventListener("click", () => {
       window.history.pushState({}, "", "/home"); // 주소 업데이트
       new App(config).setup();
     });
@@ -31,19 +31,19 @@ class Footer {
     homePEl.classList.add("navText");
     homePEl.innerText = "홈";
 
-    homeAnchorEl.appendChild(homeArticleEl);
-    homeAnchorEl.appendChild(homePEl);
-    homeliEl.appendChild(homeAnchorEl);
+    homeDivEl.appendChild(homeArticleEl);
+    homeDivEl.appendChild(homePEl);
+    homeliEl.appendChild(homeDivEl);
     ulEl.appendChild(homeliEl);
 
     // 채팅
     const chatliEl = document.createElement("li");
-    const chatAnchorEl = document.createElement("a");
+    const chatDivEl = document.createElement("div");
     const chatArticleEl = document.createElement("article");
     const chatPEl = document.createElement("p");
 
-    chatAnchorEl.classList.add("nav");
-    chatAnchorEl.addEventListener("click", () => {
+    chatDivEl.classList.add("nav");
+    chatDivEl.addEventListener("click", () => {
       window.history.pushState({}, "", "/chat"); // 주소 업데이트
       new App(config).setup();
     });
@@ -53,19 +53,19 @@ class Footer {
     chatPEl.classList.add("navText");
     chatPEl.innerText = "채팅";
 
-    chatAnchorEl.appendChild(chatArticleEl);
-    chatAnchorEl.appendChild(chatPEl);
-    chatliEl.appendChild(chatAnchorEl);
+    chatDivEl.appendChild(chatArticleEl);
+    chatDivEl.appendChild(chatPEl);
+    chatliEl.appendChild(chatDivEl);
     ulEl.appendChild(chatliEl);
 
     // 포스트
     const postliEl = document.createElement("li");
-    const postAnchorEl = document.createElement("a");
+    const postDivEl = document.createElement("div");
     const postArticleEl = document.createElement("article");
     const postPEl = document.createElement("p");
 
-    postAnchorEl.classList.add("nav");
-    postAnchorEl.addEventListener("click", () => {
+    postDivEl.classList.add("nav");
+    postDivEl.addEventListener("click", () => {
       window.history.pushState({}, "", "/post"); // 주소 업데이트
       new App(config).setup();
     });
@@ -75,19 +75,19 @@ class Footer {
     postPEl.classList.add("navText");
     postPEl.innerText = "게시물 작성";
 
-    postAnchorEl.appendChild(postArticleEl);
-    postAnchorEl.appendChild(postPEl);
-    postliEl.appendChild(postAnchorEl);
+    postDivEl.appendChild(postArticleEl);
+    postDivEl.appendChild(postPEl);
+    postliEl.appendChild(postDivEl);
     ulEl.appendChild(postliEl);
 
     // 프로필
     const profileliEl = document.createElement("li");
-    const profileAnchorEl = document.createElement("a");
+    const profileDivEl = document.createElement("div");
     const profileArticleEl = document.createElement("article");
     const profilePEl = document.createElement("p");
 
-    profileAnchorEl.classList.add("nav");
-    profileAnchorEl.addEventListener("click", () => {
+    profileDivEl.classList.add("nav");
+    profileDivEl.addEventListener("click", () => {
       window.history.pushState({}, "", "/profile"); // 주소 업데이트
       new App(config).setup();
     });
@@ -97,9 +97,9 @@ class Footer {
     profilePEl.classList.add("navText");
     profilePEl.innerText = "프로필";
 
-    profileAnchorEl.appendChild(profileArticleEl);
-    profileAnchorEl.appendChild(profilePEl);
-    profileliEl.appendChild(profileAnchorEl);
+    profileDivEl.appendChild(profileArticleEl);
+    profileDivEl.appendChild(profilePEl);
+    profileliEl.appendChild(profileDivEl);
     ulEl.appendChild(profileliEl);
 
     navBarEl.appendChild(ulEl);

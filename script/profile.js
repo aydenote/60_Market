@@ -1,35 +1,16 @@
 import { backHistory, timeForToday } from "./newScript/common.js";
 import { clickHeart } from "./newScript/heartBtn.js";
+import App from "./app.js";
 import {
   logoutModal,
   clickUserModal,
   productModal,
 } from "./newScript/modal.js";
 
-// const backBtn = document.querySelector(".headerBarBack.buttonClick");
-// const profileLinkBtn = document.querySelector(".link");
-// const followingCount = document.querySelector(".ProfileContent .followings");
-// const followerCount = document.querySelector(".ProfileContent .followers");
-// const albumType = document.querySelector(".postingType.album.buttonClick");
-// const ListType = document.querySelector(".postingType.list.buttonClick");
-// const URLSearch = new URLSearchParams(location.search);
-// const myAccountName = localStorage.getItem("accountname");
-// let accountName = URLSearch.get("accountname");
-// accountName = accountName === null ? myAccountName : accountName;
-// followingCount.addEventListener("click", clickedFollowLink);
-// followerCount.addEventListener("click", clickedFollowLink);
-// albumType.addEventListener("click", albumTypePost);
-// ListType.addEventListener("click", listTypePost);
+const config = {
+  rootEl: "#root",
+};
 
-// 뒤로 가기
-// backBtn.addEventListener("click", backHistory);
-
-// 팔로워, 팔로잉 페이지 이동
-// function clickedFollowLink(e) {
-//   const profileUser = document.querySelector(".profileInfo .userId");
-//   const userId = profileUser.innerText.replace(/@/g, "");
-//   location.href = `profileFollow.html\?accountname=${userId}\&title=${e.target.className}`;
-// }
 class Profile {
   constructor() {
     const userPostInfo = [];
@@ -67,19 +48,25 @@ class Profile {
   };
 
   setMyProfile = (userProfile) => {
-    const createEditLink = document.createElement("a");
-    const createProductLink = document.createElement("a");
+    const createEditLink = document.createElement("div");
+    const createProductLink = document.createElement("div");
     const profileLinkBtn = document.querySelector(".link");
     const followingCount = document.querySelector(".followings");
     const followerCount = document.querySelector(".followers");
 
     createEditLink.setAttribute("class", "fixProfile");
-    createEditLink.setAttribute("href", "editProfile.html");
+    createEditLink.addEventListener("click", () => {
+      window.history.pushState({}, "", "/editProfile"); // 주소 업데이트
+      new App(config).setup();
+    });
     createEditLink.innerText = "프로필 수정";
     profileLinkBtn.append(createEditLink);
 
     createProductLink.setAttribute("class", "addPosting");
-    createProductLink.setAttribute("href", "addProduct.html");
+    createProductLink.addEventListener("click", () => {
+      window.history.pushState({}, "", "/product"); // 주소 업데이트
+      new App(config).setup();
+    });
     createProductLink.innerText = "상품 등록";
     profileLinkBtn.append(createProductLink);
 

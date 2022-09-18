@@ -7,6 +7,8 @@ import {
   SearchPage,
   ProfilePage,
   ProfileFollowPage,
+  ProductPage,
+  EditProfilePage,
 } from "./pages/index.js";
 import { Router } from "./utils/index.js";
 
@@ -27,6 +29,8 @@ export default class App {
       "/search": SearchPage,
       "/profile": ProfilePage,
       "/profileFollow": ProfileFollowPage,
+      "/product": ProductPage,
+      "/editProfile": EditProfilePage,
     });
     router.init(rootEl);
   }

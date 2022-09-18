@@ -9,7 +9,6 @@ class ProfileFollow {
     accountName = accountName.replace("@", "");
     accountName = accountName === null ? myAccountName : accountName;
 
-    console.log(accountName);
     if (title === "followers") {
       this.getFollowerList(accountName, userListUlEl);
     } else if (title === "followings") {
