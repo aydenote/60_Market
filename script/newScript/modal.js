@@ -1,4 +1,8 @@
 import { deletePost, reportPost } from "./apiModule.js";
+import App from "../app.js";
+const config = {
+  rootEl: "#root",
+};
 const body = document.body;
 const modal = document.createElement("div");
 
@@ -97,7 +101,8 @@ export function logoutModal() {
     logoutBtn.addEventListener("click", () => {
       localStorage.clear();
       body.removeChild(modal);
-      location.href = "../pages/logIn.html";
+      window.history.pushState({}, "", "/login"); // 주소 업데이트
+      new App(config).setup();
     });
   });
 }
@@ -147,11 +152,15 @@ export function productModal(productId) {
 
     // 판매 상품 연결
     productLink.addEventListener("click", () => {
-      location.href = "../pages/error.html";
+      window.history.pushState({}, "", "/error"); // 주소 업데이트
+      new App(config).setup();
+      body.removeChild(modal);
     });
   } else {
     // 다른 사용자 상품일 경우 상품 페이지로 연결
-    location.href = "../pages/error.html";
+    window.history.pushState({}, "", "/error"); // 주소 업데이트
+    new App(config).setup();
+    body.removeChild(modal);
   }
 }
 
@@ -174,7 +183,9 @@ async function deleteProduct(productId) {
       setting
     );
     if (resProfileProduct.status === 200) {
-      location.href = "../pages/profile.html";
+      window.history.pushState({}, "", "/profile"); // 주소 업데이트
+      new App(config).setup();
+      body.removeChild(modal);
       productId = "";
     }
   } catch (err) {
@@ -228,7 +239,9 @@ export function clickUserModal(event) {
 
     // 게시물 수정페이지로 이동
     postEditBtn.addEventListener("click", () => {
-      window.location = `postUpload.html\?postid=${postingId}`;
+      window.history.pushState({}, "", `/postUpload\?postid=${postingId}`); // 주소 업데이트
+      new App(config).setup();
+      body.removeChild(modal);
     });
   } else {
     // 다른 사용자 프로필인 경우, 게시물 신고 모달
