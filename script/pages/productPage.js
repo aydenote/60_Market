@@ -54,9 +54,7 @@ class ProductPage {
     addProductInput.id = "addProductImg";
     addProductInput.setAttribute("type", "file");
     addProductInput.setAttribute("accept", "image/*");
-    addProductInput.addEventListener("change", () => {
-      console.log("1");
-    });
+
     addImgLabelEl.appendChild(updateImgEl);
     addImgLabelEl.appendChild(addImgEl);
     addProductFormEl.appendChild(addImgHeading3El);
@@ -76,9 +74,6 @@ class ProductPage {
     productNameInputEl.placeholder = "2~15자 이내여야 합니다.";
     productNameInputEl.minLength = "2";
     productNameInputEl.maxLength = "15";
-    productNameInputEl.addEventListener("keyup", () => {
-      console.log("1");
-    });
 
     addProductFormEl.appendChild(addProductLabelEl);
     addProductFormEl.appendChild(productNameInputEl);
@@ -95,9 +90,6 @@ class ProductPage {
     addPriceInputEl.required = true;
     addPriceInputEl.placeholder = "숫자만 입력 가능합니다.";
     addPriceInputEl.maxLength = "12";
-    addPriceInputEl.addEventListener("keyup", () => {
-      console.log("1");
-    });
 
     addProductFormEl.appendChild(addPriceLabelEl);
     addProductFormEl.appendChild(addPriceInputEl);
@@ -137,6 +129,18 @@ class ProductPage {
     timeBtn2H.innerText = "2시간";
     timeBtn3H.innerText = "3시간";
     timeBtnShare.innerText = "나눔";
+    timeBtn10M.setAttribute("type", "button");
+    timeBtn10M.classList.add("textEllipsis");
+    timeBtn30M.setAttribute("type", "button");
+    timeBtn30M.classList.add("textEllipsis");
+    timeBtn1H.setAttribute("type", "button");
+    timeBtn1H.classList.add("textEllipsis");
+    timeBtn2H.setAttribute("type", "button");
+    timeBtn2H.classList.add("textEllipsis");
+    timeBtn3H.setAttribute("type", "button");
+    timeBtn3H.classList.add("textEllipsis");
+    timeBtnShare.setAttribute("type", "button");
+    timeBtnShare.classList.add("textEllipsis");
 
     timeLiEl10M.appendChild(timeBtn10M);
     timeLiEl30M.appendChild(timeBtn30M);
@@ -170,14 +174,31 @@ class ProductPage {
     contentTextareaEl.id = "addProductContent";
     contentTextareaEl.required = true;
     contentTextareaEl.placeholder = "내용을 입력해 주세요.";
-    contentTextareaEl.addEventListener("click", () => {
-      console.log("1");
-    });
 
     addProductFormEl.appendChild(contentLabelEl);
     addProductFormEl.appendChild(contentTextareaEl);
-
     mainEl.appendChild(addProductFormEl);
+
+    // 상품 등록 기능
+    const addProduct = new AddProduct(
+      addProductInput,
+      productNameInputEl,
+      addPriceInputEl,
+      contentTextareaEl,
+      saveBtnEl,
+      timeSelctBtnEl
+    );
+    productNameInputEl.addEventListener("keyup", addProduct.productInput);
+    contentTextareaEl.addEventListener("keyup", addProduct.productInput);
+    addProductInput.addEventListener("change", (event) => {
+      addProduct.onChangeProductImg(event);
+    });
+    addPriceInputEl.addEventListener("keyup", addProduct.inputNumberFormat);
+    saveBtnEl.addEventListener("click", () => {
+      addProduct.onProductSvaeBtn();
+    });
+    timeSelctBtnEl.addEventListener("click", addProduct.onTimeToggle);
+    timeUlEl.addEventListener("click", addProduct.onTimeSelct);
 
     return { headerEl, mainEl };
   }
