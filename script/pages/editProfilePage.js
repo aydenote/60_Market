@@ -1,3 +1,5 @@
+import EditProfile from "../editProfile.js";
+
 class EditProfilePage {
   render() {
     document.querySelector("body").classList.remove("profileBackground");
@@ -45,9 +47,6 @@ class EditProfilePage {
     imgUpdateInputEl.setAttribute("type", "file");
     imgUpdateInputEl.setAttribute("accept", "image/*");
     imgUpdateInputEl.id = "updateUserProfileImg";
-    imgUpdateInputEl.addEventListener("change", () => {
-      console.log("1");
-    });
 
     imgLabelEl.appendChild(updateImgEl);
     imgLabelEl.appendChild(uploadImgEl);
@@ -74,9 +73,6 @@ class EditProfilePage {
     nameLabelEl.setAttribute("for", "name");
     nameLabelEl.innerText = "사용자 이름";
     nameInputEl.id = "name";
-    nameInputEl.addEventListener("keyup", () => {
-      console.log("2");
-    });
     nameInputEl.setAttribute("type", "text");
     nameInputEl.required = true;
     nameInputEl.placeholder = "2~10자 이내여야 합니다.";
@@ -86,9 +82,6 @@ class EditProfilePage {
     idLabelEl.classList.add("profileModificationFormlabel");
     idLabelEl.setAttribute("for", "email");
     idLabelEl.innerText = "계정 ID";
-    idInputEl.addEventListener("keyup", () => {
-      console.log("1");
-    });
     idInputEl.id = "id";
     idInputEl.setAttribute("type", "text");
     idInputEl.minLength = "2";
@@ -102,9 +95,6 @@ class EditProfilePage {
     introLabelEl.setAttribute("for", "introduce");
     introLabelEl.innerText = "소개";
     introInputEl.id = "introduce";
-    introInputEl.addEventListener("keyup", () => {
-      console.log("1");
-    });
     introInputEl.setAttribute("type", "text");
     introInputEl.required = "true";
     introInputEl.placeholder = "자신과 판매할 상품에 대한 소개해 주세요!";
@@ -119,30 +109,27 @@ class EditProfilePage {
     editFromEl.appendChild(introLabelEl);
     editFromEl.appendChild(introInputEl);
     mainEl.appendChild(editFromEl);
+
+    // 프로필 수정 기능 구현
+    const editProfile = new EditProfile(
+      nameInputEl,
+      idInputEl,
+      updateImgEl,
+      introInputEl,
+      alertPEl,
+      saveBtnEl
+    );
+    editProfile.getProfileInfo();
+    imgUpdateInputEl.addEventListener("change", editProfile.imageChange);
+    nameInputEl.addEventListener("keyup", editProfile.profileChangeInput);
+    idInputEl.addEventListener("keyup", editProfile.profileChangeInput);
+    introInputEl.addEventListener("keyup", editProfile.profileChangeInput);
+    saveBtnEl.addEventListener("click", () => {
+      editProfile.clickSaveButton();
+    });
+
     return { headerEl, mainEl };
   }
 }
 
 export default EditProfilePage;
-
-/*      <main>
-        <form class="logInForm registerForm profileModificationForm" method="get" id="profileSaveForm">
-          <label class="registerFormLabel profileModificationFormlabel" for="name">사용자 이름</label>
-
-          <input onkeyup="profileChangeInput()" id="name" type="text" required placeholder="2~10자 이내여야 합니다." maxlength="10" minlength="2"/>
-          <label class="registerFormLabel profileModificationFormlabel" for="email">계정 ID</label>
-          <input
-            onkeyup="profileChangeInput()"
-            id="id"
-            type="text"
-            minlength="2"
-            maxlength="10"
-            required
-            placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
-          />
-          <p class="alertMessage">*영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.</p>
-          <label class="registerFormLabel profileModificationFormlabel" for="introduce">소개</label>
-          <input onkeyup="profileChangeInput()" id="introduce" type="text" required placeholder="자신과 판매할 상품에 대한 소개해 주세요!" maxlength="50" minlength="2"/>
-        </form>
-      </main>
-    </div> */
