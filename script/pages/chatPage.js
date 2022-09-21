@@ -1,6 +1,10 @@
 import Footer from "./footer.js";
+import App from "../app.js";
 const footer = new Footer();
 const footerEl = footer.render();
+const config = {
+  rootEl: "#root",
+};
 
 class ChatPage {
   render() {
@@ -47,7 +51,8 @@ class ChatPage {
     pochaccoLiEl.classList.add("userItem");
     pochaccoDivEl.classList.add("userBox");
     pochaccoDivEl.addEventListener("click", () => {
-      console.log("chatting1로 이동");
+      window.history.pushState({}, "", "/chatting1"); // 주소 업데이트
+      new App(config).setup();
     });
     pochaccoImgEl.classList.add("userProfileImage");
     pochaccoImgEl.setAttribute("src", "../asset/images/user/pochacco.png");
@@ -83,7 +88,8 @@ class ChatPage {
     keropiLiEl.classList.add("userItem");
     keropiDivEl.classList.add("userBox");
     keropiDivEl.addEventListener("click", () => {
-      console.log("chatting2로 이동");
+      window.history.pushState({}, "", "/chatting2"); // 주소 업데이트
+      new App(config).setup();
     });
     keropiImgEl.classList.add("userProfileImage");
     keropiImgEl.setAttribute("src", "../asset/images/user/keropi.jpeg");
@@ -119,7 +125,8 @@ class ChatPage {
     boongboongLiEl.classList.add("userItem");
     boongboongDivEl.classList.add("userBox");
     boongboongDivEl.addEventListener("click", () => {
-      console.log("chatting3로 이동");
+      window.history.pushState({}, "", "/chatting3"); // 주소 업데이트
+      new App(config).setup();
     });
     boongboongImgEl.classList.add("userProfileImage");
     boongboongImgEl.setAttribute("src", "../asset/images/basic-profile.svg");
@@ -156,7 +163,8 @@ class ChatPage {
     pompomLiEl.classList.add("userItem");
     pompomDivEl.classList.add("userBox");
     pompomDivEl.addEventListener("click", () => {
-      console.log("chatting4로 이동");
+      window.history.pushState({}, "", "/chatting4"); // 주소 업데이트
+      new App(config).setup();
     });
     pompomImgEl.classList.add("userProfileImage");
     pompomImgEl.setAttribute("src", "../asset/images/user/pompom.jpeg");

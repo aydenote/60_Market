@@ -9,3 +9,7 @@ export { default as ProfileFollowPage } from "./profileFollowPage.js";
 export { default as ProductPage } from "./productPage.js";
 export { default as EditProfilePage } from "./editProfilePage.js";
 export { default as ChatPage } from "./chatPage.js";
+export { default as ChattingPage1 } from "./chattingPage1.js";
+export { default as ChattingPage2 } from "./chattingPage2.js";
+export { default as ChattingPage3 } from "./chattingPage3.js";
+export { default as ChattingPage4 } from "./chattingPage4.js";
