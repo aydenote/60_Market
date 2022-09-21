@@ -10,6 +10,10 @@ import {
   ProductPage,
   EditProfilePage,
   ChatPage,
+  ChattingPage1,
+  ChattingPage2,
+  ChattingPage3,
+  ChattingPage4,
 } from "./pages/index.js";
 import { Router } from "./utils/index.js";
 
@@ -33,6 +37,10 @@ export default class App {
       "/product": ProductPage,
       "/editProfile": EditProfilePage,
       "/chat": ChatPage,
+      "/chatting1": ChattingPage1,
+      "/chatting2": ChattingPage2,
+      "/chatting3": ChattingPage3,
+      "/chatting4": ChattingPage4,
     });
     router.init(rootEl);
   }
