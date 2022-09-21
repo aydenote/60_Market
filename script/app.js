@@ -9,6 +9,7 @@ import {
   ProfileFollowPage,
   ProductPage,
   EditProfilePage,
+  ChatPage,
 } from "./pages/index.js";
 import { Router } from "./utils/index.js";
 
@@ -31,6 +32,7 @@ export default class App {
       "/profileFollow": ProfileFollowPage,
       "/product": ProductPage,
       "/editProfile": EditProfilePage,
+      "/chat": ChatPage,
     });
     router.init(rootEl);
   }

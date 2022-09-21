@@ -8,3 +8,4 @@ export { default as ProfilePage } from "./profilePage.js";
 export { default as ProfileFollowPage } from "./profileFollowPage.js";
 export { default as ProductPage } from "./productPage.js";
 export { default as EditProfilePage } from "./editProfilePage.js";
+export { default as ChatPage } from "./chatPage.js";
