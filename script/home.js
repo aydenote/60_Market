@@ -1,117 +1,74 @@
-const token = localStorage.getItem("Token");
-const defaultUrl = "https://mandarin.api.weniv.co.kr";
-const headers = {
-  Authorization: `Bearer ${token}`,
-  "Content-type": "application/json",
+import { timeForToday } from "./newScript/common.js";
+import { clickHeart } from "./newScript/heartBtn.js";
+import { clickUserModal } from "./newScript/modal.js";
+import Profile from "./profile.js";
+import App from "./app.js";
+
+const profile = new Profile();
+const myAccountName = localStorage.getItem("accountname");
+const config = {
+  rootEl: "#root",
 };
-const listContent = document.querySelector(".post");
 
-// 게시물 등록 시간 계산 함수
-function timeForToday(time) {
-  const postingDate = time.substring(0, time.length - 1);
-  const ms = Date.parse(postingDate);
-  const now = Date.now();
-  const gap = (now - ms) / 1000;
-  if (gap < 60) return "방금전";
-  else if (gap < 3600) return `${parseInt(gap / 60)}분 전`;
-  else if (gap < 86400) return `${parseInt(gap / 3600)}시간 전`;
-  else if (gap < 2592000) return `${parseInt(gap / 86400)}일 전`;
-  else return `${parseInt(gap / 2592000)}달 전`;
-}
-
-// 좋아요
-async function likeHeart(postingID) {
-  const url = `${defaultUrl}/post/${postingID}/heart`;
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: headers,
-    });
-    const data = await res.json();
-    return data;
-  } catch (err) {
-    console.log(err);
+class homeFeed {
+  constructor(token, defaultUrl, listContent) {
+    this.token = token;
+    this.defaultUrl = defaultUrl;
+    this.listContent = listContent;
   }
-}
 
-// 좋아요 취소
-async function likeUnHeart(postingID) {
-  const url = `${defaultUrl}/post/${postingID}/unheart`;
-  try {
-    const res = await fetch(url, {
-      method: "DELETE",
-      headers: headers,
-    });
-    const data = await res.json();
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-}
+  noFeed = () => {
+    this.listContent.innerHTML = `
+          <h3 class="ir">피드 게시글</h3>
+          <section class="noneFeed">
+            <p>유저를 검색해 팔로우 해보세요!</p>
+            <a href="./search.html" class="userSearchBtn">검색하기</a>
+          </section>`;
+  };
 
-// 좋아요 버튼 클릭
-async function clickHeart(e) {
-  const likeBtn = e.target;
-  const likeCount = e.target.children[1];
-  const postId = e.target.closest("section").id;
-  let data = {};
-
-  if (likeBtn.classList.contains("on")) {
-    likeBtn.classList.remove("on");
-    data = await likeUnHeart(postId);
-    likeCount.innerHTML = data.post.heartCount;
-  } else {
-    likeBtn.classList.add("on");
-    data = await likeHeart(postId);
-    likeCount.innerHTML = data.post.heartCount;
-  }
-}
-
-// 팔로우한 유저가 없을 경우 보여줄 피드
-function noFeed() {
-  listContent.innerHTML = `
-        <h3 class="ir">피드 게시글</h3>
-        <section class="noneFeed">
-          <p>유저를 검색해 팔로우 해보세요!</p>
-          <a href="./search.html" class="userSearchBtn">검색하기</a>
-        </section>`;
-}
-
-async function homeFeed() {
-  try {
-    const res = await fetch(`${defaultUrl}/post/feed?limit=30`, {
+  feedAPI = async (token, defaultUrl) => {
+    const setting = {
       method: "GET",
-      headers: headers,
-    });
-    const json = await res.json();
-    const posts = json.posts;
-
-    // 팔로우가 없거나 게시물이 없을경우
-    if (posts.length <= 0) {
-      noFeed();
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-type": "application/json",
+      },
+    };
+    try {
+      const resFeed = await fetch(`${defaultUrl}/post/feed?limit=30`, setting);
+      const jsonFeed = await resFeed.json();
+      const posts = jsonFeed.posts;
+      if (posts.length <= 0) {
+        this.noFeed();
+      } else {
+        this.createFeed(posts);
+      }
+    } catch {
+      console.error("The feed cannot be received.");
     }
+  };
 
+  clickUserInfo = (event) => {
+    const userAccount = event.target
+      .closest(".userList")
+      .children[0].children[0].childNodes[3].children[1].innerText.replace(
+        "@",
+        ""
+      );
+    if (event.target.className === "moreBtn buttonClick") {
+      return;
+    }
+    // 주소 업데이트
+    window.history.pushState({}, "", `profile\?accountname=${userAccount}`);
+    new App(config).setup();
+  };
+
+  createFeed = (posts) => {
+    const listContent = document.querySelector(".post");
+    const clickUserInfo = this.clickUserInfo;
     for (let i = 0; i < posts.length; i++) {
       const postItem = document.createElement("div");
       postItem.classList.add("postItem");
-
-      //좋아요 버튼 클릭
-      async function clickHeart(e) {
-        const likeBtn = e.target;
-        const likeCount = e.target.children[1];
-        let data = {};
-
-        if (likeBtn.classList.contains("on")) {
-          likeBtn.classList.remove("on");
-          data = await likeUnHeart(posts[i].id);
-          likeCount.innerHTML = data.post.heartCount;
-        } else {
-          likeBtn.classList.add("on");
-          data = await likeHeart(posts[i].id);
-          likeCount.innerHTML = data.post.heartCount;
-        }
-      }
-
       // 이미지 url 저장
       let postImage = "";
       if (posts[i].image) {
@@ -136,9 +93,7 @@ async function homeFeed() {
       <section>
         <div class="userList">
           <div class="userItem">
-            <a href="profile.html?accountname=${
-              posts[i].author.accountname
-            }" class="userBox">
+            <div class="userBox">
               <img
                 src="${posts[i].author.image}"
                 alt="${posts[i].author.username}님의 프로필 이미지"
@@ -154,8 +109,8 @@ async function homeFeed() {
                   </p>
                 </div>
               </div>
-              <button class="moreBtn buttonClick" onclick="openModal(event)"><span class="ir">게시글 더보기 버튼</span></button>
-            </a>
+              <button class="moreBtn buttonClick"><span class="ir">게시글 더보기 버튼</span></button>
+            </div>
           </div>
         </div>
       </section>
@@ -164,9 +119,7 @@ async function homeFeed() {
         <p>${posts[i].content}</p>
         ${checkImg}
         <div class="postBtnContent">
-          <button class="likeBtn ${
-            posts[i].hearted ? "on" : ""
-          }" onclick="clickHeart(event)">
+          <button class="likeBtn ${posts[i].hearted ? "on" : ""}">
             <span class="ir">좋아요 버튼</span>
               <span class="likeCount">${posts[i].heartCount}</span>
           </button>
@@ -178,45 +131,21 @@ async function homeFeed() {
       </section>
       `;
       listContent.appendChild(postItem);
+      const heartBtn = document.querySelectorAll(".postBtnContent button");
+      const moreBtn = document.querySelectorAll(".moreBtn.buttonClick");
+      const userProfileLink = document.querySelectorAll(".userBox");
+
+      [].forEach.call(userProfileLink, function (userProfileLink) {
+        userProfileLink.addEventListener("click", clickUserInfo);
+      });
+      [].forEach.call(heartBtn, function (heartBtn) {
+        heartBtn.addEventListener("click", clickHeart);
+      });
+      [].forEach.call(moreBtn, function (moreBtn) {
+        moreBtn.addEventListener("click", clickUserModal);
+      });
     }
-  } catch (err) {
-    console.log(err);
-  }
+  };
 }
 
-// 더보기 버튼 클릭시 모달 열기
-const reportModal = document.querySelector(".reportModal");
-const reportAlert = document.querySelector(".reportAlert");
-const modal = document.querySelector(".modal");
-const modalBg = document.querySelector(".modalBg");
-
-function openModal(e) {
-  e.preventDefault();
-  reportModal.classList.remove("hidden");
-  modal.classList.remove("hidden");
-  modal.classList.add("appear");
-}
-
-function closeModal() {
-  reportModal.classList.add("hidden");
-  modal.classList.remove("appear");
-}
-
-function openAlert() {
-  reportAlert.classList.remove("hidden");
-  modal.classList.add("hidden");
-}
-
-// 취소 버튼 클릭
-function clickCancel() {
-  reportModal.classList.add("hidden");
-  reportAlert.classList.add("hidden");
-}
-
-// 신고하기 버튼 클릭
-function clickReport() {
-  reportModal.classList.add("hidden");
-  reportAlert.classList.add("hidden");
-}
-
-homeFeed();
+export default homeFeed;

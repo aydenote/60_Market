@@ -1,21 +1,23 @@
-const backHistory = document.querySelector(".headerBarBack.buttonClick");
+import { backHistory, timeForToday } from "./newScript/common.js";
+import { clickHeart } from "./newScript/heartBtn.js";
+
+const backBtn = document.querySelector(".headerBarBack.buttonClick");
 
 // 뒤로 가기
-backHistory.addEventListener("click", () => {
-  window.location = document.referrer;
-});
-
+backBtn.addEventListener("click", backHistory);
 
 // 게시 버튼 활성화
 const postChatForm = document.querySelector("#postChatContent");
 const postButton = document.querySelector(".postBtn");
 const commentUserProfile = document.querySelector(".commentUserProfile");
-
+postChatForm.addEventListener("keyup", postInput);
 postButton.disabled = true;
+
 function postInput(event) {
-  if(event.keyCode == 13){
+  // enter 시에 comment 입력
+  if (event.keyCode == 13) {
     submitComment(event);
-  }else{
+  } else {
     if (postChatForm.value !== "") {
       postButton.style.color = "var(—mainColor)";
       postButton.disabled = false;
@@ -27,16 +29,15 @@ function postInput(event) {
 }
 
 // 모달창 구현
-const API_ROOT = "https://mandarin.api.weniv.co.kr";
-const POST_ID = new URLSearchParams(location.search).get("postid");
+const url = "https://mandarin.api.weniv.co.kr";
+const postId = new URLSearchParams(location.search).get("postid");
 
 const token = localStorage.getItem("Token");
 const accountname = localStorage.getItem("accountname");
 
 async function renderPost() {
-  // const token = localStorage.getItem('Token');
   try {
-    const res = await fetch(`${API_ROOT}/post/${POST_ID}`, {
+    const res = await fetch(`${url}/post/${postId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -47,19 +48,15 @@ async function renderPost() {
     // 프로필, 게시글, 댓글 데이터 불러오기
 
     const json = await res.json();
-    const profileImg = json.post.author.image;
-    const userName = json.post.author.username;
-    const accountName = json.post.author.accountname;
-    const content = json.post.content;
-    const jsonImg = Array.from(json.post.image.split(","));
-    const heartCount = json.post.heartCount;
-    const commentCount = json.post.commentCount;
-    const createdAt = json.post.createdAt
-      .slice(0, 11)
-      .replace("-", "년 ")
-      .replace("-", "월 ")
-      .replace("T", "일");
-    // const comments = json.post.comments;
+    const postInfo = json.post;
+    const profileImg = postInfo.author.image;
+    const userName = postInfo.author.username;
+    const accountName = postInfo.author.accountname;
+    const content = postInfo.content;
+    const jsonImg = Array.from(postInfo.image.split(","));
+    const heartCount = postInfo.heartCount;
+    const commentCount = postInfo.commentCount;
+    const createdAt = timeForToday(postInfo.createdAt);
 
     // 프로필
     const div = document.querySelector(".userItem");
@@ -96,6 +93,7 @@ async function renderPost() {
     const jsonImgTags = jsonImg.map((src) => {
       return src && `<img src=${src} alt="게시물 이미지" />`;
     });
+    let heartStatus;
     if (json.post.hearted) {
       heartStatus = "likeBtn on";
     } else {
@@ -118,7 +116,7 @@ async function renderPost() {
   </div>`
   }
   <div class="postBtnContent">
-    <button onclick="clickHeart(event)" class="${heartStatus}">
+    <button class="${heartStatus}">
       <span class="ir">좋아요 버튼</span>
       <span class="likeCount">${heartCount}</span>
     </button>
@@ -128,7 +126,8 @@ async function renderPost() {
   </div>
   <strong class="postDate">${createdAt}</strong>
 `;
-    console.log(json);
+    const heartBtn = document.querySelector(".postBtnContent button");
+    heartBtn.addEventListener("click", clickHeart);
 
     // 댓글
     const commentSection = document.querySelector(".postCommentBox");
@@ -157,7 +156,7 @@ async function renderPost() {
                 comment.createdAt
               )}</strong>
             </div>
-            <button class="moreBtn buttonClick" onclick=modalOpen(event)>
+            <button class="moreBtn buttonClick">
               <span class="ir">댓글 모달 버튼</span>
             </button>
           </div>
@@ -171,8 +170,11 @@ async function renderPost() {
   </article>`;
     });
     commentSection.innerHTML = postComments.join("");
+    const modal = document.querySelectorAll(".moreBtn.buttonClick");
+    [].forEach.call(modal, function (modal) {
+      modal.addEventListener("click", modalOpen);
+    });
   } catch (err) {
-    // location.href="./error.html";
     console.error(err);
   }
 }
@@ -181,7 +183,7 @@ async function renderPost() {
 const getCommentDetail = async () => {
   const token = localStorage.getItem("Token");
   try {
-    const res = await fetch(`${API_ROOT}/post/${POST_ID}/comments`, {
+    const res = await fetch(`${url}/post/${postId}/comments`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -194,24 +196,10 @@ const getCommentDetail = async () => {
   }
 };
 
-// 게시물 등록 시간 계산 함수
-function timeForToday(time) {
-  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-  const postingDate = time.substring(0, time.length - 1);
-  const ms = Date.parse(postingDate) + KR_TIME_DIFF;
-  const now = Date.now();
-  const gap = (now - ms) / 1000;
-  if (gap < 60) return "방금전";
-  else if (gap < 3600) return `${parseInt(gap / 60)}분 전`;
-  else if (gap < 86400) return `${parseInt(gap / 3600)}시간 전`;
-  else if (gap < 2592000) return `${parseInt(gap / 86400)}일 전`;
-  else return `${parseInt(gap / 2592000)}달 전`;
-}
-
 // 로그인 유저 정보
 async function getLoginUserInfo() {
   try {
-    const res = await fetch(`${API_ROOT}/profile/${accountname}`, {
+    const res = await fetch(`${url}/profile/${accountname}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -219,7 +207,6 @@ async function getLoginUserInfo() {
       },
     });
     const userJson = await res.json();
-    console.log(userJson);
     const commentUserProfileImg = userJson.profile.image;
     // 댓글 유저 프로필 이미지
     commentUserProfile.setAttribute("src", commentUserProfileImg);
@@ -238,7 +225,7 @@ const submitComment = async (e) => {
   e.preventDefault();
   const token = localStorage.getItem("Token");
   try {
-    const res = await fetch(`${API_ROOT}/post/${POST_ID}/comments`, {
+    const res = await fetch(`${url}/post/${postId}/comments`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -263,36 +250,35 @@ submitButton.addEventListener("click", submitComment);
 
 const modal = document.createElement("div");
 
-const modalMore = (commentId) => {
+const modalMore = () => {
   return `<section class="modalBg postModal">
   <article class="modal appear">
-    <button onclick="modalClose()" class="modalClose">
+    <button class="modalClose">
       <span class="ir">댓글 신고 버튼</span>
     </button>
-    <button onclick="modalOpenCommentDelete('${commentId}')" class="modalBtn modalBtn1">삭제</button>
-    <button class="modalBtn modalBtn2">수정</button>
+    <button class="modalBtn modalBtn1">삭제</button>
   </article>
 </section>`;
 };
 
-const modalCommentDelete = (commentId) => {
+const modalCommentDelete = () => {
   return `<section class="modalAlert productDelAlert">
   <h4 class="ir">댓글 삭제 창</h4>
   <strong class="alertMsg">삭제하시겠습니까?</strong>
   <div class="alertBtnContent">
-    <button onclick="modalClose()" class="cancelBtn">취소</button>
-    <button onclick="deleteComment('${commentId}')" class="delBtn">삭제</button>
+    <button class="cancelBtn">취소</button>
+    <button class="delBtn">삭제</button>
   </div>
   </section>`;
 };
 
-const modalReport = (commentId) => {
+const modalReport = () => {
   return `<section class="modalBg commentReportModal">
   <article class="modal appear">
-    <button onclick="modalClose()" id="btnReportClose" class="modalClose">
+    <button id="btnReportClose" class="modalClose">
       <span class="ir">댓글 신고 버튼</span>
     </button>
-    <button onclick="commentReport('${commentId}')" class="modalBtn modalBtn1">신고</button>
+    <button class="modalBtn modalBtn1">신고</button>
   </article>
 </section>`;
 };
@@ -301,16 +287,7 @@ const reportAlert = `<section class="modalAlert postDelAlert">
 <h4 class="ir">신고 완료</h4>
 <strong class="alertMsg">신고 완료</strong>
 <div class="alertBtnContent">
-  <button onclick="modalClose()" class="cancelBtn">확인</button>
-</div>
-</section>`;
-
-const deleteConfirmAlert = `<section class="modalAlert productDelAlert hidden">
-<h4 class="ir">댓글 삭제 창</h4>
-<strong class="alertMsg">삭제하시겠어?</strong>
-<div class="modalBtnContent">
-  <button class="cancelBtn">취소</button>
-  <button class="delBtn">삭제</button>
+  <button class="cancelBtn">확인</button>
 </div>
 </section>`;
 
@@ -318,12 +295,10 @@ const deleteAlert = `<section class="modalAlert postDelAlert">
 <h4 class="ir">삭제 완료</h4>
 <strong class="alertMsg">삭제 완료</strong>
 <div class="alertBtnContent">
-  <button onclick="modalClose()" class="cancelBtn">확인</button>
+  <button class="cancelBtn">확인</button>
 </div>
 </section>`;
 
-const btnPostModal = document.querySelector(".postModal");
-const btnReport = document.querySelector(".commentReportModal");
 const body = document.body;
 const modalOpen = (e) => {
   e.preventDefault();
@@ -333,56 +308,79 @@ const modalOpen = (e) => {
   const commentId = e.target.parentElement
     .closest("article")
     .getAttribute("id");
-  if (commentAccountName == localStorage.getItem("accountname")) {
+
+  // 본인 댓글인 경우 삭제 모달 활성화
+  if (commentAccountName === localStorage.getItem("accountname")) {
     modal.innerHTML = modalMore(commentId);
     body.appendChild(modal);
+    const commentModalClose = document.querySelector(".postModal .modalClose");
+    const commentModalDelete = document.querySelector(".postModal .modalBtn1");
+    commentModalClose.addEventListener("click", modalClose);
+    commentModalDelete.addEventListener("click", () => {
+      modalOpenCommentDelete(commentId);
+    });
   } else {
+    // 다른 사람의 댓글인 경우 신고 모달 활성화
     modal.innerHTML = modalReport(commentId);
     body.appendChild(modal);
+    const reportModalClose = document.querySelector("#btnReportClose");
+    const reportBtn = document.querySelector(".commentReportModal .modalBtn1");
+    reportModalClose.addEventListener("click", modalClose);
+    reportBtn.addEventListener("click", () => {
+      commentReport(commentId);
+    });
   }
-  // btnReport.classList.remove("hidden")
-  // PostModal.classList.remove("hidden")
 };
 
+// 모달 닫기
 const modalClose = () => {
   body.removeChild(modal);
 };
 
+// 댓글 삭제 모달창 활성화
 const modalOpenCommentDelete = (commentId) => {
   modal.innerHTML = modalCommentDelete(commentId);
+  const deleteCommentModal = document.querySelector(".productDelAlert .delBtn");
+  const cancelCommentModal = document.querySelector(
+    ".productDelAlert .cancelBtn"
+  );
+
+  deleteCommentModal.addEventListener("click", () => {
+    deleteComment(commentId);
+  });
+  cancelCommentModal.addEventListener("click", modalClose);
 };
 
 //댓글 삭제
 const deleteComment = async (commentId) => {
   const token = localStorage.getItem("Token");
   try {
-    const res = await fetch(
-      `${API_ROOT}/post/${POST_ID}/comments/${commentId}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-type": "application/json",
-        },
-      }
-    );
+    const res = await fetch(`${url}/post/${postId}/comments/${commentId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-type": "application/json",
+      },
+    });
     const json = await res.json();
     modalClose();
     renderPost();
     modal.innerHTML = deleteAlert;
     body.appendChild(modal);
+    // 모달창 닫기
+    const alertClose = document.querySelector(".postDelAlert .cancelBtn");
+    alertClose.addEventListener("click", modalClose);
   } catch (err) {
     console.log(err);
   }
 };
 
 // 댓글 신고
-
 const commentReport = async (commentId) => {
   const token = localStorage.getItem("Token");
   try {
     const res = await fetch(
-      `${API_ROOT}/post/${POST_ID}/comments/${commentId}/report`,
+      `${url}/post/${postId}/comments/${commentId}/report`,
       {
         method: "DELETE",
         headers: {
@@ -395,57 +393,12 @@ const commentReport = async (commentId) => {
     modalClose();
     modal.innerHTML = reportAlert;
     body.appendChild(modal);
+    // 모달창 닫기
+    const alertClose = document.querySelector(".postDelAlert .cancelBtn");
+    alertClose.addEventListener("click", modalClose);
   } catch (err) {
     console.log(err);
   }
 };
 
 renderPost();
-
-// 좋아요
-async function likeHeart(postingID) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;
-  const token = localStorage.getItem("Token");
-
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
-    },
-  });
-  const data = await res.json();
-  return data;
-}
-
-// 좋아요 취소
-async function likeUnHeart(postingID) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/unheart`;
-  const token = localStorage.getItem("Token");
-  const res = await fetch(url, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
-    },
-  });
-  const data = await res.json();
-  return data;
-}
-
-// 좋아요 버튼 클릭
-async function clickHeart(e) {
-  const likeBtn = e.target;
-  const likeCount = e.target.children[1];
-  let data = {};
-
-  if (likeBtn.classList.contains("on")) {
-    likeBtn.classList.remove("on");
-    data = await likeUnHeart(POST_ID);
-    likeCount.innerHTML = data.post.heartCount;
-  } else {
-    likeBtn.classList.add("on");
-    data = await likeHeart(POST_ID);
-    likeCount.innerHTML = data.post.heartCount;
-  }
-}

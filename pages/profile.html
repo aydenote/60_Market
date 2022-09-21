@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="../asset/images/favicon.ico" />
     <link rel="stylesheet" href="../css/styles.css" />
-    <script src="../script/profile.js" defer></script>
+    <script type="module" src="../script/profile.js" defer></script>
     <title>프로필 | 60'' Market</title>
   </head>
   <body class="profileBackground">
@@ -25,18 +25,17 @@
         />
       </article>
     </header>
-
     <main class="ProfileContent">
       <section class="introduce">
         <h2 class="ir">프로필 소개</h2>
         <section class="myFollow myProfileImg">
-          <a onclick="clickedFollowLink(event)" class="followers"></a>
+          <a class="followers"></a>
           <img
             class="myImage"
             src="../asset/images/basic-profile.svg"
             alt="내 프로필 이미지"
           />
-          <a onclick="clickedFollowLink(event)" class="followings"></a>
+          <a class="followings"></a>
         </section>
 
         <section class="profileInfo">
@@ -55,13 +54,11 @@
       <section class="postingSummary">
         <article class="albumBar">
           <img
-            onclick="listTypePost()"
             class="postingType list buttonClick"
             src="../asset/images/icons/icon__postList.svg"
             alt="리스트형으로 보기"
           />
           <img
-            onclick="albumTypePost()"
             class="postingType album buttonClick unselected"
             src="../asset/images/icons/icon__postAlbum.svg"
             alt="앨범형으로 보기"
@@ -100,80 +97,5 @@
         </ul>
       </nav>
     </footer>
-
-    <section class="modalBg setUsertModal hidden">
-      <article class="modal appear">
-        <button class="modalClose">
-          <span class="ir">더보기 닫기 버튼</span>
-        </button>
-        <button class="modalBtn modalBtn1">설정 및 개인정보</button>
-        <button class="modalBtn modalBtn2">로그아웃</button>
-      </article>
-    </section>
-
-    <section class="modalAlert logoutAlert hidden">
-      <h4 class="ir">로그아웃 창</h4>
-      <strong class="alertMsg">로그아웃하시겠어요?</strong>
-      <div class="alertBtnContent">
-        <button class="cancelBtn">취소</button>
-        <button class="logoutBtn">로그아웃</button>
-      </div>
-    </section>
-
-    <section class="modalBg productModal hidden">
-      <article class="modal appear">
-        <button class="modalClose">
-          <span class="ir">더보기 닫기 버튼</span>
-        </button>
-        <button class="modalBtn modalBtn1">삭제</button>
-        <button class="modalBtn modalBtn3">웹사이트에서 상품 보기</button>
-      </article>
-    </section>
-
-    <section class="modalAlert productDelAlert hidden">
-      <h4 class="ir">상품 삭제 창</h4>
-      <strong class="alertMsg">삭제하시겠어요?</strong>
-      <div class="alertBtnContent">
-        <button class="cancelBtn">취소</button>
-        <button class="delBtn">삭제</button>
-      </div>
-    </section>
-
-    <section class="modalBg posttModal hidden">
-      <article class="modal appear">
-        <button class="modalClose">
-          <span class="ir">더보기 닫기 버튼</span>
-        </button>
-        <button class="modalBtn modalBtn1">삭제</button>
-        <button class="modalBtn modalBtn2">수정</button>
-      </article>
-    </section>
-
-    <section class="modalBg reportModal hidden">
-      <article class="modal appear">
-        <button class="modalClose">
-          <span class="ir">더보기 닫기 버튼</span>
-        </button>
-        <button class="modalBtn modalBtn1">신고하기</button>
-      </article>
-    </section>
-
-    <section class="modalAlert postDelAlert hidden">
-      <h4 class="ir">게시물 삭제 창</h4>
-      <strong class="alertMsg">게시글을 삭제할까요?</strong>
-      <div class="alertBtnContent">
-        <button class="cancelBtn">취소</button>
-        <button class="delBtn">삭제</button>
-      </div>
-    </section>
-
-    <section class="modalAlert reportAlert hidden">
-      <h4 class="ir">게시글 신고 창</h4>
-      <strong class="alertMsg">신고하시겠어요?</strong>
-      <div class="alertBtnContent">
-        <button class="cancelBtn">취소</button>
-        <button class="reportBtn">신고</button>
-      </div>
-    </section>
   </body>
 </html>

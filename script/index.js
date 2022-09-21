@@ -1,3 +1,7 @@
-window.setTimeout(() => {
-  location.href = 'pages/intro.html';
-}, 1000);
+import App from "./app.js";
+
+const config = {
+  rootEl: "#root",
+};
+
+new App(config).setup();
