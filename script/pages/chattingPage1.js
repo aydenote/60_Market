@@ -108,68 +108,97 @@ class ChattingPage1 {
     chatOut1SectionEl.appendChild(chatOut1DatePEl);
     chatOut1ArticleEl.appendChild(chatOut1SectionEl);
 
+    const chatIn3ArticleEl = document.createElement("article");
+    const chatIn3ProfileImgEl = document.createElement("img");
+    const chatIn3SectionEl = document.createElement("section");
+    const chatIn3TextPEl = document.createElement("p");
+    const chatIn3DatePEl = document.createElement("p");
+
+    chatIn3ArticleEl.classList.add("chatMsg");
+    chatIn3ArticleEl.classList.add("chatIncommingMsg");
+    chatIn3ProfileImgEl.setAttribute(
+      "src",
+      "../asset/images/user/pochacco.png"
+    );
+    chatIn3ProfileImgEl.setAttribute("alt", "프로필 이미지");
+    chatIn3ProfileImgEl.classList.add("userProfileImage");
+    chatIn3SectionEl.classList.add("chatMsgContent");
+    chatIn3TextPEl.classList.add("chatMsgText");
+    chatIn3TextPEl.innerText = "당근 뽑기 해보신 적 있나요? 😆";
+    chatIn3DatePEl.classList.add("chatMsgDate");
+    chatIn3DatePEl.innerText = "12:51";
+
+    chatIn3SectionEl.appendChild(chatIn3TextPEl);
+    chatIn3SectionEl.appendChild(chatIn3DatePEl);
+    chatIn3ArticleEl.appendChild(chatIn3ProfileImgEl);
+    chatIn3ArticleEl.appendChild(chatIn3SectionEl);
+
+    const chatOut2ArticleEl = document.createElement("article");
+    const chatOut2SectionEl = document.createElement("section");
+    const chatOut2TextPEl = document.createElement("p");
+    const chatOut2DatePEl = document.createElement("p");
+
+    chatOut2ArticleEl.classList.add("chatMsg");
+    chatOut2ArticleEl.classList.add("chatOutgoingMsg");
+    chatOut2SectionEl.classList.add("chatMsgContent");
+    chatOut2TextPEl.classList.add("chatMsgText");
+    chatOut2TextPEl.innerText = "사실 없습니다 😅";
+    chatOut2DatePEl.classList.add("chatMsgDate");
+    chatOut2DatePEl.innerText = "12:55";
+
+    chatOut2SectionEl.appendChild(chatOut2TextPEl);
+    chatOut2SectionEl.appendChild(chatOut2DatePEl);
+    chatOut2ArticleEl.appendChild(chatOut2SectionEl);
+
     mainEl.appendChild(chatIn1ArticleEl);
     mainEl.appendChild(chatIn2ArticleEl);
     mainEl.appendChild(chatOut1ArticleEl);
+    mainEl.appendChild(chatIn3ArticleEl);
+    mainEl.appendChild(chatOut2ArticleEl);
 
-    return { headerEl, mainEl };
+    // footer
+    const footerEl = document.createElement("footer");
+    const chatImgFormEl = document.createElement("form");
+    const chatLabelEl = document.createElement("label");
+    const uploadImgEl = document.createElement("img");
+    const selectImgInputEl = document.createElement("input");
+    const chatTextFormEl = document.createElement("form");
+    const chatTextInputEl = document.createElement("input");
+    const chatBtnEl = document.createElement("button");
+
+    footerEl.classList.add("chatEnter");
+    chatImgFormEl.classList.add("chatEnterImage");
+    chatLabelEl.classList.add("chatSelectImage");
+    uploadImgEl.setAttribute(
+      "src",
+      "../asset/images/icons/icon__imagesUplode.svg"
+    );
+    uploadImgEl.setAttribute("alt", "");
+    selectImgInputEl.id = "chatSelectImage";
+    selectImgInputEl.setAttribute("type", "file");
+    selectImgInputEl.accept = "image/*";
+    chatTextFormEl.classList.add("chatEnterContent");
+    chatTextInputEl.placeholder = "메시지 입력하기...";
+    chatTextInputEl.type = "text";
+    chatTextInputEl.maxLength = "100";
+    chatBtnEl.type = "button";
+    chatBtnEl.innerText = "전송";
+
+    chatTextFormEl.appendChild(chatTextInputEl);
+    chatTextFormEl.appendChild(chatBtnEl);
+    chatLabelEl.appendChild(uploadImgEl);
+    chatImgFormEl.appendChild(chatLabelEl);
+    chatImgFormEl.appendChild(selectImgInputEl);
+    footerEl.appendChild(chatImgFormEl);
+    footerEl.appendChild(chatTextFormEl);
+
+    return { headerEl, mainEl, footerEl };
   }
 }
 
 export default ChattingPage1;
 
-/* 
-    <main class="chatScreen">
-     
-      <!-- 발신 메시지 -->
-      <article class="chatMsg chatOutgoingMsg">
-        <section class="chatMsgContent">
-          <!-- 메시지 내용 -->
-          <p class="chatMsgText">네! 제가 준비된 농부 입니다. 🧑🏻‍🌾</p>
-          <!-- 메시지 날짜 -->
-          <p class="chatMsgDate">12:49</p>
-        </section>
-      </article>
-      <!-- 수신 메시지 -->
-      <article class="chatMsg chatIncommingMsg">
-        <!-- 수신 메시지 유저 프로필 사진 -->
-        <img
-          src="../asset/images/user/pochacco.png"
-          alt="프로필 이미지"
-          class="userProfileImage"
-        />
-        <section class="chatMsgContent">
-          <!-- 메시지 내용 -->
-          <p class="chatMsgText">당근 뽑기 해보신 적 있나요? 😆</p>
-          <!-- 메시지 날짜 -->
-          <p class="chatMsgDate">12:51</p>
-        </section>
-      </article>
-      <!-- 발신 메시지 -->
-      <article class="chatMsg chatOutgoingMsg">
-        <section class="chatMsgContent">
-          <!-- 메시지 내용 -->
-          <p class="chatMsgText">사실 없습니다 😅</p>
-          <!-- 메시지 날짜 -->
-          <p class="chatMsgDate">12:55</p>
-        </section>
-      </article>
-    </main>
-
-    <!-- 채팅 입력 -->
-    <footer class="chatEnter">
-      <form class="chatEnterImage">
-        <label for="chatSelectImage">
-          <img src="../asset/images/icons/icon__imagesUplode.svg" alt="" />
-        </label>
-        <input id="chatSelectImage" type="file" accept="image/*" />
-      </form>
-      <form class="chatEnterContent">
-        <input type="text" placeholder="메시지 입력하기..." maxlength="100" />
-        <button type="button">전송</button>
-      </form>
-    </footer>
-
+/*    
     <section class="modalBg chatModal hidden">
       <article class="modal appear">
         <button class="modalClose">
