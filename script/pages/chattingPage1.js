@@ -1,8 +1,4 @@
-import App from "../app.js";
 import { clickChatModal } from "../newScript/modal.js";
-const config = {
-  rootEl: "#root",
-};
 
 class ChattingPage1 {
   render() {

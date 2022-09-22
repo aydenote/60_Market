@@ -1,3 +1,5 @@
+import { clickChatModal } from "../newScript/modal.js";
+
 class ChattingPage3 {
   render() {
     // header
