@@ -1,7 +1,9 @@
 import App from "../app.js";
+import { clickChatModal } from "../newScript/modal.js";
 const config = {
   rootEl: "#root",
 };
+
 class ChattingPage1 {
   render() {
     // header
@@ -31,6 +33,9 @@ class ChattingPage1 {
     menuImgEl.classList.add("buttonClick");
     menuImgEl.setAttribute("src", "../asset/images/icons/icon__menu.svg");
     menuImgEl.setAttribute("alt", "메뉴");
+    menuImgEl.addEventListener("click", () => {
+      clickChatModal();
+    });
 
     articleHeaderEl.appendChild(backImgEl);
     articleHeaderEl.appendChild(chatUserPEl);
@@ -197,13 +202,3 @@ class ChattingPage1 {
 }
 
 export default ChattingPage1;
-
-/*    
-    <section class="modalBg chatModal hidden">
-      <article class="modal appear">
-        <button class="modalClose">
-          <span class="ir">채팅방 나가기 버튼</span>
-        </button>
-        <button class="modalBtn modalBtn1">채팅방 나가기</button>
-      </article>
-    </section> */

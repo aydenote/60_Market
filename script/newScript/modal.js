@@ -71,6 +71,15 @@ const reportAlert = `<section class="modalAlert reportAlert">
 </div>
 </section>`;
 
+const modalChat = `<section class="modalBg chatModal">
+<article class="modal appear">
+  <button class="modalClose">
+    <span class="ir">채팅방 나가기 버튼</span>
+  </button>
+  <button class="modalBtn modalBtn1">채팅방 나가기</button>
+</article>
+</section>`;
+
 // 사용자 모달창
 export function logoutModal() {
   body.appendChild(modal);
@@ -274,4 +283,21 @@ export function clickUserModal(event) {
       });
     });
   }
+}
+
+export function clickChatModal() {
+  body.appendChild(modal);
+  modal.innerHTML = modalChat;
+
+  const modalClose = document.querySelector(".modalClose");
+  const cancelBtn = document.querySelector(".modalBtn");
+
+  modalClose.addEventListener("click", () => {
+    body.removeChild(modal);
+  });
+  cancelBtn.addEventListener("click", () => {
+    body.removeChild(modal);
+    window.history.pushState({}, "", "/chat"); // 주소 업데이트
+    new App(config).setup();
+  });
 }
