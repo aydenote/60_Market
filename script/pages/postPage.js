@@ -1,3 +1,10 @@
+import {
+  getLoginUserInfo,
+  createPost,
+  postInput,
+  readInputFile,
+} from "../postUpload.js";
+
 class PostPage {
   render() {
     document.querySelector("body").classList.remove("profileBackground");
@@ -18,7 +25,11 @@ class PostPage {
     uploadBtnEl.classList.add("buttonClick");
     uploadBtnEl.id = "postingUploadBtn";
     uploadBtnEl.setAttribute("type", "button");
+    uploadBtnEl.disabled = true;
     uploadBtnEl.innerText = "업로드";
+    uploadBtnEl.addEventListener("click", () => {
+      createPost();
+    });
 
     headerBarArticleEl.appendChild(backImgEl);
     headerBarArticleEl.appendChild(uploadBtnEl);
@@ -50,7 +61,7 @@ class PostPage {
     postTextareaEl.placeholder = "게시글 입력하기...";
     postTextareaEl.classList.add("postUploadComentTxt");
     postTextareaEl.addEventListener("keyup", () => {
-      //postInput()
+      postInput();
     });
     selectImgLabelEl.classList.add("postUploadInputImg");
     selectImgLabelEl.setAttribute("for", "chatSelectImage");
@@ -65,8 +76,8 @@ class PostPage {
     uploadInputEl.classList.add("postUploadInput");
     uploadInputEl.classList.add("ir");
     uploadInputEl.multiple = true;
-    uploadInputEl.addEventListener("change", () => {
-      // readInputFile(event)
+    uploadInputEl.addEventListener("change", (event) => {
+      readInputFile(event);
     });
     postImgDivEl.classList.add("postUploadImageScreen");
 
@@ -78,6 +89,10 @@ class PostPage {
     postUploadFormEl.appendChild(uploadInputEl);
     mainEl.appendChild(postUploadFormEl);
     mainEl.appendChild(postImgDivEl);
+
+    // 프로필 이미지 반영, 게시물 업로드 기능 구현
+    // const postUpload = new PostUpload(profileImgEl, postImgDivEl, uploadBtnEl);
+    getLoginUserInfo(profileImgEl);
 
     return { headerEl, mainEl };
   }

@@ -1,3 +1,5 @@
+import App from "./app.js";
+
 const backHistory = document.querySelector(".headerBarBack.buttonClick");
 const postUploadTxt = document.querySelector(".postUploadComentTxt");
 const postUploadInp = document.querySelector(".postUploadInput");
@@ -5,21 +7,24 @@ const postImgContainer = document.querySelector(".postUploadImageScreen");
 const postUploadBtn = document.querySelector(".headerBarBtn.buttonClick");
 const postImgItem = document.querySelector(".postImgItem");
 const postUserProfile = document.querySelector(".userProfileImage");
-const url = "https://mandarin.api.weniv.co.kr";
+// const url = "https://mandarin.api.weniv.co.kr";
 const curUrl = location.href;
-
 const imgFiles = [];
 
+const config = {
+  rootEl: "#root",
+};
 
 // 뒤로 가기
-backHistory.addEventListener("click", () => {
-  window.location = document.referrer;
-});
+// backHistory.addEventListener("click", () => {
+//   window.location = document.referrer;
+// });
 
 // 로그인 유저 정보
-async function getLoginUserInfo() {
+export async function getLoginUserInfo(profileImgEl) {
   const token = localStorage.getItem("Token");
   const accountname = localStorage.getItem("accountname");
+  const url = "https://mandarin.api.weniv.co.kr";
 
   try {
     const res = await fetch(`${url}/profile/${accountname}`, {
@@ -30,26 +35,24 @@ async function getLoginUserInfo() {
       },
     });
     const userJson = await res.json();
-    postUserProfile.setAttribute("src", userJson.profile.image);
+    profileImgEl.setAttribute("src", userJson.profile.image);
   } catch (err) {
     console.log(err);
   }
 }
 
-getLoginUserInfo();
-
 // 사진 미리보기, 사진 삭제
-
-function readInputFile(e) {
+export function readInputFile(e) {
   const files = e.target.files;
   const fileArr = [...files];
+  const postImgContainer = document.querySelector(".postUploadImageScreen");
+
   if (e.target.files[0].size > 10000000) {
     alert("이미지 사이즈는 10MB 이내로 등록 가능합니다.");
     return;
-  } 
+  }
   fileArr.forEach((file) => imgFiles.push(file));
   fileArr.forEach(function (i) {
-    
     if (files.length <= 3) {
       const reader = new FileReader();
       reader.onload = function (e) {
@@ -67,19 +70,20 @@ function readInputFile(e) {
           // MEMO:: imgFiles에서 삭제, 미리보기에 삭제
           imgFiles.splice([...postImgContainer.children].indexOf(imgItem), 1);
           postImgContainer.removeChild(imgItem);
-          // console.log(imgFiles);
         });
       };
       reader.readAsDataURL(i);
     }
   });
 }
-// postUploadInp.addEventListener("change", uploadImg);
 
 // 이미지 업로드
 let arrImg = [];
-async function uploadImg(event) {
+async function uploadImg(imgFiles) {
   const formData = new FormData();
+  const url = "https://mandarin.api.weniv.co.kr";
+  let arrImg = [];
+
   imgFiles.forEach((file) => {
     formData.append("image", file);
   });
@@ -101,11 +105,12 @@ async function uploadImg(event) {
 }
 
 // postUploadComentTxt나 postUploadImageScreen에 이미지가 업로드되면 업로드버튼 활성화
+// postUploadBtn.disabled = true;
+export function postInput() {
+  const postUploadTxt = document.querySelector(".postUploadComentTxt");
+  const postUploadBtn = document.querySelector(".headerBarBtn.buttonClick");
 
-postUploadBtn.disabled = true;
-console.log(postUploadBtn);
-function postInput() {
-  if (postUploadTxt.value !== "" || postImgContainer.value !== "") {
+  if (postUploadTxt.value.length >= 1) {
     postUploadBtn.style.opacity = "1";
     postUploadBtn.disabled = false;
   } else {
@@ -115,9 +120,10 @@ function postInput() {
 }
 
 // 게시글 작성 후 데이터 서버에 보내기
-
-async function createPost() {
+export async function createPost() {
+  const postUploadTxt = document.querySelector(".postUploadComentTxt");
   const token = localStorage.getItem("Token");
+  const url = "https://mandarin.api.weniv.co.kr";
   const contentText = postUploadTxt.value;
   const images = await uploadImg(imgFiles);
 
@@ -135,13 +141,17 @@ async function createPost() {
     }),
   });
   const json = await res.json();
-  // console.log(json);
-  location.href = "../pages/profile.html";
+  if (json.post) {
+    window.history.pushState({}, "", "/profile"); // 주소 업데이트
+    new App(config).setup();
+  } else {
+    return;
+  }
 }
 
-if (curUrl.indexOf("postid=") == -1) {
-  postUploadBtn.addEventListener("click", createPost);
-}
+// if (curUrl.indexOf("postid=") == -1) {
+//   postUploadBtn.addEventListener("click", createPost);
+// }
 
 ///////////////게시물 수정///////////////
 if (curUrl.indexOf("postid=") !== -1) {
@@ -293,7 +303,7 @@ if (curUrl.indexOf("postid=") !== -1) {
         }),
       });
       const json = await res.json();
-      location.href = "./profile.html";
+      // location.href = "./profile.html";
 
       if (json.type == "entity.too.large") {
         console.error(json.message);

@@ -1,5 +1,9 @@
-// 공통 API 모듈
+import App from "../app.js";
+const config = {
+  rootEl: "#root",
+};
 
+// 공통 API 모듈
 // 좋아요 모듈
 export async function likeHeart(postingID) {
   const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;
@@ -74,7 +78,8 @@ export async function deletePost(postingId) {
   try {
     const resDeleteProduct = await fetch(`${url}/post/${postingId}`, setting);
     if (resDeleteProduct) {
-      location.href = "../pages/profile.html";
+      window.history.pushState({}, "", "/profile"); // 주소 업데이트
+      new App(config).setup();
     }
   } catch (err) {
     console.error(err);
