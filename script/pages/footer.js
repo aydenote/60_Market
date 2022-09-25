@@ -66,7 +66,7 @@ class Footer {
 
     postDivEl.classList.add("nav");
     postDivEl.addEventListener("click", () => {
-      window.history.pushState({}, "", "/post"); // 주소 업데이트
+      window.history.pushState({}, "", "/postUpload"); // 주소 업데이트
       new App(config).setup();
     });
     postArticleEl.classList.add("navIcon");

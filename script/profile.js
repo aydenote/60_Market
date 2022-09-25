@@ -303,7 +303,7 @@ class Profile {
           <section>
             <div class="userList">
               <div class="userItem">
-                <a href="profile.html?accountname=${
+                <div href="profile.html?accountname=${
                   post.author.accountname
                 }" class="userBox">
                   <img src="${
@@ -322,7 +322,7 @@ class Profile {
                   <button class="moreBtn buttonClick">
                     <span class="ir">게시글 더보기 버튼</span>
                   </button>
-                </a>
+                </div>
               </div>
             </div>
           </section>
@@ -336,19 +336,21 @@ class Profile {
                 <span class="ir">좋아요 버튼</span>
                 <span class="likeCount">${post.heartCount}</span>
               </button>
-              <a href="post.html\?postid=${post.id}" class="commentBtn">
+              <div href="post.html\?postid=${post.id}" class="commentBtn">
                 <span class="commentCount">${post.comments.length}</span>
-              </a>
+              </div>
             </div>
             <strong class="postDate">${timeForToday(post.createdAt)}</strong>
           </section>`;
       posting[0].insertAdjacentHTML("beforeend", postListContent);
-      const moreBtn = document.querySelector(".moreBtn.buttonClick");
+      const moreBtn = document.querySelectorAll(".moreBtn.buttonClick");
       const heartBtn = document.querySelectorAll(".postBtnContent button");
       [].forEach.call(heartBtn, function (heartBtn) {
         heartBtn.addEventListener("click", clickHeart);
       });
-      moreBtn.addEventListener("click", clickUserModal);
+      [].forEach.call(moreBtn, function (moreBtn) {
+        moreBtn.addEventListener("click", clickUserModal);
+      });
     }
   };
 

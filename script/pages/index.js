@@ -13,4 +13,4 @@ export { default as ChattingPage1 } from "./chattingPage1.js";
 export { default as ChattingPage2 } from "./chattingPage2.js";
 export { default as ChattingPage3 } from "./chattingPage3.js";
 export { default as ChattingPage4 } from "./chattingPage4.js";
-export { default as PostPage } from "./postPage.js";
+export { default as PostUploadPage } from "./postUploadPage.js";

@@ -242,6 +242,7 @@ export function clickUserModal(event) {
       // 게시물 삭제
       const postDelete = document.querySelector(".delAlert .delBtn");
       postDelete.addEventListener("click", () => {
+        body.removeChild(modal);
         deletePost(postingId);
       });
     });
