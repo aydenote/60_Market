@@ -1,16 +1,10 @@
 import App from "./app.js";
 
-let imgFiles = [];
-let fileArr = [];
-
 const config = {
   rootEl: "#root",
 };
-
-// 뒤로 가기
-// backHistory.addEventListener("click", () => {
-//   window.location = document.referrer;
-// });
+let fileArr = [];
+let arrImgName = [];
 
 // 로그인 유저 정보
 async function getLoginUserInfo(profileImgEl) {
@@ -33,46 +27,57 @@ async function getLoginUserInfo(profileImgEl) {
   }
 }
 
-// 사진 미리보기, 사진 삭제
-export function readInputFile(e) {
-  const files = e.target.files;
+// 업로드 사진 미리보기, 이미지 삭제 이벤트 등록
+export function readInputFile(event) {
+  const reader = new FileReader();
+  const files = event.target.files;
   const postImgContainer = document.querySelector(".postUploadImageScreen");
+  const postImgItem = document.querySelectorAll(".postImgItem");
+
+  reader.readAsDataURL(files[0]);
   fileArr.push(files[0]);
-  imgFiles.push(files[0]);
+  const imgFileName = files[0].name;
+  if (postImgItem.length <= 2) {
+    reader.onload = function () {
+      const imgItem = document.createElement("div");
+      imgItem.style.backgroundImage = `url(${reader.result})`;
+      imgItem.className = "postImgItem";
+      imgItem.dataset.key = `${imgFileName}`;
+      postImgContainer.appendChild(imgItem);
+      event.target.value = "";
 
-  // fileArr.forEach((file) => imgFiles.push(file));
-  fileArr.forEach(function (i) {
-    if (files.length <= 3) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const imgItem = document.createElement("div");
-        imgItem.style.backgroundImage = `url(${reader.result})`;
-        imgItem.className = "postImgItem";
-        console.log(imgItem);
+      const closeBtn = document.createElement("button");
+      closeBtn.className = "postImgCloseBtn";
+      imgItem.appendChild(closeBtn);
+      closeBtn.addEventListener("click", deletImg);
+    };
+  } else {
+    alert("이미지는 최대 3장 업로드 가능합니다.");
+  }
+}
 
-        postImgContainer.appendChild(imgItem);
-        e.target.value = "";
+// 해당 이미지 fileArr에서 삭제, 업로드 사진 미리보기에서 삭제
+function deletImg(event) {
+  const postImgContainer = document.querySelector(".postUploadImageScreen");
+  const imgItem = event.target.parentNode;
+  const targetImgName = imgItem.dataset.key;
 
-        const closeBtn = document.createElement("button");
-        closeBtn.className = "postImgCloseBtn";
-        imgItem.appendChild(closeBtn);
-        closeBtn.addEventListener("click", deletImg);
-      };
-      reader.readAsDataURL(i);
-      fileArr = [];
+  // 업로드 사진 미리보기에서 삭제
+  postImgContainer.removeChild(imgItem);
+
+  // 클릭한 타겟을 fileArr 배열에서 삭제
+  for (let i = 0; i < fileArr.length; i++) {
+    if (fileArr[i].name === targetImgName) {
+      fileArr.splice(i, 1);
     }
-  });
-  return imgFiles;
+  }
 }
 
 // 이미지 업로드
-// let arrImg = [];
-async function uploadImg(imgFiles) {
-  console.log(imgFiles);
+async function uploadImg(fileArr) {
   const formData = new FormData();
   const url = "https://mandarin.api.weniv.co.kr";
-  let arrImg = [];
-  imgFiles.forEach((file) => {
+  fileArr.forEach((file) => {
     formData.append("image", file);
   });
   try {
@@ -81,19 +86,17 @@ async function uploadImg(imgFiles) {
       body: formData,
     });
     const data = await response.json();
-    console.log(data);
     data.forEach((data) => {
-      arrImg.push(`${url}/${data.filename}`);
+      arrImgName.push(`${url}/${data.filename}`);
     });
-    imgFiles = [];
-    return arrImg;
+    fileArr = [];
+    return arrImgName;
   } catch (err) {
     alert("이미지 파일은 최대 3장까지만 가능합니다.");
   }
 }
 
 // postUploadComentTxt나 postUploadImageScreen에 이미지가 업로드되면 업로드버튼 활성화
-// postUploadBtn.disabled = true;
 export function postInput() {
   const postUploadTxt = document.querySelector(".postUploadComentTxt");
   const postUploadBtn = document.querySelector(".headerBarBtn.buttonClick");
@@ -113,7 +116,7 @@ export async function createPost() {
   const token = localStorage.getItem("Token");
   const url = "https://mandarin.api.weniv.co.kr";
   const contentText = postUploadTxt.value;
-  const images = await uploadImg(imgFiles);
+  const images = await uploadImg(fileArr);
 
   const res = await fetch(`${url}/post`, {
     method: "POST",
@@ -132,6 +135,8 @@ export async function createPost() {
   if (json.post) {
     window.history.pushState({}, "", "/profile"); // 주소 업데이트
     new App(config).setup();
+    fileArr = [];
+    arrImgName = [];
   } else {
     return;
   }
@@ -158,7 +163,7 @@ export function checkPost(
       editPost(defaultUrl, postid, token, postUploadTxt);
     });
   } else {
-    imgFiles = [];
+    // fileArr = [];
     postUploadBtn.addEventListener("click", createPost);
     getLoginUserInfo(postUserProfile);
   }
@@ -189,22 +194,6 @@ function setImg(postImgContainer, postImgArr) {
   }
 }
 
-function deletImg(event) {
-  // MEMO:: imgFiles에서 삭제, 미리보기에 삭제
-  const postImgContainer = document.querySelector(".postUploadImageScreen");
-  const itemImg = document.querySelectorAll(".postImgItem");
-  const imgItem = event.target.parentNode;
-  console.log(imgFiles);
-  for (const item of [...itemImg]) {
-    imgFiles.push(item.style.backgroundImage.split('"')[1]);
-  }
-
-  // console.log([postImgContainer.children].indexOf(imgItem));
-  // imgFiles.splice([postImgContainer.children].indexOf(imgItem), 1);
-  imgFiles.splice([...postImgContainer.children].indexOf(imgItem), 1);
-  console.log(imgFiles);
-}
-
 async function getPost(
   defaultUrl,
   postid,
@@ -228,16 +217,15 @@ async function getPost(
 
     postUploadTxt.textContent = postContent;
 
-    return setImg(postImgContainer, postImgArr);
+    setImg(postImgContainer, postImgArr);
   } catch (err) {
     console.log(err);
   }
 }
 
 async function editPost(defaultUrl, postid, token, postUploadTxt) {
-  const resultImg = await uploadImg(imgFiles);
+  const resultImg = await uploadImg(fileArr);
 
-  console.log(resultImg);
   try {
     const res = await fetch(`${defaultUrl}/post/${postid}`, {
       method: "PUT",
