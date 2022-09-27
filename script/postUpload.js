@@ -215,6 +215,7 @@ async function setImg(postImgContainer, postImgArr, fileArr) {
   }
 }
 
+// 서버에 저장된 게시글, 이미지 가져오기
 async function getPost(
   defaultUrl,
   postid,
@@ -242,6 +243,7 @@ async function getPost(
   }
 }
 
+// 게시물 수정
 async function editPost(defaultUrl, postid, token, postUploadTxt) {
   const resultImg = await uploadImg(fileArr);
 
