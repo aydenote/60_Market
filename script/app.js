@@ -15,6 +15,7 @@ import {
   ChattingPage3,
   ChattingPage4,
   PostUploadPage,
+  ErrorPage,
 } from "./pages/index.js";
 import { Router } from "./utils/index.js";
 
@@ -43,6 +44,7 @@ export default class App {
       "/chatting3": ChattingPage3,
       "/chatting4": ChattingPage4,
       "/postUpload": PostUploadPage,
+      "/error": ErrorPage,
     });
     router.init(rootEl);
   }
