@@ -3,8 +3,37 @@ import App from "./app.js";
 const config = {
   rootEl: "#root",
 };
+// fileArr  : Blob  객체형 파일 데이터 저장
+// arrImgName : 파일명 저장
 let fileArr = [];
 let arrImgName = [];
+
+// 게시물 수정 , 생성에 따른 함수 실행
+export function checkPost(
+  postUserProfile,
+  postImgContainer,
+  postUploadTxt,
+  postUploadBtn
+) {
+  const URLSearch = new URLSearchParams(location.search);
+  const postid = URLSearch.get("postid");
+  fileArr = [];
+
+  // 게시물 수정 PUT 요청
+  if (postid) {
+    const token = localStorage.getItem("Token");
+    const defaultUrl = "https://mandarin.api.weniv.co.kr";
+
+    getLoginUserInfo(postUserProfile);
+    getPost(defaultUrl, postid, token, postUploadTxt, postImgContainer);
+    postUploadBtn.addEventListener("click", () => {
+      editPost(defaultUrl, postid, token, postUploadTxt);
+    });
+  } else {
+    postUploadBtn.addEventListener("click", createPost);
+    getLoginUserInfo(postUserProfile);
+  }
+}
 
 // 로그인 유저 정보
 async function getLoginUserInfo(profileImgEl) {
@@ -52,6 +81,7 @@ export function readInputFile(event) {
       closeBtn.addEventListener("click", deletImg);
     };
   } else {
+    fileArr.pop();
     alert("이미지는 최대 3장 업로드 가능합니다.");
   }
 }
@@ -61,14 +91,26 @@ function deletImg(event) {
   const postImgContainer = document.querySelector(".postUploadImageScreen");
   const imgItem = event.target.parentNode;
   const targetImgName = imgItem.dataset.key;
+  const defaultUrl = "https://mandarin.api.weniv.co.kr";
+  const fileLength = fileArr.length;
 
   // 업로드 사진 미리보기에서 삭제
   postImgContainer.removeChild(imgItem);
 
   // 클릭한 타겟을 fileArr 배열에서 삭제
-  for (let i = 0; i < fileArr.length; i++) {
+  for (let i = 0; i < fileLength; i++) {
     if (fileArr[i].name === targetImgName) {
       fileArr.splice(i, 1);
+    }
+  }
+
+  for (let i = 0; i < fileLength; i++) {
+    let alreadyImg = imgItem.style.backgroundImage
+      .split('"')[1]
+      .replace(`${defaultUrl}/`, "");
+    if (fileArr[i].name === alreadyImg) {
+      fileArr.splice(i, 1);
+      break;
     }
   }
 }
@@ -77,6 +119,8 @@ function deletImg(event) {
 async function uploadImg(fileArr) {
   const formData = new FormData();
   const url = "https://mandarin.api.weniv.co.kr";
+  arrImgName = [];
+
   fileArr.forEach((file) => {
     formData.append("image", file);
   });
@@ -133,44 +177,29 @@ export async function createPost() {
   });
   const json = await res.json();
   if (json.post) {
+    fileArr = [];
     window.history.pushState({}, "", "/profile"); // 주소 업데이트
     new App(config).setup();
-    fileArr = [];
-    arrImgName = [];
   } else {
     return;
   }
 }
 
-// 게시물 수정 , 생성에 따른 함수 실행
-export function checkPost(
-  postUserProfile,
-  postImgContainer,
-  postUploadTxt,
-  postUploadBtn
-) {
-  const URLSearch = new URLSearchParams(location.search);
-  const postid = URLSearch.get("postid");
-
-  // 게시물 수정 PUT 요청
-  if (postid) {
-    const token = localStorage.getItem("Token");
-    const defaultUrl = "https://mandarin.api.weniv.co.kr";
-
-    getLoginUserInfo(postUserProfile);
-    getPost(defaultUrl, postid, token, postUploadTxt, postImgContainer);
-    postUploadBtn.addEventListener("click", () => {
-      editPost(defaultUrl, postid, token, postUploadTxt);
-    });
-  } else {
-    // fileArr = [];
-    postUploadBtn.addEventListener("click", createPost);
-    getLoginUserInfo(postUserProfile);
+// 게시물 수정 페이지에서 url를 파일로 변환
+const convertURLtoFile = async (postImgArr, fileArr) => {
+  for (const imgUrl of postImgArr) {
+    const response = await fetch(imgUrl);
+    const data = await response.blob();
+    const ext = imgUrl.split(".").pop(); // url 구조에 맞게 수정할 것
+    const filename = imgUrl.split("/").pop(); // url 구조에 맞게 수정할 것
+    const metadata = { type: `image/${ext}` };
+    fileArr.push(new File([data], filename, metadata));
   }
-}
+};
 
-// 이미지 미리보기, 삭제 버튼
-function setImg(postImgContainer, postImgArr) {
+// 게시물 수정 페이지에서 이미지 미리보기 및 삭제 버튼 추가
+async function setImg(postImgContainer, postImgArr, fileArr) {
+  await convertURLtoFile(postImgArr, fileArr);
   if (postImgArr.length >= 1 && postImgArr[0] !== "") {
     postImgArr.map((src) => {
       const imgItem = document.createElement("div");
@@ -181,15 +210,7 @@ function setImg(postImgContainer, postImgArr) {
       const closeBtn = document.createElement("button");
       closeBtn.className = "postImgCloseBtn";
       imgItem.appendChild(closeBtn);
-
-      closeBtn.addEventListener("click", function () {
-        postImgArr.splice([...postImgContainer.children].indexOf(imgItem), 1);
-        postImgContainer.removeChild(imgItem);
-      });
-    });
-    const postImgCloseBtn = document.querySelectorAll(".postImgCloseBtn");
-    [].forEach.call(postImgCloseBtn, function (postImgCloseBtn) {
-      postImgCloseBtn.addEventListener("click", deletImg);
+      closeBtn.addEventListener("click", deletImg);
     });
   }
 }
@@ -211,13 +232,11 @@ async function getPost(
     });
     const json = await res.json();
     const post = json.post;
-
     const postContent = post.content;
     const postImgArr = post.image.split(",");
 
     postUploadTxt.textContent = postContent;
-
-    setImg(postImgContainer, postImgArr);
+    setImg(postImgContainer, postImgArr, fileArr);
   } catch (err) {
     console.log(err);
   }
@@ -241,14 +260,17 @@ async function editPost(defaultUrl, postid, token, postUploadTxt) {
       }),
     });
     const json = await res.json();
-    // location.href = "./profile.html";
+    fileArr = [];
+    window.history.pushState({}, "", "/profile"); // 주소 업데이트
+    new App(config).setup();
 
     if (json.type == "entity.too.large") {
       console.error(json.message);
       alert("이미지 용량이 너무 큽니다.");
     }
   } catch (err) {
-    // location.href = "./error.html";
     console.error(err);
+    window.history.pushState({}, "", "/error"); // 주소 업데이트
+    new App(config).setup();
   }
 }
