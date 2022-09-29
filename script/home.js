@@ -123,7 +123,7 @@ class homeFeed {
             <span class="ir">좋아요 버튼</span>
               <span class="likeCount">${posts[i].heartCount}</span>
           </button>
-          <a href="post.html\?postid=${posts[i].id}" class="commentBtn">
+          <a href="post\?postid=${posts[i].id}" class="commentBtn">
             <span class="commentCount">${posts[i].commentCount}</span>
           </a>
         </div>
