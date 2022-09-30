@@ -1,4 +1,9 @@
-import { deletePost, reportPost } from "./apiModule.js";
+import {
+  deletePost,
+  reportPost,
+  deleteComment,
+  reportComment,
+} from "./apiModule.js";
 import App from "../app.js";
 const config = {
   rootEl: "#root",
@@ -50,6 +55,15 @@ const modalPost = `<section class="modalBg postModal">
     </button>
     <button class="modalBtn modalBtn1">삭제</button>
     <button class="modalBtn modalBtn2">수정</button>
+  </article>
+</section>`;
+
+const modalComment = `<section class="modalBg postModal">
+  <article class="modal appear">
+    <button class="modalClose">
+      <span class="ir">더보기 닫기 버튼</span>
+    </button>
+    <button class="modalBtn modalBtn1">삭제</button>
   </article>
 </section>`;
 
@@ -301,4 +315,80 @@ export function clickChatModal() {
     window.history.pushState({}, "", "/chat"); // 주소 업데이트
     new App(config).setup();
   });
+}
+
+export function clickCommentModal(e) {
+  const modal = document.createElement("div");
+
+  e.preventDefault();
+  const commentAccountName = e.target.parentElement
+    .closest("article")
+    .getAttribute("key");
+  const commentId = e.target.parentElement
+    .closest("article")
+    .getAttribute("id");
+
+  // 본인 댓글인 경우 삭제 모달 활성화
+  if (commentAccountName === localStorage.getItem("accountname")) {
+    body.appendChild(modal);
+    modal.innerHTML = modalComment;
+
+    const postDelete = document.querySelector(".postModal .modalBtn1");
+    const modalClose = document.querySelector(".postModal .modalClose");
+
+    // 모달창 닫기 버튼 클릭 시 모달창 닫기
+    modalClose.addEventListener("click", () => {
+      body.removeChild(modal);
+    });
+
+    // 게시물 삭제 모달 활성화
+    postDelete.addEventListener("click", () => {
+      modal.innerHTML = modalDeleteAlert;
+      body.appendChild(modal);
+
+      // 게시물 삭제 모달 닫기
+      const alertCancel = document.querySelector(".delAlert .cancelBtn");
+      alertCancel.addEventListener("click", () => {
+        body.removeChild(modal);
+      });
+
+      // 게시물 삭제
+      const postDelete = document.querySelector(".delAlert .delBtn");
+      postDelete.addEventListener("click", () => {
+        body.removeChild(modal);
+        deleteComment(commentId);
+      });
+    });
+  } else {
+    // 다른 사람의 댓글인 경우 신고 모달 활성화
+    body.appendChild(modal);
+    modal.innerHTML = modalReport;
+
+    const modalClose = document.querySelector(".reportModal .modalClose");
+    const reportModalBtn = document.querySelector(".reportModal .modalBtn1");
+
+    // 모달창 닫기
+    modalClose.addEventListener("click", () => {
+      body.removeChild(modal);
+    });
+
+    // 신고 모달 활성화
+    reportModalBtn.addEventListener("click", () => {
+      modal.innerHTML = reportAlert;
+      body.appendChild(modal);
+
+      // 신고 모달 비활성화
+      const cancelBtn = document.querySelector(".reportAlert .cancelBtn");
+      cancelBtn.addEventListener("click", () => {
+        body.removeChild(modal);
+      });
+
+      // 댓글 신고
+      const reportBtn = document.querySelector(".reportAlert .reportBtn");
+      reportBtn.addEventListener("click", () => {
+        body.removeChild(modal);
+        reportComment(commentId);
+      });
+    });
+  }
 }

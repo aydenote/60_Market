@@ -1,41 +1,42 @@
 import { backHistory, timeForToday } from "./newScript/common.js";
 import { clickHeart } from "./newScript/heartBtn.js";
-
-const backBtn = document.querySelector(".headerBarBack.buttonClick");
+import { clickCommentModal } from "../script/newScript/modal.js";
 
 // 뒤로 가기
-backBtn.addEventListener("click", backHistory);
+// const backBtn = document.querySelector(".headerBarBack.buttonClick");
+// backBtn.addEventListener("click", backHistory);
 
 // 게시 버튼 활성화
-const postChatForm = document.querySelector("#postChatContent");
-const postButton = document.querySelector(".postBtn");
-const commentUserProfile = document.querySelector(".commentUserProfile");
-postChatForm.addEventListener("keyup", postInput);
-postButton.disabled = true;
+// const postChatForm = document.querySelector("#postChatContent");
+// const postButton = document.querySelector(".postBtn");
+// const commentUserProfile = document.querySelector(".commentUserProfile");
+// postChatForm.addEventListener("keyup", postInput);
+// postButton.disabled = true;
 
-function postInput(event) {
+export function postInput(event) {
+  const postChatForm = document.querySelector("#postChatContent");
+  const postButton = document.querySelector(".postBtn");
+
   // enter 시에 comment 입력
   if (event.keyCode == 13) {
     submitComment(event);
   } else {
     if (postChatForm.value !== "") {
-      postButton.style.color = "var(—mainColor)";
+      postButton.style.color = "#6167ac";
       postButton.disabled = false;
     } else {
-      postButton.style.color = "var(—borderColor)";
+      postButton.style.color = "#dbdbdb";
       postButton.disabled = true;
     }
   }
 }
 
-// 모달창 구현
-const url = "https://mandarin.api.weniv.co.kr";
-const postId = new URLSearchParams(location.search).get("postid");
+// 프로필, 게시글, 댓글 데이터 불러오기
+export async function renderPost() {
+  const url = "https://mandarin.api.weniv.co.kr";
+  const postId = new URLSearchParams(location.search).get("postid");
+  const token = localStorage.getItem("Token");
 
-const token = localStorage.getItem("Token");
-const accountname = localStorage.getItem("accountname");
-
-async function renderPost() {
   try {
     const res = await fetch(`${url}/post/${postId}`, {
       method: "GET",
@@ -44,8 +45,6 @@ async function renderPost() {
         "Content-type": "application/json",
       },
     });
-
-    // 프로필, 게시글, 댓글 데이터 불러오기
 
     const json = await res.json();
     const postInfo = json.post;
@@ -57,6 +56,9 @@ async function renderPost() {
     const heartCount = postInfo.heartCount;
     const commentCount = postInfo.commentCount;
     const createdAt = timeForToday(postInfo.createdAt);
+    const postButton = document.querySelector(".postBtn");
+    postButton.disabled = true;
+    postButton.style.color = "#dbdbdb";
 
     // 프로필
     const div = document.querySelector(".userItem");
@@ -172,7 +174,7 @@ async function renderPost() {
     commentSection.innerHTML = postComments.join("");
     const modal = document.querySelectorAll(".moreBtn.buttonClick");
     [].forEach.call(modal, function (modal) {
-      modal.addEventListener("click", modalOpen);
+      modal.addEventListener("click", clickCommentModal);
     });
   } catch (err) {
     console.error(err);
@@ -182,6 +184,9 @@ async function renderPost() {
 // 상세 댓글 불러오기
 const getCommentDetail = async () => {
   const token = localStorage.getItem("Token");
+  const url = "https://mandarin.api.weniv.co.kr";
+  const postId = new URLSearchParams(location.search).get("postid");
+
   try {
     const res = await fetch(`${url}/post/${postId}/comments`, {
       method: "GET",
@@ -197,7 +202,11 @@ const getCommentDetail = async () => {
 };
 
 // 로그인 유저 정보
-async function getLoginUserInfo() {
+export async function getLoginUserInfo(commentUserProfile) {
+  const url = "https://mandarin.api.weniv.co.kr";
+  const token = localStorage.getItem("Token");
+  const accountname = localStorage.getItem("accountname");
+
   try {
     const res = await fetch(`${url}/profile/${accountname}`, {
       method: "GET",
@@ -215,13 +224,11 @@ async function getLoginUserInfo() {
   }
 }
 
-getLoginUserInfo();
-
 // 댓글 입력
-const commentInput = document.getElementById("postChatContent");
-const submitButton = document.getElementById("commentSubmit");
-
-const submitComment = async (e) => {
+export const submitComment = async (e) => {
+  const url = "https://mandarin.api.weniv.co.kr";
+  const postId = new URLSearchParams(location.search).get("postid");
+  const commentInput = document.getElementById("postChatContent");
   e.preventDefault();
   const token = localStorage.getItem("Token");
   try {
@@ -243,162 +250,3 @@ const submitComment = async (e) => {
     console.log(err);
   }
 };
-
-submitButton.addEventListener("click", submitComment);
-
-//모달
-
-const modal = document.createElement("div");
-
-const modalMore = () => {
-  return `<section class="modalBg postModal">
-  <article class="modal appear">
-    <button class="modalClose">
-      <span class="ir">댓글 신고 버튼</span>
-    </button>
-    <button class="modalBtn modalBtn1">삭제</button>
-  </article>
-</section>`;
-};
-
-const modalCommentDelete = () => {
-  return `<section class="modalAlert productDelAlert">
-  <h4 class="ir">댓글 삭제 창</h4>
-  <strong class="alertMsg">삭제하시겠습니까?</strong>
-  <div class="alertBtnContent">
-    <button class="cancelBtn">취소</button>
-    <button class="delBtn">삭제</button>
-  </div>
-  </section>`;
-};
-
-const modalReport = () => {
-  return `<section class="modalBg commentReportModal">
-  <article class="modal appear">
-    <button id="btnReportClose" class="modalClose">
-      <span class="ir">댓글 신고 버튼</span>
-    </button>
-    <button class="modalBtn modalBtn1">신고</button>
-  </article>
-</section>`;
-};
-
-const reportAlert = `<section class="modalAlert postDelAlert">
-<h4 class="ir">신고 완료</h4>
-<strong class="alertMsg">신고 완료</strong>
-<div class="alertBtnContent">
-  <button class="cancelBtn">확인</button>
-</div>
-</section>`;
-
-const deleteAlert = `<section class="modalAlert postDelAlert">
-<h4 class="ir">삭제 완료</h4>
-<strong class="alertMsg">삭제 완료</strong>
-<div class="alertBtnContent">
-  <button class="cancelBtn">확인</button>
-</div>
-</section>`;
-
-const body = document.body;
-const modalOpen = (e) => {
-  e.preventDefault();
-  const commentAccountName = e.target.parentElement
-    .closest("article")
-    .getAttribute("key");
-  const commentId = e.target.parentElement
-    .closest("article")
-    .getAttribute("id");
-
-  // 본인 댓글인 경우 삭제 모달 활성화
-  if (commentAccountName === localStorage.getItem("accountname")) {
-    modal.innerHTML = modalMore(commentId);
-    body.appendChild(modal);
-    const commentModalClose = document.querySelector(".postModal .modalClose");
-    const commentModalDelete = document.querySelector(".postModal .modalBtn1");
-    commentModalClose.addEventListener("click", modalClose);
-    commentModalDelete.addEventListener("click", () => {
-      modalOpenCommentDelete(commentId);
-    });
-  } else {
-    // 다른 사람의 댓글인 경우 신고 모달 활성화
-    modal.innerHTML = modalReport(commentId);
-    body.appendChild(modal);
-    const reportModalClose = document.querySelector("#btnReportClose");
-    const reportBtn = document.querySelector(".commentReportModal .modalBtn1");
-    reportModalClose.addEventListener("click", modalClose);
-    reportBtn.addEventListener("click", () => {
-      commentReport(commentId);
-    });
-  }
-};
-
-// 모달 닫기
-const modalClose = () => {
-  body.removeChild(modal);
-};
-
-// 댓글 삭제 모달창 활성화
-const modalOpenCommentDelete = (commentId) => {
-  modal.innerHTML = modalCommentDelete(commentId);
-  const deleteCommentModal = document.querySelector(".productDelAlert .delBtn");
-  const cancelCommentModal = document.querySelector(
-    ".productDelAlert .cancelBtn"
-  );
-
-  deleteCommentModal.addEventListener("click", () => {
-    deleteComment(commentId);
-  });
-  cancelCommentModal.addEventListener("click", modalClose);
-};
-
-//댓글 삭제
-const deleteComment = async (commentId) => {
-  const token = localStorage.getItem("Token");
-  try {
-    const res = await fetch(`${url}/post/${postId}/comments/${commentId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
-      },
-    });
-    const json = await res.json();
-    modalClose();
-    renderPost();
-    modal.innerHTML = deleteAlert;
-    body.appendChild(modal);
-    // 모달창 닫기
-    const alertClose = document.querySelector(".postDelAlert .cancelBtn");
-    alertClose.addEventListener("click", modalClose);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-// 댓글 신고
-const commentReport = async (commentId) => {
-  const token = localStorage.getItem("Token");
-  try {
-    const res = await fetch(
-      `${url}/post/${postId}/comments/${commentId}/report`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-type": "application/json",
-        },
-      }
-    );
-    const json = await res.json();
-    modalClose();
-    modal.innerHTML = reportAlert;
-    body.appendChild(modal);
-    // 모달창 닫기
-    const alertClose = document.querySelector(".postDelAlert .cancelBtn");
-    alertClose.addEventListener("click", modalClose);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-renderPost();

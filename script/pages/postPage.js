@@ -1,3 +1,10 @@
+import {
+  postInput,
+  renderPost,
+  submitComment,
+  getLoginUserInfo,
+} from "../post.js";
+
 class PostPage {
   render() {
     document.querySelector("body").classList.remove("profileBackground");
@@ -67,10 +74,12 @@ class PostPage {
     chatInputEl.id = "postChatContent";
     chatInputEl.setAttribute("type", "text");
     chatInputEl.placeholder = "메시지 입력하기...";
+    chatInputEl.addEventListener("keyup", postInput);
     postBtnEl.id = "commentSubmit";
     postBtnEl.classList.add("postBtn");
     postBtnEl.setAttribute("type", "button");
     postBtnEl.innerText = "게시";
+    postBtnEl.addEventListener("click", submitComment);
 
     enterImgDivEl.appendChild(userProfileImgEl);
     chatFormEl.appendChild(enterImgDivEl);
@@ -78,6 +87,10 @@ class PostPage {
     chatFormEl.appendChild(chatInputEl);
     chatFormEl.appendChild(postBtnEl);
     footerEl.appendChild(chatFormEl);
+
+    // 게시물 상세 페이지 정보 가져오기 및 댓글 기능 구현
+    renderPost();
+    getLoginUserInfo(userProfileImgEl);
 
     return { headerEl, mainEl, footerEl };
   }

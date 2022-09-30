@@ -63,9 +63,17 @@ class homeFeed {
     new App(config).setup();
   };
 
+  clickComment = (event) => {
+    const postId = event.target.closest(".commentBtn").dataset.postid;
+    // 주소 업데이트
+    window.history.pushState({}, "", `post\?postid=${postId}`);
+    new App(config).setup();
+  };
+
   createFeed = (posts) => {
     const listContent = document.querySelector(".post");
     const clickUserInfo = this.clickUserInfo;
+    const clickComment = this.clickComment;
     for (let i = 0; i < posts.length; i++) {
       const postItem = document.createElement("div");
       postItem.classList.add("postItem");
@@ -123,9 +131,9 @@ class homeFeed {
             <span class="ir">좋아요 버튼</span>
               <span class="likeCount">${posts[i].heartCount}</span>
           </button>
-          <a href="post\?postid=${posts[i].id}" class="commentBtn">
+          <div data-postId=${posts[i].id} class="commentBtn">
             <span class="commentCount">${posts[i].commentCount}</span>
-          </a>
+          </div>
         </div>
         <strong class="postDate">${timeForToday(posts[i].createdAt)}</strong>
       </section>
@@ -134,6 +142,7 @@ class homeFeed {
       const heartBtn = document.querySelectorAll(".postBtnContent button");
       const moreBtn = document.querySelectorAll(".moreBtn.buttonClick");
       const userProfileLink = document.querySelectorAll(".userBox");
+      const commentLink = document.querySelectorAll(".commentBtn");
 
       [].forEach.call(userProfileLink, function (userProfileLink) {
         userProfileLink.addEventListener("click", clickUserInfo);
@@ -143,6 +152,9 @@ class homeFeed {
       });
       [].forEach.call(moreBtn, function (moreBtn) {
         moreBtn.addEventListener("click", clickUserModal);
+      });
+      [].forEach.call(commentLink, function (commentLink) {
+        commentLink.addEventListener("click", clickComment);
       });
     }
   };
