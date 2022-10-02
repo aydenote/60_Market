@@ -341,18 +341,18 @@ export function clickCommentModal(e) {
       body.removeChild(modal);
     });
 
-    // 게시물 삭제 모달 활성화
+    // 댓글 삭제 모달 활성화
     postDelete.addEventListener("click", () => {
       modal.innerHTML = modalDeleteAlert;
       body.appendChild(modal);
 
-      // 게시물 삭제 모달 닫기
+      // 댓글 삭제 모달 닫기
       const alertCancel = document.querySelector(".delAlert .cancelBtn");
       alertCancel.addEventListener("click", () => {
         body.removeChild(modal);
       });
 
-      // 게시물 삭제
+      // 댓글 삭제
       const postDelete = document.querySelector(".delAlert .delBtn");
       postDelete.addEventListener("click", () => {
         body.removeChild(modal);

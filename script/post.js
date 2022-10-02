@@ -1,17 +1,15 @@
 import { backHistory, timeForToday } from "./newScript/common.js";
 import { clickHeart } from "./newScript/heartBtn.js";
 import { clickCommentModal } from "../script/newScript/modal.js";
+import App from "./app.js";
 
 // 뒤로 가기
 // const backBtn = document.querySelector(".headerBarBack.buttonClick");
 // backBtn.addEventListener("click", backHistory);
 
-// 게시 버튼 활성화
-// const postChatForm = document.querySelector("#postChatContent");
-// const postButton = document.querySelector(".postBtn");
-// const commentUserProfile = document.querySelector(".commentUserProfile");
-// postChatForm.addEventListener("keyup", postInput);
-// postButton.disabled = true;
+const config = {
+  rootEl: "#root",
+};
 
 export function postInput(event) {
   const postChatForm = document.querySelector("#postChatContent");
@@ -92,42 +90,74 @@ export async function renderPost() {
     userText.appendChild(userMsgContent);
 
     // 게시글
-    const jsonImgTags = jsonImg.map((src) => {
+
+    let jsonImgTags = jsonImg.map((src) => {
       return src && `<img src=${src} alt="게시물 이미지" />`;
     });
     let heartStatus;
+
     if (json.post.hearted) {
       heartStatus = "likeBtn on";
     } else {
       heartStatus = "likeBtn";
     }
-    section.innerHTML = `
-<h4 class="ir">게시글 내용</h4>
-  <p>
-    ${content}
-  </p>
-  ${
-    jsonImgTags == ""
-      ? ""
-      : `<div class="postDetaileImgContent">
-  <ul>
-    <li class="postDetaileImgContentFlex">
-    ${jsonImgTags.join("")}
-    </li>
-  </ul>
-  </div>`
-  }
-  <div class="postBtnContent">
-    <button class="${heartStatus}">
-      <span class="ir">좋아요 버튼</span>
-      <span class="likeCount">${heartCount}</span>
-    </button>
-    <a href="" class="commentBtn">
-      <span class="commentCount">${commentCount}</span>
-    </a>
-  </div>
-  <strong class="postDate">${createdAt}</strong>
-`;
+
+    const postTitleHeading4El = document.createElement("h4");
+    const contentPEl = document.createElement("p");
+
+    postTitleHeading4El.classList.add("ir");
+    postTitleHeading4El.innerText = "게시글 내용";
+    contentPEl.innerText = `${content}`;
+
+    section.appendChild(postTitleHeading4El);
+    section.appendChild(contentPEl);
+
+    if (jsonImgTags.length === 0) {
+      jsonImgTags = "";
+    } else {
+      jsonImgTags = `
+      <div class="postDetaileImgContent">
+        <ul>
+          <li class="postDetaileImgContentFlex">
+          ${jsonImgTags.join("")}
+          </li>
+        </ul>
+        </div>`;
+    }
+    const range = document.createRange();
+    const jsonImgTagsNode = range.createContextualFragment(jsonImgTags);
+
+    section.appendChild(jsonImgTagsNode);
+
+    const postBtnDivEl = document.createElement("div");
+    const heartBtnEl = document.createElement("button");
+    const likeTextSpanEl = document.createElement("span");
+    const likeCountSpanEl = document.createElement("span");
+    const commentBtnDivEl = document.createElement("div");
+    const commentCountSpanEl = document.createElement("span");
+    const postDateStrongEl = document.createElement("strong");
+
+    postBtnDivEl.classList.add("postBtnContent");
+    heartBtnEl.classList.add(`${heartStatus}`);
+    likeTextSpanEl.classList.add("ir");
+    likeTextSpanEl.innerText = "좋아요 버튼";
+    likeCountSpanEl.classList.add("likeCount");
+    likeCountSpanEl.innerText = `${heartCount}`;
+    commentBtnDivEl.classList.add("commentBtn");
+    commentCountSpanEl.classList.add("commentCount");
+    commentCountSpanEl.innerText = `${commentCount}`;
+    postDateStrongEl.classList.add("postDate");
+    postDateStrongEl.innerText = `${createdAt}`;
+
+    commentBtnDivEl.appendChild(commentCountSpanEl);
+    heartBtnEl.appendChild(likeTextSpanEl);
+    heartBtnEl.appendChild(likeCountSpanEl);
+    postBtnDivEl.appendChild(heartBtnEl);
+    postBtnDivEl.appendChild(commentBtnDivEl);
+
+    section.appendChild(postBtnDivEl);
+    section.appendChild(postDateStrongEl);
+
     const heartBtn = document.querySelector(".postBtnContent button");
     heartBtn.addEventListener("click", clickHeart);
 
@@ -135,43 +165,70 @@ export async function renderPost() {
     const commentSection = document.querySelector(".postCommentBox");
     const { comments } = await getCommentDetail();
 
-    const postComments = comments.reverse().map((comment) => {
-      return `
-  <article id=${comment.id} key=${
-        comment.author.accountname
-      } class="post postCommentContent">
-    <h3 class="ir">게시글 댓글</h3>
-    <section>
-      <div class="userList">
-        <div class="userItem">
-          <div href="#" class="userBox">
-            <img
-              src=${comment.author.image}
-              alt="프로필 이미지"
-              class="userProfileImage postUserProfile"
-            />
-            <div class="userCommentInfo">
-              <strong class="userNickname postUserNickName">${
-                comment.author.username
-              }</strong>
-              <strong class ="postTime" >∙ ${timeForToday(
-                comment.createdAt
-              )}</strong>
-            </div>
-            <button class="moreBtn buttonClick">
-              <span class="ir">댓글 모달 버튼</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="postContent postComment">
-      <h4 class="ir">댓글 내용</h4>
-      <p>${comment.content}</p>
-    </section>
-  </article>`;
-    });
-    commentSection.innerHTML = postComments.join("");
+    for (const comment of comments) {
+      const commentArticleEl = document.createElement("article");
+      const commentTitleHeading3El = document.createElement("h3");
+      const userSectionEl = document.createElement("section");
+      const userListDivEl = document.createElement("div");
+      const userItemDivEl = document.createElement("div");
+      const userBoxDivEl = document.createElement("div");
+      const profileImgEl = document.createElement("img");
+      const userCommentInfoDivEl = document.createElement("div");
+      const userNickNameStrongEl = document.createElement("strong");
+      const commentTimeStrongEl = document.createElement("strong");
+      const moreModalBtnEl = document.createElement("button");
+      const modalTextSpanEl = document.createElement("span");
+      const commentContentSectionEl = document.createElement("section");
+      const commentTitleHeading4El = document.createElement("h4");
+      const commentContentPEl = document.createElement("p");
+
+      commentArticleEl.classList.add("post");
+      commentArticleEl.classList.add("postCommentContent");
+      commentArticleEl.id = `${comment.id}`;
+      commentArticleEl.setAttribute("key", `${comment.author.accountname}`);
+      commentTitleHeading3El.classList.add("ir");
+      commentTitleHeading3El.innerText = "게시글 댓글";
+      userListDivEl.classList.add("userList");
+      userItemDivEl.classList.add("userItem");
+      userBoxDivEl.classList.add("userBox");
+      profileImgEl.classList.add("userProfileImage");
+      profileImgEl.classList.add("postUserProfile");
+      profileImgEl.setAttribute("src", `${comment.author.image}`);
+      profileImgEl.setAttribute("alt", "프로필 이미지");
+      userCommentInfoDivEl.classList.add("userCommentInfo");
+      userNickNameStrongEl.classList.add("userNickname");
+      userNickNameStrongEl.classList.add("postUserNickName");
+      userNickNameStrongEl.innerText = `${comment.author.username}`;
+      commentTimeStrongEl.classList.add("postTime");
+      commentTimeStrongEl.innerText = `∙ ${timeForToday(comment.createdAt)}`;
+      moreModalBtnEl.classList.add("moreBtn");
+      moreModalBtnEl.classList.add("buttonClick");
+      modalTextSpanEl.classList.add("ir");
+      modalTextSpanEl.innerText = "댓글 모달 버튼";
+      commentContentSectionEl.classList.add("postContent");
+      commentContentSectionEl.classList.add("postComment");
+      commentTitleHeading4El.classList.add("ir");
+      commentTitleHeading4El.innerText = "댓글 내용";
+      commentContentPEl.innerText = `${comment.content}`;
+
+      userCommentInfoDivEl.appendChild(userNickNameStrongEl);
+      userCommentInfoDivEl.appendChild(commentTimeStrongEl);
+      userBoxDivEl.appendChild(profileImgEl);
+      userBoxDivEl.appendChild(userCommentInfoDivEl);
+      userBoxDivEl.appendChild(moreModalBtnEl);
+      moreModalBtnEl.appendChild(modalTextSpanEl);
+      userItemDivEl.appendChild(userBoxDivEl);
+      userListDivEl.appendChild(userItemDivEl);
+      userSectionEl.appendChild(userListDivEl);
+      commentContentSectionEl.appendChild(commentTitleHeading4El);
+      commentContentSectionEl.appendChild(commentContentPEl);
+
+      commentArticleEl.appendChild(commentTitleHeading3El);
+      commentArticleEl.appendChild(userSectionEl);
+      commentArticleEl.appendChild(commentContentSectionEl);
+      commentSection.appendChild(commentArticleEl);
+    }
+
     const modal = document.querySelectorAll(".moreBtn.buttonClick");
     [].forEach.call(modal, function (modal) {
       modal.addEventListener("click", clickCommentModal);
@@ -245,7 +302,10 @@ export const submitComment = async (e) => {
       }),
     });
     commentInput.value = "";
-    renderPost();
+    if (res) {
+      window.history.pushState({}, "", `/post?postid=${postId}`); // 주소 업데이트
+      new App(config).setup();
+    }
   } catch (err) {
     console.log(err);
   }

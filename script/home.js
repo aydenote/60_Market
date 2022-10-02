@@ -217,38 +217,7 @@ class homeFeed {
       contentSectionEl.appendChild(contentBtnDivEl);
       contentSectionEl.appendChild(postDateStrongEl);
       postItem.appendChild(contentSectionEl);
-
       listContent.appendChild(postItem);
-      // const heartBtn = document.querySelectorAll(".postBtnContent button");
-      // const moreBtn = document.querySelectorAll(".moreBtn.buttonClick");
-      // const userProfileLink = document.querySelectorAll(".userBox");
-      // const commentLink = document.querySelectorAll(".commentBtn");
-
-      // [].forEach.call(userProfileLink, function (userProfileLink) {
-      //   userProfileLink.addEventListener("click", clickUserInfo);
-      // });
-      // [].forEach.call(heartBtn, function (heartBtn) {
-      //   heartBtn.addEventListener("click", clickHeart);
-      // });
-      // [].forEach.call(moreBtn, function (moreBtn) {
-      //   moreBtn.addEventListener("click", clickUserModal);
-      // });
-      // [].forEach.call(commentLink, function (commentLink) {
-      //   commentLink.addEventListener("click", clickComment);
-      // });
-
-      // [].forEach.call(userBoxDivEl, function (userBoxDivEl) {
-      //   userBoxDivEl.addEventListener("click", clickUserInfo);
-      // });
-      // [].forEach.call(likeBtnEl, function (likeBtnEl) {
-      //   likeBtnEl.addEventListener("click", clickHeart);
-      // });
-      // [].forEach.call(moreBtnEl, function (moreBtnEl) {
-      //   moreBtnEl.addEventListener("click", clickUserModal);
-      // });
-      // [].forEach.call(commentBtnDivEl, function (commentBtnDivEl) {
-      //   commentBtnDivEl.addEventListener("click", clickComment);
-      // });
 
       userBoxDivEl.addEventListener("click", clickUserInfo);
       likeBtnEl.addEventListener("click", clickHeart);
