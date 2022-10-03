@@ -4,8 +4,6 @@ import { clickUserModal } from "./newScript/modal.js";
 import Profile from "./profile.js";
 import App from "./app.js";
 
-const profile = new Profile();
-const myAccountName = localStorage.getItem("accountname");
 const config = {
   rootEl: "#root",
 };
@@ -39,13 +37,6 @@ class homeFeed {
     noneFeedSectionEl.appendChild(searchLinkDivEl);
     this.listContent.appendChild(subTitleHeading3El);
     this.listContent.appendChild(noneFeedSectionEl);
-
-    // this.listContent.innerHTML = `
-    //       <h3 class="ir">피드 게시글</h3>
-    //       <section class="noneFeed">
-    //         <p>유저를 검색해 팔로우 해보세요!</p>
-    //         <a href="./search.html" class="userSearchBtn">검색하기</a>
-    //       </section>`;
   };
 
   feedAPI = async (token, defaultUrl) => {
