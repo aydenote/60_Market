@@ -1,7 +1,5 @@
 import App from "./app.js";
 import Profile from "./profile.js";
-const profile = new Profile();
-const myAccountName = localStorage.getItem("accountname");
 
 const config = {
   rootEl: "#root",
