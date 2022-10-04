@@ -1,6 +1,6 @@
-import { backHistory, timeForToday } from "./newScript/common.js";
-import { clickHeart } from "./newScript/heartBtn.js";
-import { clickCommentModal } from "../script/newScript/modal.js";
+import { backHistory, timeForToday } from "./common.js";
+import { clickHeart } from "./heartBtn.js";
+import { clickCommentModal } from "./modal.js";
 import App from "./app.js";
 
 // 뒤로 가기

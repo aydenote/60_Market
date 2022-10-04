@@ -1,12 +1,11 @@
 import App from "../app.js";
 import Footer from "./footer.js";
 import Profile from "../profile.js";
-import { backHistory } from "../newScript/common.js";
+import { backHistory } from "../common.js";
 
 const footer = new Footer();
 const footerEl = footer.render();
 const profile = new Profile();
-const myAccountName = localStorage.getItem("accountname");
 
 const config = {
   rootEl: "#root",
@@ -138,8 +137,8 @@ class ProfilePage {
     }
 
     // 프로필 정보 가져오기
-    profile.getProfileInfo(myAccountName);
-    profile.getPostingList(myAccountName);
+    profile.getProfileInfo();
+    profile.getPostingList();
 
     // 목록형, 앨범형으로 포스팅 구현
     albumBarArticleEl.addEventListener("click", (event) => {

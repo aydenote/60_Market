@@ -1,5 +1,4 @@
 import App from "./app.js";
-import Profile from "./profile.js";
 
 const config = {
   rootEl: "#root",

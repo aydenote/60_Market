@@ -1,7 +1,6 @@
-import { timeForToday } from "./newScript/common.js";
-import { clickHeart } from "./newScript/heartBtn.js";
-import { clickUserModal } from "./newScript/modal.js";
-import Profile from "./profile.js";
+import { timeForToday } from "./common.js";
+import { clickHeart } from "./heartBtn.js";
+import { clickUserModal } from "./modal.js";
 import App from "./app.js";
 
 const config = {

@@ -1,4 +1,4 @@
-import { clickChatModal } from "../newScript/modal.js";
+import { clickChatModal } from "../modal.js";
 
 class ChattingPage2 {
   render() {

@@ -1,11 +1,7 @@
-import { backHistory, timeForToday } from "./newScript/common.js";
-import { clickHeart } from "./newScript/heartBtn.js";
+import { backHistory, timeForToday } from "./common.js";
+import { clickHeart } from "./heartBtn.js";
 import App from "./app.js";
-import {
-  logoutModal,
-  clickUserModal,
-  productModal,
-} from "./newScript/modal.js";
+import { logoutModal, clickUserModal, productModal } from "./modal.js";
 
 const config = {
   rootEl: "#root",
@@ -16,10 +12,12 @@ class Profile {
     const userPostInfo = [];
   }
   // 프로필 정보 가져오기
-  getProfileInfo = async function (myAccountName) {
+  getProfileInfo = async function () {
     const url = "https://mandarin.api.weniv.co.kr";
     const token = localStorage.getItem("Token");
     const URLSearch = new URLSearchParams(location.search);
+    const myAccountName = localStorage.getItem("accountname");
+
     let accountName = URLSearch.get("accountname");
 
     accountName = accountName === null ? myAccountName : accountName;
@@ -200,11 +198,13 @@ class Profile {
   };
 
   // 게시물 가지고 오기
-  getPostingList = async function (myAccountName) {
+  getPostingList = async function () {
     const url = "https://mandarin.api.weniv.co.kr";
     const token = localStorage.getItem("Token");
     const URLSearch = new URLSearchParams(location.search);
+    const myAccountName = localStorage.getItem("accountname");
     let accountName = URLSearch.get("accountname");
+
     accountName = accountName === null ? myAccountName : accountName;
 
     const setting = {
@@ -275,6 +275,7 @@ class Profile {
 
     for (const post of this.userPostInfo) {
       let postImage = "";
+      let heartStatus = "";
       if (post.image && post.image.search("undefined") === -1) {
         let images = post.image.split(",");
         for (const image of images) {
@@ -474,14 +475,34 @@ class Profile {
       // 게시물에 이미지가 2개 이상인 경우, 이미지 레이어 아이콘 추가.
       if (postImg[0] === "") {
       } else if (postImg.length >= 2) {
-        createUl.innerHTML += `<li>
-            <img src="${postImg[0]}" alt="" onerror="this.style.display='none'"/>
-            <img class="imageLayer" src="../asset/images/icons/icon__imageLayer.svg" alt="이미지 레이어 아이콘" onerror="this.style.display='none'"/>
-          </li>`;
+        const imgLiEl = document.createElement("li");
+        const postImgEl = document.createElement("img");
+        const layerImgEl = document.createElement("img");
+
+        postImgEl.setAttribute("src", `${postImg[0]}`);
+        postImgEl.setAttribute("alt", "");
+        postImgEl.onerror = "this.style.display='none'";
+        layerImgEl.classList.add("imageLayer");
+        layerImgEl.setAttribute(
+          "src",
+          "../asset/images/icons/icon__imageLayer.svg"
+        );
+        layerImgEl.setAttribute("alt", "이미지 레이어 아이콘");
+        layerImgEl.onerror = "this.style.display='none'";
+
+        imgLiEl.appendChild(postImgEl);
+        imgLiEl.appendChild(layerImgEl);
+        createUl.appendChild(imgLiEl);
       } else {
-        createUl.innerHTML += `<li>
-            <img src="${postImg[0]}" alt="" onerror="this.style.display='none'"/>
-          </li>`;
+        const imgLiEl = document.createElement("li");
+        const postImgEl = document.createElement("img");
+
+        postImgEl.setAttribute("src", `${postImg[0]}`);
+        postImgEl.setAttribute("alt", "");
+        postImgEl.onerror = "this.style.display='none'";
+
+        imgLiEl.appendChild(postImgEl);
+        createUl.appendChild(imgLiEl);
       }
     }
   };

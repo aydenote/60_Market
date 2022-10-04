@@ -4,7 +4,7 @@ import {
   deleteComment,
   reportComment,
 } from "./apiModule.js";
-import App from "../app.js";
+import App from "./app.js";
 const config = {
   rootEl: "#root",
 };
