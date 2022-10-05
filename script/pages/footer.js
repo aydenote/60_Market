@@ -5,9 +5,8 @@ const config = {
 };
 
 class Footer {
-  render() {
+  render(link) {
     //footer
-    // const root = document.createElement("div");
     const footerEl = document.createElement("footer");
     const navBarEl = document.createElement("nav");
     const ulEl = document.createElement("ul");
@@ -21,12 +20,9 @@ class Footer {
     const homePEl = document.createElement("p");
 
     homeDivEl.classList.add("nav");
-    homeDivEl.addEventListener("click", () => {
-      window.history.pushState({}, "", "/home"); // 주소 업데이트
-      new App(config).setup();
-    });
+    homeDivEl.addEventListener("click", clickHome);
     homeArticleEl.classList.add("navIcon");
-    homeArticleEl.classList.add("navHomeSelected");
+    homeArticleEl.classList.add("navHome");
 
     homePEl.classList.add("navText");
     homePEl.innerText = "홈";
@@ -43,10 +39,7 @@ class Footer {
     const chatPEl = document.createElement("p");
 
     chatDivEl.classList.add("nav");
-    chatDivEl.addEventListener("click", () => {
-      window.history.pushState({}, "", "/chat"); // 주소 업데이트
-      new App(config).setup();
-    });
+    chatDivEl.addEventListener("click", clickChat);
     chatArticleEl.classList.add("navIcon");
     chatArticleEl.classList.add("navChat");
 
@@ -87,10 +80,7 @@ class Footer {
     const profilePEl = document.createElement("p");
 
     profileDivEl.classList.add("nav");
-    profileDivEl.addEventListener("click", () => {
-      window.history.pushState({}, "", "/profile"); // 주소 업데이트
-      new App(config).setup();
-    });
+    profileDivEl.addEventListener("click", clickProfile);
     profileArticleEl.classList.add("navIcon");
     profileArticleEl.classList.add("navProfile");
 
@@ -104,6 +94,40 @@ class Footer {
 
     navBarEl.appendChild(ulEl);
     footerEl.appendChild(navBarEl);
+
+    // NavBar icon 클래스 변경하여 색 변화
+    if (link === "home") {
+      homeArticleEl.classList.replace("navHome", "navHomeSelected");
+      chatArticleEl.classList.replace("navChatSelected", "navChat");
+      postArticleEl.classList.replace("navPostingSelected", "navPosting");
+      profileArticleEl.classList.replace("navProfileSelected", "navProfile");
+    } else if (link === "chat") {
+      homeArticleEl.classList.replace("navHomeSelected", "navHome");
+      chatArticleEl.classList.replace("navChat", "navChatSelected");
+      postArticleEl.classList.replace("navPostingSelected", "navPosting");
+      profileArticleEl.classList.replace("navProfileSelected", "navProfile");
+    } else if (link === "profile") {
+      homeArticleEl.classList.replace("navHomeSelected", "navHome");
+      chatArticleEl.classList.replace("navChatSelected", "navChat");
+      postArticleEl.classList.replace("navPostingSelected", "navPosting");
+      profileArticleEl.classList.replace("navProfile", "navProfileSelected");
+    }
+
+    // NavBar icon 클릭 시 해당 페이지로 이동
+    function clickHome() {
+      window.history.pushState({}, "", "/home"); // 주소 업데이트
+      new App(config).setup();
+    }
+
+    function clickChat() {
+      window.history.pushState({}, "", "/chat"); // 주소 업데이트
+      new App(config).setup();
+    }
+
+    function clickProfile() {
+      window.history.pushState({}, "", "/profile"); // 주소 업데이트
+      new App(config).setup();
+    }
 
     return footerEl;
   }

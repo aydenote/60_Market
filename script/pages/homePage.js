@@ -9,11 +9,12 @@ const config = {
 const token = localStorage.getItem("Token");
 const defaultUrl = "https://mandarin.api.weniv.co.kr";
 const listContent = document.querySelector(".post");
-const footer = new Footer();
-const footerEl = footer.render();
 
 class HomePage {
   render() {
+    const url = window.location.pathname.replace("/", "");
+    const footer = new Footer();
+    const footerEl = footer.render(url);
     const body = document.querySelector("body");
     body.classList.remove("profileBackground");
 
@@ -29,22 +30,22 @@ class HomePage {
     heading1El.classList.add("mainLogo");
     heading1El.innerText = "60'' 마켓";
 
-    const headerAnchorEl = document.createElement("a");
+    const headerDivEl = document.createElement("div");
     const spanEl = document.createElement("span");
 
-    headerAnchorEl.addEventListener("click", () => {
+    headerDivEl.addEventListener("click", () => {
       window.history.pushState({}, "", "/search"); // 주소 업데이트
       new App(config).setup();
     });
-    headerAnchorEl.classList.add("headerBarModal");
-    headerAnchorEl.classList.add("headerBarBtn");
-    headerAnchorEl.classList.add("searchBtn");
+    headerDivEl.classList.add("headerBarModal");
+    headerDivEl.classList.add("headerBarBtn");
+    headerDivEl.classList.add("searchBtn");
     spanEl.classList.add("ir");
     spanEl.innerText = "사용자 검색 버튼";
 
     articleHeaderEl.appendChild(heading1El);
-    articleHeaderEl.appendChild(headerAnchorEl);
-    headerAnchorEl.appendChild(spanEl);
+    articleHeaderEl.appendChild(headerDivEl);
+    headerDivEl.appendChild(spanEl);
     headerEl.appendChild(articleHeaderEl);
 
     // main

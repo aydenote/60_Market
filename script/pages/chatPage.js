@@ -1,16 +1,18 @@
-import Footer from "./footer.js";
 import App from "../app.js";
-const footer = new Footer();
-const footerEl = footer.render();
+import Footer from "./footer.js";
+
 const config = {
   rootEl: "#root",
 };
 
 class ChatPage {
   render() {
-    document.querySelector("body").classList.remove("profileBackground");
+    const url = window.location.pathname.replace("/", "");
+    const footer = new Footer();
+    const footerEl = footer.render(url);
     const chatWrapDivEl = document.createElement("div");
     chatWrapDivEl.classList.add("chatWrap");
+    document.querySelector("body").classList.remove("profileBackground");
 
     // header
     const headerEl = document.createElement("header");

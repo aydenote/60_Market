@@ -1,11 +1,10 @@
 import Footer from "./footer.js";
 import Search from "../search.js";
 
-const footer = new Footer();
-const footerEl = footer.render();
-
 class SearchPage {
   render() {
+    const footer = new Footer();
+    const footerEl = footer.render();
     // header
     const headerEl = document.createElement("header");
     const articleHeaderEl = document.createElement("article");

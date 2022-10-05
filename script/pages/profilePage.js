@@ -3,16 +3,16 @@ import Footer from "./footer.js";
 import Profile from "../profile.js";
 import { backHistory } from "../common.js";
 
-const footer = new Footer();
-const footerEl = footer.render();
 const profile = new Profile();
-
 const config = {
   rootEl: "#root",
 };
 
 class ProfilePage {
   render() {
+    const url = window.location.pathname.replace("/", "");
+    const footer = new Footer();
+    const footerEl = footer.render(url);
     // body
     document.querySelector("body").classList.add("profileBackground");
 

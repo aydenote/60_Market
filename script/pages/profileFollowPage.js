@@ -2,11 +2,12 @@ import ProfileFollow from "../profileFollow.js";
 import Footer from "./footer.js";
 
 const footer = new Footer();
-const footerEl = footer.render();
-const profileFollow = new ProfileFollow();
 
 class ProfileFollowPage {
   render() {
+    const footerEl = footer.render();
+    const profileFollow = new ProfileFollow();
+
     // header
     const headerEl = document.createElement("header");
     const headerBarArticleEl = document.createElement("article");
