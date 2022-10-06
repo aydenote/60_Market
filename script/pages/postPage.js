@@ -4,6 +4,7 @@ import {
   submitComment,
   getLoginUserInfo,
 } from "../post.js";
+import { backHistory } from "../common.js";
 
 class PostPage {
   render() {
@@ -19,6 +20,7 @@ class PostPage {
     backImgEl.classList.add("buttonClick");
     backImgEl.setAttribute("src", "../asset/images/icons/icon__arrowLeft.svg");
     backImgEl.setAttribute("alt", "뒤로 가기");
+    backImgEl.addEventListener("click", backHistory);
 
     headerBarArticleEl.appendChild(backImgEl);
     headerEl.appendChild(headerBarArticleEl);

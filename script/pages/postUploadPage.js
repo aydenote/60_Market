@@ -4,6 +4,7 @@ import {
   readInputFile,
   checkPost,
 } from "../postUpload.js";
+import { backHistory } from "../common.js";
 
 class PostUploadPage {
   render() {
@@ -20,6 +21,7 @@ class PostUploadPage {
     backImgEl.classList.add("buttonClick");
     backImgEl.setAttribute("src", "../asset/images/icons/icon__arrowLeft.svg");
     backImgEl.setAttribute("alt", "뒤로 가기");
+    backImgEl.addEventListener("click", backHistory);
     uploadBtnEl.classList.add("headerBarSettingBtn");
     uploadBtnEl.classList.add("headerBarBtn");
     uploadBtnEl.classList.add("buttonClick");
@@ -27,9 +29,6 @@ class PostUploadPage {
     uploadBtnEl.setAttribute("type", "button");
     uploadBtnEl.disabled = true;
     uploadBtnEl.innerText = "업로드";
-    // uploadBtnEl.addEventListener("click", () => {
-    //   createPost();
-    // });
 
     headerBarArticleEl.appendChild(backImgEl);
     headerBarArticleEl.appendChild(uploadBtnEl);

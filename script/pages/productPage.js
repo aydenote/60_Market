@@ -1,4 +1,5 @@
 import AddProduct from "../addProduct.js";
+import { backHistory } from "../common.js";
 
 class ProductPage {
   render() {
@@ -15,6 +16,7 @@ class ProductPage {
     backImgEl.classList.add("buttonClick");
     backImgEl.setAttribute("src", "../asset/images/icons/icon__arrowLeft.svg");
     backImgEl.setAttribute("alt", "뒤로 가기");
+    backImgEl.addEventListener("click", backHistory);
     saveBtnEl.classList.add("headerBarSettingBtn");
     saveBtnEl.classList.add("headerBarBtn");
     saveBtnEl.classList.add("buttonClick");

@@ -99,6 +99,10 @@ class ProfilePage {
     );
     albumTypeImgEl.setAttribute("alt", "앨범형으로 보기");
 
+    // 뒤로 가기
+    backImgEl.addEventListener("click", backHistory);
+    // window.addEventListener("popstate");
+
     saleItemsSectionEl.appendChild(saleItemDivEl);
     profileInfoSectionEl.appendChild(userNameStrongEl);
     profileInfoSectionEl.appendChild(userIdPEl);
@@ -117,10 +121,6 @@ class ProfilePage {
     mainEl.appendChild(introSectionEl);
     mainEl.appendChild(saleItemsSectionEl);
     mainEl.appendChild(postingSectionEl);
-
-    // 뒤로 가기
-    // backImgEl.addEventListener("click", backHistory);
-    // window.addEventListener("popstate", );
 
     // 팔로워, 팔로잉 페이지 이동
     followerDivEl.addEventListener("click", clickedFollowLink);

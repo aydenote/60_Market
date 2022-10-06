@@ -1,5 +1,6 @@
 import ProfileFollow from "../profileFollow.js";
 import Footer from "./footer.js";
+import { backHistory } from "../common.js";
 
 const footer = new Footer();
 
@@ -20,6 +21,7 @@ class ProfileFollowPage {
     backImgEl.classList.add("buttonClick");
     backImgEl.setAttribute("src", "../asset/images/icons/icon__arrowLeft.svg");
     backImgEl.setAttribute("alt", "뒤로 가기");
+    backImgEl.addEventListener("click", backHistory);
     titlePEl.classList.add("followTitle");
 
     headerBarArticleEl.appendChild(backImgEl);

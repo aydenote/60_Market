@@ -1,5 +1,6 @@
 import Footer from "./footer.js";
 import Search from "../search.js";
+import { backHistory } from "../common.js";
 
 class SearchPage {
   render() {
@@ -18,9 +19,7 @@ class SearchPage {
       "../asset/images/icons/icon__arrowLeft.svg"
     );
     backImageEl.setAttribute("alt", "뒤로 가기");
-    backImageEl.addEventListener("click", () => {
-      window.history.back();
-    });
+    backImageEl.addEventListener("click", backHistory);
 
     inputSearchEl.classList.add("headerBarSearch");
     inputSearchEl.classList.add("headerBarInput");

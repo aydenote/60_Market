@@ -1,4 +1,5 @@
 import { clickChatModal } from "../modal.js";
+import { backHistory } from "../common.js";
 
 class ChattingPage3 {
   render() {
@@ -18,9 +19,7 @@ class ChattingPage3 {
     backImgEl.classList.add("buttonClick");
     backImgEl.setAttribute("src", "../asset/images/icons/icon__arrowLeft.svg");
     backImgEl.setAttribute("alt", "뒤로 가기");
-    backImgEl.addEventListener("click", () => {
-      console.log("뒤로 가기");
-    });
+    backImgEl.addEventListener("click", backHistory);
     chatUserPEl.classList.add("headerBarText");
     chatUserPEl.classList.add("headerBarInput");
     chatUserPEl.innerText = "붕붕";

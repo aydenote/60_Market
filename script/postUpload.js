@@ -1,8 +1,8 @@
 import App from "./app.js";
-
 const config = {
   rootEl: "#root",
 };
+
 // fileArr  : Blob  객체형 파일 데이터 저장
 // arrImgName : 파일명 저장
 let fileArr = [];

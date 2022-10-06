@@ -1,5 +1,6 @@
 import App from "../app.js";
 import Footer from "./footer.js";
+import { backHistory } from "../common.js";
 
 const config = {
   rootEl: "#root",
@@ -28,9 +29,7 @@ class ChatPage {
     backImgEl.classList.add("buttonClick");
     backImgEl.setAttribute("src", "../asset/images/icons/icon__arrowLeft.svg");
     backImgEl.setAttribute("alt", "뒤로 가기");
-    backImgEl.addEventListener("click", () => {
-      console.log("뒤로 가기");
-    });
+    backImgEl.addEventListener("click", backHistory);
 
     articleHeaderEl.appendChild(backImgEl);
     headerEl.appendChild(heading1El);

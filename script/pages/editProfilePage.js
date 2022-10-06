@@ -1,4 +1,5 @@
 import EditProfile from "../editProfile.js";
+import { backHistory } from "../common.js";
 
 class EditProfilePage {
   render() {
@@ -14,6 +15,7 @@ class EditProfilePage {
     backImgEl.classList.add("buttonClick");
     backImgEl.setAttribute("src", "../asset/images/icons/icon__arrowLeft.svg");
     backImgEl.setAttribute("alt", "뒤로 가기");
+    backImgEl.addEventListener("click", backHistory);
     saveBtnEl.setAttribute("type", "button");
     saveBtnEl.classList.add("headerBarSettingBtn");
     saveBtnEl.classList.add("headerBarBtn");

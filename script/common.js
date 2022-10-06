@@ -1,6 +1,6 @@
 // 뒤로 가기
 export function backHistory() {
-  window.location = document.referrer;
+  window.history.back();
 }
 
 // 게시물 등록 시간 계산 함수

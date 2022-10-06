@@ -1,3 +1,5 @@
+import { backHistory } from "../common.js";
+
 class ErrorPage {
   render() {
     document.querySelector("body").classList.remove("profileBackground");
@@ -30,7 +32,6 @@ class ErrorPage {
     headerEl.appendChild(korTitleEl);
 
     // main
-
     const mainEl = document.createElement("main");
     const backBtnEl = document.createElement("button");
 
@@ -38,14 +39,12 @@ class ErrorPage {
     backBtnEl.classList.add("buttonClick");
     backBtnEl.setAttribute("type", "submit");
     backBtnEl.innerText = "<- 이전 페이지로 돌아가기";
-    backBtnEl.addEventListener("click", () => {
-      console.log("뒤로 가기");
-    });
+    backBtnEl.addEventListener("click", backHistory);
 
     mainEl.appendChild(backBtnEl);
-
     wrapEl.appendChild(headerEl);
     wrapEl.appendChild(mainEl);
+
     return { wrapEl };
   }
 }
