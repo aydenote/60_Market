@@ -3,7 +3,6 @@ const config = {
   rootEl: "#root",
 };
 
-// 공통 API 모듈
 // 좋아요 모듈
 export async function likeHeart(postingID) {
   const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;

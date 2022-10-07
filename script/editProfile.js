@@ -2,10 +2,6 @@ import App from "./app.js";
 const config = {
   rootEl: "#root",
 };
-// 뒤로 가기
-// backHistory.addEventListener("click", () => {
-//   window.location = document.referrer;
-// });
 
 // 최초 프로필 정보 넣기
 class EditProfile {

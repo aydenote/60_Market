@@ -2,9 +2,6 @@ import App from "./app.js";
 const config = {
   rootEl: "#root",
 };
-// backHistory.addEventListener("click", () => {
-//   window.location = document.referrer;
-// });
 
 // 상품 이미지 미리보기 / api서버에 전송하고 변경된 이미지 이름 가져오기
 class AddProduct {
