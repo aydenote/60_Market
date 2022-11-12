@@ -6,7 +6,6 @@ const config = {
   rootEl: "#root",
 };
 
-const token = localStorage.getItem("Token");
 const defaultUrl = "https://mandarin.api.weniv.co.kr";
 const listContent = document.querySelector(".post");
 
@@ -67,6 +66,7 @@ class HomePage {
     mainEl.appendChild(mainArticleEl);
 
     // home 피드 구현
+    const token = localStorage.getItem("Token");
     const homeFeed = new Home(token, defaultUrl, listContent);
     homeFeed.feedAPI(token, defaultUrl);
 

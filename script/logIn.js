@@ -90,7 +90,7 @@ class Validation {
     try {
       const resLogin = await fetch(`${url}/user/login`, setting);
       const resresLoginJson = await resLogin.json();
-      this.checklogIn(resresLoginJson.user, resresLoginJson.status);
+      this.checklogIn(resresLoginJson.user, resLogin.status);
     } catch (err) {
       console.error(err);
     }
