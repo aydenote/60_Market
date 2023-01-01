@@ -1,73 +1,72 @@
-const url = "https://mandarin.api.weniv.co.kr";
-const email = document.querySelector("#email");
-const password = document.querySelector("#password");
-const errorEmail = document.querySelector(".errorEmail");
-const errorPassword = document.querySelector(".errorPassword");
-const registerForm = document.querySelector(".registerForm");
-const registerFormBtn = document.querySelector(".registerFormBtn");
+const url = 'https://mandarin.api.weniv.co.kr';
 
 // 폼 입력
-class CheckForm {
-  constructor(email, password) {
+export class CheckForm {
+  constructor(email, password, errorPassword, registerFormBtn) {
     this.email = email;
     this.password = password;
+    this.errorPassword = errorPassword;
+    this.registerFormBtn = registerFormBtn;
   }
 
   // 버튼 활성화
   isActiveBtn = () => {
-    if (email.value !== "" && password.value.length >= 6) {
-      registerFormBtn.style.opacity = "1";
-      registerFormBtn.disabled = false;
+    if (this.email.value !== '' && this.password.value.length >= 6) {
+      this.registerFormBtn.style.opacity = '1';
+      this.registerFormBtn.disabled = false;
     }
-    if (email.value === "" || password.value.length < 6) {
-      registerFormBtn.style.opacity = "0.3";
-      registerFormBtn.disabled = true;
+    if (this.email.value === '' || this.password.value.length < 6) {
+      this.registerFormBtn.style.opacity = '0.3';
+      this.registerFormBtn.disabled = true;
     }
   };
 
   // 입력 체크
   checkInput = () => {
-    if (password.value.length < 6) {
-      errorPassword.classList.remove("ir");
+    if (this.password.value.length < 6) {
+      this.errorPassword.classList.remove('ir');
     }
-    if (password.value.length >= 6) {
-      errorPassword.classList.add("ir");
+    if (this.password.value.length >= 6) {
+      this.errorPassword.classList.add('ir');
       this.isActiveBtn();
     }
   };
 }
 
 // 이메일 유효성 검사
-class Validation {
-  constructor(email) {
+export class Validation {
+  constructor(email, password, errorEmail) {
     this.email = email;
+    this.errorEmail = errorEmail;
+    this.password = password;
   }
 
   // 프로필 설정으로 이동
-  locationRegisterProfile = (resMessage) => {
-    if (resMessage === "사용 가능한 이메일 입니다.") {
-      location.href = "./registerProfile.html";
+  locationRegisterProfile = status => {
+    if (status === 200) {
+      window.location.hash = '#profileRegister';
     }
   };
 
   // 이메일, 비밀번호 로컬 스토리지에 저장
-  saveData = (resMessage) => {
-    localStorage.setItem("email", email.value);
-    localStorage.setItem("password", password.value);
-    this.locationRegisterProfile(resMessage);
+  saveData = status => {
+    // localStorage.clear();
+    localStorage.setItem('email', this.email.value);
+    localStorage.setItem('password', this.password.value);
+    this.locationRegisterProfile(status);
   };
 
   // 사용 가능한 이메일 체크
-  checkEmail = (resMessage) => {
-    if (resMessage !== "사용 가능한 이메일 입니다.") {
-      errorEmail.innerText = `*${resMessage}`;
-      errorEmail.classList.remove("ir");
-      email.oninput = () => {
-        errorEmail.classList.add("ir");
+  checkEmail = status => {
+    if (status !== 200) {
+      this.errorEmail.innerText = `*${resMessage}`;
+      this.errorEmail.classList.remove('ir');
+      this.email.oninput = () => {
+        this.errorEmail.classList.add('ir');
       };
     }
-    if (resMessage === "사용 가능한 이메일 입니다.") {
-      this.saveData(resMessage);
+    if (status === 200) {
+      this.saveData(status);
     }
   };
 
@@ -76,24 +75,12 @@ class Validation {
     try {
       const res = await axios.post(`${url}/user/emailvalid`, {
         user: {
-          email: email.value,
+          email: this.email.value,
         },
       });
-      const resMessage = res.data.message;
-      this.checkEmail(resMessage);
-      return resMessage;
-    } catch (err) {
-      this.checkEmail(err.response.data.message);
+      this.checkEmail(res.status);
+    } catch (error) {
+      this.checkEmail(error.response.data.message);
     }
   };
 }
-
-// 폼 입력
-const checkForm = new CheckForm(email, password);
-// 이메일 유효성 검사
-const validation = new Validation(email);
-
-// 폼 입력
-registerForm.addEventListener("input", checkForm.checkInput);
-// 이메일 유효성 검사 버튼
-registerFormBtn.addEventListener("click", validation.isValidEmail);

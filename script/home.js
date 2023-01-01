@@ -1,11 +1,6 @@
-import { timeForToday } from "./common.js";
-import { clickHeart } from "./heartBtn.js";
-import { clickUserModal } from "./modal.js";
-import App from "./app.js";
-
-const config = {
-  rootEl: "#root",
-};
+import { timeForToday } from './common.js';
+import { clickHeart } from './heartBtn.js';
+import { clickUserModal } from './modal.js';
 
 class homeFeed {
   constructor(token, defaultUrl, listContent) {
@@ -15,21 +10,19 @@ class homeFeed {
   }
 
   noFeed = () => {
-    const subTitleHeading3El = document.createElement("h3");
-    const noneFeedSectionEl = document.createElement("noneFeed");
-    const contentPEl = document.createElement("p");
-    const searchLinkDivEl = document.createElement("div");
+    const subTitleHeading3El = document.createElement('h3');
+    const noneFeedSectionEl = document.createElement('noneFeed');
+    const contentPEl = document.createElement('p');
+    const searchLinkDivEl = document.createElement('div');
 
-    subTitleHeading3El.classList.add("ir");
-    subTitleHeading3El.innerText = "피드 게시글";
-    noneFeedSectionEl.classList.add("noneFeed");
-    contentPEl.innerText = "유저를 검색해 팔로우 해보세요!";
-    searchLinkDivEl.classList.add("userSearchBtn");
-    searchLinkDivEl.innerText = "검색하기";
-    searchLinkDivEl.addEventListener("click", () => {
-      // 주소 업데이트
-      window.history.pushState({}, "", "/search");
-      new App(config).setup();
+    subTitleHeading3El.classList.add('ir');
+    subTitleHeading3El.innerText = '피드 게시글';
+    noneFeedSectionEl.classList.add('noneFeed');
+    contentPEl.innerText = '유저를 검색해 팔로우 해보세요!';
+    searchLinkDivEl.classList.add('userSearchBtn');
+    searchLinkDivEl.innerText = '검색하기';
+    searchLinkDivEl.addEventListener('click', () => {
+      window.location.hash = '#search'; // 주소 업데이트
     });
 
     noneFeedSectionEl.appendChild(contentPEl);
@@ -40,10 +33,10 @@ class homeFeed {
 
   feedAPI = async (token, defaultUrl) => {
     const setting = {
-      method: "GET",
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
     };
     try {
@@ -56,43 +49,36 @@ class homeFeed {
         this.createFeed(posts);
       }
     } catch {
-      console.error("The feed cannot be received.");
+      console.error('The feed cannot be received.');
     }
   };
 
-  clickUserInfo = (event) => {
+  clickUserInfo = event => {
     const userAccount = event.target
-      .closest(".userList")
-      .children[0].children[0].childNodes[1].children[1].innerText.replace(
-        "@",
-        ""
-      );
-    if (event.target.className === "moreBtn buttonClick") {
+      .closest('.userList')
+      .children[0].children[0].childNodes[1].children[1].innerText.replace('@', '');
+    if (event.target.className === 'moreBtn buttonClick') {
       return;
     }
-    // 주소 업데이트
-    window.history.pushState({}, "", `profile\?accountname=${userAccount}`);
-    new App(config).setup();
+    window.location.hash = `#profile\?accountname=${userAccount}`; // 주소 업데이트
   };
 
-  clickComment = (event) => {
-    const postId = event.target.closest(".commentBtn").dataset.postid;
-    // 주소 업데이트
-    window.history.pushState({}, "", `post\?postid=${postId}`);
-    new App(config).setup();
+  clickComment = event => {
+    const postId = event.target.closest('.commentBtn').dataset.postid;
+    window.location.hash = `#post\?postid=${postId}`; // 주소 업데이트
   };
 
-  createFeed = (posts) => {
-    const listContent = document.querySelector(".post");
+  createFeed = posts => {
+    const listContent = document.querySelector('.post');
     const clickUserInfo = this.clickUserInfo;
     const clickComment = this.clickComment;
     for (let i = 0; i < posts.length; i++) {
-      const postItem = document.createElement("div");
-      postItem.classList.add("postItem");
+      const postItem = document.createElement('div');
+      postItem.classList.add('postItem');
       // 이미지 url 저장
-      let postImage = "";
+      let postImage = '';
       if (posts[i].image) {
-        let images = posts[i].image.split(",");
+        let images = posts[i].image.split(',');
         for (const image of images) {
           postImage += `
         <li>
@@ -103,7 +89,7 @@ class homeFeed {
       }
 
       let checkImg = !postImage
-        ? ""
+        ? ''
         : `<div class="postImgContent">
             <ul>${postImage}</ul>
           </div>`;
@@ -112,41 +98,38 @@ class homeFeed {
       const checkImgNode = range.createContextualFragment(checkImg);
 
       // 사용자 정보 마크업
-      const postHeading4El = document.createElement("h4");
-      const userInfoSectionEl = document.createElement("section");
-      const userListDivEl = document.createElement("div");
-      const userItemDivEl = document.createElement("div");
-      const userBoxDivEl = document.createElement("div");
-      const userProfileImgEl = document.createElement("img");
-      const userInfoDivEl = document.createElement("div");
-      const userNicknameStrongEl = document.createElement("strong");
-      const userTextDivEl = document.createElement("div");
-      const userStatusMsgPEl = document.createElement("p");
-      const moreBtnEl = document.createElement("button");
-      const moreTextSpanEl = document.createElement("span");
+      const postHeading4El = document.createElement('h4');
+      const userInfoSectionEl = document.createElement('section');
+      const userListDivEl = document.createElement('div');
+      const userItemDivEl = document.createElement('div');
+      const userBoxDivEl = document.createElement('div');
+      const userProfileImgEl = document.createElement('img');
+      const userInfoDivEl = document.createElement('div');
+      const userNicknameStrongEl = document.createElement('strong');
+      const userTextDivEl = document.createElement('div');
+      const userStatusMsgPEl = document.createElement('p');
+      const moreBtnEl = document.createElement('button');
+      const moreTextSpanEl = document.createElement('span');
 
-      postHeading4El.classList.add("ir");
-      postHeading4El.innerText = "게시물";
-      userListDivEl.classList.add("userList");
-      userItemDivEl.classList.add("userItem");
-      userBoxDivEl.classList.add("userBox");
-      userProfileImgEl.classList.add("userProfileImage");
-      userProfileImgEl.setAttribute("src", `${posts[i].author.image}`);
-      userProfileImgEl.setAttribute(
-        "alt",
-        `${posts[i].author.username}님의 프로필 이미지`
-      );
-      userInfoDivEl.classList.add("userInfo");
-      userNicknameStrongEl.classList.add("userNickname");
+      postHeading4El.classList.add('ir');
+      postHeading4El.innerText = '게시물';
+      userListDivEl.classList.add('userList');
+      userItemDivEl.classList.add('userItem');
+      userBoxDivEl.classList.add('userBox');
+      userProfileImgEl.classList.add('userProfileImage');
+      userProfileImgEl.setAttribute('src', `${posts[i].author.image}`);
+      userProfileImgEl.setAttribute('alt', `${posts[i].author.username}님의 프로필 이미지`);
+      userInfoDivEl.classList.add('userInfo');
+      userNicknameStrongEl.classList.add('userNickname');
       userNicknameStrongEl.innerText = `${posts[i].author.username}`;
-      userTextDivEl.classList.add("userText");
-      userStatusMsgPEl.classList.add("userMsgContent");
-      userStatusMsgPEl.classList.add("userStatusMsg");
+      userTextDivEl.classList.add('userText');
+      userStatusMsgPEl.classList.add('userMsgContent');
+      userStatusMsgPEl.classList.add('userStatusMsg');
       userStatusMsgPEl.innerText = `@${posts[i].author.accountname}`;
-      moreBtnEl.classList.add("moreBtn");
-      moreBtnEl.classList.add("buttonClick");
-      moreTextSpanEl.classList.add("ir");
-      moreTextSpanEl.innerText = "게시글 더보기 버튼";
+      moreBtnEl.classList.add('moreBtn');
+      moreBtnEl.classList.add('buttonClick');
+      moreTextSpanEl.classList.add('ir');
+      moreTextSpanEl.innerText = '게시글 더보기 버튼';
 
       moreBtnEl.appendChild(moreTextSpanEl);
       userTextDivEl.appendChild(userStatusMsgPEl);
@@ -162,38 +145,38 @@ class homeFeed {
       postItem.appendChild(userInfoSectionEl);
 
       // 게시물 마크업
-      const contentSectionEl = document.createElement("section");
-      const contentTitleheading4El = document.createElement("h4");
-      const contentPEl = document.createElement("p");
-      const contentBtnDivEl = document.createElement("div");
-      const likeBtnEl = document.createElement("button");
-      const likeTextSpanEl = document.createElement("span");
-      const likeCountSpanEl = document.createElement("span");
-      const commentBtnDivEl = document.createElement("div");
-      const commentCountSpanEl = document.createElement("span");
-      const postDateStrongEl = document.createElement("strong");
+      const contentSectionEl = document.createElement('section');
+      const contentTitleheading4El = document.createElement('h4');
+      const contentPEl = document.createElement('p');
+      const contentBtnDivEl = document.createElement('div');
+      const likeBtnEl = document.createElement('button');
+      const likeTextSpanEl = document.createElement('span');
+      const likeCountSpanEl = document.createElement('span');
+      const commentBtnDivEl = document.createElement('div');
+      const commentCountSpanEl = document.createElement('span');
+      const postDateStrongEl = document.createElement('strong');
 
-      contentSectionEl.classList.add("postContent");
+      contentSectionEl.classList.add('postContent');
       contentSectionEl.id = `${posts[i].id}`;
-      contentTitleheading4El.classList.add("ir");
-      contentTitleheading4El.innerText = "게시글 내용";
+      contentTitleheading4El.classList.add('ir');
+      contentTitleheading4El.innerText = '게시글 내용';
       contentPEl.innerText = `${posts[i].content}`;
-      contentBtnDivEl.classList.add("postBtnContent");
-      likeBtnEl.classList.add("likeBtn");
+      contentBtnDivEl.classList.add('postBtnContent');
+      likeBtnEl.classList.add('likeBtn');
       if (posts[i].hearted) {
-        likeBtnEl.classList.add("on");
+        likeBtnEl.classList.add('on');
       } else {
-        likeBtnEl.classList.remove("on");
+        likeBtnEl.classList.remove('on');
       }
-      likeTextSpanEl.classList.add("ir");
-      likeTextSpanEl.innerText = "좋아요 버튼";
-      likeCountSpanEl.classList.add("commentCount");
+      likeTextSpanEl.classList.add('ir');
+      likeTextSpanEl.innerText = '좋아요 버튼';
+      likeCountSpanEl.classList.add('commentCount');
       likeCountSpanEl.innerText = `${posts[i].heartCount}`;
-      commentBtnDivEl.classList.add("commentBtn");
+      commentBtnDivEl.classList.add('commentBtn');
       commentBtnDivEl.dataset.postid = `${posts[i].id}`;
-      commentCountSpanEl.classList.add("commentCount");
+      commentCountSpanEl.classList.add('commentCount');
       commentCountSpanEl.innerText = `${posts[i].commentCount}`;
-      postDateStrongEl.classList.add("postDate");
+      postDateStrongEl.classList.add('postDate');
       postDateStrongEl.innerText = `${timeForToday(posts[i].createdAt)}`;
 
       likeBtnEl.appendChild(likeTextSpanEl);
@@ -209,10 +192,10 @@ class homeFeed {
       postItem.appendChild(contentSectionEl);
       listContent.appendChild(postItem);
 
-      userBoxDivEl.addEventListener("click", clickUserInfo);
-      likeBtnEl.addEventListener("click", clickHeart);
-      moreBtnEl.addEventListener("click", clickUserModal);
-      commentBtnDivEl.addEventListener("click", clickComment);
+      userBoxDivEl.addEventListener('click', clickUserInfo);
+      likeBtnEl.addEventListener('click', clickHeart);
+      moreBtnEl.addEventListener('click', clickUserModal);
+      commentBtnDivEl.addEventListener('click', clickComment);
     }
   };
 }

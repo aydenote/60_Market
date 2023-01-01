@@ -1,9 +1,3 @@
-import App from "./app.js";
-
-const config = {
-  rootEl: "#root",
-};
-
 // 폼 입력
 class CheckForm {
   constructor(email, password, loginButtonEl) {
@@ -14,11 +8,11 @@ class CheckForm {
 
   // 버튼 활성화
   isActiveBtn = () => {
-    if (this.email.value !== "" && this.password.value !== "") {
-      this.loginButtonEl.style.opacity = "1";
+    if (this.email.value !== '' && this.password.value !== '') {
+      this.loginButtonEl.style.opacity = '1';
       this.loginButtonEl.disabled = false;
-    } else if (this.email.value === "" || this.password.value === "") {
-      this.loginButtonEl.style.opacity = "0.3";
+    } else if (this.email.value === '' || this.password.value === '') {
+      this.loginButtonEl.style.opacity = '0.3';
       this.loginButtonEl.disabled = true;
     }
   };
@@ -28,7 +22,7 @@ class CheckForm {
     if (this.password.value.length >= 6) {
       this.isActiveBtn();
     } else {
-      this.loginButtonEl.style.opacity = "0.3";
+      this.loginButtonEl.style.opacity = '0.3';
       this.loginButtonEl.disabled = true;
     }
   };
@@ -43,17 +37,16 @@ class Validation {
     this.formEl = formEl;
   }
   // 홈으로 이동
-  locationHome = (status) => {
+  locationHome = status => {
     if (status !== 422) {
-      window.history.pushState({}, "", "/home"); // 주소 업데이트
-      new App(config).setup();
+      window.location.hash = '#home';
     }
   };
 
   // 로컬 스토리지에 토큰 저장
   saveToken = (userData, status) => {
-    localStorage.setItem("Token", userData.token);
-    localStorage.setItem("accountname", userData.accountname);
+    localStorage.setItem('Token', userData.token);
+    localStorage.setItem('accountname', userData.accountname);
     this.locationHome(status);
   };
 
@@ -63,16 +56,18 @@ class Validation {
       this.saveToken(userData, status);
     }
     if (status === 422) {
-      this.alertPEl.classList.remove("ir");
+      this.alertPEl.classList.remove('ir');
     }
     this.formEl.oninput = () => {
-      this.alertPEl.classList.add("ir");
+      this.alertPEl.classList.add('ir');
     };
   };
 
   // 로그인 데이터 요청
   getLogInData = async () => {
-    const url = "https://mandarin.api.weniv.co.kr";
+    const url = 'https://mandarin.api.weniv.co.kr';
+    console.log(this.email.value);
+    console.log(this.password.value);
     const userIdPw = {
       user: {
         email: this.email.value,
@@ -81,9 +76,9 @@ class Validation {
     };
 
     const setting = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
       body: JSON.stringify(userIdPw),
     };
