@@ -66,8 +66,6 @@ class Validation {
   // 로그인 데이터 요청
   getLogInData = async () => {
     const url = 'https://mandarin.api.weniv.co.kr';
-    console.log(this.email.value);
-    console.log(this.password.value);
     const userIdPw = {
       user: {
         email: this.email.value,

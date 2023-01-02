@@ -296,7 +296,7 @@ export const submitComment = async e => {
     });
     commentInput.value = '';
     if (res) {
-      window.location.hash = `#post\?postid=${postId}`; // 주소 업데이트
+      location.reload();
     }
   } catch (err) {
     console.log(err);

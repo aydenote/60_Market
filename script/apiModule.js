@@ -92,8 +92,7 @@ export async function reportComment(commentId) {
     });
     const json = await res.json();
     if (json) {
-      window.history.pushState({}, '', `/post?postid=${postId}`); // 주소 업데이트
-      new App(config).setup();
+      location.reload();
     }
   } catch (err) {
     console.log(err);
@@ -117,8 +116,7 @@ export async function deleteComment(commentId) {
     const json = await res.json();
 
     if (json) {
-      window.history.pushState({}, '', `/post?postid=${postId}`); // 주소 업데이트
-      new App(config).setup();
+      location.reload();
     }
   } catch (err) {
     console.log(err);
