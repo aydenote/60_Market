@@ -80,7 +80,7 @@ export async function deletePost(postingId) {
 export async function reportComment(commentId) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const token = localStorage.getItem('Token');
-  const postId = new URLSearchParams(location.search).get('postid');
+  const postId = window.location.hash.split('postid=')[1];
 
   try {
     const res = await fetch(`${url}/post/${postId}/comments/${commentId}/report`, {
@@ -103,7 +103,7 @@ export async function reportComment(commentId) {
 export async function deleteComment(commentId) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const token = localStorage.getItem('Token');
-  const postId = new URLSearchParams(location.search).get('postid');
+  const postId = window.location.hash.split('postid=')[1];
 
   try {
     const res = await fetch(`${url}/post/${postId}/comments/${commentId}`, {
@@ -114,8 +114,7 @@ export async function deleteComment(commentId) {
       },
     });
     const json = await res.json();
-
-    if (json) {
+    if (json.status === '200') {
       location.reload();
     }
   } catch (err) {
