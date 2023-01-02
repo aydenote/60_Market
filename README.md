@@ -6,14 +6,17 @@
 
 </div>
 
-### 🔗 [60’’ Market](https://aydenote.github.io/60-market-refactoring/)
+### 🔗 [배포 링크](https://beamish-syrniki-7895d7.netlify.app)
 
 ### 💳  **서비스 이용을 위한 계정**
 
 - 📧 **Email** : 60@market.com
 - 🔐 **PW** : 60market
 
-### 🗓 프로젝트 기간 : 7월 4일 ~ 7월 29일
+### 📆 프로젝트 기간 :
+
+- 7월 4일 ~ 7월 29일 (팀)
+- 8월 1일 ~ 진행 중 (개인)
 
 <br>
 <br>
@@ -49,11 +52,10 @@
 
 <div align='center'>
 
-| [박도겸](https://github.com/moeyg)                                                         | [임홍렬](https://github.com/Hongryeoll)                                                                                                     | [전유진](https://github.com/ujin16)                                                       | [최승수](https://github.com/aydenote)                                                                                                      |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| <img src="https://avatars.githubusercontent.com/u/102715022?v=4" height="200" width="200"> | <img src="https://user-images.githubusercontent.com/102474207/181880292-75ed9ee5-1504-418e-9d03-3e2f725af8f4.JPG" height="200" width="200"> | <img src="https://avatars.githubusercontent.com/u/94890646?v=4" height="200" width="200"> | <img src="https://user-images.githubusercontent.com/77476077/181723896-7ffffbb3-feb7-4f9d-8c50-b4e9627dc544.png" height="200" width="200"> |
-| [moeyg](https://github.com/moeyg)                                                          | [Hongryeoll](https://github.com/Hongryeoll)                                                                                                 | [ujin16](https://github.com/ujin16)                                                       | [aydenote](https://github.com/aydenote)                                                                                                    |
-| ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)                                  | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)                                                                                   | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)                                 | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb)                                                                                  |
+| [박도겸](https://github.com/moeyg)                        | [임홍렬](https://github.com/Hongryeoll)                   | [전유진](https://github.com/ujin16)                       | [최승수](https://github.com/aydenote)                     |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| [moeyg](https://github.com/moeyg)                         | [Hongryeoll](https://github.com/Hongryeoll)               | [ujin16](https://github.com/ujin16)                       | [aydenote](https://github.com/aydenote)                   |
+| ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) | ![FrontEnd](https://img.shields.io/badge/FrontEnd-3f97fb) |
 
 </div>
 
@@ -241,32 +243,38 @@
   만약, 브라우저에 이미지를 업로드 하지 않았다면 imageUrl 변수에 들어있는 정보는 선언 그대로인 `undefined`가 되기 때문에 해당 이미지의 src를 가져와 API 에 전송하게 되어
   기존 이미지를 그대로 사용할 수 있게 됩니다.
   <br>
+  <br>
 
 # 🌱 Folder Tree
+
+<details>
+    <summary>디렉토리 구조</summary>
+    <div>
 
 ```
 ⏱ 60market
 ┃
 ┣ 📝 README.md
 ┣ 📝 .gitignore
-┣ 📄 index.html
+┣ 📝 index.html
+┣ 🟡 index.js
 ┃
 ┣ 📂 asset
 ┃ ┣ 📂 font
-┃ ┣ 📂 gif
-┃ ┗ 📂 image
-┃   ┣ 📂 icon
+┃ ┃ ┗ 🎨 font.css
+┃ ┗ 📂 images
+┃   ┣ 📂 icons
 ┃   ┣ 📂 navIcon
 ┃   ┣ 📂 postImage
-┃   ┣ timi.svg
-┃   ┣ favicon.ico
-┃   ┗ 그 외 이미지 파일
+┃   ┣ 📷 timi.svg
+┃   ┣ 📷 favicon.ico
+┃   ┗ 📷 그 외 이미지 파일
 ┃
 ┣ 📂 css
 ┃	 ┣ 🎨 reset.css
 ┃	 ┣ 🎨 styles.css
-┃	 ┣ 🎨 variable.css (root css)
-┃	 ┗ 📂 components
+┃	 ┣ 🎨 variable.css
+┃	 ┣ 📂 components
 ┃	 ┃ ┣ 🎨 chatEnter.css
 ┃	 ┃ ┣ 🎨 headerBar.css
 ┃	 ┃ ┣ 🎨 modal.css
@@ -289,29 +297,33 @@
 ┃	   ┗ 🎨 register.css
 ┃
 ┣ 📂 pages
-┃	 ┣ 📄 addProduct.html
-┃	 ┣ 📄 chat.html
-┃	 ┣ 📄 chatting.html
-┃	 ┣ 📄 editProfile.html
-┃	 ┣ 📄 error.html
-┃	 ┣ 📄 home.html
-┃	 ┣ 📄 intro.html
-┃	 ┣ 📄 loadding.html
-┃	 ┣ 📄 logIn.html
-┃	 ┣ 📄 post.html
-┃	 ┣ 📄 postUpload.html
-┃	 ┣ 📄 profile.html
-┃	 ┣ 📄 profileFollow.html
-┃	 ┣ 📄 registerProfile.html
-┃	 ┣ 📄 search.html
-┃	 ┗ 📄 signUp.html
+┃	 ┣ 🟡 chatPage.js
+┃	 ┣ 🟡 chattingPage1.js
+┃	 ┣ 🟡 chattingPage2.js
+┃	 ┣ 🟡 chattingPage3.js
+┃	 ┣ 🟡 chattingPage4.js
+┃	 ┣ 🟡 errorPage.js
+┃	 ┣ 🟡 introPage.js
+┃	 ┣ 🟡 footer.js
+┃	 ┣ 🟡 homePage.js
+┃	 ┣ 🟡 postPage.js
+┃	 ┣ 🟡 loginPage.js
+┃	 ┣ 🟡 mainPage.js
+┃	 ┣ 🟡 postUploadPage.js
+┃	 ┣ 🟡 profileRegisterPage.js
+┃	 ┣ 🟡 productPage.js
+┃	 ┣ 🟡 searchPage.js
+┃	 ┗ 🟡 signUpPage.js
 ┃
 ┗ 📂 script
 	 ┣ 🟡 addProduct.js
 	 ┣ 🟡 editProfile.js
 	 ┣ 🟡 home.js
-	 ┣ 🟡 index.js
+	 ┣ 🟡 modal.js
+	 ┣ 🟡 apiModule.js
 	 ┣ 🟡 intro.js
+	 ┣ 🟡 heartBtn.js
+	 ┣ 🟡 common.js
 	 ┣ 🟡 logIn.js
 	 ┣ 🟡 post.js
 	 ┣ 🟡 postUpload.js
@@ -320,5 +332,6 @@
 	 ┣ 🟡 registerProfile.js
 	 ┣ 🟡 search.js
 	 ┗ 🟡 signUp.js
-
 ```
+
+</details>
