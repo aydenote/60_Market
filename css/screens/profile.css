@@ -19,7 +19,7 @@
 
 .introduce .followers::after {
   display: block;
-  content: "followers";
+  content: 'followers';
   margin-top: 5px;
   color: var(--textColor);
   font-size: 8px;
@@ -27,7 +27,7 @@
 
 .introduce .followings::after {
   display: block;
-  content: "followings";
+  content: 'followings';
   margin-top: 5px;
   color: var(--textColor);
   font-size: 8px;
@@ -113,6 +113,7 @@
   border: 1px solid var(--borderColor);
   border-radius: 30px;
   font-size: 14px;
+  cursor: pointer;
 }
 
 .link .addPosting {
