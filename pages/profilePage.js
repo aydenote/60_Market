@@ -1,8 +1,6 @@
 import Footer from './footer.js';
-import Profile from '../script/profile.js';
+import { getProfileInfo, getPostingList, albumTypePost, modal } from '../script/profile.js';
 import { backHistory } from '../utils/common.js';
-
-const profile = new Profile();
 
 class ProfilePage {
   render(content) {
@@ -121,16 +119,16 @@ class ProfilePage {
     }
 
     // 프로필 정보 가져오기
-    profile.getProfileInfo();
-    profile.getPostingList();
+    getProfileInfo();
+    getPostingList();
 
     // 목록형, 앨범형으로 포스팅 구현
     albumBarArticleEl.addEventListener('click', event => {
       const selectType = event.target.className.split(' ')[1];
       if (selectType === 'list') {
-        profile.listTypePost();
+        getPostingList();
       } else if (selectType === 'album') {
-        profile.albumTypePost();
+        albumTypePost();
       } else {
         return;
       }
@@ -138,7 +136,7 @@ class ProfilePage {
 
     // 사용자 로그아웃 모달
     menuImgEl.addEventListener('click', () => {
-      profile.modal(menuImgEl);
+      modal(menuImgEl);
     });
 
     content.appendChild(headerEl);
