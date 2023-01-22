@@ -211,3 +211,28 @@ export async function updateProfile() {
     console.error(err);
   }
 }
+
+// 게시물 확인
+export async function getPosting() {
+  const url = 'https://mandarin.api.weniv.co.kr';
+  const token = localStorage.getItem('Token');
+  const myAccountName = localStorage.getItem('accountname');
+  let accountName = window.location.hash.split('accountname=')[1];
+  accountName = accountName == null ? myAccountName : accountName;
+
+  const setting = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'application/json',
+    },
+  };
+  try {
+    const resProfileProduct = await fetch(`${url}/post/${accountName}/userpost/?limit=9`, setting);
+    const resProfileProductJson = await resProfileProduct.json();
+    const userPostInfo = resProfileProductJson.post;
+    return userPostInfo;
+  } catch (err) {
+    console.error(err);
+  }
+}
