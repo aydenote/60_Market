@@ -5,9 +5,8 @@ let arrImgName = [];
 
 // 게시물 수정 , 생성에 따른 함수 실행
 export function checkPost(postUserProfile, postImgContainer, postUploadTxt, postUploadBtn) {
-  const URLSearch = new URLSearchParams(location.search);
-  const postid = URLSearch.get('postid');
-  fileArr = [];
+  const postid = window.location.hash.split('?postid=')[1];
+  // fileArr = [];
 
   // 게시물 수정 PUT 요청
   if (postid) {
@@ -40,7 +39,7 @@ async function getLoginUserInfo(profileImgEl) {
       },
     });
     const userJson = await res.json();
-    profileImgEl.setAttribute('src', userJson.profile.image);
+    profileImgEl.setAttribute('src', `${url}/${userJson.profile.image}`);
   } catch (err) {
     console.log(err);
   }
@@ -244,8 +243,7 @@ async function editPost(defaultUrl, postid, token, postUploadTxt) {
     });
     const json = await res.json();
     fileArr = [];
-    window.history.pushState({}, '', '/profile'); // 주소 업데이트
-    new App(config).setup();
+    window.location.hash = '#profile'; // 주소 업데이트
 
     if (json.type == 'entity.too.large') {
       console.error(json.message);
