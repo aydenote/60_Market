@@ -1,8 +1,4 @@
-import Validation from '../script/intro.js';
-
-const url = 'https://mandarin.api.weniv.co.kr';
-const token = localStorage.getItem('Token');
-const root = document.getElementById('root');
+import { isValidToken } from '../script/intro.js';
 
 class IntroPage {
   render(content) {
@@ -52,8 +48,7 @@ class IntroPage {
     wrapEl.appendChild(mainEl);
 
     // 토큰 검증
-    const validation = new Validation(url);
-    validation.isValidToken(token);
+    isValidToken();
 
     content.appendChild(wrapEl);
   }
