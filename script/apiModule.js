@@ -121,3 +121,51 @@ export async function deleteComment(commentId) {
     console.log(err);
   }
 }
+
+// 이미지 업로드
+export async function imageUpload(formData) {
+  const url = 'https://mandarin.api.weniv.co.kr';
+
+  try {
+    const response = await fetch(url + '/image/uploadfiles', {
+      method: 'POST',
+      body: formData,
+    });
+    const data = await response.json();
+    const imageUrl = await data[0].filename;
+    localStorage.setItem('imageUrl', imageUrl);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// 상품 등록
+export async function productSave(productNameForm, productPriceForm, productContentForm) {
+  const token = localStorage.getItem('Token');
+  const url = 'https://mandarin.api.weniv.co.kr';
+  const imageUrl = localStorage.getItem('imageUrl');
+  const productInfo = {
+    product: {
+      itemName: productNameForm.value,
+      price: parseInt(productPriceForm.value.replace(/,/g, '')),
+      link: productContentForm.value,
+      itemImage: `${url}/${imageUrl}`,
+    },
+  };
+  const setting = {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(productInfo),
+  };
+  try {
+    const reqPosting = await fetch(`${url}/product`, setting);
+    if (reqPosting.status === 200) {
+      window.history.back(1);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
