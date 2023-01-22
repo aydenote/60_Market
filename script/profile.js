@@ -1,36 +1,18 @@
 import { backHistory, timeForToday } from '../utils/common.js';
 import { clickHeart } from './heartBtn.js';
 import { logoutModal, clickUserModal, productModal } from './modal.js';
-import { getPosting } from '../utils/apiModule.js';
+import { getProfile, getPosting } from '../utils/apiModule.js';
 
 // 프로필 정보 가져오기
 export async function getProfileInfo() {
-  const url = 'https://mandarin.api.weniv.co.kr';
-  const token = localStorage.getItem('Token');
   const myAccountName = localStorage.getItem('accountname');
   let accountName = window.location.hash.split('accountname=')[1];
   accountName = accountName == null ? myAccountName : accountName;
-
-  const setting = {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-type': 'application/json',
-    },
-  };
-
-  try {
-    const resProfile = await fetch(`${url}/profile/${accountName}`, setting);
-    const resProfileJson = await resProfile.json();
-    const userProfile = resProfileJson.profile;
-    // 사용자에 따라 페이지 구현
-    if (userProfile.accountname === myAccountName) {
-      setMyProfile(userProfile);
-    } else {
-      setYourProfile(userProfile);
-    }
-  } catch (err) {
-    console.error(err);
+  const userProfile = await getProfile(accountName);
+  if (userProfile.accountname === myAccountName) {
+    setMyProfile(userProfile);
+  } else {
+    setYourProfile(userProfile);
   }
 }
 

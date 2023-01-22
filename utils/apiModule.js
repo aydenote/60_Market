@@ -212,6 +212,29 @@ export async function updateProfile() {
   }
 }
 
+// 프로필 정보
+export async function getProfile(accountName) {
+  const url = 'https://mandarin.api.weniv.co.kr';
+  const token = localStorage.getItem('Token');
+
+  const setting = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'application/json',
+    },
+  };
+
+  try {
+    const resProfile = await fetch(`${url}/profile/${accountName}`, setting);
+    const resProfileJson = await resProfile.json();
+    const userProfile = resProfileJson.profile;
+    return userProfile;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 // 게시물 확인
 export async function getPosting() {
   const url = 'https://mandarin.api.weniv.co.kr';
