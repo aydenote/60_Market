@@ -1,4 +1,4 @@
-import Home from '../script/home.js';
+import { feedAPI } from '../script/home.js';
 import Footer from './footer.js';
 
 const defaultUrl = 'https://mandarin.api.weniv.co.kr';
@@ -59,9 +59,7 @@ class HomePage {
     mainEl.appendChild(mainArticleEl);
 
     // home 피드 구현
-    const token = localStorage.getItem('Token');
-    const homeFeed = new Home(token, defaultUrl, mainEl);
-    homeFeed.feedAPI(token, defaultUrl);
+    feedAPI();
 
     document.querySelector('#root').appendChild(headerEl);
     document.querySelector('#root').appendChild(mainEl);
