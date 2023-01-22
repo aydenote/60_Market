@@ -1,4 +1,11 @@
-import AddProduct from '../script/addProduct.js';
+import {
+  productInput,
+  onChangeProductImg,
+  inputNumberFormat,
+  onProductSvaeBtn,
+  onTimeToggle,
+  onTimeSelct,
+} from '../script/addProduct.js';
 import { backHistory } from '../script/common.js';
 
 class ProductPage {
@@ -179,25 +186,27 @@ class ProductPage {
     mainEl.appendChild(addProductFormEl);
 
     // 상품 등록 기능
-    const addProduct = new AddProduct(
-      addProductInput,
-      productNameInputEl,
-      addPriceInputEl,
-      contentTextareaEl,
-      saveBtnEl,
-      timeSelctBtnEl
-    );
-    productNameInputEl.addEventListener('keyup', addProduct.productInput);
-    contentTextareaEl.addEventListener('keyup', addProduct.productInput);
+    productNameInputEl.addEventListener('keyup', () => {
+      productInput();
+    });
+    contentTextareaEl.addEventListener('keyup', () => {
+      productInput();
+    });
     addProductInput.addEventListener('change', event => {
-      addProduct.onChangeProductImg(event);
+      onChangeProductImg(event);
     });
-    addPriceInputEl.addEventListener('keyup', addProduct.inputNumberFormat);
+    addPriceInputEl.addEventListener('keyup', () => {
+      inputNumberFormat(addPriceInputEl);
+    });
     saveBtnEl.addEventListener('click', () => {
-      addProduct.onProductSvaeBtn();
+      onProductSvaeBtn();
     });
-    timeSelctBtnEl.addEventListener('click', addProduct.onTimeToggle);
-    timeUlEl.addEventListener('click', addProduct.onTimeSelct);
+    timeSelctBtnEl.addEventListener('click', () => {
+      onTimeToggle(timeSelctBtnEl);
+    });
+    timeUlEl.addEventListener('click', event => {
+      onTimeSelct(event, timeSelctBtnEl);
+    });
 
     content.appendChild(headerEl);
     content.appendChild(mainEl);
