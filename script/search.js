@@ -1,9 +1,13 @@
-export default async function searchUser(e, url, token, userListContent) {
+export default async function searchUser(event) {
+  const url = 'https://mandarin.api.weniv.co.kr';
+  const token = localStorage.getItem('Token');
+  const userListContent = document.querySelector('.userList');
+
   try {
-    if (e.target.value == '') {
+    if (event.target.value == '') {
       userListContent.innerHTML = '';
     } else {
-      const res = await fetch(`${url}/user/searchuser/?keyword=${e.target.value}`, {
+      const res = await fetch(`${url}/user/searchuser/?keyword=${event.target.value}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -11,7 +15,6 @@ export default async function searchUser(e, url, token, userListContent) {
         },
       });
       const userData = await res.json();
-
       // 검색된 유저 정보 구현
       userListContent.innerHTML = '';
       userData.forEach(element => {
@@ -22,7 +25,6 @@ export default async function searchUser(e, url, token, userListContent) {
         const nickNameEl = document.createElement('strong');
         const userText = document.createElement('div');
         const accountNameEl = document.createElement('p');
-
         userItemEl.classList.add('userItem');
         userAnchorEl.classList.add('userBox');
         userAnchorEl.addEventListener('click', () => {
@@ -39,14 +41,12 @@ export default async function searchUser(e, url, token, userListContent) {
         accountNameEl.classList.add('userMsgContent');
         accountNameEl.classList.add('userStatusMsg');
         accountNameEl.innerText = `@${element.accountname}`;
-
         userText.appendChild(accountNameEl);
         userInfoEl.appendChild(nickNameEl);
         userInfoEl.appendChild(userText);
         userAnchorEl.appendChild(userImgEl);
         userAnchorEl.appendChild(userInfoEl);
         userItemEl.appendChild(userAnchorEl);
-
         userListContent.appendChild(userItemEl);
       });
     }

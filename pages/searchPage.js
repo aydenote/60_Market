@@ -45,12 +45,7 @@ class SearchPage {
     mainEl.appendChild(sectionEl);
 
     // user 검색 기능
-    inputSearchEl.addEventListener('change', event => {
-      console.log('1');
-      const url = 'https://mandarin.api.weniv.co.kr';
-      const token = localStorage.getItem('Token');
-      debounce(Search(event, url, token, ulMainEl));
-    });
+    inputSearchEl.addEventListener('keyup', debounce(Search));
 
     content.appendChild(headerEl);
     content.appendChild(mainEl);

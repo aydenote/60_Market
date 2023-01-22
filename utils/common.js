@@ -20,9 +20,8 @@ export function timeForToday(time) {
 // API 호출 최적화
 export function debounce(callback, delay = 500) {
   let timer = null;
-
   return function (...args) {
-    clearTimeout(timer);
-    timer = setTimeout(() => callback.apply(this, args), delay);
+    window.clearTimeout(timer);
+    timer = window.setTimeout(() => callback.apply(this, args), delay);
   };
 }
