@@ -169,3 +169,45 @@ export async function productSave(productNameForm, productPriceForm, productCont
     console.log(error);
   }
 }
+
+// 프로필 수정
+export async function updateProfile() {
+  const token = localStorage.getItem('Token');
+  const url = 'https://mandarin.api.weniv.co.kr';
+  const inputName = document.getElementById('name');
+  const inputId = document.getElementById('id');
+  const inputIntroduce = document.getElementById('introduce');
+  const imageUrl = localStorage.getItem('imageUrl');
+  const alertMessage = document.querySelector('.alertMessage');
+
+  const userProfileInfo = {
+    user: {
+      username: inputName.value,
+      accountname: inputId.value,
+      intro: inputIntroduce.value,
+      image: `${imageUrl}`,
+    },
+  };
+  const setting = {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(userProfileInfo),
+  };
+  try {
+    const resEditProfile = await fetch(`${url}/user`, setting);
+    const resEditProfileJson = await resEditProfile.json();
+    // 응답 성공시
+    if (resEditProfile.status === 200) {
+      localStorage.setItem('accountname', inputId.value);
+      window.history.back(1);
+    } else {
+      alertMessage.classList.remove('ir');
+      alertMessage.innerText = `*${resEditProfileJson.message}`;
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
