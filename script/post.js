@@ -268,7 +268,7 @@ export async function getLoginUserInfo(commentUserProfile) {
     const userJson = await res.json();
     const commentUserProfileImg = userJson.profile.image;
     // 댓글 유저 프로필 이미지
-    commentUserProfile.setAttribute('src', commentUserProfileImg);
+    commentUserProfile.setAttribute('src', `${url}/${commentUserProfileImg}`);
   } catch (err) {
     console.log(err);
   }
