@@ -1,4 +1,4 @@
-import { CheckForm, Validation } from '../script/logIn.js';
+import { checkInput, getLogInData } from '../script/logIn.js';
 
 class LoginPage {
   render(content) {
@@ -84,15 +84,10 @@ class LoginPage {
     wrapEl.appendChild(articleEl);
 
     // 폼 입력
-    const checkForm = new CheckForm(emailInputEl, passwordInputEl, loginButtonEl);
+    formEl.addEventListener('input', () => checkInput(emailInputEl, passwordInputEl, loginButtonEl));
     // 로그인 유효성 검사
-    const validation = new Validation(emailInputEl, passwordInputEl, alertPEl, formEl);
-
-    // 폼 입력
-    formEl.addEventListener('input', checkForm.checkInput);
-    // 로그인 유효성 검사
-    loginButtonEl.addEventListener('click', validation.getLogInData);
-
+    loginButtonEl.addEventListener('click', () => getLogInData(emailInputEl, passwordInputEl, alertPEl, formEl));
+    
     content.appendChild(wrapEl);
   }
 }
