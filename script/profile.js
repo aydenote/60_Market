@@ -38,7 +38,8 @@ function setMyProfile(userProfile) {
   createProductLink.innerText = '상품 등록';
   profileLinkBtn.append(createProductLink);
 
-  document.querySelector('.ProfileContent .myImage').src = `${url}/${userProfile.image}`;
+  document.querySelector('.ProfileContent .myImage').src =
+    userProfile.image.length <= 20 ? `${url}/${userProfile.image}` : `${userProfile.image}`;
   document.querySelector('.profileInfo .userName').innerText = userProfile.username;
   document.querySelector('.profileInfo .userId').innerText = `@${userProfile.accountname}`;
   document.querySelector('.profileInfo .introduction').innerText = userProfile.intro;

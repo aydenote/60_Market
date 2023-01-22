@@ -17,8 +17,7 @@ export async function getProfileInfo(profileImg, inputName, inputId, inputIntrod
     const resProfile = await fetch(`${url}/profile/${myAccountName}`, setting);
     const resProfileJson = await resProfile.json();
     const userProfile = await resProfileJson.profile;
-    profileImg.setAttribute('src', `${url}/${userProfile.image}`);
-
+    profileImg.src = userProfile.image.length <= 20 ? `${url}/${userProfile.image}` : `${userProfile.image}`;
     inputName.value = `${userProfile.username}`;
     inputId.value = `${userProfile.accountname}`;
     inputIntroduce.value = `${userProfile.intro}`;
@@ -75,10 +74,10 @@ export function imageChange(event) {
     imgReader.onload = function () {
       document.querySelector('.updateUserImg').src = imgReader.result;
     };
-    imgReader.readAsDataURL(e.target.files[0]);
+    imgReader.readAsDataURL(event.target.files[0]);
   }
 
-  formData.append('image', e.target.files[0]);
+  formData.append('image', event.target.files[0]);
   imageUpload(formData);
 }
 

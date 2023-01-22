@@ -71,7 +71,7 @@ export async function renderPost() {
     userBox.addEventListener('click', () => {
       window.location.hash = `#profile\?accountname=${accountName}`; // 주소 업데이트
     });
-    userProfileImage.setAttribute('src', profileImg);
+    userProfileImage.src = profileImg.length <= 20 ? `${url}/${profileImg}` : profileImg;
     userNickname.innerText = userName;
     userMsgContent.innerText = `@${accountName}`;
 
@@ -186,7 +186,8 @@ export async function renderPost() {
       userBoxDivEl.classList.add('userBox');
       profileImgEl.classList.add('userProfileImage');
       profileImgEl.classList.add('postUserProfile');
-      profileImgEl.setAttribute('src', `${comment.author.image}`);
+      profileImgEl.src =
+        comment.author.image.length <= 20 ? `${url}/${comment.author.image}` : `${comment.author.image}`;
       profileImgEl.setAttribute('alt', '프로필 이미지');
       userCommentInfoDivEl.classList.add('userCommentInfo');
       userNickNameStrongEl.classList.add('userNickname');
@@ -232,7 +233,7 @@ export async function renderPost() {
 }
 
 // 상세 댓글 불러오기
-const getCommentDetail = async () => {
+async function getCommentDetail() {
   const token = localStorage.getItem('Token');
   const url = 'https://mandarin.api.weniv.co.kr';
   const postId = window.location.href.split('postid=')[1];
@@ -249,7 +250,7 @@ const getCommentDetail = async () => {
   } catch (err) {
     console.log(err);
   }
-};
+}
 
 // 로그인 유저 정보
 export async function getLoginUserInfo(commentUserProfile) {
@@ -268,15 +269,16 @@ export async function getLoginUserInfo(commentUserProfile) {
     const userJson = await res.json();
     const commentUserProfileImg = userJson.profile.image;
     // 댓글 유저 프로필 이미지
-    commentUserProfile.setAttribute('src', `${url}/${commentUserProfileImg}`);
+    commentUserProfile.src =
+      commentUserProfileImg.length <= 20 ? `${url}/${commentUserProfileImg}` : `${commentUserProfileImg}`;
   } catch (err) {
     console.log(err);
   }
 }
 
 // 댓글 입력
-export const submitComment = async e => {
-  e.preventDefault();
+export async function submitComment(event) {
+  event.preventDefault();
   const url = 'https://mandarin.api.weniv.co.kr';
   const postId = window.location.href.split('postid=')[1];
   const commentInput = document.getElementById('postChatContent');
@@ -301,4 +303,4 @@ export const submitComment = async e => {
   } catch (err) {
     console.log(err);
   }
-};
+}

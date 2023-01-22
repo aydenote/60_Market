@@ -38,6 +38,8 @@ async function getFollowingList(accountName, userListUlEl) {
 // 팔로윙 정보(내가 팔로우한 사용자) 페이지에 반영
 function setFollowing(followingDataJson, userListUlEl) {
   const title = document.querySelector('.followers .followTitle');
+  const url = 'https://mandarin.api.weniv.co.kr';
+
   title.innerText = 'Followings';
   for (const following of followingDataJson) {
     const userItemLiEl = document.createElement('li');
@@ -53,7 +55,7 @@ function setFollowing(followingDataJson, userListUlEl) {
     userInfoAnchorEl.classList.add('userBox');
     userProfileImgEl.classList.add('userProfileImage');
     userProfileImgEl.classList.add('follow');
-    userProfileImgEl.setAttribute('src', `${following.image}`);
+    userProfileImgEl.src = following.image.length <= 20 ? `${url}/${following.image}` : `${following.image}`;
     userProfileImgEl.setAttribute('alt', '프로필 이미지');
     userInfoDivEl.classList.add('userInfo');
     userInfoDivEl.classList.add('follow');
@@ -116,6 +118,8 @@ async function getFollowerList(accountName, userListUlEl) {
 // 팔로워 정보 (나를 팔로우한 사용자 정보) 페이지에 반영
 function setFollower(followerDataJson, userListUlEl) {
   const title = document.querySelector('.followers .followTitle');
+  const url = 'https://mandarin.api.weniv.co.kr';
+
   title.innerText = 'Followers';
   for (const follower of followerDataJson) {
     const userItemLiEl = document.createElement('li');
@@ -131,7 +135,7 @@ function setFollower(followerDataJson, userListUlEl) {
     userInfoAnchorEl.classList.add('userBox');
     userProfileImgEl.classList.add('userProfileImage');
     userProfileImgEl.classList.add('follow');
-    userProfileImgEl.setAttribute('src', `${follower.image}`);
+    userProfileImgEl.src = follower.image.length <= 20 ? `${url}/${follower.image}` : `${follower.image}`;
     userProfileImgEl.setAttribute('alt', '프로필 이미지');
     userInfoDivEl.classList.add('userInfo');
     userInfoDivEl.classList.add('follow');

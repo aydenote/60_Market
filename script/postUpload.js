@@ -39,7 +39,8 @@ async function getLoginUserInfo(profileImgEl) {
       },
     });
     const userJson = await res.json();
-    profileImgEl.setAttribute('src', `${url}/${userJson.profile.image}`);
+    profileImgEl.src =
+      userJson.profile.image.length <= 20 ? `${url}/${userJson.profile.image}` : `${userJson.profile.image}`;
   } catch (err) {
     console.log(err);
   }
