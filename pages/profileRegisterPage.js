@@ -1,4 +1,4 @@
-import { UploadProfileImg, CheckForm, IsValidId } from '../script/registerProfile.js';
+import { previewImg, checkInput, isValidId } from '../script/registerProfile.js';
 
 class ProfileRegister {
   render(content) {
@@ -111,29 +111,11 @@ class ProfileRegister {
     content.appendChild(wrapEl);
 
     // 프로필 이미지 업로드
-    const uploadProfileImg = new UploadProfileImg(profileImgEl, imgInputEl);
-    // 폼 내용 체크
-    const checkForm = new CheckForm(
-      userNameInputEl,
-      userIdInputEl,
-      userIntroInputEl,
-      profileFormBtn,
-      registerAlertPEl
-    );
-    // ID 중복 체크 및 회원가입 정보 전송
-    const isValidId = new IsValidId(
-      userNameInputEl,
-      userIdInputEl,
-      userIntroInputEl,
-      registerAlertPEl
-    );
-
-    // 프로필 이미지 업로드
-    imgInputEl.addEventListener('change', uploadProfileImg.previewImg);
+    imgInputEl.addEventListener('change', event => previewImg(event, profileImgEl));
     // 폼 입력
-    profileFormEl.addEventListener('input', checkForm.checkInput);
+    profileFormEl.addEventListener('input', () => checkInput(userIdInputEl));
     // 60'' 마켓 시작하기 버튼 클릭
-    profileFormBtn.addEventListener('click', isValidId.isValidId);
+    profileFormBtn.addEventListener('click', () => isValidId(userIdInputEl));
   }
 }
 
