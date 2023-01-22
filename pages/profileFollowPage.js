@@ -1,4 +1,4 @@
-import ProfileFollow from '../script/profileFollow.js';
+import { init } from '../script/profileFollow.js';
 import Footer from './footer.js';
 import { backHistory } from '../utils/common.js';
 
@@ -7,7 +7,7 @@ const footer = new Footer();
 class ProfileFollowPage {
   render(content) {
     const footerEl = footer.render();
-    const profileFollow = new ProfileFollow();
+    // const profileFollow = new ProfileFollow();
 
     // header
     const headerEl = document.createElement('header');
@@ -38,7 +38,7 @@ class ProfileFollowPage {
     mainEl.appendChild(userSectionEl);
 
     // follow 리스트 구현
-    profileFollow.init(userListUlEl);
+    init(userListUlEl);
 
     content.appendChild(headerEl);
     content.appendChild(mainEl);
