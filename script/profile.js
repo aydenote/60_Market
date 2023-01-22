@@ -258,7 +258,10 @@ export function listTypePost(userPostInfo) {
     userBoxDivEl.classList.add('userBox');
     userBoxDivEl.setAttribute('data-key', post.id);
     userProfileImgEl.classList.add('userProfileImage');
-    userProfileImgEl.setAttribute('src', `${post.author.image}`);
+    if (post.author.image.length <= 20) {
+      userProfileImgEl.setAttribute('src', `${url}/${post.author.image}`);
+    } else userProfileImgEl.setAttribute('src', `${post.author.image}`);
+
     userProfileImgEl.setAttribute('alt', `${post.author.username}님의 프로필 이미지`);
     userInfoDivEl.classList.add('userInfo');
     userNicknameStrongEl.classList.add('userNickname');
