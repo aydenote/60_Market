@@ -1,4 +1,4 @@
-import { deletePost, reportPost, deleteComment, reportComment } from './apiModule.js';
+import { deletePost, reportPost, deleteComment, reportComment } from '../utils/apiModule.js';
 const body = document.body;
 const modal = document.createElement('div');
 

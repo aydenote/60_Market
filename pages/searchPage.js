@@ -1,6 +1,6 @@
 import Footer from './footer.js';
 import Search from '../script/search.js';
-import { backHistory } from '../script/common.js';
+import { backHistory, debounce } from '../utils/common.js';
 
 class SearchPage {
   render(content) {
@@ -45,10 +45,11 @@ class SearchPage {
     mainEl.appendChild(sectionEl);
 
     // user 검색 기능
-    inputSearchEl.addEventListener('input', event => {
+    inputSearchEl.addEventListener('change', event => {
+      console.log('1');
       const url = 'https://mandarin.api.weniv.co.kr';
       const token = localStorage.getItem('Token');
-      Search(event, url, token, ulMainEl);
+      debounce(Search(event, url, token, ulMainEl));
     });
 
     content.appendChild(headerEl);

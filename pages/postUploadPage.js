@@ -1,5 +1,5 @@
 import { createPost, postInput, readInputFile, checkPost } from '../script/postUpload.js';
-import { backHistory } from '../script/common.js';
+import { backHistory } from '../utils/common.js';
 
 class PostUploadPage {
   render(content) {

@@ -1,5 +1,5 @@
 import Footer from './footer.js';
-import { backHistory } from '../script/common.js';
+import { backHistory } from '../utils/common.js';
 
 class ChatPage {
   render(content) {
@@ -130,8 +130,7 @@ class ChatPage {
     boongboongTextDivEl.classList.add('userText');
     boongboongMessagePEl.classList.add('userMsgContent');
     boongboongMessagePEl.classList.add('userStatusMsg');
-    boongboongMessagePEl.innerText =
-      '내 차는 내가 평가한다. 오픈 이벤트에 참여하시고 경품 받아가세요!';
+    boongboongMessagePEl.innerText = '내 차는 내가 평가한다. 오픈 이벤트에 참여하시고 경품 받아가세요!';
     boongboongDatePEl.classList.add('userMsgContent');
     boongboongDatePEl.classList.add('userMsgDate');
     boongboongDatePEl.innerText = '08. 01';

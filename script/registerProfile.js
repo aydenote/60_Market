@@ -1,13 +1,5 @@
 const url = 'https://mandarin.api.weniv.co.kr';
 let profileImg;
-// const basicImg = document.querySelector('.uploadProfileImg');
-// const profileImgInput = document.querySelector('#profileImg');
-// const username = document.querySelector('#username');
-// const id = document.querySelector('#id');
-// const intro = document.querySelector('#intro');
-// const profileForm = document.querySelector('.profileForm');
-// const profileFormBtn = document.querySelector('.profileFormBtn');
-// const errorMessage = document.querySelector('.registerFormAlert');
 
 // 프로필 이미지 업로드
 export class UploadProfileImg {

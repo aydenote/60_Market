@@ -1,4 +1,4 @@
-import { backHistory, timeForToday } from './common.js';
+import { backHistory, timeForToday } from '../utils/common.js';
 import { clickHeart } from './heartBtn.js';
 import { clickCommentModal } from './modal.js';
 

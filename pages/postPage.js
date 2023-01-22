@@ -1,5 +1,5 @@
 import { postInput, renderPost, submitComment, getLoginUserInfo } from '../script/post.js';
-import { backHistory } from '../script/common.js';
+import { backHistory } from '../utils/common.js';
 
 class PostPage {
   render(content) {

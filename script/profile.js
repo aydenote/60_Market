@@ -1,4 +1,4 @@
-import { backHistory, timeForToday } from './common.js';
+import { backHistory, timeForToday } from '../utils/common.js';
 import { clickHeart } from './heartBtn.js';
 import { logoutModal, clickUserModal, productModal } from './modal.js';
 
@@ -189,10 +189,7 @@ class Profile {
       },
     };
     try {
-      const resProfileProduct = await fetch(
-        `${url}/post/${accountName}/userpost/?limit=9`,
-        setting
-      );
+      const resProfileProduct = await fetch(`${url}/post/${accountName}/userpost/?limit=9`, setting);
       const resProfileProductJson = await resProfileProduct.json();
       this.userPostInfo = resProfileProductJson.post;
       this.setPostingList(this.userPostInfo);

@@ -1,5 +1,5 @@
 import EditProfile from '../script/editProfile.js';
-import { backHistory } from '../script/common.js';
+import { backHistory } from '../utils/common.js';
 
 class EditProfilePage {
   render(content) {
@@ -110,14 +110,7 @@ class EditProfilePage {
     mainEl.appendChild(editFromEl);
 
     // 프로필 수정 기능 구현
-    const editProfile = new EditProfile(
-      nameInputEl,
-      idInputEl,
-      updateImgEl,
-      introInputEl,
-      alertPEl,
-      saveBtnEl
-    );
+    const editProfile = new EditProfile(nameInputEl, idInputEl, updateImgEl, introInputEl, alertPEl, saveBtnEl);
     editProfile.getProfileInfo();
     imgUpdateInputEl.addEventListener('change', editProfile.imageChange);
     nameInputEl.addEventListener('keyup', editProfile.profileChangeInput);

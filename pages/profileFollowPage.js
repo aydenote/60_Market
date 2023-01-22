@@ -1,6 +1,6 @@
 import ProfileFollow from '../script/profileFollow.js';
 import Footer from './footer.js';
-import { backHistory } from '../script/common.js';
+import { backHistory } from '../utils/common.js';
 
 const footer = new Footer();
 
