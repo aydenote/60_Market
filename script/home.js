@@ -110,12 +110,12 @@ class homeFeed {
       const userStatusMsgPEl = document.createElement('p');
       const moreBtnEl = document.createElement('button');
       const moreTextSpanEl = document.createElement('span');
-
       postHeading4El.classList.add('ir');
       postHeading4El.innerText = '게시물';
       userListDivEl.classList.add('userList');
       userItemDivEl.classList.add('userItem');
       userBoxDivEl.classList.add('userBox');
+      userBoxDivEl.setAttribute('data-key', posts[i].id);
       userProfileImgEl.classList.add('userProfileImage');
       userProfileImgEl.setAttribute('src', `${posts[i].author.image}`);
       userProfileImgEl.setAttribute('alt', `${posts[i].author.username}님의 프로필 이미지`);

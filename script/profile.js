@@ -292,6 +292,7 @@ class Profile {
       userListDivEl.classList.add('userList');
       userItemDivEl.classList.add('userItem');
       userBoxDivEl.classList.add('userBox');
+      userBoxDivEl.setAttribute('data-key', post.id);
       userProfileImgEl.classList.add('userProfileImage');
       userProfileImgEl.setAttribute('src', `${post.author.image}`);
       userProfileImgEl.setAttribute('alt', `${post.author.username}님의 프로필 이미지`);

@@ -199,7 +199,7 @@ export function clickUserModal(event) {
   let accountName = window.location.hash.split('accountname=')[1];
   accountName = accountName == null ? myAccountName : accountName;
   const postUserName = event.target.previousElementSibling.children[1].innerText.replace('@', '');
-  const postingId = event.path[4].nextElementSibling.id;
+  const postingId = event.target.parentNode.dataset.key;
 
   event.preventDefault();
 
