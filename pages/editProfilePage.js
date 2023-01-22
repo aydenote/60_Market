@@ -1,4 +1,4 @@
-import EditProfile from '../script/editProfile.js';
+import { getProfileInfo, imageChange, profileChangeInput, clickSaveButton } from '../script/editProfile.js';
 import { backHistory } from '../utils/common.js';
 
 class EditProfilePage {
@@ -110,14 +110,13 @@ class EditProfilePage {
     mainEl.appendChild(editFromEl);
 
     // 프로필 수정 기능 구현
-    const editProfile = new EditProfile(nameInputEl, idInputEl, updateImgEl, introInputEl, alertPEl, saveBtnEl);
-    editProfile.getProfileInfo();
-    imgUpdateInputEl.addEventListener('change', editProfile.imageChange);
-    nameInputEl.addEventListener('keyup', editProfile.profileChangeInput);
-    idInputEl.addEventListener('keyup', editProfile.profileChangeInput);
-    introInputEl.addEventListener('keyup', editProfile.profileChangeInput);
+    getProfileInfo(updateImgEl, nameInputEl, idInputEl, introInputEl);
+    imgUpdateInputEl.addEventListener('change', imageChange);
+    nameInputEl.addEventListener('keyup', () => profileChangeInput(saveBtnEl));
+    idInputEl.addEventListener('keyup', () => profileChangeInput(saveBtnEl));
+    introInputEl.addEventListener('keyup', () => profileChangeInput(saveBtnEl));
     saveBtnEl.addEventListener('click', () => {
-      editProfile.clickSaveButton();
+      clickSaveButton(updateImgEl);
     });
 
     content.appendChild(headerEl);
