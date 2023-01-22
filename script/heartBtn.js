@@ -1,10 +1,10 @@
 import { likeHeart, likeUnHeart } from '../utils/apiModule.js';
 
 // 좋아요 버튼 클릭
-export async function clickHeart(e) {
-  const likeBtn = e.target;
-  const likeCount = e.target.children[1];
-  let postId = e.target.closest('section').id;
+export async function clickHeart(event) {
+  const likeBtn = event.target;
+  const likeCount = event.target.children[1];
+  let postId = event.target.closest('section').id;
   postId === '' ? (postId = new URLSearchParams(location.search).get('postid')) : postId;
   let data = {};
 
