@@ -62,3 +62,7 @@ node_modules
 
 # jest
 coverage
+
+#typescript
+pages
+script
