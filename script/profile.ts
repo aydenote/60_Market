@@ -1,14 +1,76 @@
-import { backHistory, timeForToday } from '../utils/common.js';
+import { timeForToday } from '../utils/common.js';
 import { clickHeart } from './heartBtn.js';
-import { logoutModal, clickUserModal, productModal } from './modal.js';
+import { clickUserModal, productModal } from './modal.js';
 import { getProfile, getPosting } from '../utils/apiModule.js';
+
+interface UserProfileType {
+  accountname: string;
+  follower: string[];
+  followerCount: number;
+  following: string[];
+  followingCount: number;
+  image: string;
+  intro: string;
+  isfollow: boolean;
+  username: string;
+  _id: string;
+}
+
+interface ProductInfoType {
+  author: AuthorType;
+  createdAt: string;
+  id: string;
+  itemImage: string;
+  itemName: string;
+  link: string;
+  price: number;
+  updatedAt: string;
+}
+
+interface AuthorType {
+  accountname: string;
+  follower: string[];
+  followerCount: number;
+  following: string[];
+  followingCount: number;
+  image: string;
+  intro: string;
+  isfollow: boolean;
+  username: string;
+  _id: string;
+}
+
+interface PostType {
+  author: {
+    _id: string;
+    username: string;
+    accountname: string;
+    intro: string;
+    image: string;
+  };
+  commentCount: number;
+  comments: string[];
+  content: string;
+  createdAt: string;
+  heartCount: number;
+  hearted: boolean;
+  id: string;
+  image: string;
+  updatedAt: string;
+}
+
+interface UserProductType {
+  data: number;
+  product: ProductInfoType[];
+}
 
 // 프로필 정보 가져오기
 export async function getProfileInfo() {
   const myAccountName = localStorage.getItem('accountname');
-  let accountName = window.location.hash.split('accountname=')[1];
+  let accountName: string | null = window.location.hash.split('accountname=')[1];
   accountName = accountName == null ? myAccountName : accountName;
-  const userProfile = await getProfile(accountName);
+
+  const userProfile = await getProfile(accountName!);
   if (userProfile.accountname === myAccountName) {
     setMyProfile(userProfile);
   } else {
@@ -16,13 +78,11 @@ export async function getProfileInfo() {
   }
 }
 
-function setMyProfile(userProfile) {
+function setMyProfile(userProfile: UserProfileType) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const createEditLink = document.createElement('div');
   const createProductLink = document.createElement('div');
-  const profileLinkBtn = document.querySelector('.link');
-  const followingCount = document.querySelector('.followings');
-  const followerCount = document.querySelector('.followers');
+  const profileLinkBtn = document.querySelector('.link') as HTMLButtonElement;
 
   createEditLink.setAttribute('class', 'fixProfile');
   createEditLink.addEventListener('click', () => {
@@ -38,26 +98,21 @@ function setMyProfile(userProfile) {
   createProductLink.innerText = '상품 등록';
   profileLinkBtn.append(createProductLink);
 
-  document.querySelector('.ProfileContent .myImage').src =
+  (document.querySelector('.ProfileContent .myImage') as HTMLImageElement).src =
     userProfile.image.length <= 20 ? `${url}/${userProfile.image}` : `${userProfile.image}`;
-  document.querySelector('.profileInfo .userName').innerText = userProfile.username;
-  document.querySelector('.profileInfo .userId').innerText = `@${userProfile.accountname}`;
-  document.querySelector('.profileInfo .introduction').innerText = userProfile.intro;
-
-  followingCount.innerText = userProfile.following.length;
-  followerCount.innerText = userProfile.follower.length;
+  (document.querySelector('.profileInfo .userName') as HTMLElement).innerText = userProfile.username;
+  (document.querySelector('.profileInfo .userId') as HTMLElement).innerText = `@${userProfile.accountname}`;
+  (document.querySelector('.profileInfo .introduction') as HTMLElement).innerText = userProfile.intro;
 
   getProductList(userProfile);
 }
 
 // 다른 사람 프로필 페이지 구현
-function setYourProfile(userProfile) {
+function setYourProfile(userProfile: UserProfileType) {
   const createMessageImg = document.createElement('img');
   const createFollowButton = document.createElement('button');
   const createShareImg = document.createElement('img');
-  const profileLinkBtn = document.querySelector('.link');
-  const followingCount = document.querySelector('.followings');
-  const followerCount = document.querySelector('.followers');
+  const profileLinkBtn = document.querySelector('.link') as HTMLButtonElement;
 
   createMessageImg.setAttribute('class', 'messageBtn');
   createMessageImg.setAttribute('src', '../asset/images/icons/icon__message.svg');
@@ -76,23 +131,20 @@ function setYourProfile(userProfile) {
   createShareImg.setAttribute('alt', '공유 버튼');
   profileLinkBtn.append(createShareImg);
 
-  document.querySelector('.ProfileContent .myImage').src = userProfile.image;
-  document.querySelector('.profileInfo .userName').innerText = userProfile.username;
-  document.querySelector('.profileInfo .userId').innerText = `@ ${userProfile.accountname}`;
-  document.querySelector('.profileInfo .introduction').innerText = userProfile.intro;
-
-  followingCount.innerText = userProfile.following.length;
-  followerCount.innerText = userProfile.follower.length;
+  (document.querySelector('.ProfileContent .myImage') as HTMLImageElement).src = userProfile.image;
+  (document.querySelector('.profileInfo .userName') as HTMLElement).innerText = userProfile.username;
+  (document.querySelector('.profileInfo .userId') as HTMLElement).innerText = `@ ${userProfile.accountname}`;
+  (document.querySelector('.profileInfo .introduction') as HTMLElement).innerText = userProfile.intro;
 
   // 팔로우 / 언팔로우 스타일
-  createFollowButton.addEventListener('click', event => {
-    event.target.classList.toggle('follow');
-    if (event.target.className === 'followBtn follow') {
-      event.target.innerText = '언팔로우';
-      event.target.style.opacity = '0.5';
+  createFollowButton.addEventListener('click', (event: MouseEvent) => {
+    (event.target as HTMLElement).classList.toggle('follow');
+    if ((event.target as HTMLElement).className === 'followBtn follow') {
+      (event.target as HTMLElement).innerText = '언팔로우';
+      (event.target as HTMLElement).style.opacity = '0.5';
     } else {
-      event.target.innerText = '팔로우';
-      event.target.style.opacity = '1';
+      (event.target as HTMLElement).innerText = '팔로우';
+      (event.target as HTMLElement).style.opacity = '1';
     }
   });
 
@@ -100,7 +152,7 @@ function setYourProfile(userProfile) {
 }
 
 // 사용자가 판매 중인 상품 정보 가져오기
-async function getProductList(userProfile) {
+async function getProductList(userProfile: UserProfileType) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const token = localStorage.getItem('Token');
 
@@ -114,6 +166,7 @@ async function getProductList(userProfile) {
   try {
     const resProfileProduct = await fetch(`${url}/product/${userProfile.accountname}`, setting);
     const resProfileProductJson = await resProfileProduct.json();
+    console.log(resProfileProductJson);
     setProductList(resProfileProductJson);
   } catch (err) {
     console.error(err);
@@ -121,23 +174,25 @@ async function getProductList(userProfile) {
 }
 
 // 등록된 상품 수에 따라 프로필에 해당 상품 반영
-function setProductList(resProfileProductJson) {
+function setProductList(resProfileProductJson: UserProductType) {
   if (resProfileProductJson.product.length !== 0) {
-    const saleItems = document.querySelector('.saleItemContainer');
+    const saleItems = document.querySelector('.saleItemContainer') as HTMLElement;
     const createP = document.createElement('p');
     const createUl = document.createElement('ul');
+    const url = 'https://mandarin.api.weniv.co.kr';
 
     createP.setAttribute('class', 'title');
     createUl.setAttribute('class', 'productList');
     saleItems.append(createP);
     saleItems.append(createUl);
 
-    document.querySelector('.saleItems .title').innerText = '판매 중인 상품';
-    const productList = document.querySelector('.saleItems .productList');
+    (document.querySelector('.saleItems .title') as HTMLElement).innerText = '판매 중인 상품';
+    const productList = document.querySelector('.saleItems .productList') as HTMLElement;
 
     for (const product of resProfileProductJson.product) {
+      const imageUrl = product.itemImage.length >= 100 ? `${product.itemImage}` : `${url}/${product.itemImage}`;
       productList.innerHTML += `<li id="${product.id}">
-      <img src="${product.itemImage}" alt="상품 이미지" />
+      <img src="${imageUrl}" alt="상품 이미지" />
       <p class="ProductTitle">${product.itemName}</p>
       <p class="price">${product.price.toLocaleString()}원</p>
     </li>`;
@@ -145,10 +200,10 @@ function setProductList(resProfileProductJson) {
   } else {
     return;
   }
-  const product = document.querySelectorAll('.productList li');
-  [].forEach.call(product, function (product) {
-    product.addEventListener('click', event => {
-      const productId = event.target.closest('li').id;
+  const product = document.querySelectorAll<HTMLElement>('.productList li');
+  [].forEach.call(product, function (product: HTMLElement) {
+    product.addEventListener('click', (event: MouseEvent) => {
+      const productId = (event.target as HTMLElement).closest('li')!.id;
       productModal(productId);
     });
   });
@@ -163,8 +218,8 @@ export function getPostingList() {
 }
 
 // 게시물 타입바 생성 및 최초 목록형으로 포스팅
-function setPostingList(userPostInfo) {
-  const postingSummary = document.querySelector('.postingSummary');
+function setPostingList(userPostInfo: PostType[]) {
+  const postingSummary = document.querySelector('.postingSummary') as HTMLElement;
   if (userPostInfo.length === 0) {
     postingSummary.classList.add('hidden');
   } else {
@@ -182,11 +237,11 @@ function setPostingList(userPostInfo) {
 }
 
 // 목록형으로 포스팅 표시
-export function listTypePost(userPostInfo) {
-  const postingSummary = document.querySelector('.postingSummary');
+export function listTypePost(userPostInfo: PostType[]) {
+  const postingSummary = document.querySelector('.postingSummary') as HTMLElement;
   const postContent = document.querySelector('.postContent');
-  const albumType = document.querySelector('.postingType.album.buttonClick');
-  const ListType = document.querySelector('.postingType.list.buttonClick');
+  const albumType = document.querySelector('.postingType.album.buttonClick') as HTMLImageElement;
+  const ListType = document.querySelector('.postingType.list.buttonClick') as HTMLImageElement;
   const url = 'https://mandarin.api.weniv.co.kr';
 
   albumType.classList.add('unselected');
@@ -235,7 +290,7 @@ export function listTypePost(userPostInfo) {
     const range = document.createRange();
     const ImgNode = range.createContextualFragment(checkImg);
     const postItemDivEl = document.createElement('div');
-    const listContent = document.querySelector('.post');
+    const listContent = document.querySelector('.post') as HTMLElement;
 
     postItemDivEl.classList.add('postItem');
     // 사용자 정보 마크업
@@ -344,27 +399,23 @@ export function listTypePost(userPostInfo) {
 
     const moreBtn = document.querySelectorAll('.moreBtn.buttonClick');
     const heartBtn = document.querySelectorAll('.postBtnContent button');
-    [].forEach.call(heartBtn, function (heartBtn) {
+
+    [].forEach.call(heartBtn, function (heartBtn: HTMLElement) {
       heartBtn.addEventListener('click', clickHeart);
     });
-    [].forEach.call(moreBtn, function (moreBtn) {
+    [].forEach.call(moreBtn, function (moreBtn: HTMLElement) {
       moreBtn.addEventListener('click', clickUserModal);
     });
   }
 }
 
-function clickComment(event) {
-  const postId = event.target.closest('.commentBtn').dataset.postid;
+function clickComment(event: MouseEvent) {
+  const postId = (event.currentTarget as HTMLElement)!.dataset.postid;
   window.location.hash = `#post\?postid=${postId}`; // 주소 업데이트
 }
 
-function clickUserInfo(event) {
-  const userAccount = event.target
-    .closest('.userList')
-    .children[0].children[0].childNodes[1].children[1].innerText.replace('@', '');
-  if (event.target.className === 'moreBtn buttonClick') {
-    return;
-  }
+function clickUserInfo(event: MouseEvent) {
+  const userAccount = (event.currentTarget as HTMLElement).children[1].children[1].textContent?.replace('@', '');
   window.location.hash = `#profile\?accountname=${userAccount}`; // 주소 업데이트
 }
 
@@ -373,12 +424,12 @@ export function albumTypePost() {
   getPosting().then(res => setAlbum(res));
 }
 
-function setAlbum(userPostInfo) {
-  const postingSummary = document.querySelector('.postingSummary');
+function setAlbum(userPostInfo: PostType[]) {
+  const postingSummary = document.querySelector('.postingSummary') as HTMLElement;
   const postContent = document.querySelectorAll('.postContent');
   const post = document.querySelector('.post');
-  const albumType = document.querySelector('.postingType.album.buttonClick');
-  const ListType = document.querySelector('.postingType.list.buttonClick');
+  const albumType = document.querySelector('.postingType.album.buttonClick') as HTMLImageElement;
+  const ListType = document.querySelector('.postingType.list.buttonClick') as HTMLImageElement;
   ListType.classList.add('unselected');
   albumType.classList.remove('unselected');
 
@@ -407,35 +458,27 @@ function setAlbum(userPostInfo) {
     if (postImg[0] === '') {
     } else if (postImg.length >= 2) {
       const imgLiEl = document.createElement('li');
-      const postImgEl = document.createElement('img');
-      const layerImgEl = document.createElement('img');
+      const postImgEl = document.createElement('img') as HTMLImageElement;
+      const layerImgEl = document.createElement('img') as HTMLImageElement;
 
       postImgEl.setAttribute('src', `${postImg[0]}`);
       postImgEl.setAttribute('alt', '');
-      postImgEl.onerror = "this.style.display='none'";
       layerImgEl.classList.add('imageLayer');
       layerImgEl.setAttribute('src', '../asset/images/icons/icon__imageLayer.svg');
       layerImgEl.setAttribute('alt', '이미지 레이어 아이콘');
-      layerImgEl.onerror = "this.style.display='none'";
 
       imgLiEl.appendChild(postImgEl);
       imgLiEl.appendChild(layerImgEl);
       createUl.appendChild(imgLiEl);
     } else {
       const imgLiEl = document.createElement('li');
-      const postImgEl = document.createElement('img');
+      const postImgEl = document.createElement('img') as HTMLImageElement;
 
       postImgEl.setAttribute('src', `${postImg[0]}`);
       postImgEl.setAttribute('alt', '');
-      postImgEl.onerror = "this.style.display='none'";
 
       imgLiEl.appendChild(postImgEl);
       createUl.appendChild(imgLiEl);
     }
   }
-}
-
-// 사용자 로그아웃 모달
-export function modal(headerModal) {
-  headerModal.addEventListener('click', logoutModal());
 }
