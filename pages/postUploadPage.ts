@@ -1,9 +1,10 @@
-import { createPost, postInput, readInputFile, checkPost } from '../script/postUpload.js';
+import { postInput, readInputFile, checkPost } from '../script/postUpload.js';
 import { backHistory } from '../utils/common.js';
 
 class PostUploadPage {
-  render(content) {
-    document.querySelector('body').classList.remove('profileBackground');
+  render(content: HTMLElement) {
+    (document.querySelector('body') as HTMLElement).classList.remove('profileBackground');
+
     // header
     const headerEl = document.createElement('header');
     const headerBarArticleEl = document.createElement('article');
@@ -50,8 +51,8 @@ class PostUploadPage {
     postTextLabelEl.innerText = '게시글 입력창입니다.';
     postTextareaEl.setAttribute('type', 'text');
     postTextareaEl.id = 'postUploadComent';
-    postTextareaEl.rows = '10';
-    postTextareaEl.maxLength = '140';
+    postTextareaEl.rows = 10;
+    postTextareaEl.maxLength = 140;
     postTextareaEl.placeholder = '게시글 입력하기...';
     postTextareaEl.classList.add('postUploadComentTxt');
     postTextareaEl.addEventListener('keyup', () => {
@@ -82,7 +83,6 @@ class PostUploadPage {
     mainEl.appendChild(postImgDivEl);
 
     // 프로필 이미지 반영, 게시물 업로드 기능 구현
-    // const postUpload = new PostUpload(profileImgEl, postImgDivEl, uploadBtnEl);
     checkPost(profileImgEl, postImgDivEl, postTextareaEl, uploadBtnEl);
     content.appendChild(headerEl);
     content.appendChild(mainEl);
