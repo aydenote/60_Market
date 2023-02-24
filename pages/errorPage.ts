@@ -1,8 +1,8 @@
 import { backHistory } from '../utils/common.js';
 
 class ErrorPage {
-  render(content) {
-    document.querySelector('body').classList.remove('profileBackground');
+  render(content: HTMLElement) {
+    (document.querySelector('body') as HTMLElement).classList.remove('profileBackground');
     const wrapEl = document.createElement('div');
     wrapEl.classList.add('wrap');
 
