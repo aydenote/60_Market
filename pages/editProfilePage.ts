@@ -2,8 +2,8 @@ import { getProfileInfo, imageChange, profileChangeInput, clickSaveButton } from
 import { backHistory } from '../utils/common.js';
 
 class EditProfilePage {
-  render(content) {
-    document.querySelector('body').classList.remove('profileBackground');
+  render(content: HTMLElement) {
+    (document.querySelector('body') as HTMLElement).classList.remove('profileBackground');
     // header
     const headerEl = document.createElement('header');
     const headerBarArticleEl = document.createElement('article');
@@ -75,16 +75,16 @@ class EditProfilePage {
     nameInputEl.setAttribute('type', 'text');
     nameInputEl.required = true;
     nameInputEl.placeholder = '2~10자 이내여야 합니다.';
-    nameInputEl.maxLength = '10';
-    nameInputEl.minLength = '2';
+    nameInputEl.maxLength = 10;
+    nameInputEl.minLength = 2;
     idLabelEl.classList.add('registerFormLabel');
     idLabelEl.classList.add('profileModificationFormlabel');
     idLabelEl.setAttribute('for', 'email');
     idLabelEl.innerText = '계정 ID';
     idInputEl.id = 'id';
     idInputEl.setAttribute('type', 'text');
-    idInputEl.minLength = '2';
-    idInputEl.maxLength = '10';
+    idInputEl.minLength = 2;
+    idInputEl.maxLength = 10;
     idInputEl.required = true;
     idInputEl.placeholder = '영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.';
     alertPEl.classList.add('alertMessage');
@@ -95,10 +95,10 @@ class EditProfilePage {
     introLabelEl.innerText = '소개';
     introInputEl.id = 'introduce';
     introInputEl.setAttribute('type', 'text');
-    introInputEl.required = 'true';
+    introInputEl.required = true;
     introInputEl.placeholder = '자신과 판매할 상품에 대한 소개해 주세요!';
-    introInputEl.maxLength = '50';
-    introInputEl.minLength = '2';
+    introInputEl.maxLength = 50;
+    introInputEl.minLength = 2;
 
     editFromEl.appendChild(nameLabelEl);
     editFromEl.appendChild(nameInputEl);
