@@ -3,7 +3,7 @@ import Search from '../script/search.js';
 import { backHistory, debounce } from '../utils/common.js';
 
 class SearchPage {
-  render(content) {
+  render(content: HTMLElement) {
     const footer = new Footer();
     const footerEl = footer.render();
     // header
@@ -23,7 +23,7 @@ class SearchPage {
     inputSearchEl.classList.add('buttonClick');
     inputSearchEl.setAttribute('type', 'text');
     inputSearchEl.setAttribute('placeholder', '계정 검색');
-    inputSearchEl.maxLength = '9';
+    inputSearchEl.maxLength = 9;
     inputSearchEl.autofocus = true;
 
     articleHeaderEl.appendChild(backImageEl);
