@@ -2,8 +2,8 @@ import { postInput, renderPost, submitComment, getLoginUserInfo } from '../scrip
 import { backHistory } from '../utils/common.js';
 
 class PostPage {
-  render(content) {
-    document.querySelector('body').classList.remove('profileBackground');
+  render(content: HTMLElement) {
+    (document.querySelector('body') as HTMLElement).classList.remove('profileBackground');
 
     //header
     const headerEl = document.createElement('header');
@@ -62,7 +62,9 @@ class PostPage {
     footerEl.classList.add('chatEnter');
     footerEl.classList.add('postChatEnter');
     chatFormEl.classList.add('chatEnterContent');
-    chatFormEl.onsubmit = 'return false';
+    chatFormEl.onsubmit = () => {
+      return false;
+    };
     enterImgDivEl.classList.add('chatEnterImage');
     userProfileImgEl.classList.add('commentUserProfile');
     userProfileImgEl.setAttribute('src', '');
