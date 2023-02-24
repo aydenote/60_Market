@@ -1,7 +1,7 @@
 import { previewImg, checkInput, isValidId } from '../script/registerProfile.js';
 
 class ProfileRegister {
-  render(content) {
+  render(content: HTMLElement) {
     const wrapEl = document.createElement('div');
 
     //header
