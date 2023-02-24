@@ -1,5 +1,10 @@
+interface UserDataType {
+  token: string;
+  accountname: string;
+}
+
 // 버튼 활성화
-function isActiveBtn(email, password, loginButtonEl) {
+function isActiveBtn(email: HTMLInputElement, password: HTMLInputElement, loginButtonEl: HTMLButtonElement) {
   if (email.value !== '' && password.value !== '') {
     loginButtonEl.style.opacity = '1';
     loginButtonEl.disabled = false;
@@ -10,7 +15,7 @@ function isActiveBtn(email, password, loginButtonEl) {
 }
 
 // 비밀번호 길이 체크
-export function checkInput(email, password, loginButtonEl) {
+export function checkInput(email: HTMLInputElement, password: HTMLInputElement, loginButtonEl: HTMLButtonElement) {
   if (password.value.length >= 6) {
     isActiveBtn(email, password, loginButtonEl);
   } else {
@@ -20,21 +25,21 @@ export function checkInput(email, password, loginButtonEl) {
 }
 
 // 홈으로 이동
-function locationHome(status) {
+function locationHome(status: number) {
   if (status !== 422) {
     window.location.hash = '#home';
   }
 }
 
 // 로컬 스토리지에 토큰 저장
-function saveToken(userData, status) {
+function saveToken(userData: UserDataType, status: number) {
   localStorage.setItem('Token', userData.token);
   localStorage.setItem('accountname', userData.accountname);
   locationHome(status);
 }
 
 // 로그인 체크
-function checklogIn(userData, status, alertPEl, formEl) {
+function checklogIn(userData: UserDataType, status: number, alertPEl: HTMLElement, formEl: HTMLFormElement) {
   if (status !== 422) {
     saveToken(userData, status);
   }
@@ -47,7 +52,12 @@ function checklogIn(userData, status, alertPEl, formEl) {
 }
 
 // 로그인 데이터 요청
-export async function getLogInData(email, password, alertPEl, formEl) {
+export async function getLogInData(
+  email: HTMLInputElement,
+  password: HTMLInputElement,
+  alertPEl: HTMLElement,
+  formEl: HTMLFormElement
+) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const userIdPw = {
     user: {
