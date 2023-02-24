@@ -5,9 +5,8 @@ import { backHistory } from '../utils/common.js';
 const footer = new Footer();
 
 class ProfileFollowPage {
-  render(content) {
+  render(content: HTMLElement) {
     const footerEl = footer.render();
-    // const profileFollow = new ProfileFollow();
 
     // header
     const headerEl = document.createElement('header');
