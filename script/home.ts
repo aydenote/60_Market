@@ -2,12 +2,38 @@ import { timeForToday } from '../utils/common.js';
 import { clickHeart } from './heartBtn.js';
 import { clickUserModal } from './modal.js';
 
+interface PostType {
+  author: AuthorType;
+  commentCount: number;
+  comments: string[];
+  content: string;
+  createdAt: string;
+  heartCount: number;
+  hearted: boolean;
+  id: string;
+  image: string;
+  updatedAt: string;
+}
+
+interface AuthorType {
+  accountname: string;
+  follower: string[];
+  followerCount: number;
+  following: string[];
+  followingCount: number;
+  image: string;
+  intro: string;
+  isfollow: boolean;
+  username: string;
+  _id: string;
+}
+
 function noFeed() {
   const subTitleHeading3El = document.createElement('h3');
   const noneFeedSectionEl = document.createElement('noneFeed');
   const contentPEl = document.createElement('p');
   const searchLinkDivEl = document.createElement('div');
-  const listContent = document.createElement('main');
+  const contentMainEl = document.createElement('main');
 
   subTitleHeading3El.classList.add('ir');
   subTitleHeading3El.innerText = '피드 게시글';
@@ -21,8 +47,8 @@ function noFeed() {
 
   noneFeedSectionEl.appendChild(contentPEl);
   noneFeedSectionEl.appendChild(searchLinkDivEl);
-  listContent.appendChild(subTitleHeading3El);
-  listContent.appendChild(noneFeedSectionEl);
+  contentMainEl.appendChild(subTitleHeading3El);
+  contentMainEl.appendChild(noneFeedSectionEl);
 }
 
 export async function feedAPI() {
@@ -50,23 +76,22 @@ export async function feedAPI() {
   }
 }
 
-function clickUserInfo(event) {
-  const userAccount = event.target
-    .closest('.userList')
-    .children[0].children[0].childNodes[1].children[1].innerText.replace('@', '');
-  if (event.target.className === 'moreBtn buttonClick') {
+function clickUserInfo(event: MouseEvent) {
+  const eventTarget = event.target as HTMLElement;
+  const userAccount = (event.currentTarget as HTMLElement).children[1].children[1].textContent?.replace('@', '');
+  if (eventTarget.className === 'moreBtn buttonClick') {
     return;
   }
   window.location.hash = `#profile\?accountname=${userAccount}`; // 주소 업데이트
 }
 
-function clickComment(event) {
-  const postId = event.target.closest('.commentBtn').dataset.postid;
+function clickComment(event: Event) {
+  const postId = (event.currentTarget as HTMLElement).dataset.postid;
   window.location.hash = `#post\?postid=${postId}`; // 주소 업데이트
 }
 
-function createFeed(posts) {
-  const listContent = document.querySelector('.post');
+function createFeed(posts: PostType[]) {
+  const listContent = document.querySelector('.post') as HTMLElement;
   for (let i = 0; i < posts.length; i++) {
     const postItem = document.createElement('div');
     postItem.classList.add('postItem');
