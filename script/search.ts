@@ -1,13 +1,25 @@
-export default async function searchUser(event) {
+interface SearchUserType {
+  accountname: string;
+  follower: string[];
+  followerCount: number;
+  following: string[];
+  followingCount: number;
+  image: string;
+  isfollow: boolean;
+  username: string;
+  _id: string;
+}
+
+export default async function searchUser(event: KeyboardEvent) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const token = localStorage.getItem('Token');
-  const userListContent = document.querySelector('.userList');
+  const userListContent = document.querySelector('.userList') as HTMLUListElement;
 
   try {
-    if (event.target.value == '') {
+    if ((event.target as HTMLInputElement).value == '') {
       userListContent.innerHTML = '';
     } else {
-      const res = await fetch(`${url}/user/searchuser/?keyword=${event.target.value}`, {
+      const res = await fetch(`${url}/user/searchuser/?keyword=${(event.target as HTMLInputElement).value}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -17,7 +29,7 @@ export default async function searchUser(event) {
       const userData = await res.json();
       // 검색된 유저 정보 구현
       userListContent.innerHTML = '';
-      userData.forEach(element => {
+      userData.forEach((element: SearchUserType) => {
         const userItemEl = document.createElement('li');
         const userAnchorEl = document.createElement('a');
         const userImgEl = document.createElement('img');
@@ -51,6 +63,6 @@ export default async function searchUser(event) {
       });
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
