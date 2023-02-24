@@ -1,21 +1,33 @@
+interface FollowDataType {
+  accountname: string;
+  follower: string[];
+  followerCount: number;
+  following: string[];
+  followingCount: number;
+  image: string;
+  intro: string;
+  isfollow: boolean;
+  username: string;
+  _id: string;
+}
+
 // 쿼리스트링에 따라 팔로우, 팔로윙 페이지 보여주기
-// class ProfileFollow {
-export function init(userListUlEl) {
+export function init(userListUlEl: HTMLUListElement) {
   const title = window.location.hash.split('title=')[1];
   const myAccountName = localStorage.getItem('accountname');
   const reg = new RegExp('@(.*?)&');
-  let accountName = window.location.hash.split(reg)[1];
+  let accountName: string | null = window.location.hash.split(reg)[1];
   accountName = accountName == null ? myAccountName : accountName;
 
   if (title === 'followers') {
-    getFollowerList(accountName, userListUlEl);
+    getFollowerList(accountName!, userListUlEl);
   } else if (title === 'followings') {
-    getFollowingList(accountName, userListUlEl);
+    getFollowingList(accountName!, userListUlEl);
   }
 }
 
 // 팔로윙 정보 가져오기(내가 팔로우한 사용자 목록 가져오기)
-async function getFollowingList(accountName, userListUlEl) {
+async function getFollowingList(accountName: string, userListUlEl: HTMLUListElement) {
   const token = localStorage.getItem('Token');
   const url = 'https://mandarin.api.weniv.co.kr';
 
@@ -36,8 +48,8 @@ async function getFollowingList(accountName, userListUlEl) {
 }
 
 // 팔로윙 정보(내가 팔로우한 사용자) 페이지에 반영
-function setFollowing(followingDataJson, userListUlEl) {
-  const title = document.querySelector('.followers .followTitle');
+function setFollowing(followingDataJson: FollowDataType[], userListUlEl: HTMLUListElement) {
+  const title = document.querySelector('.followers .followTitle') as HTMLElement;
   const url = 'https://mandarin.api.weniv.co.kr';
 
   title.innerText = 'Followings';
@@ -82,20 +94,20 @@ function setFollowing(followingDataJson, userListUlEl) {
 }
 
 // 팔로우 버튼 클릭 시 버튼 스타일 변경
-function handleFollow(event) {
+function handleFollow(event: MouseEvent) {
   event.preventDefault();
-  event.target.classList.toggle('follow');
-  if (event.target.className === 'profile followBtn follow') {
-    event.target.innerText = '취소';
-    event.target.style.opacity = '0.6';
+  (event.target as HTMLElement).classList.toggle('follow');
+  if ((event.target as HTMLElement).className === 'profile followBtn follow') {
+    (event.target as HTMLElement).innerText = '취소';
+    (event.target as HTMLElement).style.opacity = '0.6';
   } else {
-    event.target.innerText = '팔로우';
-    event.target.style.opacity = '1';
+    (event.target as HTMLElement).innerText = '팔로우';
+    (event.target as HTMLElement).style.opacity = '1';
   }
 }
 
 // 팔로워 정보 가져오기(나를 팔로우한 사용자 목록 가져오기)
-async function getFollowerList(accountName, userListUlEl) {
+async function getFollowerList(accountName: string, userListUlEl: HTMLUListElement) {
   const token = localStorage.getItem('Token');
   const url = 'https://mandarin.api.weniv.co.kr';
 
@@ -116,8 +128,8 @@ async function getFollowerList(accountName, userListUlEl) {
 }
 
 // 팔로워 정보 (나를 팔로우한 사용자 정보) 페이지에 반영
-function setFollower(followerDataJson, userListUlEl) {
-  const title = document.querySelector('.followers .followTitle');
+function setFollower(followerDataJson: FollowDataType[], userListUlEl: HTMLUListElement) {
+  const title = document.querySelector('.followers .followTitle') as HTMLElement;
   const url = 'https://mandarin.api.weniv.co.kr';
 
   title.innerText = 'Followers';
