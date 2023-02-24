@@ -1,13 +1,13 @@
-import { backHistory, timeForToday } from '../utils/common.js';
+import { timeForToday } from '../utils/common.js';
 import { clickHeart } from './heartBtn.js';
 import { clickCommentModal } from './modal.js';
 
-export function postInput(event) {
-  const postChatForm = document.querySelector('#postChatContent');
-  const postButton = document.querySelector('.postBtn');
+export function postInput(event: KeyboardEvent) {
+  const postChatForm = document.querySelector('#postChatContent') as HTMLInputElement;
+  const postButton = document.querySelector('.postBtn') as HTMLButtonElement;
 
   // enter 시에 comment 입력
-  if (event.keyCode == 13) {
+  if (event.key === 'Enter') {
     submitComment(event);
   } else {
     if (postChatForm.value !== '') {
@@ -45,14 +45,14 @@ export async function renderPost() {
     const heartCount = postInfo.heartCount;
     const commentCount = postInfo.commentCount;
     const createdAt = timeForToday(postInfo.createdAt);
-    const postButton = document.querySelector('.postBtn');
+    const postButton = document.querySelector('.postBtn') as HTMLButtonElement;
     postButton.disabled = true;
     postButton.style.color = '#dbdbdb';
 
     // 프로필
-    const div = document.querySelector('.userItem');
+    const div = document.querySelector('.userItem') as HTMLDivElement;
     div.innerHTML = '';
-    const section = document.querySelector('.postContent');
+    const section = document.querySelector('.postContent') as HTMLElement;
 
     const userBox = document.createElement('a');
     const userProfileImage = document.createElement('img');
@@ -83,10 +83,19 @@ export async function renderPost() {
     userText.appendChild(userMsgContent);
 
     // 게시글
-
-    let jsonImgTags = jsonImg.map(src => {
-      return src && `<img src=${src} alt="게시물 이미지" />`;
-    });
+    const jsonImgTags =
+      jsonImg.length > 0
+        ? `
+       <div class="postDetaileImgContent">
+         <ul>
+           <li class="postDetaileImgContentFlex">
+           ${jsonImg.map(item => {
+             return `<img src=${item} alt="게시물 이미지" />`;
+           })}
+           </li>
+         </ul>
+         </div>`
+        : '';
     let heartStatus;
 
     if (json.post.hearted) {
@@ -105,18 +114,6 @@ export async function renderPost() {
     section.appendChild(postTitleHeading4El);
     section.appendChild(contentPEl);
 
-    if (jsonImgTags.length === 0) {
-      jsonImgTags = '';
-    } else {
-      jsonImgTags = `
-      <div class="postDetaileImgContent">
-        <ul>
-          <li class="postDetaileImgContentFlex">
-          ${jsonImgTags.join('')}
-          </li>
-        </ul>
-        </div>`;
-    }
     const range = document.createRange();
     const jsonImgTagsNode = range.createContextualFragment(jsonImgTags);
 
@@ -151,11 +148,11 @@ export async function renderPost() {
     section.appendChild(postBtnDivEl);
     section.appendChild(postDateStrongEl);
 
-    const heartBtn = document.querySelector('.postBtnContent button');
+    const heartBtn = document.querySelector('.postBtnContent button') as HTMLButtonElement;
     heartBtn.addEventListener('click', clickHeart);
 
     // 댓글
-    const commentSection = document.querySelector('.postCommentBox');
+    const commentSection = document.querySelector('.postCommentBox') as HTMLElement;
     const { comments } = await getCommentDetail();
 
     for (const comment of comments) {
@@ -224,7 +221,7 @@ export async function renderPost() {
     }
 
     const modal = document.querySelectorAll('.moreBtn.buttonClick');
-    [].forEach.call(modal, function (modal) {
+    [].forEach.call(modal, function (modal: HTMLButtonElement) {
       modal.addEventListener('click', clickCommentModal);
     });
   } catch (err) {
@@ -253,7 +250,7 @@ async function getCommentDetail() {
 }
 
 // 로그인 유저 정보
-export async function getLoginUserInfo(commentUserProfile) {
+export async function getLoginUserInfo(commentUserProfile: HTMLImageElement) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const token = localStorage.getItem('Token');
   const accountname = localStorage.getItem('accountname');
@@ -277,11 +274,11 @@ export async function getLoginUserInfo(commentUserProfile) {
 }
 
 // 댓글 입력
-export async function submitComment(event) {
+export async function submitComment(event: MouseEvent | KeyboardEvent) {
   event.preventDefault();
   const url = 'https://mandarin.api.weniv.co.kr';
   const postId = window.location.href.split('postid=')[1];
-  const commentInput = document.getElementById('postChatContent');
+  const commentInput = document.getElementById('postChatContent') as HTMLInputElement;
   const token = localStorage.getItem('Token');
   try {
     const res = await fetch(`${url}/post/${postId}/comments`, {
