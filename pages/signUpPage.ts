@@ -1,7 +1,7 @@
-import { CheckForm, Validation } from '../script/signUp.js';
+import { checkInput, isValidEmail } from '../script/signUp.js';
 
 class SignUpPage {
-  render(content) {
+  render(content: HTMLElement) {
     // header
     const wrapEl = document.createElement('div');
     const headerEl = document.createElement('header');
@@ -56,7 +56,7 @@ class SignUpPage {
     passwordInputEl.id = 'password';
     passwordInputEl.setAttribute('name', 'password');
     passwordInputEl.setAttribute('type', 'password');
-    passwordInputEl.maxLength = '10';
+    passwordInputEl.maxLength = 10;
     passwordInputEl.required = true;
 
     formEl.appendChild(passwordLabelEl);
@@ -76,15 +76,11 @@ class SignUpPage {
     loginButtonEl.innerText = '다음';
     formEl.appendChild(loginButtonEl);
 
-    const checkForm = new CheckForm(emailInputEl, passwordInputEl, passwordAlertPEl, loginButtonEl);
-    const validation = new Validation(emailInputEl, passwordInputEl, emailAlertPEl);
-
     // 폼 입력
-    formEl.addEventListener('input', checkForm.checkInput);
+    formEl.addEventListener('input', () => checkInput(passwordInputEl, passwordAlertPEl));
     // 이메일 유효성 검사 버튼
-    loginButtonEl.addEventListener('click', validation.isValidEmail);
+    loginButtonEl.addEventListener('click', () => isValidEmail());
 
-    // article
     const articleEl = document.createElement('article');
     const anchorEl = document.createElement('a');
 
