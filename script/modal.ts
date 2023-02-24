@@ -90,8 +90,8 @@ export function logoutModal() {
   body.appendChild(modal);
   modal.innerHTML = modalHeader;
 
-  const modalLogoutBtn = document.querySelector('.setUsertModal .modalBtn2');
-  const closeBtn = document.querySelector('.setUsertModal .modalClose');
+  const modalLogoutBtn = document.querySelector('.setUsertModal .modalBtn2') as HTMLButtonElement;
+  const closeBtn = document.querySelector('.setUsertModal .modalClose') as HTMLButtonElement;
 
   // 사용자 모달창 비활성화
   closeBtn.addEventListener('click', () => {
@@ -103,8 +103,8 @@ export function logoutModal() {
     modal.innerHTML = logoutAlert;
     body.appendChild(modal);
 
-    const cancelBtn = document.querySelector('.logoutAlert .cancelBtn');
-    const logoutBtn = document.querySelector('.logoutAlert .logoutBtn');
+    const cancelBtn = document.querySelector('.logoutAlert .cancelBtn') as HTMLButtonElement;
+    const logoutBtn = document.querySelector('.logoutAlert .logoutBtn') as HTMLButtonElement;
 
     // 사용자 로그아웃 모달창 비활성화
     cancelBtn.addEventListener('click', () => {
@@ -121,9 +121,9 @@ export function logoutModal() {
 }
 
 // 상품 모달
-export function productModal(productId) {
+export function productModal(productId: string) {
   const myAccountName = localStorage.getItem('accountname');
-  let accountName = window.location.hash.split('accountname=')[1];
+  let accountName: string | null = window.location.hash.split('accountname=')[1];
   accountName = accountName == null ? myAccountName : accountName;
 
   // 사용자 본인일 경우 상품 삭제
@@ -131,9 +131,9 @@ export function productModal(productId) {
     modal.innerHTML = modalProduct;
     body.appendChild(modal);
 
-    const productModalClose = document.querySelector('.productModal .modalClose');
-    const productDeleteModal = document.querySelector('.productModal .modalBtn1');
-    const productLink = document.querySelector('.productModal .modalBtn3');
+    const productModalClose = document.querySelector('.productModal .modalClose') as HTMLButtonElement;
+    const productDeleteModal = document.querySelector('.productModal .modalBtn1') as HTMLButtonElement;
+    const productLink = document.querySelector('.productModal .modalBtn3') as HTMLButtonElement;
 
     // 상품 모달 창 닫기
     productModalClose.addEventListener('click', () => {
@@ -146,13 +146,13 @@ export function productModal(productId) {
       body.appendChild(modal);
 
       // 상품 삭제 모달 닫기
-      const alertCancel = document.querySelector('.delAlert .cancelBtn');
+      const alertCancel = document.querySelector('.delAlert .cancelBtn') as HTMLButtonElement;
       alertCancel.addEventListener('click', () => {
         body.removeChild(modal);
       });
 
       // 상품 삭제
-      const productDelete = document.querySelector('.alertBtnContent .delBtn');
+      const productDelete = document.querySelector('.alertBtnContent .delBtn') as HTMLButtonElement;
       productDelete.addEventListener('click', () => {
         deleteProduct(productId);
       });
@@ -169,7 +169,7 @@ export function productModal(productId) {
 }
 
 // 판매 상품 삭제
-async function deleteProduct(productId) {
+async function deleteProduct(productId: string) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const token = localStorage.getItem('Token');
 
@@ -194,23 +194,25 @@ async function deleteProduct(productId) {
 }
 
 // 사용자에 따라 게시물 모달 구현
-export function clickUserModal(event) {
-  const myAccountName = localStorage.getItem('accountname');
-  let accountName = window.location.hash.split('accountname=')[1];
-  accountName = accountName == null ? myAccountName : accountName;
-  const postUserName = event.target.previousElementSibling.children[1].innerText.replace('@', '');
-  const postingId = event.target.parentNode.dataset.key;
-
+export function clickUserModal(event: MouseEvent) {
   event.preventDefault();
+  const myAccountName = localStorage.getItem('accountname');
+  let accountName: string | null = window.location.hash.split('accountname=')[1];
+  accountName = accountName == null ? myAccountName : accountName;
+  const postUserName = (event.currentTarget as HTMLElement)!.previousSibling?.childNodes[1].textContent?.replace(
+    '@',
+    ''
+  );
+  const postingId = (event.currentTarget as HTMLElement)!.parentElement!.dataset.key!;
 
   // 사용자 본인 프로필인 경우, 게시물 삭제 모달
   if (postUserName === myAccountName || accountName === null) {
     body.appendChild(modal);
     modal.innerHTML = modalPost;
 
-    const postDelete = document.querySelector('.postModal .modalBtn1');
-    const postEditBtn = document.querySelector('.postModal .modalBtn2');
-    const modalClose = document.querySelector('.postModal .modalClose');
+    const postDelete = document.querySelector('.postModal .modalBtn1') as HTMLButtonElement;
+    const postEditBtn = document.querySelector('.postModal .modalBtn2') as HTMLButtonElement;
+    const modalClose = document.querySelector('.postModal .modalClose') as HTMLButtonElement;
 
     // 모달창 닫기 버튼 클릭 시 모달창 닫기
     modalClose.addEventListener('click', () => {
@@ -223,16 +225,16 @@ export function clickUserModal(event) {
       body.appendChild(modal);
 
       // 게시물 삭제 모달 닫기
-      const alertCancel = document.querySelector('.delAlert .cancelBtn');
+      const alertCancel = document.querySelector('.delAlert .cancelBtn') as HTMLButtonElement;
       alertCancel.addEventListener('click', () => {
         body.removeChild(modal);
       });
 
       // 게시물 삭제
-      const postDelete = document.querySelector('.delAlert .delBtn');
+      const postDelete = document.querySelector('.delAlert .delBtn') as HTMLButtonElement;
       postDelete.addEventListener('click', () => {
         body.removeChild(modal);
-        deletePost(postingId);
+        deletePost(postingId!);
       });
     });
 
@@ -246,8 +248,8 @@ export function clickUserModal(event) {
     body.appendChild(modal);
     modal.innerHTML = modalReport;
 
-    const modalClose = document.querySelector('.reportModal .modalClose');
-    const reportModalBtn = document.querySelector('.reportModal .modalBtn1');
+    const modalClose = document.querySelector('.reportModal .modalClose') as HTMLButtonElement;
+    const reportModalBtn = document.querySelector('.reportModal .modalBtn1') as HTMLButtonElement;
 
     // 모달창 닫기
     modalClose.addEventListener('click', () => {
@@ -260,13 +262,13 @@ export function clickUserModal(event) {
       body.appendChild(modal);
 
       // 신고 모달 비활성화
-      const cancelBtn = document.querySelector('.reportAlert .cancelBtn');
+      const cancelBtn = document.querySelector('.reportAlert .cancelBtn') as HTMLButtonElement;
       cancelBtn.addEventListener('click', () => {
         body.removeChild(modal);
       });
 
       // 게시물 신고
-      const reportBtn = document.querySelector('.reportAlert .reportBtn');
+      const reportBtn = document.querySelector('.reportAlert .reportBtn') as HTMLButtonElement;
       reportBtn.addEventListener('click', () => {
         reportPost(postingId);
       });
@@ -278,8 +280,8 @@ export function clickChatModal() {
   body.appendChild(modal);
   modal.innerHTML = modalChat;
 
-  const modalClose = document.querySelector('.modalClose');
-  const cancelBtn = document.querySelector('.modalBtn');
+  const modalClose = document.querySelector('.modalClose') as HTMLButtonElement;
+  const cancelBtn = document.querySelector('.modalBtn') as HTMLButtonElement;
 
   modalClose.addEventListener('click', () => {
     body.removeChild(modal);
@@ -290,20 +292,20 @@ export function clickChatModal() {
   });
 }
 
-export function clickCommentModal(e) {
+export function clickCommentModal(event: MouseEvent) {
   const modal = document.createElement('div');
 
-  e.preventDefault();
-  const commentAccountName = e.target.parentElement.closest('article').getAttribute('key');
-  const commentId = e.target.parentElement.closest('article').getAttribute('id');
+  event.preventDefault();
+  const commentAccountName = (event.target as HTMLElement)!.parentElement!.closest('article')!.getAttribute('key')!;
+  const commentId = (event.target as HTMLElement)!.parentElement!.closest('article')!.getAttribute('id')!;
 
   // 본인 댓글인 경우 삭제 모달 활성화
   if (commentAccountName === localStorage.getItem('accountname')) {
     body.appendChild(modal);
     modal.innerHTML = modalComment;
 
-    const postDelete = document.querySelector('.postModal .modalBtn1');
-    const modalClose = document.querySelector('.postModal .modalClose');
+    const postDelete = document.querySelector('.postModal .modalBtn1') as HTMLButtonElement;
+    const modalClose = document.querySelector('.postModal .modalClose') as HTMLButtonElement;
 
     // 모달창 닫기 버튼 클릭 시 모달창 닫기
     modalClose.addEventListener('click', () => {
@@ -316,13 +318,13 @@ export function clickCommentModal(e) {
       body.appendChild(modal);
 
       // 댓글 삭제 모달 닫기
-      const alertCancel = document.querySelector('.delAlert .cancelBtn');
+      const alertCancel = document.querySelector('.delAlert .cancelBtn') as HTMLButtonElement;
       alertCancel.addEventListener('click', () => {
         body.removeChild(modal);
       });
 
       // 댓글 삭제
-      const postDelete = document.querySelector('.delAlert .delBtn');
+      const postDelete = document.querySelector('.delAlert .delBtn') as HTMLButtonElement;
       postDelete.addEventListener('click', () => {
         body.removeChild(modal);
         deleteComment(commentId);
@@ -333,8 +335,8 @@ export function clickCommentModal(e) {
     body.appendChild(modal);
     modal.innerHTML = modalReport;
 
-    const modalClose = document.querySelector('.reportModal .modalClose');
-    const reportModalBtn = document.querySelector('.reportModal .modalBtn1');
+    const modalClose = document.querySelector('.reportModal .modalClose') as HTMLButtonElement;
+    const reportModalBtn = document.querySelector('.reportModal .modalBtn1') as HTMLButtonElement;
 
     // 모달창 닫기
     modalClose.addEventListener('click', () => {
@@ -347,13 +349,13 @@ export function clickCommentModal(e) {
       body.appendChild(modal);
 
       // 신고 모달 비활성화
-      const cancelBtn = document.querySelector('.reportAlert .cancelBtn');
+      const cancelBtn = document.querySelector('.reportAlert .cancelBtn') as HTMLButtonElement;
       cancelBtn.addEventListener('click', () => {
         body.removeChild(modal);
       });
 
       // 댓글 신고
-      const reportBtn = document.querySelector('.reportAlert .reportBtn');
+      const reportBtn = document.querySelector('.reportAlert .reportBtn') as HTMLButtonElement;
       reportBtn.addEventListener('click', () => {
         body.removeChild(modal);
         reportComment(commentId);
@@ -361,3 +363,8 @@ export function clickCommentModal(e) {
     });
   }
 }
+
+// 사용자 로그아웃 모달
+// export function logoutModal(headerModal) {
+//   headerModal.addEventListener('click', logoutModal());
+// }
