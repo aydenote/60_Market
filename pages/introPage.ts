@@ -1,7 +1,7 @@
 import { isValidToken } from '../script/intro.js';
 
 class IntroPage {
-  render(content) {
+  render(content: HTMLElement) {
     // header
     const wrapEl = document.createElement('div');
     const headerEl = document.createElement('header');
