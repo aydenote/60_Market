@@ -1,7 +1,7 @@
 import { checkInput, getLogInData } from '../script/logIn.js';
 
 class LoginPage {
-  render(content) {
+  render(content: HTMLElement) {
     // header
     const wrapEl = document.createElement('div');
     const headerEl = document.createElement('header');
@@ -49,7 +49,7 @@ class LoginPage {
     passwordInputEl.id = 'password';
     passwordInputEl.setAttribute('name', 'password');
     passwordInputEl.setAttribute('type', 'password');
-    passwordInputEl.minlength = '6';
+    passwordInputEl.minLength = 6;
     passwordInputEl.required = true;
 
     formEl.appendChild(passwordLabelEl);
@@ -87,7 +87,7 @@ class LoginPage {
     formEl.addEventListener('input', () => checkInput(emailInputEl, passwordInputEl, loginButtonEl));
     // 로그인 유효성 검사
     loginButtonEl.addEventListener('click', () => getLogInData(emailInputEl, passwordInputEl, alertPEl, formEl));
-    
+
     content.appendChild(wrapEl);
   }
 }
