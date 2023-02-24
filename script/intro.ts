@@ -1,5 +1,5 @@
 // 토큰 여부 확인 후 홈으로 이동
-function logIn(resMessage) {
+function logIn(resMessage: number) {
   if (resMessage === 200) {
     window.location.hash = '#home';
   }
