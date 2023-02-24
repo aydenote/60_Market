@@ -90,7 +90,7 @@ class Footer {
 
     const footerIconName = window.location.hash.split('#')[1];
 
-    function changeNavIcon(iconName) {
+    function changeNavIcon(iconName: string) {
       if (iconName === 'home') {
         homeArticleEl.classList.replace('navHome', 'navHomeSelected');
         chatArticleEl.classList.replace('navChatSelected', 'navChat');
