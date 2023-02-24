@@ -1,7 +1,7 @@
 import { backHistory } from './common.js';
 
 // 좋아요 모듈
-export async function likeHeart(postingID: number) {
+export async function likeHeart(postingID: string) {
   const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;
   const token = localStorage.getItem('Token');
 
@@ -17,7 +17,7 @@ export async function likeHeart(postingID: number) {
 }
 
 // 좋아요 취소 모듈
-export async function likeUnHeart(postingID: number) {
+export async function likeUnHeart(postingID: string) {
   const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/unheart`;
   const token = localStorage.getItem('Token');
   const res = await fetch(url, {
@@ -32,7 +32,7 @@ export async function likeUnHeart(postingID: number) {
 }
 
 // 게시물 신고
-export async function reportPost(postingId: number) {
+export async function reportPost(postingId: string) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const token = localStorage.getItem('Token');
 
@@ -56,7 +56,7 @@ export async function reportPost(postingId: number) {
 }
 
 // 게시물 삭제
-export async function deletePost(postingId: number) {
+export async function deletePost(postingId: string) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const token = localStorage.getItem('Token');
 
@@ -79,7 +79,7 @@ export async function deletePost(postingId: number) {
 }
 
 // 댓글 신고
-export async function reportComment(commentId: number) {
+export async function reportComment(commentId: string) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const token = localStorage.getItem('Token');
   const postId = window.location.hash.split('postid=')[1];
@@ -102,7 +102,7 @@ export async function reportComment(commentId: number) {
 }
 
 // 댓글 삭제
-export async function deleteComment(commentId: number) {
+export async function deleteComment(commentId: string) {
   const url = 'https://mandarin.api.weniv.co.kr';
   const token = localStorage.getItem('Token');
   const postId = window.location.hash.split('postid=')[1];
@@ -141,8 +141,24 @@ export async function imageUpload(formData: FormData) {
   }
 }
 
-// 상품 등록
+// 상품 이미지 등록
+export async function productImageUpload(formData: FormData) {
+  const url = 'https://mandarin.api.weniv.co.kr';
 
+  try {
+    const response = await fetch(url + '/image/uploadfiles', {
+      method: 'POST',
+      body: formData,
+    });
+    const data = await response.json();
+    const imageUrl = await data[0].filename;
+    return imageUrl;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// 상품 등록
 type ProductFormType = {
   value: string;
 };
@@ -154,13 +170,14 @@ export async function productSave(
 ) {
   const token = localStorage.getItem('Token');
   const url = 'https://mandarin.api.weniv.co.kr';
-  const imageUrl = localStorage.getItem('imageUrl');
+  const imageUrl = localStorage.getItem('ProductImg');
+
   const productInfo = {
     product: {
       itemName: productNameForm.value,
       price: parseInt(productPriceForm.value.replace(/,/g, '')),
       link: productContentForm.value,
-      itemImage: `${url}/${imageUrl}`,
+      itemImage: imageUrl,
     },
   };
   const setting = {
