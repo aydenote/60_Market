@@ -2,13 +2,12 @@ import Footer from './footer.js';
 import { backHistory } from '../utils/common.js';
 
 class ChatPage {
-  render(content) {
-    const url = window.location.pathname.replace('/', '');
+  render(content: HTMLElement) {
     const footer = new Footer();
-    const footerEl = footer.render(url);
+    const footerEl = footer.render();
     const chatWrapDivEl = document.createElement('div');
     chatWrapDivEl.classList.add('chatWrap');
-    document.querySelector('body').classList.remove('profileBackground');
+    (document.querySelector('body') as HTMLElement).classList.remove('profileBackground');
 
     // header
     const headerEl = document.createElement('header');
