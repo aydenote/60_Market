@@ -9,8 +9,8 @@ import {
 import { backHistory } from '../utils/common.js';
 
 class ProductPage {
-  render(content) {
-    document.querySelector('body').classList.remove('profileBackground');
+  render(content: HTMLElement) {
+    (document.querySelector('body') as HTMLElement).classList.remove('profileBackground');
     // header
     const headerEl = document.createElement('header');
     const headerBarArticleEl = document.createElement('article');
@@ -78,8 +78,8 @@ class ProductPage {
     productNameInputEl.setAttribute('type', 'text');
     productNameInputEl.required = true;
     productNameInputEl.placeholder = '2~15자 이내여야 합니다.';
-    productNameInputEl.minLength = '2';
-    productNameInputEl.maxLength = '15';
+    productNameInputEl.minLength = 2;
+    productNameInputEl.maxLength = 15;
 
     addProductFormEl.appendChild(addProductLabelEl);
     addProductFormEl.appendChild(productNameInputEl);
@@ -95,7 +95,7 @@ class ProductPage {
     addPriceInputEl.setAttribute('type', 'text');
     addPriceInputEl.required = true;
     addPriceInputEl.placeholder = '숫자만 입력 가능합니다.';
-    addPriceInputEl.maxLength = '12';
+    addPriceInputEl.maxLength = 12;
 
     addProductFormEl.appendChild(addPriceLabelEl);
     addProductFormEl.appendChild(addPriceInputEl);
@@ -175,8 +175,8 @@ class ProductPage {
 
     contentLabelEl.classList.add('addProductFormLabel');
     contentLabelEl.innerText = '내용';
-    contentTextareaEl.cols = '10';
-    contentTextareaEl.rows = '10';
+    contentTextareaEl.cols = 10;
+    contentTextareaEl.rows = 10;
     contentTextareaEl.id = 'addProductContent';
     contentTextareaEl.required = true;
     contentTextareaEl.placeholder = '내용을 입력해 주세요.';
