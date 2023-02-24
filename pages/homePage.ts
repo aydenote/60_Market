@@ -1,14 +1,11 @@
 import { feedAPI } from '../script/home.js';
 import Footer from './footer.js';
 
-const defaultUrl = 'https://mandarin.api.weniv.co.kr';
-
 class HomePage {
   render() {
-    const url = window.location.pathname.replace('/', '');
     const footer = new Footer();
-    const footerEl = footer.render(url);
-    const body = document.querySelector('body');
+    const footerEl = footer.render();
+    const body = document.querySelector('body') as HTMLElement;
     body.classList.remove('profileBackground');
 
     // header
@@ -61,9 +58,9 @@ class HomePage {
     // home 피드 구현
     feedAPI();
 
-    document.querySelector('#root').appendChild(headerEl);
-    document.querySelector('#root').appendChild(mainEl);
-    document.querySelector('#root').appendChild(footerEl);
+    (document.querySelector('#root') as HTMLElement).appendChild(headerEl);
+    (document.querySelector('#root') as HTMLElement).appendChild(mainEl);
+    (document.querySelector('#root') as HTMLElement).appendChild(footerEl);
   }
 }
 
