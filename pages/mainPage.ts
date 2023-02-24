@@ -1,5 +1,5 @@
 class MainPage {
-  render(content) {
+  render(content: HTMLElement) {
     const wrapEl = document.createElement('div');
     const articleEl = document.createElement('article');
     const containerEl = document.createElement('div');
