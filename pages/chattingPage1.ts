@@ -2,7 +2,7 @@ import { clickChatModal } from '../script/modal.js';
 import { backHistory } from '../utils/common.js';
 
 class ChattingPage1 {
-  render(content) {
+  render(content: HTMLElement) {
     // header
     const headerEl = document.createElement('header');
     const heading1El = document.createElement('h1');
@@ -168,7 +168,7 @@ class ChattingPage1 {
     chatTextFormEl.classList.add('chatEnterContent');
     chatTextInputEl.placeholder = '메시지 입력하기...';
     chatTextInputEl.type = 'text';
-    chatTextInputEl.maxLength = '100';
+    chatTextInputEl.maxLength = 100;
     chatBtnEl.type = 'button';
     chatBtnEl.innerText = '전송';
 
