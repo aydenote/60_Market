@@ -1,14 +1,14 @@
 import Footer from './footer.js';
-import { getProfileInfo, getPostingList, albumTypePost, modal } from '../script/profile.js';
+import { getProfileInfo, getPostingList, albumTypePost } from '../script/profile.js';
+import { logoutModal } from '../script/modal.js';
 import { backHistory } from '../utils/common.js';
 
 class ProfilePage {
-  render(content) {
-    const url = window.location.pathname.replace('/', '');
+  render(content: HTMLElement) {
     const footer = new Footer();
-    const footerEl = footer.render(url);
+    const footerEl = footer.render();
     // body
-    document.querySelector('body').classList.add('profileBackground');
+    (document.querySelector('body') as HTMLElement).classList.add('profileBackground');
 
     // header
     const headerEl = document.createElement('header');
@@ -112,10 +112,10 @@ class ProfilePage {
     // 팔로워, 팔로잉 페이지 이동
     followerDivEl.addEventListener('click', clickedFollowLink);
     followingDivEl.addEventListener('click', clickedFollowLink);
-    function clickedFollowLink(e) {
-      const profileUser = document.querySelector('.profileInfo .userId');
+    function clickedFollowLink(event: MouseEvent) {
+      const profileUser = document.querySelector('.profileInfo .userId') as HTMLElement;
       const userId = profileUser.innerText.replace(/ /g, '');
-      window.location.hash = `#profileFollow?accountname=${userId}&title=${e.target.className}`;
+      window.location.hash = `#profileFollow?accountname=${userId}&title=${(event.target as HTMLElement).className}`;
     }
 
     // 프로필 정보 가져오기
@@ -124,7 +124,7 @@ class ProfilePage {
 
     // 목록형, 앨범형으로 포스팅 구현
     albumBarArticleEl.addEventListener('click', event => {
-      const selectType = event.target.className.split(' ')[1];
+      const selectType = (event.target as HTMLElement).className.split(' ')[1];
       if (selectType === 'list') {
         getPostingList();
       } else if (selectType === 'album') {
@@ -136,7 +136,7 @@ class ProfilePage {
 
     // 사용자 로그아웃 모달
     menuImgEl.addEventListener('click', () => {
-      modal(menuImgEl);
+      logoutModal();
     });
 
     content.appendChild(headerEl);
