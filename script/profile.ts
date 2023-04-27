@@ -166,7 +166,6 @@ async function getProductList(userProfile: UserProfileType) {
   try {
     const resProfileProduct = await fetch(`${url}/product/${userProfile.accountname}`, setting);
     const resProfileProductJson = await resProfileProduct.json();
-    console.log(resProfileProductJson);
     setProductList(resProfileProductJson);
   } catch (err) {
     console.error(err);
