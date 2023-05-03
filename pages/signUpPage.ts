@@ -1,4 +1,4 @@
-import { checkInput, isValidEmail } from '../script/signUp.js';
+import { checkInput, isValidEmail } from '../script/signUp';
 
 class SignUpPage {
   render(content: HTMLElement) {

@@ -1,4 +1,4 @@
-import { backHistory } from './common.js';
+import { backHistory } from './common';
 
 // 좋아요 모듈
 export async function likeHeart(postingID: string) {

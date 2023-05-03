@@ -1,7 +1,7 @@
-import Footer from './footer.js';
-import { getProfileInfo, getPostingList, albumTypePost } from '../script/profile.js';
-import { logoutModal } from '../script/modal.js';
-import { backHistory } from '../utils/common.js';
+import Footer from './footer';
+import { getProfileInfo, getPostingList, albumTypePost } from '../script/profile';
+import { logoutModal } from '../script/modal';
+import { backHistory } from '../utils/common';
 
 class ProfilePage {
   render(content: HTMLElement) {

@@ -5,8 +5,8 @@ import {
   onProductSvaeBtn,
   onTimeToggle,
   onTimeSelct,
-} from '../script/addProduct.js';
-import { backHistory } from '../utils/common.js';
+} from '../script/addProduct';
+import { backHistory } from '../utils/common';
 
 class ProductPage {
   render(content: HTMLElement) {

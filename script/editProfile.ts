@@ -1,4 +1,4 @@
-import { imageUpload, updateProfile } from '../utils/apiModule.js';
+import { imageUpload, updateProfile } from '../utils/apiModule';
 
 export async function getProfileInfo(
   profileImg: HTMLImageElement,

@@ -1,6 +1,6 @@
-import { timeForToday } from '../utils/common.js';
-import { clickHeart } from './heartBtn.js';
-import { clickUserModal } from './modal.js';
+import { timeForToday } from '../utils/common';
+import { clickHeart } from './heartBtn';
+import { clickUserModal } from './modal';
 
 interface PostType {
   author: AuthorType;

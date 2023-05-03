@@ -1,5 +1,5 @@
-import { feedAPI } from '../script/home.js';
-import Footer from './footer.js';
+import { feedAPI } from '../script/home';
+import Footer from './footer';
 
 class HomePage {
   render() {

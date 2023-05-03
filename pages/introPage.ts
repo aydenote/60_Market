@@ -1,4 +1,4 @@
-import { isValidToken } from '../script/intro.js';
+import { isValidToken } from '../script/intro';
 
 class IntroPage {
   render(content: HTMLElement) {

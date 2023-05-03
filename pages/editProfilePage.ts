@@ -1,5 +1,5 @@
-import { getProfileInfo, imageChange, profileChangeInput, clickSaveButton } from '../script/editProfile.js';
-import { backHistory } from '../utils/common.js';
+import { getProfileInfo, imageChange, profileChangeInput, clickSaveButton } from '../script/editProfile';
+import { backHistory } from '../utils/common';
 
 class EditProfilePage {
   render(content: HTMLElement) {

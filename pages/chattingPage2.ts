@@ -1,5 +1,5 @@
-import { clickChatModal } from '../script/modal.js';
-import { backHistory } from '../utils/common.js';
+import { clickChatModal } from '../script/modal';
+import { backHistory } from '../utils/common';
 
 class ChattingPage2 {
   render(content: HTMLElement) {

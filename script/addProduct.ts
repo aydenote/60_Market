@@ -1,4 +1,4 @@
-import { productImageUpload, productSave } from '../utils/apiModule.js';
+import { productImageUpload, productSave } from '../utils/apiModule';
 
 // 상품 이미지 미리보기 / api서버에 전송하고 변경된 이미지 이름 가져오기
 export async function onChangeProductImg(event: Event) {

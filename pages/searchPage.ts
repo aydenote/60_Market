@@ -1,6 +1,6 @@
-import Footer from './footer.js';
-import Search from '../script/search.js';
-import { backHistory, debounce } from '../utils/common.js';
+import Footer from './footer';
+import Search from '../script/search';
+import { backHistory, debounce } from '../utils/common';
 
 class SearchPage {
   render(content: HTMLElement) {

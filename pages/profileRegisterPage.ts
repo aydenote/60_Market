@@ -1,4 +1,4 @@
-import { previewImg, checkInput, isValidId } from '../script/registerProfile.js';
+import { previewImg, checkInput, isValidId } from '../script/registerProfile';
 
 class ProfileRegister {
   render(content: HTMLElement) {

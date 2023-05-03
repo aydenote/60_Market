@@ -1,4 +1,4 @@
-import { checkInput, getLogInData } from '../script/logIn.js';
+import { checkInput, getLogInData } from '../script/logIn';
 
 class LoginPage {
   render(content: HTMLElement) {

@@ -1,5 +1,5 @@
-import Footer from './footer.js';
-import { backHistory } from '../utils/common.js';
+import Footer from './footer';
+import { backHistory } from '../utils/common';
 
 class ChatPage {
   render(content: HTMLElement) {

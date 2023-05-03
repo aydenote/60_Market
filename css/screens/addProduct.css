@@ -1,11 +1,19 @@
 main .addProduct {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 main .addProductForm {
   max-width: 390px;
   margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -40,15 +48,15 @@ main .addProductForm {
   right: 2%;
 }
 
-.addProductForm .addProductUplodeImgScreen{
+.addProductForm .addProductUplodeImgScreen {
   position: relative;
   width: 100%;
   height: 204px;
   border-radius: 10px;
-  background-color: var(—-borderColor);
+  background-color: var(--borderColor);
 }
 
-.timeSelct{
+.timeSelct {
   width: 100%;
 }
 
@@ -78,6 +86,7 @@ main .addProductForm {
   display: none;
   margin-top: 5px;
   border: 1px solid var(--borderColor);
+  -webkit-box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.2);
   box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 }
@@ -91,6 +100,7 @@ main .addProductForm {
   margin-top: 10px;
   white-space: nowrap;
   overflow: hidden;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   border: none;
   border-radius: 8px;
@@ -100,6 +110,7 @@ main .addProductForm {
 .addProductForm #addProductContent {
   padding: 10px;
   height: 184px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border: 1px solid var(--borderColor);
   border-radius: 10px;
@@ -113,6 +124,6 @@ main .addProductForm {
   border: 1px solid var(--mainColor);
 }
 
-.addProductSelectBtn.on+.addProductTimeList {
+.addProductSelectBtn.on + .addProductTimeList {
   display: block;
 }

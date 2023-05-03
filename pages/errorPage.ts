@@ -1,4 +1,4 @@
-import { backHistory } from '../utils/common.js';
+import { backHistory } from '../utils/common';
 
 class ErrorPage {
   render(content: HTMLElement) {

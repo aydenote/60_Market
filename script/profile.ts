@@ -1,7 +1,7 @@
-import { timeForToday } from '../utils/common.js';
-import { clickHeart } from './heartBtn.js';
-import { clickUserModal, productModal } from './modal.js';
-import { getProfile, getPosting } from '../utils/apiModule.js';
+import { timeForToday } from '../utils/common';
+import { clickHeart } from './heartBtn';
+import { clickUserModal, productModal } from './modal';
+import { getProfile, getPosting } from '../utils/apiModule';
 
 interface UserProfileType {
   accountname: string;
@@ -79,7 +79,7 @@ export async function getProfileInfo() {
 }
 
 function setMyProfile(userProfile: UserProfileType) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.k';
   const createEditLink = document.createElement('div');
   const createProductLink = document.createElement('div');
   const profileLinkBtn = document.querySelector('.link') as HTMLButtonElement;

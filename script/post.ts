@@ -1,6 +1,6 @@
-import { timeForToday } from '../utils/common.js';
-import { clickHeart } from './heartBtn.js';
-import { clickCommentModal } from './modal.js';
+import { timeForToday } from '../utils/common';
+import { clickHeart } from './heartBtn';
+import { clickCommentModal } from './modal';
 
 export function postInput(event: KeyboardEvent) {
   const postChatForm = document.querySelector('#postChatContent') as HTMLInputElement;

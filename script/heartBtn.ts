@@ -1,4 +1,4 @@
-import { likeHeart, likeUnHeart } from '../utils/apiModule.js';
+import { likeHeart, likeUnHeart } from '../utils/apiModule';
 
 // 좋아요 버튼 클릭
 export async function clickHeart(event: MouseEvent) {
