@@ -7,7 +7,7 @@ function logIn(resMessage: number) {
 
 // 토큰 검증
 export async function isValidToken() {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
   if (token === null) {
     return;

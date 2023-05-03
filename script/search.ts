@@ -11,7 +11,7 @@ interface SearchUserType {
 }
 
 export default async function searchUser(event: KeyboardEvent) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
   const userListContent = document.querySelector('.userList') as HTMLUListElement;
 

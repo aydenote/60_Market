@@ -64,7 +64,7 @@ function checkEmail(signUpReturnData: SignUpReturnDataType) {
 // 이메일 유효성 검사
 export async function isValidEmail() {
   const emailInput = document.getElementById('email') as HTMLInputElement;
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
 
   const setting = {
     method: 'POST',

@@ -1,4 +1,4 @@
-const url = 'https://mandarin.api.weniv.co.kr';
+const url = 'https://api.mandarin.weniv.co.kr';
 let profileImg: string;
 
 // 서버에 프로필 이미지 보내기

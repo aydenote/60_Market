@@ -52,7 +52,7 @@ function noFeed() {
 }
 
 export async function feedAPI() {
-  const defaultUrl = 'https://mandarin.api.weniv.co.kr';
+  const defaultUrl = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
 
   const setting = {

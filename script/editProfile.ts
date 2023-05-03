@@ -6,7 +6,7 @@ export async function getProfileInfo(
   inputId: HTMLInputElement,
   inputIntroduce: HTMLInputElement
 ) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
   const myAccountName = localStorage.getItem('accountname');
 

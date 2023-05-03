@@ -29,7 +29,7 @@ export function init(userListUlEl: HTMLUListElement) {
 // 팔로윙 정보 가져오기(내가 팔로우한 사용자 목록 가져오기)
 async function getFollowingList(accountName: string, userListUlEl: HTMLUListElement) {
   const token = localStorage.getItem('Token');
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
 
   const setting = {
     method: 'GET',
@@ -50,7 +50,7 @@ async function getFollowingList(accountName: string, userListUlEl: HTMLUListElem
 // 팔로윙 정보(내가 팔로우한 사용자) 페이지에 반영
 function setFollowing(followingDataJson: FollowDataType[], userListUlEl: HTMLUListElement) {
   const title = document.querySelector('.followers .followTitle') as HTMLElement;
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
 
   title.innerText = 'Followings';
   for (const following of followingDataJson) {
@@ -109,7 +109,7 @@ function handleFollow(event: MouseEvent) {
 // 팔로워 정보 가져오기(나를 팔로우한 사용자 목록 가져오기)
 async function getFollowerList(accountName: string, userListUlEl: HTMLUListElement) {
   const token = localStorage.getItem('Token');
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
 
   const setting = {
     method: 'GET',
@@ -130,7 +130,7 @@ async function getFollowerList(accountName: string, userListUlEl: HTMLUListEleme
 // 팔로워 정보 (나를 팔로우한 사용자 정보) 페이지에 반영
 function setFollower(followerDataJson: FollowDataType[], userListUlEl: HTMLUListElement) {
   const title = document.querySelector('.followers .followTitle') as HTMLElement;
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
 
   title.innerText = 'Followers';
   for (const follower of followerDataJson) {

@@ -52,7 +52,7 @@ export function checkPost(
 async function getLoginUserInfo(profileImgEl: HTMLImageElement) {
   const token = localStorage.getItem('Token');
   const accountname = localStorage.getItem('accountname');
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
 
   try {
     const res = await fetch(`${url}/profile/${accountname}`, {
@@ -104,7 +104,7 @@ function deletImg(event: MouseEvent) {
   const postImgContainer = document.querySelector('.postUploadImageScreen') as HTMLElement;
   const imgItem = (event.target as HTMLElement).parentElement!;
   const targetImgName = imgItem.dataset.key;
-  const defaultUrl = 'https://mandarin.api.weniv.co.kr';
+  const defaultUrl = 'https://api.mandarin.weniv.co.kr';
   const fileLength = fileArr.length;
 
   // 업로드 사진 미리보기에서 삭제
@@ -129,7 +129,7 @@ function deletImg(event: MouseEvent) {
 // 이미지 업로드
 async function uploadImg(fileArr: FileArrType[]) {
   const formData = new FormData();
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   arrImgName = [];
   fileArr.forEach(file => {
     formData.append('image', file);
@@ -169,7 +169,7 @@ export function postInput() {
 export async function createPost() {
   const postUploadTxt = document.querySelector('.postUploadComentTxt') as HTMLTextAreaElement;
   const token = localStorage.getItem('Token');
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const contentText = postUploadTxt.value;
   const images = await uploadImg(fileArr);
 
@@ -228,7 +228,7 @@ async function setImg(postImgContainer: HTMLElement, postImgArr: string[], fileA
 // 서버에 저장된 게시글, 이미지 가져오기
 async function getPost(postid: string, postUploadTxt: HTMLTextAreaElement, postImgContainer: HTMLElement) {
   const token = localStorage.getItem('Token');
-  const defaultUrl = 'https://mandarin.api.weniv.co.kr';
+  const defaultUrl = 'https://api.mandarin.weniv.co.kr';
   try {
     const res = await fetch(`${defaultUrl}/post/${postid}`, {
       method: 'GET',
@@ -252,7 +252,7 @@ async function getPost(postid: string, postUploadTxt: HTMLTextAreaElement, postI
 // 게시물 수정
 async function editPost(postid: string, postUploadTxt: HTMLTextAreaElement) {
   const token = localStorage.getItem('Token');
-  const defaultUrl = 'https://mandarin.api.weniv.co.kr';
+  const defaultUrl = 'https://api.mandarin.weniv.co.kr';
   const resultImg = await uploadImg(fileArr);
 
   try {

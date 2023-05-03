@@ -58,7 +58,7 @@ export async function getLogInData(
   alertPEl: HTMLElement,
   formEl: HTMLFormElement
 ) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const userIdPw = {
     user: {
       email: email.value,

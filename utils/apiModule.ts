@@ -2,7 +2,7 @@ import { backHistory } from './common.js';
 
 // 좋아요 모듈
 export async function likeHeart(postingID: string) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/heart`;
+  const url = `https://api.mandarin.weniv.co.kr/post/${postingID}/heart`;
   const token = localStorage.getItem('Token');
 
   const res = await fetch(url, {
@@ -18,7 +18,7 @@ export async function likeHeart(postingID: string) {
 
 // 좋아요 취소 모듈
 export async function likeUnHeart(postingID: string) {
-  const url = `https://mandarin.api.weniv.co.kr/post/${postingID}/unheart`;
+  const url = `https://api.mandarin.weniv.co.kr/post/${postingID}/unheart`;
   const token = localStorage.getItem('Token');
   const res = await fetch(url, {
     method: 'DELETE',
@@ -33,7 +33,7 @@ export async function likeUnHeart(postingID: string) {
 
 // 게시물 신고
 export async function reportPost(postingId: string) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
 
   const setting = {
@@ -57,7 +57,7 @@ export async function reportPost(postingId: string) {
 
 // 게시물 삭제
 export async function deletePost(postingId: string) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
 
   const setting = {
@@ -80,7 +80,7 @@ export async function deletePost(postingId: string) {
 
 // 댓글 신고
 export async function reportComment(commentId: string) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
   const postId = window.location.hash.split('postid=')[1];
 
@@ -103,7 +103,7 @@ export async function reportComment(commentId: string) {
 
 // 댓글 삭제
 export async function deleteComment(commentId: string) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
   const postId = window.location.hash.split('postid=')[1];
 
@@ -126,7 +126,7 @@ export async function deleteComment(commentId: string) {
 
 // 이미지 업로드
 export async function imageUpload(formData: FormData) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
 
   try {
     const response = await fetch(url + '/image/uploadfiles', {
@@ -143,7 +143,7 @@ export async function imageUpload(formData: FormData) {
 
 // 상품 이미지 등록
 export async function productImageUpload(formData: FormData) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
 
   try {
     const response = await fetch(url + '/image/uploadfiles', {
@@ -169,7 +169,7 @@ export async function productSave(
   productContentForm: ProductFormType
 ) {
   const token = localStorage.getItem('Token');
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const imageUrl = localStorage.getItem('ProductImg');
 
   const productInfo = {
@@ -201,7 +201,7 @@ export async function productSave(
 // 프로필 수정
 export async function updateProfile() {
   const token = localStorage.getItem('Token');
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const inputName = document.getElementById('name') as HTMLInputElement;
   const inputId = document.getElementById('id') as HTMLInputElement;
   const inputIntroduce = document.getElementById('introduce') as HTMLInputElement;
@@ -242,7 +242,7 @@ export async function updateProfile() {
 
 // 프로필 정보
 export async function getProfile(accountName: string) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
 
   const setting = {
@@ -265,7 +265,7 @@ export async function getProfile(accountName: string) {
 
 // 게시물 확인
 export async function getPosting() {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
   const myAccountName = localStorage.getItem('accountname');
   let accountName: string | null = window.location.hash.split('accountname=')[1];

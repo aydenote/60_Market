@@ -153,7 +153,7 @@ function setYourProfile(userProfile: UserProfileType) {
 
 // 사용자가 판매 중인 상품 정보 가져오기
 async function getProductList(userProfile: UserProfileType) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
 
   const setting = {
@@ -178,7 +178,7 @@ function setProductList(resProfileProductJson: UserProductType) {
     const saleItems = document.querySelector('.saleItemContainer') as HTMLElement;
     const createP = document.createElement('p');
     const createUl = document.createElement('ul');
-    const url = 'https://mandarin.api.weniv.co.kr';
+    const url = 'https://api.mandarin.weniv.co.kr';
 
     createP.setAttribute('class', 'title');
     createUl.setAttribute('class', 'productList');
@@ -241,7 +241,7 @@ export function listTypePost(userPostInfo: PostType[]) {
   const postContent = document.querySelector('.postContent');
   const albumType = document.querySelector('.postingType.album.buttonClick') as HTMLImageElement;
   const ListType = document.querySelector('.postingType.list.buttonClick') as HTMLImageElement;
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
 
   albumType.classList.add('unselected');
   ListType.classList.remove('unselected');

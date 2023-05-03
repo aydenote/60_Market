@@ -22,7 +22,7 @@ export function postInput(event: KeyboardEvent) {
 
 // 프로필, 게시글, 댓글 데이터 불러오기
 export async function renderPost() {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const postId = window.location.href.split('postid=')[1];
   const token = localStorage.getItem('Token');
 
@@ -232,7 +232,7 @@ export async function renderPost() {
 // 상세 댓글 불러오기
 async function getCommentDetail() {
   const token = localStorage.getItem('Token');
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const postId = window.location.href.split('postid=')[1];
 
   try {
@@ -251,7 +251,7 @@ async function getCommentDetail() {
 
 // 로그인 유저 정보
 export async function getLoginUserInfo(commentUserProfile: HTMLImageElement) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
   const accountname = localStorage.getItem('accountname');
 
@@ -276,7 +276,7 @@ export async function getLoginUserInfo(commentUserProfile: HTMLImageElement) {
 // 댓글 입력
 export async function submitComment(event: MouseEvent | KeyboardEvent) {
   event.preventDefault();
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const postId = window.location.href.split('postid=')[1];
   const commentInput = document.getElementById('postChatContent') as HTMLInputElement;
   const token = localStorage.getItem('Token');

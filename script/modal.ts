@@ -170,7 +170,7 @@ export function productModal(productId: string) {
 
 // 판매 상품 삭제
 async function deleteProduct(productId: string) {
-  const url = 'https://mandarin.api.weniv.co.kr';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const token = localStorage.getItem('Token');
 
   const setting = {
