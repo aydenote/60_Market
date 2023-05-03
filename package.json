@@ -19,7 +19,8 @@
   "scripts": {
     "start": "tsc",
     "test": "jest",
-    "build": "rimraf dist"
+    "clean": "tsc --build --clean",
+    "build": "rimraf dist && tsc -w"
   },
   "repository": {
     "type": "git",
