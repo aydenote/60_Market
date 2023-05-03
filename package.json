@@ -23,7 +23,7 @@
     "start": "tsc",
     "test": "jest",
     "clean": "tsc --build --clean",
-    "build": "rimraf dist && tsc -w"
+    "build": "npx webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
