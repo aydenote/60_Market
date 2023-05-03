@@ -89,7 +89,10 @@ export async function renderPost() {
        <div class="postDetaileImgContent">
          <ul>
            <li class="postDetaileImgContentFlex">
-           ${jsonImg.map(item => {
+           ${jsonImg.map((item: any) => {
+             if (item.split('.')[1] === 'api') {
+               item = item.replace('https://mandarin.api.weniv.co.kr/', 'https://api.mandarin.weniv.co.kr/');
+             }
              return `<img src=${item} alt="게시물 이미지" />`;
            })}
            </li>
@@ -99,9 +102,9 @@ export async function renderPost() {
     let heartStatus;
 
     if (json.post.hearted) {
-      heartStatus = 'likeBtn on';
+      heartStatus = '.likeBtn.on';
     } else {
-      heartStatus = 'likeBtn';
+      heartStatus = '.likeBtn';
     }
 
     const postTitleHeading4El = document.createElement('h4');

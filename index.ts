@@ -64,3 +64,9 @@ window.addEventListener('hashchange', router);
 
 // 페이지 로드 이벤트
 window.addEventListener('load', router);
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.hash === '') {
+    window.location.hash = '#intro';
+  }
+});

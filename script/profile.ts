@@ -79,7 +79,7 @@ export async function getProfileInfo() {
 }
 
 function setMyProfile(userProfile: UserProfileType) {
-  const url = 'https://api.mandarin.weniv.co.k';
+  const url = 'https://api.mandarin.weniv.co.kr';
   const createEditLink = document.createElement('div');
   const createProductLink = document.createElement('div');
   const profileLinkBtn = document.querySelector('.link') as HTMLButtonElement;
@@ -268,7 +268,10 @@ export function listTypePost(userPostInfo: PostType[]) {
     let heartStatus = '';
     if (post.image && post.image.search('undefined') === -1) {
       let images = post.image.split(',');
-      for (const image of images) {
+      for (let image of images) {
+        if (image.split('.')[1] === 'api') {
+          image = image.replace('https://mandarin.api.weniv.co.kr/', 'https://api.mandarin.weniv.co.kr/');
+        }
         postImage += `
         <li>
           <img src="${image}" alt="게시물 이미지" onerror="this.style.display='none'"/>
@@ -459,7 +462,10 @@ function setAlbum(userPostInfo: PostType[]) {
       const imgLiEl = document.createElement('li');
       const postImgEl = document.createElement('img') as HTMLImageElement;
       const layerImgEl = document.createElement('img') as HTMLImageElement;
-
+      postImg[0] =
+        postImg[0].split('.')[1] === 'api'
+          ? postImg[0].replace('https://mandarin.api.weniv.co.kr', 'https://api.mandarin.weniv.co.kr')
+          : postImg[0];
       postImgEl.setAttribute('src', `${postImg[0]}`);
       postImgEl.setAttribute('alt', '');
       layerImgEl.classList.add('imageLayer');

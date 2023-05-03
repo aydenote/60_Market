@@ -99,7 +99,10 @@ function createFeed(posts: PostType[]) {
     let postImage = '';
     if (posts[i].image) {
       let images = posts[i].image.split(',');
-      for (const image of images) {
+      for (let image of images) {
+        if (image.split('.')[1] === 'api') {
+          image = image.replace('https://mandarin.api.weniv.co.kr/', 'https://api.mandarin.weniv.co.kr/');
+        }
         postImage += `
         <li>
           <img src="${image}" alt="게시물 이미지" />

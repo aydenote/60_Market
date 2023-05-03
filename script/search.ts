@@ -37,6 +37,11 @@ export default async function searchUser(event: KeyboardEvent) {
         const nickNameEl = document.createElement('strong');
         const userText = document.createElement('div');
         const accountNameEl = document.createElement('p');
+        element.image =
+          element.image.split('.')[1] === 'api'
+            ? element.image.replace('https://mandarin.api.weniv.co.kr', 'https://api.mandarin.weniv.co.kr')
+            : element.image;
+
         userItemEl.classList.add('userItem');
         userAnchorEl.classList.add('userBox');
         userAnchorEl.addEventListener('click', () => {
@@ -44,7 +49,7 @@ export default async function searchUser(event: KeyboardEvent) {
         });
         userImgEl.classList.add('userProfileImage');
         userImgEl.setAttribute('src', `${element.image}`);
-        userImgEl.setAttribute('onError', "this.src= '../asset/images/timi.svg'");
+        userImgEl.setAttribute('onerror', "this.onerror=null;this.src='../asset/images/timi.svg'");
         userImgEl.setAttribute('alt', `${element.username}님의 프로필 이미지`);
         userInfoEl.classList.add('userInfo');
         nickNameEl.classList.add('userNickname');
